@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>elea Demo: Build Your Own EA</title>
+  <script src="build/blockly_compressed.js"></script>
+  <script src="build/blocks_compressed.js"></script>
+  <script src="build/javascript_compressed.js"></script>
+  <script src="build/msg/js/en.js"></script>
+  <script src="scripts/acorn_interpreter.js"></script>
+  <script src="scripts/ea_blocks.js"></script>
+  <script src="scripts/newblocks.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <style>
+    img {
+      object-fit: contain
+    }
+    textarea {
+      font-size: 10px;
+      }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">elea: Build Your Own EA</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link active" href="full_example.html">Demo<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" target="_blank" href="faq.html">FAQ (TODO)</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarExampleDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Examples
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
+            <a class="dropdown-item active" href="full_example.html">Full example</a>
+            <a class="dropdown-item" href="simple_example.html">Simple example</a>
+            <a class="dropdown-item" href="empty_example.html">Empty starting point</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">1+1</a>
+            <a class="dropdown-item" href="#">1+λ</a>
+            <a class="dropdown-item" href="#">1,λ</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarSaveDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Save/Restore
+          </a>
+          <input type="file" id="upload_xml" style="display:none" onchange="selectedFileChanged()">
+          <div class="dropdown-menu" aria-labelledby="navbarSaveDropdown">
+
+            <a class="dropdown-item" onclick="document.getElementById('upload_xml').click()" href="#">Upload XML file</a>
+            <a class="dropdown-item" onclick="promptForXML()" href="#">Paste XML string</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" id="download_xml" onclick="downloadWorkspace()" href="" >Download XML file</a>
+            <a class="dropdown-item" onclick="copyXMLToClipboard()" href="#">Copy XML string</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" id="download_js" onclick="downloadWorkspaceAsJS()" href="" >Download JS file</a>
+            <a class="dropdown-item" onclick="copyJSToClipboard()" href="#">Copy JS string</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <h2>FAQ</h2>
+  <h3>My Algorithm does not work</h3>
+  <ul>
+    <li>It does not do anything: Please double check that you set variables before using them. Crossover sets both offsprings in a hidden way, since blockly does not support more than one return value. If you're not using crossover, you need to set the offsprings yourself or use the parents directly.</li>
+    <li>It stops before finding the optimum: Please increase the maximum rounds in the central 'while' loop.</li>
+    <li>It crashes (as in stops with an error): Please download the XML file of your algorithm and send it to me: jellyfishcoding at live.de</li>
+    <li>It crashes (crashes browser completely): Please make sure you don't have any infinite loops in your code.</li>
+  </ul>
+  <h3></h3>
+</body>
+
+</html>

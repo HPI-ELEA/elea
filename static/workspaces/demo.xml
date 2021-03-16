@@ -1,0 +1,27 @@
+<xml xmlns="https://developers.google.com/blockly/xml" id="demoBlocks" style="display: none">
+  <variables>
+    <variable id="gx=Kau1h[kq#}B+/w|ur&quot;">individual</variable>
+    <variable id=".CT(4h-N3^w(|vNegh%m">n</variable>
+    <variable id="_`RU](?6R2Mdm}^monre">genome_length</variable>
+    <variable id="P|ZK6ZqqY5OhR$:,p(;_">µ</variable>
+    <variable id="-*|uDjwhmvz~~T(Am;%J">λ</variable>
+    <variable id="pKD29N|CKo,l4}AetItV">parent_population</variable>
+    <variable id="/elgL6jCIJ+fk$?p$D4D">offspring_population</variable>
+    <variable id="4SV3N2eF(}.8?1D)pNoq">parent1</variable>
+    <variable id="?K[V@jAZd7.1W9P+/*V+">parent2</variable>
+    <variable id="UqHTCO.0^{dWk@)6gp!7">offspring1</variable>
+    <variable id="n[Fa6%d%-.[74jjGTPX(">offspring2</variable>
+  </variables>
+  <block type="init_meta" id="YT[Lu2`Gez~7AXe!qUn4" x="187" y="23">
+    <statement name="init_statements">
+      <block type="variables_set" id="hk{=klyiQEaba7HpZ.1s">
+        <field name="VAR" id=".CT(4h-N3^w(|vNegh%m">n</field>
+        <value name="VALUE">
+          <block type="math_number" id="YdYfU^ycYi0+YZ=4^mZ^">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+</xml>

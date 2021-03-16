@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+<head>
+    <title>Log of your algorithm</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  
+	<style>
+        text {
+            font-family: 'Yanone Kaffeesatz', sans-serif;
+            font-size: 7pt;
+        }
+        .label {
+            font-size: 9pt;
+            text-anchor: middle;
+        }
+        h5, select {
+          display: inline-block;
+        }
+    </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">elea: Build Your Own EA</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link active" href="full_example.html">Demo<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" target="_blank" href="faq.html">FAQ</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarExampleDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Examples
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
+            <a class="dropdown-item active" href="full_example.html">Full example</a>
+            <a class="dropdown-item" href="simple_example.html">Simple example</a>
+            <a class="dropdown-item" href="empty_example.html">Empty starting point</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="oneplusone.html">1+1</a>
+            <a class="dropdown-item" href="#">1+λ (TODO)</a>
+            <a class="dropdown-item" href="#">1,λ (TODO)</a>
+          </div>
+        </li>
+        <input type="file" id="upload_json" style="display:none" onchange="selectedFileChanged()">
+        <li class="nav-item">
+          <a class="nav-link" onclick="document.getElementById('upload_json').click()" href="#"><button class="btn btn-primary">Upload JSON log file</button></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="visualize_log" href="visualization.html">Visualize Log</a>
+        </li>
+      </li>
+
+      </ul>
+    </div>
+  </nav>
+    <div>
+      <h5>Column of log: </h5>
+      <select id="dropDown1"></select>
+      <h5>Metric: </h5>
+      <select id="dropDown2">
+        <option value="identity">identity</option>
+        <option value="sum">sum</option>
+      </select>
+      <h5>of run: </h5>
+      <select id="dropDown3"></select>
+    </div>
+    <svg id="scatter" width="80%" height="80%" viewBox="0 0 500 300"></svg>
+    <script>
+
+      const identity = function(d) {
+        return Number.isNaN(parseFloat(d)) ? 0 : d;
+      }
+      const sum = function(d) {
+        if (Array.isArray(d)) {
+          return d.reduce((a, b) => a + b, 0);
+        } else {
+          return 0;
+        }
+        
+      } 
+      //const standardFilter = function(d){ return Number.isInteger(d[0])};
+      //const customLogFilter = function(d){ return d[0] == "customlog"};
+
+      //var logFilter = standardFilter
+      var data = null;
+      var chosenLogs = null;
+      var numberOfLogs = 0;
+      var columns = [];
+      var properties = [];
+      var variants = [];
+      
+      var metric = identity;
+      var selectedColumn = 1;
+      var log = null;
+
+      function updateDropdown(dropdownId, optionList) {
+        var options = document.getElementById(dropdownId).options
+        var length = options.length
+        for (var i=0;i<length;i++) {
+          document.getElementById(dropdownId).options.remove(0);
+        }
+        for (var i=0; i < optionList.length;i++) {
+          document.getElementById(dropdownId).options.add(new Option(optionList[i], i));
+        }
+      }
+
+      // taken from https://stackoverflow.com/a/9229821/
+      function uniqBy(a, key) {
+          var seen = {};
+          return a.filter(function(item) {
+              var k = key(item);
+              return seen.hasOwnProperty(k) ? false : (seen[k] = true);
+          })
+      }
+
+
+      function calcVariants() {
+        properties = Object.keys(data['log'][0]).filter(x => x != 'log' & x != 'name')
+        //var allLogs = new Array(data['log'].length)
+        var allLogs = Array(data['log'].length).fill(0).map(x => Array(properties.length).fill(0))
+        for (logIndex in data['log']) {
+          for (i in properties) {
+            //console.log("lol", allLogs[logIndex][i]);
+            allLogs[logIndex][i] = JSON.parse(JSON.stringify(data['log'][logIndex][properties[i]]));
+          }
+        }
+        variants = uniqBy(allLogs, JSON.stringify);
+      }
+      function selectedFileChanged() {
+        console.log("fileChanged")
+        var input = document.getElementById('upload_json')
+        if (input.files.length === 0) {
+          console.log('No file selected.');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function fileReadCompleted() {
+          data = JSON.parse(reader.result);
+          numberOfLogs = data['log'].length
+          //console.warn(numberOfLogs);
+          columns = Object.keys(data['log'][0]['log'][0]);
+          updateDropdown('dropDown1', columns);
+          calcVariants();
+          chosenLogs = filterLogs(variants[0]);
+          updateDropdown('dropDown3', variants);//Array(numberOfLogs).fill(0).map((x,i)=>String(i)));
+          draw(metric, selectedColumn);
+          console.log("log updated")
+        };
+        reader.readAsText(input.files[0]);
+      }
+
+      d3.select("#dropDown1").on("change", function(d){
+        selectedColumn = this.value
+        draw(metric, selectedColumn);
+      })
+
+      d3.select("#dropDown2").on("change", function(d){
+        if (this.value == "identity") {
+          metric = identity;
+        } else if (this.value == 'sum') {
+          metric = sum;
+        }
+        draw(metric, selectedColumn);
+      })
+
+      d3.select("#dropDown3").on("change", function(d){
+        chosenLogs = filterLogs(variants[this.value])//[data['log'][this.value]];
+        draw(metric, selectedColumn);
+      })
+
+      function filterLogs(variant) {
+        return data['log'].filter(function(x) {
+          var count = 0;
+          for (i in variant) {
+            if (x[properties[i]] == variant[i]) {
+              count += 1
+            }
+          }
+          return count == variant.length
+        })
+      }
+      
+
+      function draw(mymetric,column) {
+        console.log("redraw")
+        var count = chosenLogs.length
+        //var log = chosenLogs[0]['log'] // TODO:!!!
+        //console.log(log);
+        //console.log("column", column);
+        mydata = []
+        var maxValue = 0;
+        for (i in chosenLogs) {
+          let items = chosenLogs[i]['log'].filter(x => x[columns[column]] != undefined)
+          //console.log(items);
+          maxValue = Math.max(items.length,maxValue);
+          for (j in items) {
+            mydata.push({round: i,
+                      x: j,
+                      log: items[j]});
+            }
+        }
+        //var mycolumn = mydata.filter(x => x.log[columns[column]] != undefined)
+
+        
+        //console.log("realdata", mycolumn);
+        var ScaleX = d3.scaleLinear()
+                    .domain([0,maxValue]) // TODO
+                    .range([0,500]);
+        
+        var ScaleY = d3.scaleLinear()
+                    .domain([0,d3.max(mydata, d => mymetric(d.log[columns[column]]))])
+                    .range([200,10]);
+
+        let colors = ["blue", "red", "green"];
+        var circles = d3.select("#scatter")
+        .selectAll("circle")
+        .data(mydata)
+
+        circles.exit().remove();//remove unneeded circles
+        circles.enter().append("circle")
+            //.attr("class", (d,i) => i)
+            .attr("cx", (d,i) => ScaleX(d.x)+20)
+            .attr("r", 2/Math.log10(maxValue))
+            .attr("cy", function(d,i) {return  ScaleY(mymetric(d.log[columns[column]]))})
+            .attr("fill", d => colors[d.round]);
+
+        circles.transition().duration(500)
+                    .attr("fill", d => colors[d.round])
+                    .attr("r", 2/Math.log10(maxValue))
+                    .attr("cx", (d,i) => ScaleX(d.x)+20)
+                    .attr("cy", (d,i) =>  ScaleY(mymetric(d.log[columns[column]])));
+  
+        }
+        
+
+    </script>
+</body>
+</html>
