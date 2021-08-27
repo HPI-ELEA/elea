@@ -90,7 +90,7 @@ class MessageHandler {
 
         // if there is no message in the queue for the requested source
         if (msg == undefined) {
-            this.recvRequest = request;
+            this.pendingRequest = request;
             return;
         }
         
