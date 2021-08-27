@@ -24,27 +24,44 @@ class RecvRequest {
 }
 
 // a message object
+// should add the id that that thread uses to refer to this one
 class Message {
-    constructor(destination, data, source) {
+    constructor(destination, data, ctrl) {
         this.destination = destination;
         this.data = data;
-        this.source = source || workerID;
+        this.source = null;
+        this.ctrl = ctrl || null;
     }
 }
 
 // manages incoming messages and receive requests
 class MessageHandler {
     constructor() {
-        this.workerID = workerID;
+        this.idCounter = 1;
         this.pendingRequest = null;
-        this.messageBuffer = new Map();
+
+        // initialise the message buffer with a queue from the parent
+        this.messageBuffer = new Map([[0, new Queue()]]);
+
+        // initialise the thread database with the current worker object
+        // which will allow for messages to be sent to the parent
+        this.threadMap = new Map([[0, self]]);
     }
 
-    addThread(thread) {
-        this.messageBuffer.set(thread, new Queue());
-    }
-    removeThread(thread) {
-        this.messageBuffer.delete(thread);
+    // sends a message to the specified location
+    // if the destination is -1 then send to the parent
+    // if the id is not valid then print a warning to the console
+    sendMessage(msg) {
+        let destThread = this.threadMap.get(msg.destination == -1 ? 0 : msg.destination);
+        if (destThread == undefined) {
+            console.warn("could not send message", msg, "- destination thread not found");
+            return false;
+        }
+
+        // if (msg.ctrl == "log" && msg.source != null) {
+        //     msg.data[0] = msg.source+':'+msg.data[0];
+        // }
+        destThread.postMessage(msg);
     }
 
     handleIncomingMessage(message) {
