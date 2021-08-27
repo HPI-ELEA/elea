@@ -65,7 +65,14 @@ class MessageHandler {
     }
 
     handleIncomingMessage(message) {
-        message = new Message(message.data.destination, message.data.data, message.data.source);
+        message = message.data;
+
+        // if the message came from a child and isn't addressed to the parent (this thread) then redirect
+        // this will mostly be used for print statements, which need to be handled by the top level thread
+        if (message.source != 0 && message.destination != 0) {
+            this.sendMessage(message);
+            return;
+        }
 
         // if there is nothing waiting on the message, then place into the buffer queue
         if (this.pendingRequest == null || this.pendingRequest.source != message.source) {
@@ -92,9 +99,33 @@ class MessageHandler {
         // we can't resume main until it properly yields, hence we add main to the task queue, and it will be run after
         setTimeout(main, 0, msg.data);
     }
-}
 
-var Handler = new MessageHandler();
+    // create a new worker thread with unique id and create the relevant values in the maps
+    createThread(initialiser) {
+        let handler = this;
+        let id = this.idCounter++;
+        let newThread = new Worker(initialiser);
+
+        // ensure that messages from this thread specify the correct source
+        newThread.addEventListener("message", function(msg) {
+            msg.data.source = id;
+
+            // we cannot use 'this' inside a callback function
+            handler.handleIncomingMessage(msg);
+        });
+
+        this.threadMap.set(id, newThread);
+        this.messageBuffer.set(id, new Queue());
+        return id;
+    }
+
+    // removes a thread from the database
+    removeThread(id) {
+        this.threadMap.get(id).terminate();
+        this.messageBuffer.delete(id);
+        this.threadMap.delete(id);
+    }
+}
 
 function* main() {
 
