@@ -131,3 +131,13 @@ class MessageHandler {
 consoleLog = function(...v) {
     Handler.sendMessage(new Message(-1, v, "log"));
 }
+
+// creates the message handler object for the calling script to use
+var Handler = new MessageHandler();
+
+// redirect messages from the parent to the message handler
+// labels the source as having an ID of 0 - the parent's ID
+self.onmessage = function(msg) {
+    msg.data.source = 0;
+    Handler.handleIncomingMessage(msg);
+}
