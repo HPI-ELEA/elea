@@ -1,5 +1,3 @@
-var workerID
-
 // a simple wrapper for a queue object
 class Queue {
     constructor() {
@@ -24,6 +22,7 @@ class RecvRequest {
 }
 
 // a message object
+// the source field is filled in by the receiving thread, their message handler
 // should add the id that that thread uses to refer to this one
 class Message {
     constructor(destination, data, ctrl) {
@@ -127,6 +126,8 @@ class MessageHandler {
     }
 }
 
-function* main() {
-
+// the variable argument syntax is not supported in IE as of 2021-08-27:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
+consoleLog = function(...v) {
+    Handler.sendMessage(new Message(-1, v, "log"));
 }
