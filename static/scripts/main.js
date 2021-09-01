@@ -146,7 +146,24 @@ const copyToClipboard = str => {
     Blockly.JavaScript.addReservedWords('code');
     Blockly.JavaScript.addReservedWords('onMessage'); // TODO: or function?
     Blockly.JavaScript.addReservedWords('updateStats');
+    Blockly.JavaScript.addReservedWords('main');
     var code = Blockly.JavaScript.workspaceToCode(workspace);
+
+    // console.log(code);
+
+    let coroutine = `
+// wraps the code into a generator so that execution can be paused for multi-threading
+function* main() {
+
+` + code + `
+
+}
+
+var main = main();
+main.next();
+`
+    // console.log(coroutine);
+
     /*var callbackStats =
     'function updateStats() {\
       //console.warn("test");\n\
@@ -175,8 +192,15 @@ const copyToClipboard = str => {
     messageHandler +=    '    console.warn("unused Message in worker: ", e.data)\n';
     messageHandler +=    '  }\n';
     messageHandler +=    '}, false);\n';
-    code = "function consolelog(x) {self.postMessage({output:x})};\nfunction windowalert(x) {self.postMessage({output:x})};\n" + messageHandler + dateSetup + logSetup + code + logSave + termination // TODO? we don't really need it other than for abort
-    //console.log(code);
+    let header = "";
+    header += "let regex = /([^/]+$)/;"
+    header += "workerURL = (self.location + '').slice(5);\n"
+    header += "workerURL = workerURL.replace(regex, '');"
+    header += "importScripts(workerURL+'scripts/MessageHandler.js');\n"
+
+    /*"function consolelog(x) {self.postMessage({output:x})};\n*/
+    code = header + "function windowalert(x) {self.postMessage({output:x})};\n" + messageHandler + dateSetup + logSetup + coroutine + logSave //+ termination // TODO? we don't really need it other than for abort
+    console.log(code);
     // TODO: find implementation for window.alert for both webworker and stepping
     const blob = new Blob([code], {type: 'application/javascript'})
     worker = new Worker(URL.createObjectURL(blob))
@@ -184,6 +208,15 @@ const copyToClipboard = str => {
   }
 
   function handleMessageFromWorker(msg) {
+    if (msg.data.ctrl == "log") {
+      // console.log.apply(this, msg.data.data);
+
+      if (typeof(msg.data.data) == "string")
+        outputArea.innerHTML += msg.data.data+"\n";
+      else
+        outputArea.innerHTML += msg.data.data[0]+"\n";
+      return;
+    }
     if (msg.data['terminate'] == true) {
       console.log("terminate worker due to its request.")
       worker.terminate();
