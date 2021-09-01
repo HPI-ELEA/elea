@@ -593,6 +593,25 @@ Blockly.defineBlocksWithJsonArray([
         "helpUrl": ""
       },
       
+
+      {
+        "type": "fibonacci",
+        "message0": "Calculate Fibonacci of %1",
+        "args0": [
+          {
+            "type": "input_value",
+            "name": "fib_number",
+            "check": "Number"
+          }
+        ],
+        "inputsInline": true,
+        // "previousStatement": null,
+        // "nextStatement": null,
+        "output": null,
+        "colour": 341,
+        "tooltip": "",
+        "helpUrl": ""
+      },
 ]);
 
 Blockly.JavaScript['run_thread'] = function(block) {
@@ -656,6 +675,44 @@ Blockly.JavaScript['run_thread'] = function(block) {
   // code += "console.log("+output+");\n";
   return code;
 };
+
+Blockly.JavaScript['fibonacci'] = function(block) {
+  let fib_number = Blockly.JavaScript.valueToCode(block, 'fib_number', Blockly.JavaScript.ORDER_NONE);
+  var functionName = Blockly.JavaScript.provideFunction_(
+    'fib',
+    ['function ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+        '(n, fib) {',
+        "  if (n < 2) return n;",
+        "  return fib(n-1, fib) + fib(n-2, fib);",
+      '}']);
+  let code = "";
+  code += functionName+"("+fib_number+", "+functionName+")";
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+
+// Blockly.JavaScript['fibonacci'] = function(block) {
+
+//   let fib_number = Blockly.JavaScript.valueToCode(block, 'fib_number', Blockly.JavaScript.ORDER_NONE);
+
+//   let code = ""
+//   code += "function fib(n) {\n"
+//   code += "  if (n < 2) return n;\n"
+//   code += "  return fib(n-1) + fib(n-2);\n"
+//   code += "}\n";
+
+//   code += "console.log(fib("+fib_number+"));\n";
+
+//   // var functionName = Blockly.JavaScript.provideFunction_(
+//   //   'fib',
+//   //   ['function ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+//   //       '(n) {',
+//   //    '  if (n < 2) return n;', // TODO: replace fill for ES5
+//   //    '  return '+functionName+'(n-1) + '+functionName+'(n-2);',
+//   //    '}']);
+//   // code = functionName + '()';
+//   return code;
+// };
+
 // TODO: init all developer variables with
 // https://developers.google.com/blockly/reference/js/Blockly.Variables#.allDeveloperVariables
 
