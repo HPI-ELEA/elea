@@ -2,12 +2,12 @@ importScripts("MessageHandler.js");
 
 // create a coroutine wrapper
 // https://x.st/javascript-coroutines/
-function coroutine(f) {
-    var o = f(); // instantiate the coroutine
-    return function(x) {
-        o.next(x);
-    }
-}
+// function coroutine(f) {
+//     var o = f(); // instantiate the coroutine
+//     return function(x) {
+//         o.next(x);
+//     }
+// }
 
 function fib(n) {
     if (n < 2) return n;
@@ -21,5 +21,5 @@ function* main() {
     return Handler.sendMessage(new Message(0, fib(n)));
 }
 
-var main = coroutine(main);
-main();
+var main = main();
+main.next();

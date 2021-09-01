@@ -2,12 +2,12 @@ importScripts("MessageHandler.js");
 
 // create a coroutine wrapper
 // https://x.st/javascript-coroutines/
-function coroutine(f) {
-    var o = f(); // instantiate the coroutine
-    return function(x) {
-        o.next(x);
-    }
-}
+// function coroutine(f) {
+//     var o = f(); // instantiate the coroutine
+//     return function(x) {
+//         o.next(x);
+//     }
+// }
 
 function* main() {
     var arr = new Array();
@@ -36,5 +36,5 @@ function* main() {
     console.log(Handler);
 }
 
-var main = coroutine(main);
-main();
+var main = main();
+main.next();
