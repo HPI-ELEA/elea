@@ -81,7 +81,7 @@ class MessageHandler {
 
         // remove the pending request and continue the main function with the message
         this.pendingRequest = null;
-        main(message.data);
+        main.next(message.data);
     }
 
     recvRequest(request) {
@@ -96,7 +96,7 @@ class MessageHandler {
         // this will re-add the main function to the task queue to be run immediately
         // we can't call main directly because this request function will typically be called by main before it yields
         // we can't resume main until it properly yields, hence we add main to the task queue, and it will be run after
-        setTimeout(main, 0, msg.data);
+        setTimeout(function(msg) { main.next(msg); }, 0, msg.data);
     }
 
     // create a new worker thread with unique id and create the relevant values in the maps
@@ -128,6 +128,10 @@ class MessageHandler {
 
 // the variable argument syntax is not supported in IE as of 2021-08-27:
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
+consolelog = function(...v) {
+    Handler.sendMessage(new Message(-1, v, "log"));
+}
+
 consoleLog = function(...v) {
     Handler.sendMessage(new Message(-1, v, "log"));
 }
