@@ -1,3 +1,4 @@
+GENERATE_TWICE = false;
 const copyToClipboard = str => {
     const el = document.createElement('textarea');
     el.value = str;
@@ -117,11 +118,23 @@ const copyToClipboard = str => {
     a.download = name;
   }
 
+  // DO NOT CHANGE THIS BEFORE UNDERSTANDING THE BELOW INFO
+
+  // in order for multi-threading to work we need to add all of the function definitions to each thread,
+  // Blockly provides the code for all these definitions, however it adds the source code to the internal object
+  // in the order the objects are on the screen, this means that the threading blocks will only be able to see the
+  // definitions that are physically higher on the screen than that block.
+  // To get around this we need to grab the definitions from the end of the previous generation and use those in
+  // the next one, therefore we need to generate the whole codebase at least twice before running the code.
+  // GENERATE_TWICE is set to true when Blockly runs the generate code for multi-thread blocks
   function getCode() {
     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
     Blockly.JavaScript.STATEMENT_PREFIX = '';
     Blockly.JavaScript.addReservedWords('code');
+
     var code = Blockly.JavaScript.workspaceToCode(workspace);
+    if (GENERATE_TWICE) {code = Blockly.JavaScript.workspaceToCode(workspace); console.log("twice")}
+    GENERATE_TWICE = false;
     return code;
   }
 
@@ -148,7 +161,8 @@ const copyToClipboard = str => {
     Blockly.JavaScript.addReservedWords('updateStats');
     Blockly.JavaScript.addReservedWords('main');
     Blockly.JavaScript.addReservedWords('_thread_id');
-    var code = Blockly.JavaScript.workspaceToCode(workspace);
+
+    var code = getCode();
 
     // console.log(code);
 

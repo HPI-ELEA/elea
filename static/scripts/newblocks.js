@@ -630,7 +630,10 @@ Blockly.JavaScript['thread_num'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+let prev_definitions = null;
 Blockly.JavaScript['run_thread'] = function(block) {
+  // This flag tells Elea to run the generate code twice so that this block can get function definitions
+  GENERATE_TWICE = true
 
   let thread_count = Blockly.JavaScript.valueToCode(block, 'thread_count', Blockly.JavaScript.ORDER_NONE);
   let output = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('output_array'), Blockly.Variables.NAME_TYPE);
@@ -644,12 +647,19 @@ Blockly.JavaScript['run_thread'] = function(block) {
   // defining the code to be used inside the web workers
   let worker_code = "";
   worker_code += "importScripts(('"+self.location+"').replace(/([^/]*$)/, '')+'scripts/MessageHandler.js');\n"
+  worker_code += "\n";
 
-  for (const key in definitions) {
-    worker_code += definitions[key]+"\n\n";
+  let used_definitions = prev_definitions != null ? prev_definitions : definitions;
+  for (const key in used_definitions) {
+    worker_code += used_definitions[key]+"\n\n";
   }
 
-  worker_code += "\n";
+  // We need to keep track of the definitions object because it will continue to be filled in as
+  // Blockly generates the code for the rest of the blocks
+  // Blockly discards the object once the generation is finished, but it still exists in emmory if we keep track of it
+  // this necessitates that the code be generated twice for every operation
+  prev_definitions = definitions
+
   worker_code += "function* main() {\n";
 
   // receive the starter values from the parent
