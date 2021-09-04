@@ -869,7 +869,7 @@ Blockly.JavaScript['run_loop'] = function(block) {
 };
 
 Blockly.JavaScript['run_loop_logging'] = function(block) {
-
+  console.warn("the run_loop_logging block has been partially disabled while multi-threading is being worked on")
   var continue_condition = Blockly.JavaScript.valueToCode(block, 'continue_condition', Blockly.JavaScript.ORDER_NONE);
   var exit_number = Blockly.JavaScript.valueToCode(block, 'exit_number', Blockly.JavaScript.ORDER_NONE);
   var logging_list = Blockly.JavaScript.valueToCode(block, 'logging_list', Blockly.JavaScript.ORDER_NONE);
@@ -878,27 +878,27 @@ Blockly.JavaScript['run_loop_logging'] = function(block) {
   // TODO: create or update globael dev var counter and also reset in "prepare next run"
 
   var code = ''
-  code += 'jsonLogName = (new Date).nowAsString();\n'
-  code += 'jsonLog = [];\n'
+  // code += 'jsonLogName = (new Date).nowAsString();\n'
+  // code += 'jsonLog = [];\n'
   code += '\n'
   code += 'for (var i=0;(' + continue_condition + ' || false) && i < ' + exit_number + ';i++){\n';
-  code += '  jsonLogItem = {};\n'
+  // code += '  jsonLogItem = {};\n'
   code += '  fittestInd = (parent_population.sort(function(a,b) { return fitness(b)-fitness(a)})[0]);\n'
   code += '  fittest = fitness(fittestInd);\n'
-  code += '  self.postMessage({fitness:fittest, individual:fittestInd});\n'
-  code += '  if (i%' + log_every_x_number + ' == 0){\n'
-  code += '    jsonLogItem["i"] = i;\n'
-  code += '    jsonLogItem["fittest"] = fittest;\n'
-  code += '    jsonLogItem["fittestInd"] = fittestInd;\n'
-  code += '    jsonLogItem["custom"] = ' + logging_list + ';\n'
-  code += '  }\n'
+  // code += '  self.postMessage({fitness:fittest, individual:fittestInd});\n'
+  // code += '  if (i%' + log_every_x_number + ' == 0){\n'
+  // code += '    jsonLogItem["i"] = i;\n'
+  // code += '    jsonLogItem["fittest"] = fittest;\n'
+  // code += '    jsonLogItem["fittestInd"] = fittestInd;\n'
+  // code += '    jsonLogItem["custom"] = ' + logging_list + ';\n'
+  // code += '  }\n'
   code += statements_simulation_steps;
-  code += '  jsonLog.push(jsonLogItem);\n';
+  // code += '  jsonLog.push(jsonLogItem);\n';
   code += '}\n';
   code += 'fittestInd = (parent_population.sort(function(a,b) { return fitness(b)-fitness(a)})[0]);\n'
   code += 'fittest = fitness(fittestInd);\n'
-  code += 'self.postMessage({fitness:fittest, individual:fittestInd});\n'
-  code += 'jsonLogs.push({name: jsonLogName, µ: _C2_B5, λ: _CE_BB, genome_length: genome_length, log: jsonLog});\n'
+  // code += 'self.postMessage({fitness:fittest, individual:fittestInd});\n'
+  // code += 'jsonLogs.push({name: jsonLogName, µ: _C2_B5, λ: _CE_BB, genome_length: genome_length, log: jsonLog});\n'
   // TODO: increment global counter used for cost calculation
   return code;
 };
@@ -1034,10 +1034,12 @@ Blockly.JavaScript['ea_debug'] = function(block) {
 };
 
 Blockly.JavaScript['ea_log'] = function(block) {
-  var variable = Blockly.JavaScript.valueToCode(block, 'logging_variable', Blockly.JavaScript.ORDER_ATOMIC);
-  var logging_tag = Blockly.JavaScript.valueToCode(block, 'logging_tag', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = 'jsonLogItem[' + logging_tag + '] = ' + variable + ';\n';
-  return code;
+  console.warn("the ea_log block has been disabled while multi-threading is worked on")
+  // var variable = Blockly.JavaScript.valueToCode(block, 'logging_variable', Blockly.JavaScript.ORDER_ATOMIC);
+  // var logging_tag = Blockly.JavaScript.valueToCode(block, 'logging_tag', Blockly.JavaScript.ORDER_ATOMIC);
+  // var code = 'jsonLogItem[' + logging_tag + '] = ' + variable + ';\n';
+  // return code;
+  return "";
 };
 
 Blockly.JavaScript['ea_crossover_onepoint'] = function(block) {
