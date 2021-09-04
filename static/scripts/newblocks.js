@@ -633,7 +633,7 @@ Blockly.JavaScript['thread_num'] = function(block) {
 Blockly.JavaScript['run_thread'] = function(block) {
 
   let thread_count = Blockly.JavaScript.valueToCode(block, 'thread_count', Blockly.JavaScript.ORDER_NONE);
-  let output = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('output_array'), Blockly.Variables.NAME_TYPE);
+  let output = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('output_array'), Blockly.Variables.NAME_TYPE);
   let return_val = Blockly.JavaScript.valueToCode(block, 'return_value', Blockly.JavaScript.ORDER_NONE);
 
   let statements_simulation_steps = Blockly.JavaScript.statementToCode(block, 'thread_statements');
@@ -646,10 +646,10 @@ Blockly.JavaScript['run_thread'] = function(block) {
 
   // defining the code to be used inside the web workers
   let worker_code = "";
-  worker_code += "var " + Blockly.JavaScript.variableDB_.getName(all_vars[0].name, Blockly.Variables.NAME_TYPE)
+  worker_code += "var " + Blockly.JavaScript.nameDB_.getName(all_vars[0].name, Blockly.Variables.NAME_TYPE)
   for (let index = 1; index < all_vars.length; index++) {
     const element = all_vars[index];
-    let name = Blockly.JavaScript.variableDB_.getName(element.name, Blockly.Variables.NAME_TYPE);
+    let name = Blockly.JavaScript.nameDB_.getName(element.name, Blockly.Variables.NAME_TYPE);
     worker_code += ',' + name;
   }
   worker_code += ";\n";
@@ -754,7 +754,7 @@ Blockly.JavaScript['pop_init'] = function(block) {
 
 Blockly.JavaScript['jump_k'] = function(block) {
   var k = Blockly.JavaScript.valueToCode(block, 'K', Blockly.JavaScript.ORDER_ATOMIC); // TODO: cache
-  var variable_individual = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('INDIVIDUAL'), Blockly.Variables.NAME_TYPE);
+  var variable_individual = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('INDIVIDUAL'), Blockly.Variables.NAME_TYPE);
   var functionName = Blockly.JavaScript.provideFunction_(
     'jump_k',
     ['function ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
@@ -771,7 +771,7 @@ Blockly.JavaScript['jump_k'] = function(block) {
 };
 
 Blockly.JavaScript['leading_ones'] = function(block) {
-  var variable_individual = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('INDIVIDUAL'), Blockly.Variables.NAME_TYPE);
+  var variable_individual = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('INDIVIDUAL'), Blockly.Variables.NAME_TYPE);
   var functionName = Blockly.JavaScript.provideFunction_(
     'leading_ones',
     ['function ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
@@ -912,7 +912,7 @@ Blockly.JavaScript['ea_addtopopulation'] = function(block) {
   var dropdown_selection_strategy = block.getFieldValue('SELECTION_STRATEGY');
   var POPULATION = Blockly.JavaScript.valueToCode(block, 'POPULATION', Blockly.JavaScript.ORDER_ATOMIC);
   var dropdown_tiebreak = block.getFieldValue('TIEBREAK'); // TODO ensure sort is stable and fits the NEWER tiebreak
-  var length = "_C2_B5"; //Blockly.JavaScript.variableDB_.getName('µ');
+  var length = "_C2_B5"; //Blockly.JavaScript.nameDB_.getName('µ');
   var code = '';
   if (dropdown_selection_strategy == "BEST") {
     code += POPULATION + '.sort(function(a,b) { return fitness(b)-fitness(a)}).slice(0,' + length + ')';
@@ -960,7 +960,7 @@ Blockly.JavaScript['max_diversity'] = function(block) {
 
 Blockly.JavaScript['ea_select_parent'] = function(block) {
   var dropdown_name = block.getFieldValue('NAME');
-  var variable_population = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('POPULATION'), Blockly.Variables.NAME_TYPE);
+  var variable_population = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('POPULATION'), Blockly.Variables.NAME_TYPE);
   if (dropdown_name == "UNIFORM") {
     var code = variable_population + '[Math.floor(Math.random() * ' + variable_population + '.length)]';
     return [code, Blockly.JavaScript.ORDER_NONE];
@@ -972,10 +972,10 @@ Blockly.JavaScript['ea_select_parent'] = function(block) {
 
 Blockly.JavaScript['ea_crossover'] = function(block) {
   var crossover_function = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-  var variable_parent1 = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('PARENT1'), Blockly.Variables.NAME_TYPE);
-  var variable_parent2 = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('PARENT2'), Blockly.Variables.NAME_TYPE);
-  var variable_offspring1 = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('OFFSPRING1'), Blockly.Variables.NAME_TYPE);
-  var variable_offspring2 = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('OFFSPRING2'), Blockly.Variables.NAME_TYPE);
+  var variable_parent1 = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('PARENT1'), Blockly.Variables.NAME_TYPE);
+  var variable_parent2 = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('PARENT2'), Blockly.Variables.NAME_TYPE);
+  var variable_offspring1 = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('OFFSPRING1'), Blockly.Variables.NAME_TYPE);
+  var variable_offspring2 = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('OFFSPRING2'), Blockly.Variables.NAME_TYPE);
   var code = 'var offspring_list = ' + crossover_function + '(' + variable_parent1 + ',' + variable_parent2 + ')\n';
   code +=    variable_offspring1 + ' = offspring_list[0];\n';
   code +=    variable_offspring2 + ' = offspring_list[1];\n';
@@ -985,15 +985,15 @@ Blockly.JavaScript['ea_crossover'] = function(block) {
 
 
 Blockly.JavaScript['lists_append'] = function(block) {
-  var variable_individual = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('INDIVIDUAL'), Blockly.Variables.NAME_TYPE);
-  var variable_population = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('POPULATION'), Blockly.Variables.NAME_TYPE);
+  var variable_individual = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('INDIVIDUAL'), Blockly.Variables.NAME_TYPE);
+  var variable_population = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('POPULATION'), Blockly.Variables.NAME_TYPE);
   var code =  variable_population + '.push(' + variable_individual + ');\n';
   return code;
 };
 
 Blockly.JavaScript['lists_concat'] = function(block) {
-  var variable_population1 = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('POPULATION1'), Blockly.Variables.NAME_TYPE);
-  var variable_population2 = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('POPULATION2'), Blockly.Variables.NAME_TYPE);
+  var variable_population1 = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('POPULATION1'), Blockly.Variables.NAME_TYPE);
+  var variable_population2 = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('POPULATION2'), Blockly.Variables.NAME_TYPE);
   var code = variable_population1 + '.concat(' + variable_population2 + ')';
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
