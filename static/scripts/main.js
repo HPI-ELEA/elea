@@ -345,14 +345,15 @@ main.next();
   //   }
   // }
 
-  // function generateCodeAndLoadIntoInterpreter() {
-  //   // Generate JavaScript code and parse it.
-  //   // TODO: remove highlightBlock and only use for stepping
-  //   Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-  //   Blockly.JavaScript.addReservedWords('highlightBlock');
-  //   latestCode = Blockly.JavaScript.workspaceToCode(workspace);
-  //   resetStepUi(true);
-  // }
+  function generateCodeAndLoadIntoInterpreter() {
+    // Generate JavaScript code and parse it.
+    // TODO: remove highlightBlock and only use for stepping
+    // Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+    // Blockly.JavaScript.addReservedWords('highlightBlock');
+    // latestCode = Blockly.JavaScript.workspaceToCode(workspace);
+    // resetStepUi(true);
+    outputArea.innerHTML = "";
+  }
 
   // function stepCode() {
   //   pauseAtNewBlock = true;
