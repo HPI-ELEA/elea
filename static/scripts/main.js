@@ -211,6 +211,7 @@ main.next();
     // import the message handler header
     let imports = "";
     imports += "importScripts(('"+self.location+"').replace(/([^/]*$)/, '')+'scripts/MessageHandler.js');\n"
+    imports += "_thread_id = null;\n";
 
     /*"function consolelog(x) {self.postMessage({output:x})};\n*/
     code = imports + "function windowalert(x) {self.postMessage({output:x})};\n" + messageHandler + dateSetup + logSetup + coroutine + logSave //+ termination // TODO? we don't really need it other than for abort
