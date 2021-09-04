@@ -638,21 +638,15 @@ Blockly.JavaScript['run_thread'] = function(block) {
 
   let statements_simulation_steps = Blockly.JavaScript.statementToCode(block, 'thread_statements');
 
-  // console.log(Blockly.Variables.allUsedVarModels(workspace));
-  // console.log(workspace.getAllVariables());
-
-  let all_vars = Blockly.Variables.allUsedVarModels(workspace);
+  let definitions = Blockly.JavaScript.definitions_;
   let code = "";
 
   // defining the code to be used inside the web workers
   let worker_code = "";
-  worker_code += "var " + Blockly.JavaScript.nameDB_.getName(all_vars[0].name, Blockly.Variables.NAME_TYPE)
-  for (let index = 1; index < all_vars.length; index++) {
-    const element = all_vars[index];
-    let name = Blockly.JavaScript.nameDB_.getName(element.name, Blockly.Variables.NAME_TYPE);
-    worker_code += ',' + name;
+
+  for (const key in definitions) {
+    worker_code += definitions[key]+"\n\n";
   }
-  worker_code += ";\n";
 
   worker_code += "importScripts(('"+self.location+"').replace(/([^/]*$)/, '')+'scripts/MessageHandler.js');\n"
   worker_code += "\n";
