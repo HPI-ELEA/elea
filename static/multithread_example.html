@@ -259,7 +259,13 @@
     </category>
     <category name="Logging" colour="#777">
       <block type="ea_debug_all"></block>
-      <block type="ea_debug"></block>
+      <block type="ea_debug">
+        <value name="logging_variable">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+      </block>
       <block type="ea_log">
         <value name="logging_tag">
           <shadow type="text">
@@ -370,7 +376,7 @@
       <block type="controls_flow_statements"></block>
     </category>
     <sep></sep>
-    <category name="Multi-Threading">
+    <category name="Multi-Threading" colour="#338899">
       <block type="run_thread">
         <value name="thread_count">
           <shadow type="math_number">
@@ -383,6 +389,7 @@
           </shadow>
         </value>
       </block>
+      <block type="thread_num"></block>
       <block type="fibonacci">
         <value name="fib_number">
           <shadow type="math_number">

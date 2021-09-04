@@ -147,6 +147,7 @@ const copyToClipboard = str => {
     Blockly.JavaScript.addReservedWords('onMessage'); // TODO: or function?
     Blockly.JavaScript.addReservedWords('updateStats');
     Blockly.JavaScript.addReservedWords('main');
+    Blockly.JavaScript.addReservedWords('_thread_id');
     var code = Blockly.JavaScript.workspaceToCode(workspace);
 
     // console.log(code);
