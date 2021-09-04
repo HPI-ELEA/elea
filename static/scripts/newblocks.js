@@ -643,12 +643,12 @@ Blockly.JavaScript['run_thread'] = function(block) {
 
   // defining the code to be used inside the web workers
   let worker_code = "";
+  worker_code += "importScripts(('"+self.location+"').replace(/([^/]*$)/, '')+'scripts/MessageHandler.js');\n"
 
   for (const key in definitions) {
     worker_code += definitions[key]+"\n\n";
   }
 
-  worker_code += "importScripts(('"+self.location+"').replace(/([^/]*$)/, '')+'scripts/MessageHandler.js');\n"
   worker_code += "\n";
   worker_code += "function* main() {\n";
 
