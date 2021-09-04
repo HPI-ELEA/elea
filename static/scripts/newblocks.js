@@ -586,13 +586,22 @@ Blockly.defineBlocksWithJsonArray([
           }
         ],
         "inputsInline": true,
-        "previousStatement": null,
-        "nextStatement": null,
-        "colour": 341,
+        "previousStatement": "ThreadEnd",
+        "nextStatement": "ThreadStart",
+        "colour": 389,
         "tooltip": "",
         "helpUrl": ""
       },
-      
+
+      {
+        "type": "thread_num",
+        "message0": "Thread ID",
+        "inputsInline": true,
+        "output": "Number",
+        "colour": 389,
+        "tooltip": "",
+        "helpUrl": ""
+      },
 
       {
         "type": "fibonacci",
@@ -608,11 +617,18 @@ Blockly.defineBlocksWithJsonArray([
         // "previousStatement": null,
         // "nextStatement": null,
         "output": null,
-        "colour": 341,
+        "colour": 389,
         "tooltip": "",
         "helpUrl": ""
       },
 ]);
+
+Blockly.JavaScript['thread_num'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = '_thread_id';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
 
 Blockly.JavaScript['run_thread'] = function(block) {
 
@@ -644,9 +660,12 @@ Blockly.JavaScript['run_thread'] = function(block) {
   worker_code += "importScripts(workerURL+'scripts/MessageHandler.js');\n"
   worker_code += "\n";
   worker_code += "function* main() {\n";
-  // worker_code += "  console.log(\'running\');\n";
-  worker_code += "\`+\`"+statements_simulation_steps+"\`+\`;\n";
 
+  // receive the starter values from the parent
+  worker_code += "var _thread_id = yield (Handler.recvRequest(new RecvRequest(0)));\n"
+
+  // execute the internal statements and return the value
+  worker_code += "\`+\`"+statements_simulation_steps+"\`+\`;\n";
   worker_code += "  Handler.sendMessage(new Message(0, "+return_val+"));\n";
 
   worker_code += "}\n";
@@ -660,8 +679,11 @@ Blockly.JavaScript['run_thread'] = function(block) {
   code += "let threads = new Array();\n";
   code += output+" = new Array();\n"
   code += "for (let index = 0; index < "+thread_count+"; index++) {\n";
-  code += '  threads.push(Handler.createThread(worker_obj));\n';
-  // code += "  Handler.sendMessage(new Message(thread, index + 30));\n";
+  code += "  let thread = Handler.createThread(worker_obj);\n";
+
+  // send the thread their id
+  code += "  Handler.sendMessage(new Message(thread, thread));\n";
+  code += "  threads.push(thread);\n";
   code += "}\n";
 
   // code += "let arr = new Array();";
@@ -712,6 +734,7 @@ Blockly.JavaScript['fibonacci'] = function(block) {
 //   // code = functionName + '()';
 //   return code;
 // };
+
 
 // TODO: init all developer variables with
 // https://developers.google.com/blockly/reference/js/Blockly.Variables#.allDeveloperVariables
