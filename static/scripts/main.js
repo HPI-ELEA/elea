@@ -193,14 +193,13 @@ main.next();
     messageHandler +=    '    console.warn("unused Message in worker: ", e.data)\n';
     messageHandler +=    '  }\n';
     messageHandler +=    '}, false);\n';
-    let header = "";
-    header += "let regex = /([^/]+$)/;"
-    header += "workerURL = (self.location + '').slice(5);\n"
-    header += "workerURL = workerURL.replace(regex, '');"
-    header += "importScripts(workerURL+'scripts/MessageHandler.js');\n"
+
+    // import the message handler header
+    let imports = "";
+    imports += "importScripts(('"+self.location+"').replace(/([^/]*$)/, '')+'scripts/MessageHandler.js');\n"
 
     /*"function consolelog(x) {self.postMessage({output:x})};\n*/
-    code = header + "function windowalert(x) {self.postMessage({output:x})};\n" + messageHandler + dateSetup + logSetup + coroutine + logSave //+ termination // TODO? we don't really need it other than for abort
+    code = imports + "function windowalert(x) {self.postMessage({output:x})};\n" + messageHandler + dateSetup + logSetup + coroutine + logSave //+ termination // TODO? we don't really need it other than for abort
     console.log(code);
     // TODO: find implementation for window.alert for both webworker and stepping
     const blob = new Blob([code], {type: 'application/javascript'})
