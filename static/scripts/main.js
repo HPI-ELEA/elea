@@ -133,7 +133,7 @@ const copyToClipboard = str => {
     Blockly.JavaScript.addReservedWords('code');
 
     var code = Blockly.JavaScript.workspaceToCode(workspace);
-    if (GENERATE_TWICE) {code = Blockly.JavaScript.workspaceToCode(workspace); console.log("twice")}
+    if (GENERATE_TWICE) code = Blockly.JavaScript.workspaceToCode(workspace);
     GENERATE_TWICE = false;
     return code;
   }
