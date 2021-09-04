@@ -224,11 +224,10 @@ main.next();
   function handleMessageFromWorker(msg) {
     if (msg.data.ctrl == "log") {
       // console.log.apply(this, msg.data.data);
-
-      if (typeof(msg.data.data) == "string")
-        outputArea.innerHTML += msg.data.data+"\n";
+      if (msg.data.source)
+        outputArea.innerHTML += "[Thread#"+msg.data.source+"] "+msg.data.data+"\n";
       else
-        outputArea.innerHTML += msg.data.data[0]+"\n";
+        outputArea.innerHTML += msg.data.data+"\n";
       return;
     }
     if (msg.data['terminate'] == true) {
