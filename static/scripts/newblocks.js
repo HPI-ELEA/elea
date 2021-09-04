@@ -562,8 +562,156 @@ Blockly.defineBlocksWithJsonArray([
         "helpUrl": ""
       },
 
+      {
+        "type": "run_thread",
+        "message0": "Run in %1 threads %2 save %3 in %4",
+        "args0": [
+          {
+            "type": "input_value",
+            "name": "thread_count",
+            "check": "Number"
+          },
+          {
+            "type": "input_statement",
+            "name": "thread_statements"
+          },
+          {
+            "type": "input_value",
+            "name": "return_value",
+          },
+          {
+            "type": "field_variable",
+            "name": "output_array",
+            "variable": "result"
+          }
+        ],
+        "inputsInline": true,
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": 341,
+        "tooltip": "",
+        "helpUrl": ""
+      },
       
+
+      {
+        "type": "fibonacci",
+        "message0": "Calculate Fibonacci of %1",
+        "args0": [
+          {
+            "type": "input_value",
+            "name": "fib_number",
+            "check": "Number"
+          }
+        ],
+        "inputsInline": true,
+        // "previousStatement": null,
+        // "nextStatement": null,
+        "output": null,
+        "colour": 341,
+        "tooltip": "",
+        "helpUrl": ""
+      },
 ]);
+
+Blockly.JavaScript['run_thread'] = function(block) {
+
+  let thread_count = Blockly.JavaScript.valueToCode(block, 'thread_count', Blockly.JavaScript.ORDER_NONE);
+  let output = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('output_array'), Blockly.Variables.NAME_TYPE);
+  let return_val = Blockly.JavaScript.valueToCode(block, 'return_value', Blockly.JavaScript.ORDER_NONE);
+
+  let statements_simulation_steps = Blockly.JavaScript.statementToCode(block, 'thread_statements');
+
+  // console.log(Blockly.Variables.allUsedVarModels(workspace));
+  // console.log(workspace.getAllVariables());
+
+  let all_vars = Blockly.Variables.allUsedVarModels(workspace);
+  let code = "";
+
+  // defining the code to be used inside the web workers
+  let worker_code = "";
+  worker_code += "var " + Blockly.JavaScript.variableDB_.getName(all_vars[0].name, Blockly.Variables.NAME_TYPE)
+  for (let index = 1; index < all_vars.length; index++) {
+    const element = all_vars[index];
+    let name = Blockly.JavaScript.variableDB_.getName(element.name, Blockly.Variables.NAME_TYPE);
+    worker_code += ',' + name;
+  }
+  worker_code += ";\n";
+
+  worker_code += "let regex = /([^/]+$)/;\n"
+  worker_code += "workerURL = (self.location + '').slice(5);\n"
+  worker_code += "workerURL = workerURL.replace(regex, '');"
+  worker_code += "importScripts(workerURL+'scripts/MessageHandler.js');\n"
+  worker_code += "\n";
+  worker_code += "function* main() {\n";
+  // worker_code += "  console.log(\'running\');\n";
+  worker_code += "\`+\`"+statements_simulation_steps+"\`+\`;\n";
+
+  worker_code += "  Handler.sendMessage(new Message(0, "+return_val+"));\n";
+
+  worker_code += "}\n";
+  worker_code += "var main = main();\n";
+  worker_code += "main.next();\n";
+
+  code += "code = `" + worker_code + "`;\n"
+
+  code += "let worker_obj = URL.createObjectURL( new Blob([code], {type: 'application/javascript'}) );\n";
+
+  code += "let threads = new Array();\n";
+  code += output+" = new Array();\n"
+  code += "for (let index = 0; index < "+thread_count+"; index++) {\n";
+  code += '  threads.push(Handler.createThread(worker_obj));\n';
+  // code += "  Handler.sendMessage(new Message(thread, index + 30));\n";
+  code += "}\n";
+
+  // code += "let arr = new Array();";
+  code += "for (let index = 0; index < "+thread_count+"; index++) {;\n";
+  code += "  const element = threads[index];\n";
+  // code += "  console.log('receiving...');\n";
+  code += "  "+output+".push(yield(Handler.recvRequest(new RecvRequest(element))));\n";
+  code += "  Handler.removeThread(element);\n";
+  code += "}\n";
+
+  // code += "console.log("+output+");\n";
+  return code;
+};
+
+Blockly.JavaScript['fibonacci'] = function(block) {
+  let fib_number = Blockly.JavaScript.valueToCode(block, 'fib_number', Blockly.JavaScript.ORDER_NONE);
+  var functionName = Blockly.JavaScript.provideFunction_(
+    'fib',
+    ['function ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+        '(n, fib) {',
+        "  if (n < 2) return n;",
+        "  return fib(n-1, fib) + fib(n-2, fib);",
+      '}']);
+  let code = "";
+  code += functionName+"("+fib_number+", "+functionName+")";
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+
+// Blockly.JavaScript['fibonacci'] = function(block) {
+
+//   let fib_number = Blockly.JavaScript.valueToCode(block, 'fib_number', Blockly.JavaScript.ORDER_NONE);
+
+//   let code = ""
+//   code += "function fib(n) {\n"
+//   code += "  if (n < 2) return n;\n"
+//   code += "  return fib(n-1) + fib(n-2);\n"
+//   code += "}\n";
+
+//   code += "console.log(fib("+fib_number+"));\n";
+
+//   // var functionName = Blockly.JavaScript.provideFunction_(
+//   //   'fib',
+//   //   ['function ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+//   //       '(n) {',
+//   //    '  if (n < 2) return n;', // TODO: replace fill for ES5
+//   //    '  return '+functionName+'(n-1) + '+functionName+'(n-2);',
+//   //    '}']);
+//   // code = functionName + '()';
+//   return code;
+// };
 
 // TODO: init all developer variables with
 // https://developers.google.com/blockly/reference/js/Blockly.Variables#.allDeveloperVariables
