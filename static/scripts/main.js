@@ -334,76 +334,76 @@ main.next();
     }
   }
 
-  function resetStepUi(clearOutput) {
-    terminateWorker();
-    workspace.highlightBlock(null);
-    highlightPause = false;
+  // function resetStepUi(clearOutput) {
+  //   terminateWorker();
+  //   workspace.highlightBlock(null);
+  //   highlightPause = false;
 
-    if (clearOutput) {
-      outputArea.innerHTML = ""
-      // TODO: clear output of eventual output field
-      //outputArea.value = 'Program output:\n=================';
-    }
-  }
+  //   if (clearOutput) {
+  //     outputArea.innerHTML = ""
+  //     // TODO: clear output of eventual output field
+  //     //outputArea.value = 'Program output:\n=================';
+  //   }
+  // }
 
-  function generateCodeAndLoadIntoInterpreter() {
-    // Generate JavaScript code and parse it.
-    // TODO: remove highlightBlock and only use for stepping
-    Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-    Blockly.JavaScript.addReservedWords('highlightBlock');
-    latestCode = Blockly.JavaScript.workspaceToCode(workspace);
-    resetStepUi(true);
-  }
+  // function generateCodeAndLoadIntoInterpreter() {
+  //   // Generate JavaScript code and parse it.
+  //   // TODO: remove highlightBlock and only use for stepping
+  //   Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+  //   Blockly.JavaScript.addReservedWords('highlightBlock');
+  //   latestCode = Blockly.JavaScript.workspaceToCode(workspace);
+  //   resetStepUi(true);
+  // }
 
-  function stepCode() {
-    pauseAtNewBlock = true;
-    if (!myInterpreter) {
-      // First statement of this code.
-      // Clear the program output.
-      resetStepUi(true);
-      myInterpreter = new Interpreter(latestCode, initApi);
+  // function stepCode() {
+  //   pauseAtNewBlock = true;
+  //   if (!myInterpreter) {
+  //     // First statement of this code.
+  //     // Clear the program output.
+  //     resetStepUi(true);
+  //     myInterpreter = new Interpreter(latestCode, initApi);
 
-      // And then show generated code in an alert.
-      // In a timeout to allow the outputArea.value to reset first.
-      setTimeout(function() {
-        alert('Ready to execute the following code\n' +
-          '===================================\n' + latestCode);
-        highlightPause = true;
-        stepCode();
-      }, 1);
-      return;
-    }
-    highlightPause = false;
-    do {
-      try {
-        var hasMoreCode = myInterpreter.step();
-      } finally {
-        if (!hasMoreCode) {
-          // Program complete, no more code to execute.
-          //outputArea.value += '\n\n<< Program complete >>';
+  //     // And then show generated code in an alert.
+  //     // In a timeout to allow the outputArea.value to reset first.
+  //     setTimeout(function() {
+  //       alert('Ready to execute the following code\n' +
+  //         '===================================\n' + latestCode);
+  //       highlightPause = true;
+  //       stepCode();
+  //     }, 1);
+  //     return;
+  //   }
+  //   highlightPause = false;
+  //   do {
+  //     try {
+  //       var hasMoreCode = myInterpreter.step();
+  //     } finally {
+  //       if (!hasMoreCode) {
+  //         // Program complete, no more code to execute.
+  //         //outputArea.value += '\n\n<< Program complete >>';
 
-          myInterpreter = null;
-          resetStepUi(false);
+  //         myInterpreter = null;
+  //         resetStepUi(false);
 
-          // Cool down, to discourage accidentally restarting the program.
-          stepButton.disabled = 'disabled';
-          setTimeout(function() {
-            stepButton.disabled = '';
-          }, 2000);
+  //         // Cool down, to discourage accidentally restarting the program.
+  //         stepButton.disabled = 'disabled';
+  //         setTimeout(function() {
+  //           stepButton.disabled = '';
+  //         }, 2000);
 
-          return;
-        }
-      }
-      // Keep executing until a highlight statement is reached,
-      // or the code completes or errors.
-    } while (hasMoreCode && !highlightPause);
-  }
+  //         return;
+  //       }
+  //     }
+  //     // Keep executing until a highlight statement is reached,
+  //     // or the code completes or errors.
+  //   } while (hasMoreCode && !highlightPause);
+  // }
 
   // Load the interpreter now, and upon future changes.
-  generateCodeAndLoadIntoInterpreter();
+  // generateCodeAndLoadIntoInterpreter();
   workspace.addChangeListener(function(event) {
     if (!(event instanceof Blockly.Events.Ui)) {
       codeArea.innerHTML = getCode();
-      generateCodeAndLoadIntoInterpreter();
+      // generateCodeAndLoadIntoInterpreter();
     }
   });
