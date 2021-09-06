@@ -1,4 +1,5 @@
-GENERATE_TWICE = false;
+USING_THREADS = false;
+
 const copyToClipboard = str => {
     const el = document.createElement('textarea');
     el.value = str;
@@ -132,9 +133,9 @@ const copyToClipboard = str => {
     Blockly.JavaScript.STATEMENT_PREFIX = '';
     Blockly.JavaScript.addReservedWords('code');
 
-    var code = Blockly.JavaScript.workspaceToCode(workspace);
-    if (GENERATE_TWICE) code = Blockly.JavaScript.workspaceToCode(workspace);
-    GENERATE_TWICE = false;
+    let code = Blockly.JavaScript.workspaceToCode(workspace);
+    if (USING_THREADS) code = Blockly.JavaScript.workspaceToCode(workspace);
+    USING_THREADS = false;
     return code;
   }
 
