@@ -631,54 +631,57 @@ Blockly.JavaScript['thread_num'] = function(block) {
 };
 
 let prev_definitions = null;
+function generate_worker_code(statements, return_val) {
+    // defining the code to be used inside the web workers
+    let worker_code = "";
+    worker_code += "importScripts(('"+self.location+"').replace(/([^/]*$)/, '')+'scripts/MessageHandler.js');\n"
+    worker_code += "\n";
+  
+    let definitions = Blockly.JavaScript.definitions_;
+    let used_definitions = prev_definitions != null ? prev_definitions : definitions;
+    for (const key in used_definitions) {
+      worker_code += used_definitions[key]+"\n\n";
+    }
+  
+    // We need to keep track of the definitions object because it will continue to be filled in as
+    // Blockly generates the code for the rest of the blocks
+    // Blockly discards the object once the generation is finished, but it still exists in emmory if we keep track of it
+    // this necessitates that the code be generated twice for every operation
+    prev_definitions = definitions
+  
+    worker_code += "function* main() {\n";
+  
+    // receive the starter values from the parent
+    worker_code += "var _thread_id = yield (Handler.recvRequest(new RecvRequest(0)));\n"
+  
+    // execute the internal statements and return the value
+    worker_code += "\`+\`"+statements+"\`+\`;\n";
+    worker_code += "  Handler.sendMessage(new Message(0, "+return_val+"));\n";
+  
+    worker_code += "}\n";
+    worker_code += "var main = main();\n";
+    worker_code += "main.next();\n";
+
+    return worker_code
+}
+
 Blockly.JavaScript['run_thread'] = function(block) {
   // This flag tells Elea to run the generate code twice so that this block can get function definitions
-  GENERATE_TWICE = true
+  USING_THREADS = true
 
   let thread_count = Blockly.JavaScript.valueToCode(block, 'thread_count', Blockly.JavaScript.ORDER_NONE);
-  let output = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('output_array'), Blockly.Variables.NAME_TYPE);
+  let output_array = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('output_array'), Blockly.Variables.NAME_TYPE);
   let return_val = Blockly.JavaScript.valueToCode(block, 'return_value', Blockly.JavaScript.ORDER_NONE);
 
   let statements_simulation_steps = Blockly.JavaScript.statementToCode(block, 'thread_statements');
 
-  let definitions = Blockly.JavaScript.definitions_;
   let code = "";
-
-  // defining the code to be used inside the web workers
-  let worker_code = "";
-  worker_code += "importScripts(('"+self.location+"').replace(/([^/]*$)/, '')+'scripts/MessageHandler.js');\n"
-  worker_code += "\n";
-
-  let used_definitions = prev_definitions != null ? prev_definitions : definitions;
-  for (const key in used_definitions) {
-    worker_code += used_definitions[key]+"\n\n";
-  }
-
-  // We need to keep track of the definitions object because it will continue to be filled in as
-  // Blockly generates the code for the rest of the blocks
-  // Blockly discards the object once the generation is finished, but it still exists in emmory if we keep track of it
-  // this necessitates that the code be generated twice for every operation
-  prev_definitions = definitions
-
-  worker_code += "function* main() {\n";
-
-  // receive the starter values from the parent
-  worker_code += "var _thread_id = yield (Handler.recvRequest(new RecvRequest(0)));\n"
-
-  // execute the internal statements and return the value
-  worker_code += "\`+\`"+statements_simulation_steps+"\`+\`;\n";
-  worker_code += "  Handler.sendMessage(new Message(0, "+return_val+"));\n";
-
-  worker_code += "}\n";
-  worker_code += "var main = main();\n";
-  worker_code += "main.next();\n";
-
-  code += "code = `" + worker_code + "`;\n"
+  code += "let code = `" + generate_worker_code(statements_simulation_steps, return_val) + "`;\n"
 
   code += "let worker_obj = URL.createObjectURL( new Blob([code], {type: 'application/javascript'}) );\n";
 
   code += "let threads = new Array();\n";
-  code += output+" = new Array();\n"
+  code += output_array+" = new Array();\n"
   code += "for (let index = 0; index < "+thread_count+"; index++) {\n";
   code += "  let thread = Handler.createThread(worker_obj);\n";
 
@@ -691,7 +694,7 @@ Blockly.JavaScript['run_thread'] = function(block) {
   code += "for (let index = 0; index < "+thread_count+"; index++) {;\n";
   code += "  const element = threads[index];\n";
   // code += "  console.log('receiving...');\n";
-  code += "  "+output+".push(yield(Handler.recvRequest(new RecvRequest(element))));\n";
+  code += "  "+output_array+".push(yield(Handler.recvRequest(new RecvRequest(element))));\n";
   code += "  Handler.removeThread(element);\n";
   code += "}\n";
 
