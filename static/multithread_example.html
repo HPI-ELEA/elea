@@ -407,6 +407,7 @@
         <xml xmlns="https://developers.google.com/blockly/xml" id="startBlocks" style="display: none">
           <variables>
             <variable id="*Wgz~b#b5fswbi-cUe)x">result</variable>
+            <variable id="AC;]KI:M|x/D1OPpcA3F">fib</variable>
           </variables>
           <block type="init_meta" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38">
             <statement name="init_statements">
@@ -418,25 +419,40 @@
                   </shadow>
                 </value>
                 <statement name="thread_statements">
-                  <block type="ea_debug" id="Lk%|vjA:4%CW;6SLeRny">
+                  <block type="ea_debug" id="m@?ug$eoQL*P;Uf44$.?">
                     <value name="logging_variable">
-                      <shadow type="text" id="_/v4m`q168AiDh:HNm5-">
-                        <field name="TEXT"></field>
+                      <shadow type="text" id="LfJ,Lk86XDt7C]~k(vjc">
+                        <field name="TEXT">Running thread</field>
                       </shadow>
-                      <block type="thread_num" id="]Ar3fH3DkQdc;B`A]|.d"></block>
                     </value>
+                    <next>
+                      <block type="variables_set" id="uyY})OAugrd@y)0,+7pT">
+                        <field name="VAR" id="AC;]KI:M|x/D1OPpcA3F">fib</field>
+                        <value name="VALUE">
+                          <block type="fibonacci" id="O4xv,pkxT^.c3P%#Nk{m">
+                            <value name="fib_number">
+                              <shadow type="math_number" id=".[fX.JCC[ZReh.TeFKSm">
+                                <field name="NUM">40</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
                   </block>
                 </statement>
                 <value name="return_value">
-                  <shadow type="math_number" id="%+m817x6ei=jSY@CM7:1">
+                  <shadow xmlns="http://www.w3.org/1999/xhtml" type="math_number" id="%+m817x6ei=jSY@CM7:1">
                     <field name="NUM">0</field>
                   </shadow>
-                  <block type="thread_num" id="Kf(hY}mtA;j#jD^;HLA7"></block>
+                  <block type="variables_get" id="nJ=d)7/^_H##;okrZqww">
+                    <field name="VAR" id="AC;]KI:M|x/D1OPpcA3F">fib</field>
+                  </block>
                 </value>
                 <next>
                   <block type="ea_debug" id="vN4KN(A[yW,QW~YVERVg">
                     <value name="logging_variable">
-                      <shadow type="text" id="lctlZ.SeDWujmBzS*Q1S">
+                      <shadow xmlns="http://www.w3.org/1999/xhtml" type="text" id="lctlZ.SeDWujmBzS*Q1S">
                         <field name="TEXT"></field>
                       </shadow>
                       <block type="variables_get" id=".y}VOyzCkW=g,YUTSLA3">
