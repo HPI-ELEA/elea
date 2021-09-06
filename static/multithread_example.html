@@ -406,20 +406,46 @@
       Lastly, replace all " with ", eg all <backslash quotation> with a single quotation  -->
         <xml xmlns="https://developers.google.com/blockly/xml" id="startBlocks" style="display: none">
           <variables>
-            <variable id="gx=Kau1h[kq#}B+/w|ur&quot;">individual</variable>
-            <variable id="_`RU](?6R2Mdm}^monre">genome_length</variable>
-            <variable id="pKD29N|CKo,l4}AetItV">parent_population</variable>
-            <variable id="P|ZK6ZqqY5OhR$:,p(;_">µ</variable>
-            <variable id="-*|uDjwhmvz~~T(Am;%J">λ</variable>
-            <variable id="/elgL6jCIJ+fk$?p$D4D">offspring_population</variable>
-            <variable id="4SV3N2eF(}.8?1D)pNoq">parent1</variable>
-            <variable id="?K[V@jAZd7.1W9P+/*V+">parent2</variable>
-            <variable id="UqHTCO.0^{dWk@)6gp!7">offspring1</variable>
-            <variable id="n[Fa6%d%-.[74jjGTPX(">offspring2</variable>
+            <variable id="*Wgz~b#b5fswbi-cUe)x">result</variable>
           </variables>
           <block type="init_meta" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38">
             <statement name="init_statements">
-              
+              <block type="run_thread" id="0:J(WG1zOR2T?p^Iai8i">
+                <field name="output_array" id="*Wgz~b#b5fswbi-cUe)x">result</field>
+                <value name="thread_count">
+                  <shadow type="math_number" id="da0{E)}2S;dWmDO!Q?xH">
+                    <field name="NUM">10</field>
+                  </shadow>
+                </value>
+                <statement name="thread_statements">
+                  <block type="ea_debug" id="Lk%|vjA:4%CW;6SLeRny">
+                    <value name="logging_variable">
+                      <shadow type="text" id="_/v4m`q168AiDh:HNm5-">
+                        <field name="TEXT"></field>
+                      </shadow>
+                      <block type="thread_num" id="]Ar3fH3DkQdc;B`A]|.d"></block>
+                    </value>
+                  </block>
+                </statement>
+                <value name="return_value">
+                  <shadow type="math_number" id="%+m817x6ei=jSY@CM7:1">
+                    <field name="NUM">0</field>
+                  </shadow>
+                  <block type="thread_num" id="Kf(hY}mtA;j#jD^;HLA7"></block>
+                </value>
+                <next>
+                  <block type="ea_debug" id="vN4KN(A[yW,QW~YVERVg">
+                    <value name="logging_variable">
+                      <shadow type="text" id="lctlZ.SeDWujmBzS*Q1S">
+                        <field name="TEXT"></field>
+                      </shadow>
+                      <block type="variables_get" id=".y}VOyzCkW=g,YUTSLA3">
+                        <field name="VAR" id="*Wgz~b#b5fswbi-cUe)x">result</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
             </statement>
           </block>
         </xml>
