@@ -182,6 +182,7 @@ let toolbox = `
       </shadow>
     </value>
   </block>
+  <block type="thread_import_variable"></block>
   <block type="thread_num"></block>
   <block type="fibonacci">
     <value name="fib_number">

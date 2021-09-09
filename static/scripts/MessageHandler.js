@@ -73,6 +73,11 @@ class MessageHandler {
             return;
         }
 
+        if (message.ctrl == "import") {
+            this.sendMessage(new Message(message.source, self[message.data]));
+            return;
+        }
+
         // if there is nothing waiting on the message, then place into the buffer queue
         if (this.pendingRequest == null || this.pendingRequest.source != message.source) {
             this.messageBuffer.get(message.source).push(message);

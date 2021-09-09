@@ -604,6 +604,23 @@ Blockly.defineBlocksWithJsonArray([
       },
 
       {
+        "type": "thread_import_variable",
+        "message0": "import %1 into thread",
+        "args0": [
+          {
+            "type": "field_variable",
+            "name": "input"
+          }
+        ],
+        "inputInLine": true,
+        "previousStatement": ["ThreadImport", "ThreadStart"],
+        "nextStatement": [
+          "ThreadImport"
+        ],
+        "colour": 389,
+      },
+
+      {
         "type": "fibonacci",
         "message0": "Calculate Fibonacci of %1",
         "args0": [
@@ -630,7 +647,35 @@ Blockly.JavaScript['thread_num'] = function(block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-let prev_definitions = null;
+// imports a variable from the parent thread into the child thread
+Blockly.JavaScript['thread_import_variable'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  let prev_block = block.getPreviousBlock();
+  let surround_block = block.getSurroundParent();
+
+  // unplug the block if it's not inside a thread block
+  if (surround_block != null && surround_block.type != "run_thread") {
+    block.unplug(true);
+    console.warn("import block can only be used inside a thread block")
+  }
+
+  // unplug the block if it isn't at the top of the thread block
+  if (prev_block != null && (prev_block.type != "thread_import_variable" && prev_block.type != "run_thread")) {
+    block.unplug(true);
+    console.warn("import block must be placed at the top of a thread block")
+  }
+
+  let input_var = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('input'), Blockly.Variables.NAME_TYPE);
+
+  var code = '';
+
+  // makes a request from the parent to import a variable
+  code += "Handler.sendMessage(new Message(0, '"+input_var+"', 'import'));\n"
+  code += input_var+" = yield(Handler.recvRequest(new RecvRequest(0)));\n"
+  // TODO: Change ORDER_NONE to the correct strength.
+  return code;
+};
+
 function generate_worker_code(statements, return_val) {
     // defining the code to be used inside the web workers
     let worker_code = "";
