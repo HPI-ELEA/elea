@@ -1,4 +1,5 @@
 USING_THREADS = false;
+PREV_DEFINITIONS = null;
 
 const copyToClipboard = str => {
     const el = document.createElement('textarea');
@@ -167,11 +168,16 @@ const copyToClipboard = str => {
 
     // console.log(code);
 
+    // currently we need the variable declarations to be outside the coroutine function so that they're global,
+    // that way the child threads can request input from the parent threads
+    let var_definitions = code.substring(0, code.indexOf("\n"));
+
     let coroutine = `
 // wraps the code into a generator so that execution can be paused for multi-threading
+
 function* main() {
 
-` + code + `
+` + code.replace(/(^[^\n]+)/, '') + `
 
 }
 
@@ -215,7 +221,7 @@ main.next();
     imports += "_thread_id = null;\n";
 
     /*"function consolelog(x) {self.postMessage({output:x})};\n*/
-    code = imports + "function windowalert(x) {self.postMessage({output:x})};\n" + messageHandler + dateSetup + logSetup + coroutine + logSave //+ termination // TODO? we don't really need it other than for abort
+    code = imports + "function windowalert(x) {self.postMessage({output:x})};\n" + messageHandler + dateSetup + logSetup + var_definitions + coroutine + logSave //+ termination // TODO? we don't really need it other than for abort
     console.log(code);
     // TODO: find implementation for window.alert for both webworker and stepping
     const blob = new Blob([code], {type: 'application/javascript'})
