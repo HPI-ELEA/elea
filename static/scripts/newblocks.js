@@ -683,7 +683,7 @@ function generate_worker_code(statements, return_val) {
     worker_code += "\n";
   
     let definitions = Blockly.JavaScript.definitions_;
-    let used_definitions = prev_definitions != null ? prev_definitions : definitions;
+    let used_definitions = PREV_DEFINITIONS != null ? PREV_DEFINITIONS : definitions;
     for (const key in used_definitions) {
       worker_code += used_definitions[key]+"\n\n";
     }
@@ -692,12 +692,12 @@ function generate_worker_code(statements, return_val) {
     // Blockly generates the code for the rest of the blocks
     // Blockly discards the object once the generation is finished, but it still exists in emmory if we keep track of it
     // this necessitates that the code be generated twice for every operation
-    prev_definitions = definitions
+    PREV_DEFINITIONS = definitions
   
     worker_code += "function* main() {\n";
   
     // receive the starter values from the parent
-    worker_code += "var _thread_id = yield (Handler.recvRequest(new RecvRequest(0)));\n"
+    worker_code += "  var _thread_id = yield (Handler.recvRequest(new RecvRequest(0)));\n"
   
     // execute the internal statements and return the value
     worker_code += "\`+\`"+statements+"\`+\`;\n";
