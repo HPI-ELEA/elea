@@ -712,6 +712,10 @@ function generate_worker_code(statements, return_val) {
 
 Blockly.JavaScript['run_thread'] = function(block) {
   let surround_block = block.getSurroundParent();
+  while (surround_block.getSurroundParent() != null) {
+    surround_block = surround_block.getSurroundParent();
+  }
+  
   if (surround_block != null && (surround_block.type == "procedures_defnoreturn" || surround_block == "procedures_defreturn") ) {
     block.unplug(true);
     console.warn("thread blocks can not be placed inside a function block");
