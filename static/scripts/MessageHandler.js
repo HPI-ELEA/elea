@@ -36,6 +36,9 @@ class Message {
 // manages incoming messages and receive requests
 class MessageHandler {
     constructor() {
+        this.ANY_CHILD_SOURCE = -1;
+        this.PARENT_SOURCE = 0;
+
         this.idCounter = 1;
         this.pendingRequest = null;
 
@@ -78,30 +81,47 @@ class MessageHandler {
             return;
         }
 
-        // if there is nothing waiting on the message, then place into the buffer queue
-        if (this.pendingRequest == null || this.pendingRequest.source != message.source) {
+        // if there is no waiting request immediately buffer the message
+        if (this.pendingRequest == null) {
             this.messageBuffer.get(message.source).push(message);
-            return;
         }
 
-        // remove the pending request and continue the main function with the message
-        this.pendingRequest = null;
-        main.next(message.data);
+        // if the waiting request is valid then continue the execution
+        if (this.pendingRequest.source == message.source || (this.pendingRequest.source == this.ANY_CHILD_SOURCE && message.source != this.PARENT_SOURCE)) {
+            this.pendingRequest = null;
+            main.next(message);
+        }
+
+        // if it was not valid then buffer the message
+        this.messageBuffer.get(message.source).push(message);
     }
 
     recvRequest(request) {
-        let msg = this.messageBuffer.get(request.source).pop();
+        let msg = undefined;
+        
+        // grab the message if it is already buffered
+        // if the receiver is set to ANY then grab the first item in the buffer not from the parent
+        if (request.source == Handler.ANY_CHILD_SOURCE) {
+            for (const key in this.messageBuffer) {
+                if (key == this.PARENT_SOURCE) continue;
+                if (this.messageBuffer[key].length != 0) {
+                    msg = this.messageBuffer[key].pop();
+                }
+            }
+        } else{
+            msg = this.messageBuffer.get(request.source).pop();
+        }
 
         // if there is no message in the queue for the requested source
         if (msg == undefined) {
             this.pendingRequest = request;
             return;
         }
-        
+
         // this will re-add the main function to the task queue to be run immediately
         // we can't call main directly because this request function will typically be called by main before it yields
         // we can't resume main until it properly yields, hence we add main to the task queue, and it will be run after
-        setTimeout(function(msg) { main.next(msg); }, 0, msg.data);
+        setTimeout(function(msg) { main.next(msg); }, 0, msg);
     }
 
     // create a new worker thread with unique id and create the relevant values in the maps
@@ -120,6 +140,9 @@ class MessageHandler {
 
         this.threadMap.set(id, newThread);
         this.messageBuffer.set(id, new Queue());
+
+        // sends the thread their id
+        this.sendMessage( new Message(id, id) );
         return id;
     }
 
@@ -128,6 +151,10 @@ class MessageHandler {
         this.threadMap.get(id).terminate();
         this.messageBuffer.delete(id);
         this.threadMap.delete(id);
+    }
+
+    resetThreadIds() {
+        this.idCounter = 1;
     }
 }
 

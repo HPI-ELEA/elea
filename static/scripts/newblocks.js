@@ -676,8 +676,8 @@ Blockly.JavaScript['thread_import_variable'] = function(block) {
   var code = '';
 
   // makes a request from the parent to import a variable
-  code += "Handler.sendMessage(new Message(0, '"+input_var+"', 'import'));\n"
-  code += input_var+" = yield(Handler.recvRequest(new RecvRequest(0)));\n"
+  code += "Handler.sendMessage(new Message(Handler.PARENT_SOURCE, '"+input_var+"', 'import'));\n"
+  code += input_var+" = ( yield(Handler.recvRequest(new RecvRequest(Handler.PARENT_SOURCE))) ).data;\n"
   // TODO: Change ORDER_NONE to the correct strength.
   return code;
 };
@@ -703,11 +703,11 @@ function generate_worker_code(statements, return_val) {
     worker_code += "function* main() {\n";
   
     // receive the starter values from the parent
-    worker_code += "  var _thread_id = yield (Handler.recvRequest(new RecvRequest(0)));\n"
+    worker_code += "  var _thread_id = ( yield(Handler.recvRequest(new RecvRequest(Handler.PARENT_SOURCE))) ).data;\n"
   
     // execute the internal statements and return the value
     worker_code += "\`+\`"+statements+"\`+\`;\n";
-    worker_code += "  Handler.sendMessage(new Message(0, "+return_val+"));\n";
+    worker_code += "  Handler.sendMessage(new Message(Handler.PARENT_SOURCE, "+return_val+"));\n";
   
     worker_code += "}\n";
     worker_code += "var main = main();\n";
@@ -754,20 +754,17 @@ Blockly.JavaScript['run_thread'] = function(block) {
   code += "_threads = new Array();\n";
   code += output_array+" = new Array();\n"
   code += "for (let index = 0; index < "+thread_count+"; index++) {\n";
-  code += "  let thread = Handler.createThread(_worker_obj);\n";
-
-  // send the thread their id
-  code += "  Handler.sendMessage(new Message(thread, thread));\n";
-  code += "  _threads.push(thread);\n";
+  code += "  _threads.push(Handler.createThread(_worker_obj));\n";
   code += "}\n";
 
   // code += "let arr = new Array();";
   code += "for (let index = 0; index < "+thread_count+"; index++) {;\n";
   code += "  const element = _threads[index];\n";
   // code += "  console.log('receiving...');\n";
-  code += "  "+output_array+".push(yield(Handler.recvRequest(new RecvRequest(element))));\n";
+  code += "  "+output_array+".push( (yield( Handler.recvRequest(new RecvRequest(element)) )).data );\n";
   code += "  Handler.removeThread(element);\n";
   code += "}\n";
+  code += "Handler.resetThreadIds();\n"
 
   // code += "console.log("+output+");\n";
   return code;
