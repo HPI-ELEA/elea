@@ -686,6 +686,11 @@ Blockly.defineBlocksWithJsonArray([
       },
 ]);
 
+let THREAD_BLOCKS = {
+  "run_thread": true,
+  "run_thread_limited": true
+}
+
 Blockly.JavaScript['thread_num'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
   var code = '_thread_id';
@@ -707,14 +712,14 @@ Blockly.JavaScript['thread_import_variable'] = function(block) {
   let surround_block = block.getSurroundParent();
 
   // unplug the block if it's not inside a thread block
-  if (surround_block != null && surround_block.type != "run_thread") {
+  if (surround_block != null && !THREAD_BLOCKS[surround_block.type]) {
     block.unplug(true);
     block.disabled = true;
     block.setWarningText("import block can only be used inside a thread block");
     block.updateDisabled();
   }
   // unplug the block if it isn't at the top of the thread block
-  else if (prev_block != null && (prev_block.type != "thread_import_variable" && prev_block.type != "run_thread")) {
+  else if (prev_block != null && (prev_block.type != "thread_import_variable" && !THREAD_BLOCKS[prev_block.type])) {
     block.unplug(true);
     block.disabled = true;
     block.setWarningText("import block must be placed at the top of a thread block");
