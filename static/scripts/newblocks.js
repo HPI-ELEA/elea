@@ -640,6 +640,16 @@ Blockly.defineBlocksWithJsonArray([
       },
 
       {
+        "type": "thread_hardware_concurrency",
+        "message0": "Hardware Concurrency",
+        "inputsInline": true,
+        "output": "Number",
+        "colour": 389,
+        "tooltip": "",
+        "helpUrl": ""
+      },
+
+      {
         "type": "thread_import_variable",
         "message0": "import %1 into thread",
         "args0": [
@@ -679,6 +689,13 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript['thread_num'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
   var code = '_thread_id';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript['thread_hardware_concurrency'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'self.navigator.hardwareConcurrency';
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };

@@ -189,6 +189,7 @@ let toolbox = `
       </shadow>
     </value>
     <value name="thread_limit">
+      <block type="thread_hardware_concurrency"></block>
       <shadow type="math_number">
         <field name="NUM">8</field>
       </shadow>
@@ -201,6 +202,7 @@ let toolbox = `
   </block>
   <block type="thread_import_variable"></block>
   <block type="thread_num"></block>
+  <block type="thread_hardware_concurrency"></block>
   <block type="fibonacci">
     <value name="fib_number">
       <shadow type="math_number">
