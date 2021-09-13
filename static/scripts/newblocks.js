@@ -586,8 +586,8 @@ Blockly.defineBlocksWithJsonArray([
           }
         ],
         "inputsInline": true,
-        "previousStatement": "ThreadEnd",
-        "nextStatement": "ThreadStart",
+        "previousStatement": null,
+        "nextStatement": null,
         "colour": 389,
         "tooltip": "",
         "helpUrl": ""
@@ -712,7 +712,7 @@ function generate_worker_code(statements, return_val) {
 
 Blockly.JavaScript['run_thread'] = function(block) {
   let surround_block = block.getSurroundParent();
-  while (surround_block.getSurroundParent() != null) {
+  while (surround_block != null && surround_block.getSurroundParent() != null) {
     surround_block = surround_block.getSurroundParent();
   }
   
