@@ -182,6 +182,23 @@ let toolbox = `
       </shadow>
     </value>
   </block>
+  <block type="run_thread_limited">
+    <value name="thread_count">
+      <shadow type="math_number">
+        <field name="NUM">10</field>
+      </shadow>
+    </value>
+    <value name="thread_limit">
+      <shadow type="math_number">
+        <field name="NUM">8</field>
+      </shadow>
+    </value>
+    <value name="return_value">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
   <block type="thread_import_variable"></block>
   <block type="thread_num"></block>
   <block type="fibonacci">

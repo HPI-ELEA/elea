@@ -594,6 +594,42 @@ Blockly.defineBlocksWithJsonArray([
       },
 
       {
+        "type": "run_thread_limited",
+        "message0": "Run in %1 threads limitted to %2 %3 save %4 in %5",
+        "args0": [
+          {
+            "type": "input_value",
+            "name": "thread_count",
+            "check": "Number"
+          },
+          {
+            "type": "input_value",
+            "name": "thread_limit",
+            "check": "Number"
+          },
+          {
+            "type": "input_statement",
+            "name": "thread_statements"
+          },
+          {
+            "type": "input_value",
+            "name": "return_value",
+          },
+          {
+            "type": "field_variable",
+            "name": "output_array",
+            "variable": "result"
+          }
+        ],
+        "inputsInline": true,
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": 389,
+        "tooltip": "",
+        "helpUrl": ""
+      },
+
+      {
         "type": "thread_num",
         "message0": "Thread ID",
         "inputsInline": true,
@@ -766,6 +802,73 @@ Blockly.JavaScript['run_thread'] = function(block) {
   code += "}\n";
   code += "Handler.resetThreadIds();\n"
 
+  // code += "console.log("+output+");\n";
+  return code;
+};
+
+// same as the thread block above, but only runs a set number of threads at any one time
+Blockly.JavaScript['run_thread_limited'] = function(block) {
+  let surround_block = block.getSurroundParent();
+  while (surround_block != null && surround_block.getSurroundParent() != null) {
+    surround_block = surround_block.getSurroundParent();
+  }
+  
+  if (surround_block != null && (surround_block.type == "procedures_defnoreturn" || surround_block == "procedures_defreturn") ) {
+    block.unplug(true);
+    block.disabled = true;
+    block.setWarningText("thread blocks can not be placed inside a function block");
+    block.updateDisabled();
+  } else {
+    block.setWarningText(null);
+  }
+
+  // This flag tells Elea to run the generate code twice so that this block can get function definitions
+  USING_THREADS = true
+
+  let thread_count = Blockly.JavaScript.valueToCode(block, 'thread_count', Blockly.JavaScript.ORDER_NONE);
+  let thread_limit = Blockly.JavaScript.valueToCode(block, 'thread_limit', Blockly.JavaScript.ORDER_NONE);
+  let output_array = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('output_array'), Blockly.Variables.NAME_TYPE);
+  let return_val = Blockly.JavaScript.valueToCode(block, 'return_value', Blockly.JavaScript.ORDER_NONE);
+
+  let statements_simulation_steps = Blockly.JavaScript.statementToCode(block, 'thread_statements');
+
+  // declare the developer variables used by this block
+  // I don't know why this is the way they've done it
+  block.getDeveloperVariables = function() {
+    return ["_worker_code", "_worker_obj", "_threads", "_thread_counter"]
+  }
+
+  let code = "";
+  code += "_worker_code = `" + generate_worker_code(statements_simulation_steps, return_val) + "`;\n"
+
+  code += "_worker_obj = URL.createObjectURL( new Blob([_worker_code], {type: 'application/javascript'}) );\n";
+
+  code += "_threads = new Array();\n";
+  code += output_array+" = new Array();\n"
+
+  code += "for (let index = 0; index < "+thread_limit+"; index++) {\n";
+  code += "  _threads.push( Handler.createThread(_worker_obj) );\n";
+  code += " }\n";
+
+  code += "_thread_counter = "+thread_limit+";\n";
+  code += "while (_thread_counter < "+thread_count+") {\n";
+  code += "  let msg = yield(Handler.recvRequest( new RecvRequest(Handler.ANY_CHILD_SOURCE) ));\n"
+  code += "  "+output_array+"[msg.source-1] = msg.data;\n";
+  code += "\n";
+  code += "  _threads.push( Handler.createThread(_worker_obj) );\n";
+  code += "  _thread_counter ++;\n";
+  code += "}\n";
+
+  code += "for (let index = 0; index < "+thread_limit+"; index++) {\n";
+  code += "  let msg = yield(Handler.recvRequest( new RecvRequest(Handler.ANY_CHILD_SOURCE) ));\n"
+  code += "  "+output_array+"[msg.source-1] = msg.data;\n";
+  code += " }\n";
+
+  code += "for (let index = 0; index < "+thread_count+"; index++) {;\n";
+  code += "  Handler.removeThread(_threads[index]);\n";
+  code += "}\n";
+
+  code += "Handler.resetThreadIds();\n"
   // code += "console.log("+output+");\n";
   return code;
 };
