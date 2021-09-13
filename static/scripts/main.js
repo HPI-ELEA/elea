@@ -163,6 +163,7 @@ const copyToClipboard = str => {
     Blockly.JavaScript.addReservedWords('updateStats');
     Blockly.JavaScript.addReservedWords('main');
     Blockly.JavaScript.addReservedWords('_thread_id');
+    Blockly.JavaScript.addReservedWords('Handler');
 
     var code = getCode();
 

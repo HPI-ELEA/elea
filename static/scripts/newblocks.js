@@ -730,24 +730,30 @@ Blockly.JavaScript['run_thread'] = function(block) {
 
   let statements_simulation_steps = Blockly.JavaScript.statementToCode(block, 'thread_statements');
 
+  // declare the developer variables used by this block
+  // I don't know why this is the way they've done it
+  block.getDeveloperVariables = function() {
+    return ["_worker_code", "_worker_obj", "_threads"]
+  }
+
   let code = "";
-  code += "let code = `" + generate_worker_code(statements_simulation_steps, return_val) + "`;\n"
+  code += "_worker_code = `" + generate_worker_code(statements_simulation_steps, return_val) + "`;\n"
 
-  code += "let worker_obj = URL.createObjectURL( new Blob([code], {type: 'application/javascript'}) );\n";
+  code += "_worker_obj = URL.createObjectURL( new Blob([_worker_code], {type: 'application/javascript'}) );\n";
 
-  code += "let threads = new Array();\n";
+  code += "_threads = new Array();\n";
   code += output_array+" = new Array();\n"
   code += "for (let index = 0; index < "+thread_count+"; index++) {\n";
-  code += "  let thread = Handler.createThread(worker_obj);\n";
+  code += "  let thread = Handler.createThread(_worker_obj);\n";
 
   // send the thread their id
   code += "  Handler.sendMessage(new Message(thread, thread));\n";
-  code += "  threads.push(thread);\n";
+  code += "  _threads.push(thread);\n";
   code += "}\n";
 
   // code += "let arr = new Array();";
   code += "for (let index = 0; index < "+thread_count+"; index++) {;\n";
-  code += "  const element = threads[index];\n";
+  code += "  const element = _threads[index];\n";
   // code += "  console.log('receiving...');\n";
   code += "  "+output_array+".push(yield(Handler.recvRequest(new RecvRequest(element))));\n";
   code += "  Handler.removeThread(element);\n";
