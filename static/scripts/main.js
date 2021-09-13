@@ -416,3 +416,5 @@ main.next();
       // generateCodeAndLoadIntoInterpreter();
     }
   });
+
+  workspace.addChangeListener(Blockly.Events.disableOrphans);

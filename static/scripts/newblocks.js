@@ -656,13 +656,19 @@ Blockly.JavaScript['thread_import_variable'] = function(block) {
   // unplug the block if it's not inside a thread block
   if (surround_block != null && surround_block.type != "run_thread") {
     block.unplug(true);
-    console.warn("import block can only be used inside a thread block")
+    block.disabled = true;
+    block.setWarningText("import block can only be used inside a thread block");
+    block.updateDisabled();
   }
-
   // unplug the block if it isn't at the top of the thread block
-  if (prev_block != null && (prev_block.type != "thread_import_variable" && prev_block.type != "run_thread")) {
+  else if (prev_block != null && (prev_block.type != "thread_import_variable" && prev_block.type != "run_thread")) {
     block.unplug(true);
-    console.warn("import block must be placed at the top of a thread block")
+    block.disabled = true;
+    block.setWarningText("import block must be placed at the top of a thread block");
+    block.updateDisabled();
+  }
+  else {
+    block.setWarningText(null);
   }
 
   let input_var = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('input'), Blockly.Variables.NAME_TYPE);
@@ -718,7 +724,11 @@ Blockly.JavaScript['run_thread'] = function(block) {
   
   if (surround_block != null && (surround_block.type == "procedures_defnoreturn" || surround_block == "procedures_defreturn") ) {
     block.unplug(true);
-    console.warn("thread blocks can not be placed inside a function block");
+    block.disabled = true;
+    block.setWarningText("thread blocks can not be placed inside a function block");
+    block.updateDisabled();
+  } else {
+    block.setWarningText(null);
   }
 
   // This flag tells Elea to run the generate code twice so that this block can get function definitions
