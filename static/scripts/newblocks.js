@@ -595,7 +595,7 @@ Blockly.defineBlocksWithJsonArray([
 
       {
         "type": "run_thread_limited",
-        "message0": "Run in %1 threads limitted to %2 %3 save %4 in %5",
+        "message0": "Run in %1 threads limited to %2 %3 save %4 in %5",
         "args0": [
           {
             "type": "input_value",
