@@ -211,6 +211,15 @@ let toolbox = `
     </value>
   </block>
 </category>
+<category name="experimental" colour="#111111">
+  <block type="ea_print">
+  <value name="logging_variable">
+  <shadow type="text">
+    <field name="TEXT"></field>
+  </shadow>
+</value>
+  </block>
+</category>
 `
 
 document.getElementById("toolbox").innerHTML = toolbox;

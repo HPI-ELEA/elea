@@ -161,11 +161,11 @@ class MessageHandler {
 // the variable argument syntax is not supported in IE as of 2021-08-27:
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
 consolelog = function(...v) {
-    Handler.sendMessage(new Message(-1, v, "log"));
+    Handler.sendMessage(new Message(-1, v.join(" "), "log"));
 }
 
 consoleLog = function(...v) {
-    Handler.sendMessage(new Message(-1, v, "log"));
+    conseolelog(v);
 }
 
 // creates the message handler object for the calling script to use
