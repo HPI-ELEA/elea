@@ -953,11 +953,11 @@ Blockly.JavaScript['run_thread_limited'] = function(block) {
   code += "_threads = new Array();\n";
   code += output_array+" = new Array();\n"
 
-  code += "for (let index = 0; index < "+thread_limit+"; index++) {\n";
+  code += "for (let index = 0; index < Math.min("+thread_limit+", "+thread_count+") ; index++) {\n";
   code += "  _threads.push( Handler.createThread(_worker_obj) );\n";
   code += " }\n";
 
-  code += "_thread_counter = "+thread_limit+";\n";
+  code += "_thread_counter = Math.min("+thread_limit+", "+thread_count+");\n";
   code += "while (_thread_counter < "+thread_count+") {\n";
   code += "  let msg = yield(Handler.recvRequest( new RecvRequest(Handler.ANY_CHILD_SOURCE) ));\n"
   code += "  "+output_array+"[msg.source-1] = msg.data;\n";
@@ -966,7 +966,7 @@ Blockly.JavaScript['run_thread_limited'] = function(block) {
   code += "  _thread_counter ++;\n";
   code += "}\n";
 
-  code += "for (let index = 0; index < "+thread_limit+"; index++) {\n";
+  code += "for (let index = 0; index < Math.min("+thread_limit+", "+thread_count+"); index++) {\n";
   code += "  let msg = yield(Handler.recvRequest( new RecvRequest(Handler.ANY_CHILD_SOURCE) ));\n"
   code += "  "+output_array+"[msg.source-1] = msg.data;\n";
   code += " }\n";
