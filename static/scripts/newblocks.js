@@ -719,8 +719,76 @@ Blockly.defineBlocksWithJsonArray([
         "colour": "#111",
         "tooltip": "",
         "helpUrl": ""
-      }
+      },
+
+
 ]);
+
+var counter = 0;
+let LOCK = false;
+Blockly.JavaScript['ea_print_cell'] = function(block) {
+  let value = Blockly.JavaScript.valueToCode(block, "input", Blockly.JavaScript.ORDER_ATOMIC);
+
+  console.log(block);
+  console.log(value, (value != "''" && value != ""), block.allInputsFilled());
+  if ((value != "''" && value != "") && !block.allInputsFilled() && !block.LOCK) {
+    // console.log
+    block.LOCK = true;
+    let newblock = workspace.newBlock("ea_print_cell");
+    let textblock = workspace.newBlock("text");
+    newblock.getInput("input").connection.connect(textblock.outputConnection);
+    block.getInput("next").connection.connect(newblock.outputConnection);
+
+    // // newblock.setShadow(true);
+    // newblock.setEnabled(true);
+    // newblock.initSvg();
+    // newblock.initModel();
+    // newblock.render();
+
+    
+    // textblock.setShadow(true);
+    // textblock.setEnabled(true);
+    // textblock.initSvg();
+    // textblock.initModel();
+    // textblock.render();
+    
+
+    // block.getInput("next").setVisible(true);
+    
+    // block.initSvg();
+    // block.render();
+    block.LOCK = false;
+  }
+
+  console.log(block.inputList);
+  return ["", Blockly.JavaScript.ORDER_NONE];
+}
+
+var print_cell =       {
+  "type": "ea_print_cell",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "input",
+    }
+  ],
+  "inputsInline": true,
+  "output": null,
+  "colour": "#111",
+  "tooltip": "",
+  "helpUrl": ""
+};
+
+Blockly.Blocks['ea_print_cell'] = {
+  init: function() {
+    this.jsonInit(print_cell);
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    this.appendValueInput("next")
+      .setVisible(false);
+  }
+};
+
 
 // an experimental print function for 
 Blockly.JavaScript['ea_print'] = function(block) {
@@ -733,29 +801,40 @@ Blockly.JavaScript['ea_print'] = function(block) {
   }
 
   // if the last input gets used then add another input
-  if ( last_input != "''") {
-    let name = "input"+block.inputList.length
-    block.appendValueInput(name);
-    block.initModel();
+  if ( counter < 1 && last_input != "''") {
+    // let name = "input"+block.inputList.length
+    // block.appendInput_(1, name);
+    // // block.init();
+    // block.initModel();
+    // block.initSvg();
+    // block.render();
     
-    // this sequence of steps is required to make a proper new block appear in the workspace
-    // see: https://stackoverflow.com/a/56234378
-    let newblock = workspace.newBlock("text");
-    newblock.initSvg();
-    newblock.initModel();
-    workspace.render();
+    // // this sequence of steps is required to make a proper new block appear in the workspace
+    // // see: https://stackoverflow.com/a/56234378
+    // let newblock = workspace.newBlock("text");
+    // // newblock.setShadow(true);
+    // newblock.setEnabled(true);
+    // newblock.initSvg();
+    // newblock.initModel();
+    // newblock.render();
 
-    newblock.setShadow(true);
-    newblock.setEnabled(true);
+    // console.log(workspace);
+    // // workspace.setupDragSurface()
+    // // console.log(workspace.resetDragSurface());
 
-    workspace.connection
-
+    // // new Blockly.BlockDragger(newblock, workspace);
+    // // console.log(workspace.connectionChecker.doSafetyChecks(block.getInput(name).connection, newblock.outputConnection));
+    // console.log(newblock);
+    // counter ++;
     // this connects the output of the text block to the print block
-    block.getInput(name).connection.connect(newblock.outputConnection);
+    // block.getInput(name).connection.connect(newblock.outputConnection);
+    // workspace.render();
   }
   else if (second_last_input == "''") {
-    block.removeInput(block.inputList[block.inputList.length-1].name);
-    block.initModel();
+    // block.removeInput(block.inputList[block.inputList.length-1].name);
+    // block.initModel();
+    // block.initSvg();
+    // block.render();
   }
 
   var code = 'consolelog(';
