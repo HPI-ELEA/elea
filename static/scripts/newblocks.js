@@ -702,74 +702,9 @@ Blockly.defineBlocksWithJsonArray([
         "colour": 389,
         "tooltip": "",
         "helpUrl": ""
-      },
-
-      {
-        "type": "ea_print",
-        "message0": "print to output %1",
-        "args0": [
-          {
-            "type": "input_value",
-            "name": "logging_variable",
-          },
-        ],
-        "inputsInline": true,
-        "previousStatement": null,
-        "nextStatement": null,
-        "colour": "#111",
-        "tooltip": "",
-        "helpUrl": ""
       }
 ]);
 
-// an experimental print function for 
-Blockly.JavaScript['ea_print'] = function(block) {
-
-
-  let last_input = Blockly.JavaScript.valueToCode(block, block.inputList[block.inputList.length-1].name, Blockly.JavaScript.ORDER_ATOMIC);
-  let second_last_input =  null;
-  if (block.inputList.length > 1) {
-    second_last_input = Blockly.JavaScript.valueToCode(block, block.inputList[block.inputList.length-2].name, Blockly.JavaScript.ORDER_ATOMIC);
-  }
-
-  // if the last input gets used then add another input
-  if ( last_input != "''") {
-    let name = "input"+block.inputList.length
-    block.appendValueInput(name);
-    block.initModel();
-    
-    // this sequence of steps is required to make a proper new block appear in the workspace
-    // see: https://stackoverflow.com/a/56234378
-    let newblock = workspace.newBlock("text");
-    newblock.initSvg();
-    newblock.initModel();
-    workspace.render();
-
-    newblock.setShadow(true);
-    newblock.setEnabled(true);
-
-    workspace.connection
-
-    // this connects the output of the text block to the print block
-    block.getInput(name).connection.connect(newblock.outputConnection);
-  }
-  else if (second_last_input == "''") {
-    block.removeInput(block.inputList[block.inputList.length-1].name);
-    block.initModel();
-  }
-
-  var code = 'consolelog(';
-  let vals = new Array();
-  for (const input in block.inputList) {
-    // console.log(input);
-    vals.push(Blockly.JavaScript.valueToCode(block, block.inputList[input].name, Blockly.JavaScript.ORDER_ATOMIC));
-  }
-
-  code += vals.join(", ")+");\n";
-  // var variable_ = Blockly.JavaScript.valueToCode(block, 'logging_variable', Blockly.JavaScript.ORDER_ATOMIC);
-  // var code = 'consolelog(' + variable_ + ');\n';
-  return code;
-}
 
 let THREAD_BLOCKS = {
   "run_thread": true,
