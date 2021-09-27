@@ -863,7 +863,7 @@ Blockly.JavaScript['run_thread'] = function(block) {
     surround_block = surround_block.getSurroundParent();
   }
   
-  if (surround_block != null && (surround_block.type == "procedures_defnoreturn" || surround_block == "procedures_defreturn") ) {
+  if (surround_block != null && (surround_block.type == "procedures_defnoreturn" || surround_block.type == "procedures_defreturn") ) {
     block.disabled = true;
     block.setWarningText("thread blocks can not be placed inside a function block");
     block.updateDisabled();
@@ -917,7 +917,7 @@ Blockly.JavaScript['run_thread_limited'] = function(block) {
     surround_block = surround_block.getSurroundParent();
   }
   
-  if (surround_block != null && (surround_block.type == "procedures_defnoreturn" || surround_block == "procedures_defreturn") ) {
+  if (surround_block != null && (surround_block.type == "procedures_defnoreturn" || surround_block.type == "procedures_defreturn") ) {
     block.disabled = true;
     block.setWarningText("thread blocks can not be placed inside a function block");
     block.updateDisabled();
