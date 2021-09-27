@@ -84,12 +84,14 @@ class MessageHandler {
         // if there is no waiting request immediately buffer the message
         if (this.pendingRequest == null) {
             this.messageBuffer.get(message.source).push(message);
+            return;
         }
 
         // if the waiting request is valid then continue the execution
         if (this.pendingRequest.source == message.source || (this.pendingRequest.source == this.ANY_CHILD_SOURCE && message.source != this.PARENT_SOURCE)) {
             this.pendingRequest = null;
             main.next(message);
+            return;
         }
 
         // if it was not valid then buffer the message
