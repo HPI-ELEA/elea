@@ -214,63 +214,418 @@
       Lastly, replace all " with ", eg all <backslash quotation> with a single quotation  -->
         <xml xmlns="https://developers.google.com/blockly/xml" id="startBlocks" style="display: none">
           <variables>
-            <variable id="*Wgz~b#b5fswbi-cUe)x">result</variable>
-            <variable id="AC;]KI:M|x/D1OPpcA3F">fib</variable>
+            <variable id="*b+Q}ingpG7]CAE,M{GD">fib</variable>
+            <variable id="^9K_}r2Tdt3tpZp[h_|r">result</variable>
+            <variable id="Y%7;kKJwF1UkHI{DSg}B">i</variable>
           </variables>
-          <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38">
+          <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="435" y="49">
             <statement name="init_statements">
-              <block type="run_thread" id="0:J(WG1zOR2T?p^Iai8i">
-                <field name="output_array" id="*Wgz~b#b5fswbi-cUe)x">result</field>
-                <value name="thread_count">
-                  <shadow type="math_number" id="da0{E)}2S;dWmDO!Q?xH">
-                    <field name="NUM">10</field>
+              <block type="ea_debug" id="bPacL4PJ]5kT._h=}*9K">
+                <value name="logging_variable">
+                  <shadow type="text" id="ru4qEi~pdn:c.9q8-!UU">
+                    <field name="TEXT">Starting multi-threading demo!</field>
                   </shadow>
                 </value>
-                <statement name="thread_statements">
-                  <block type="ea_debug" id="m@?ug$eoQL*P;Uf44$.?">
+                <next>
+                  <block type="ea_debug" id="IksOXM#Gq{-EgU~Q[ou~">
                     <value name="logging_variable">
-                      <shadow type="text" id="LfJ,Lk86XDt7C]~k(vjc">
-                        <field name="TEXT">Running thread</field>
+                      <shadow type="text" id="jy09+r*IG/q4SVvaqz%e">
+                        <field name="TEXT">Available hardware threads:</field>
                       </shadow>
                     </value>
                     <next>
-                      <block type="variables_set" id="uyY})OAugrd@y)0,+7pT">
-                        <field name="VAR" id="AC;]KI:M|x/D1OPpcA3F">fib</field>
-                        <value name="VALUE">
-                          <block type="fibonacci" id="O4xv,pkxT^.c3P%#Nk{m">
-                            <value name="fib_number">
-                              <shadow type="math_number" id=".[fX.JCC[ZReh.TeFKSm">
-                                <field name="NUM">40</field>
+                      <block type="ea_debug" id="x|r9s=c${/*:54%kzZea">
+                        <value name="logging_variable">
+                          <shadow type="text" id="o)q5j?PYCJ}6bfyEYxG-">
+                            <field name="TEXT"></field>
+                          </shadow>
+                          <block type="thread_hardware_concurrency" id="e/$IpCU3=@)MlKOaX:n3"></block>
+                        </value>
+                        <next>
+                          <block type="ea_debug" id="_S!GJZE1,|H|,Yu3JPzQ">
+                            <value name="logging_variable">
+                              <shadow type="text" id="u@_{]U4g^.!5J-7VgSZV">
+                                <field name="TEXT">Run x number of threads:</field>
                               </shadow>
                             </value>
+                            <next>
+                              <block type="run_thread" id="X=in=NTuFM+BQSC-FzC?">
+                                <field name="output_array" id="^9K_}r2Tdt3tpZp[h_|r">result</field>
+                                <value name="thread_count">
+                                  <shadow type="math_number" id="ZFh2j0tRtL[3hKG%,soa">
+                                    <field name="NUM">5</field>
+                                  </shadow>
+                                </value>
+                                <statement name="thread_statements">
+                                  <block type="ea_debug" id="vJ|wfaP=W}kc,XF/Kn@#">
+                                    <value name="logging_variable">
+                                      <shadow type="text" id="UJfhrmquE_X3bs,b(I)4">
+                                        <field name="TEXT">Running Thread</field>
+                                      </shadow>
+                                    </value>
+                                    <next>
+                                      <block type="variables_set" id="0Py~qpLK@0Uhi:0+.PSI">
+                                        <field name="VAR" id="*b+Q}ingpG7]CAE,M{GD">fib</field>
+                                        <value name="VALUE">
+                                          <block type="fibonacci" id="ptBXS~4Sw+RU`)TVw^3K">
+                                            <value name="fib_number">
+                                              <shadow type="math_number" id="[TMt{T8h1P~77T_j{yEd">
+                                                <field name="NUM">40</field>
+                                              </shadow>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                                <value name="return_value">
+                                  <shadow type="math_number" id="~U0frV{,{8Ed.Fv#$oY9">
+                                    <field name="NUM">0</field>
+                                  </shadow>
+                                  <block type="thread_num" id="L(seXQTs4{}j1=a:N@5("></block>
+                                </value>
+                                <next>
+                                  <block type="ea_debug" id="[TaEMO5nBEGA10F(O:zo">
+                                    <value name="logging_variable">
+                                      <shadow type="text" id="kzonHG]J3~5F.#o|2p(4">
+                                        <field name="TEXT">The results of threads are saved in the order the thread is initialised:</field>
+                                      </shadow>
+                                    </value>
+                                    <next>
+                                      <block type="ea_debug" id="2ot@f3*owJ5bN^{_xLI{">
+                                        <value name="logging_variable">
+                                          <shadow type="text" id="HG*E9jx4qiRsEL8mFzNs">
+                                            <field name="TEXT"></field>
+                                          </shadow>
+                                          <block type="variables_get" id="CG.nK+Aro?H#RKkmpbU#">
+                                            <field name="VAR" id="^9K_}r2Tdt3tpZp[h_|r">result</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="ea_debug" id="WwHN]-9tF),Rph_i(gc~">
+                                            <value name="logging_variable">
+                                              <shadow type="text" id="e#2Y4XoDR7x(l@EBX_m@">
+                                                <field name="TEXT">Run x threads, but only y at a time:</field>
+                                              </shadow>
+                                            </value>
+                                            <next>
+                                              <block type="run_thread_limited" id="`;~VBe%Zc*m__Qu+hRpl">
+                                                <field name="output_array" id="^9K_}r2Tdt3tpZp[h_|r">result</field>
+                                                <value name="thread_count">
+                                                  <shadow type="math_number" id="HG+ba^8OosF9v}Z]bd]+">
+                                                    <field name="NUM">5</field>
+                                                  </shadow>
+                                                </value>
+                                                <value name="thread_limit">
+                                                  <shadow type="math_number" id="=HEDhwoc/]1g9taX-.sC">
+                                                    <field name="NUM">2</field>
+                                                  </shadow>
+                                                </value>
+                                                <statement name="thread_statements">
+                                                  <block type="ea_debug" id="]Vn[E`7fnv+b@i.0#Xgr">
+                                                    <value name="logging_variable">
+                                                      <shadow type="text" id="4GSu/IVGLAp%mBc5l.0U">
+                                                        <field name="TEXT">Running Thread</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <next>
+                                                      <block type="variables_set" id="k{=lQ$IA+alc`r6+v}.`">
+                                                        <field name="VAR" id="*b+Q}ingpG7]CAE,M{GD">fib</field>
+                                                        <value name="VALUE">
+                                                          <block type="fibonacci" id="nUJL#FnM5@uTLQ~roS,B">
+                                                            <value name="fib_number">
+                                                              <shadow type="math_number" id="#]_btD9|EWUML5D#Ob^v">
+                                                                <field name="NUM">40</field>
+                                                              </shadow>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </statement>
+                                                <value name="return_value">
+                                                  <shadow type="math_number" id="wh9.7[$k;k7y^D+?##wC">
+                                                    <field name="NUM">0</field>
+                                                  </shadow>
+                                                  <block type="thread_num" id="VXt!:u?0SwG`v?GoPe%d"></block>
+                                                </value>
+                                                <next>
+                                                  <block type="ea_debug" id="gP7Stnd1a_e5-);}`n@P">
+                                                    <value name="logging_variable">
+                                                      <shadow type="text">
+                                                        <field name="TEXT"></field>
+                                                      </shadow>
+                                                      <block type="variables_get" id="it;-FbJ+}lZ$C|D{9TJN">
+                                                        <field name="VAR" id="^9K_}r2Tdt3tpZp[h_|r">result</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="ea_debug" id="44WT-HGmo!NeVEDUEsAu">
+                                                        <value name="logging_variable">
+                                                          <shadow type="text" id="2`iN4[I.*NRZ@vYqTVgz">
+                                                            <field name="TEXT">Threads have their own scope, they cannot directly use global variables</field>
+                                                          </shadow>
+                                                        </value>
+                                                        <next>
+                                                          <block type="variables_set" id="(aHn,q32Wcq=pV/K)UYi">
+                                                            <field name="VAR" id="Y%7;kKJwF1UkHI{DSg}B">i</field>
+                                                            <value name="VALUE">
+                                                              <block type="math_number" id="s|^$WfKN^YY+ZBQl3/-1">
+                                                                <field name="NUM">42</field>
+                                                              </block>
+                                                            </value>
+                                                            <next>
+                                                              <block type="ea_debug" id="@}#/zj.P,WaXMd!:Z[*B">
+                                                                <value name="logging_variable">
+                                                                  <shadow type="text" id="wVV7D!%Q|1F@;DIH}vbB">
+                                                                    <field name="TEXT">Trying to print a global variable from a thread:</field>
+                                                                  </shadow>
+                                                                </value>
+                                                                <next>
+                                                                  <block type="run_thread" id="eDSQC7o90(/:}t/]|BJY">
+                                                                    <field name="output_array" id="^9K_}r2Tdt3tpZp[h_|r">result</field>
+                                                                    <value name="thread_count">
+                                                                      <shadow type="math_number" id="zHdePbXRYswFN(^3jlYY">
+                                                                        <field name="NUM">1</field>
+                                                                      </shadow>
+                                                                    </value>
+                                                                    <statement name="thread_statements">
+                                                                      <block type="ea_debug" id="75._!lYy.EkK8#2gJ,V4">
+                                                                        <value name="logging_variable">
+                                                                          <shadow type="text" id="$NxWm$o7IA`u7q#vqb)4">
+                                                                            <field name="TEXT"></field>
+                                                                          </shadow>
+                                                                          <block type="variables_get" id="7TZo7:W*b2{P9r:e@N6(">
+                                                                            <field name="VAR" id="Y%7;kKJwF1UkHI{DSg}B">i</field>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </statement>
+                                                                    <value name="return_value">
+                                                                      <shadow type="math_number" id="gm$hPq53Zvu2HK.HE,}O">
+                                                                        <field name="NUM">0</field>
+                                                                      </shadow>
+                                                                    </value>
+                                                                    <next>
+                                                                      <block type="ea_debug" id="Ho~WB5FHM/tle80.x*tc">
+                                                                        <value name="logging_variable">
+                                                                          <shadow type="text" id=",W^?[iLV1}sqYU.jXmcs">
+                                                                            <field name="TEXT">However, variables can be imported at the beginning of the thread:</field>
+                                                                          </shadow>
+                                                                        </value>
+                                                                        <next>
+                                                                          <block type="run_thread" id="*.i9NXPsxFVQl^vW$6SY">
+                                                                            <field name="output_array" id="^9K_}r2Tdt3tpZp[h_|r">result</field>
+                                                                            <value name="thread_count">
+                                                                              <shadow type="math_number" id="Xks9r.4G1|Zqz+nJ_8tf">
+                                                                                <field name="NUM">1</field>
+                                                                              </shadow>
+                                                                            </value>
+                                                                            <statement name="thread_statements">
+                                                                              <block type="thread_import_variable" id="E@e7#Blw{)XM77~wL|%_">
+                                                                                <field name="input" id="Y%7;kKJwF1UkHI{DSg}B">i</field>
+                                                                                <next>
+                                                                                  <block type="ea_debug" id="5ecco6lMkU#Nqat?~,U/">
+                                                                                    <value name="logging_variable">
+                                                                                      <shadow type="text">
+                                                                                        <field name="TEXT"></field>
+                                                                                      </shadow>
+                                                                                      <block type="variables_get" id="6OrdxfGJldiK]|I!:9s4">
+                                                                                        <field name="VAR" id="Y%7;kKJwF1UkHI{DSg}B">i</field>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                    <next>
+                                                                                      <block type="variables_set" id="YC*LfG?8/!hmT9knSMg$">
+                                                                                        <field name="VAR" id="*b+Q}ingpG7]CAE,M{GD">fib</field>
+                                                                                        <value name="VALUE">
+                                                                                          <block type="fibonacci" id="EsfLHd}t:4_/Uu:es.B`">
+                                                                                            <value name="fib_number">
+                                                                                              <shadow type="math_number" id="uIeVQ@eQ5JEP82gL;!uV">
+                                                                                                <field name="NUM">40</field>
+                                                                                              </shadow>
+                                                                                            </value>
+                                                                                          </block>
+                                                                                        </value>
+                                                                                      </block>
+                                                                                    </next>
+                                                                                  </block>
+                                                                                </next>
+                                                                              </block>
+                                                                            </statement>
+                                                                            <value name="return_value">
+                                                                              <shadow type="math_number" id="#0vqCj`yu)apIA1us|tL">
+                                                                                <field name="NUM">0</field>
+                                                                              </shadow>
+                                                                            </value>
+                                                                            <next>
+                                                                              <block type="ea_debug" id="c/DajeC7w|6=,5U|jEFl">
+                                                                                <value name="logging_variable">
+                                                                                  <shadow type="text" id="}~j)}7rO$%ElKs4KSXBM">
+                                                                                    <field name="TEXT">However, the imported variables are copies, they don't update the original!</field>
+                                                                                  </shadow>
+                                                                                </value>
+                                                                                <next>
+                                                                                  <block type="run_thread" id="o7EiyVsJC;!W11OuoBV!">
+                                                                                    <field name="output_array" id="^9K_}r2Tdt3tpZp[h_|r">result</field>
+                                                                                    <value name="thread_count">
+                                                                                      <shadow type="math_number" id="3O{W;zHD:M!iF_H#Wb;n">
+                                                                                        <field name="NUM">1</field>
+                                                                                      </shadow>
+                                                                                    </value>
+                                                                                    <statement name="thread_statements">
+                                                                                      <block type="thread_import_variable" id="|i:vg5FW9uEn[=LcYQ*4">
+                                                                                        <field name="input" id="Y%7;kKJwF1UkHI{DSg}B">i</field>
+                                                                                        <next>
+                                                                                          <block type="ea_debug" id="Mjfd*,dt~x(!/EUeWm]C">
+                                                                                            <value name="logging_variable">
+                                                                                              <shadow type="text" id="i(#M@x(jDoi%0PJR3QWu">
+                                                                                                <field name="TEXT">Setting variable to 21</field>
+                                                                                              </shadow>
+                                                                                            </value>
+                                                                                            <next>
+                                                                                              <block type="variables_set" id=";hTfh]y/jf@CYxf--7-y">
+                                                                                                <field name="VAR" id="*b+Q}ingpG7]CAE,M{GD">fib</field>
+                                                                                                <value name="VALUE">
+                                                                                                  <block type="fibonacci" id="JP7c:!W,THOa3eob`D/Z">
+                                                                                                    <value name="fib_number">
+                                                                                                      <shadow type="math_number" id="bMH,FJAASi#.@x7I;+}%">
+                                                                                                        <field name="NUM">40</field>
+                                                                                                      </shadow>
+                                                                                                    </value>
+                                                                                                  </block>
+                                                                                                </value>
+                                                                                                <next>
+                                                                                                  <block type="variables_set" id="5dCvIp!Fog:!1?xE$Faj">
+                                                                                                    <field name="VAR" id="Y%7;kKJwF1UkHI{DSg}B">i</field>
+                                                                                                    <value name="VALUE">
+                                                                                                      <block type="math_number" id="~;a@5n0/#nw|]V^TCPsv">
+                                                                                                        <field name="NUM">21</field>
+                                                                                                      </block>
+                                                                                                    </value>
+                                                                                                    <next>
+                                                                                                      <block type="ea_debug" id="hpce8+qISeaMW]7eYlG7">
+                                                                                                        <value name="logging_variable">
+                                                                                                          <shadow type="text" id="://,!;jHU@A6Y9u[!^LB">
+                                                                                                            <field name="TEXT">Printing variable:</field>
+                                                                                                          </shadow>
+                                                                                                        </value>
+                                                                                                        <next>
+                                                                                                          <block type="ea_debug" id="9%/W%b`5dbV)?G?elwS-">
+                                                                                                            <value name="logging_variable">
+                                                                                                              <shadow type="text" id=";JCyCk~6(J6,=YwAs4:1">
+                                                                                                                <field name="TEXT"></field>
+                                                                                                              </shadow>
+                                                                                                              <block type="variables_get" id="L-|Lri3~A(#]jaP)a0%c">
+                                                                                                                <field name="VAR" id="Y%7;kKJwF1UkHI{DSg}B">i</field>
+                                                                                                              </block>
+                                                                                                            </value>
+                                                                                                          </block>
+                                                                                                        </next>
+                                                                                                      </block>
+                                                                                                    </next>
+                                                                                                  </block>
+                                                                                                </next>
+                                                                                              </block>
+                                                                                            </next>
+                                                                                          </block>
+                                                                                        </next>
+                                                                                      </block>
+                                                                                    </statement>
+                                                                                    <value name="return_value">
+                                                                                      <shadow type="math_number" id="1eKJ$bpV2Sx7p+D@9D5u">
+                                                                                        <field name="NUM">0</field>
+                                                                                      </shadow>
+                                                                                    </value>
+                                                                                    <next>
+                                                                                      <block type="ea_debug" id="4$z9(WTX]fVq:1oeK8FT">
+                                                                                        <value name="logging_variable">
+                                                                                          <shadow type="text" id="WN+gx]6S8gHk4d!)`5p2">
+                                                                                            <field name="TEXT">Printing variable:</field>
+                                                                                          </shadow>
+                                                                                        </value>
+                                                                                        <next>
+                                                                                          <block type="ea_debug" id="gq3Arn;D%{S0O0Sq4HTn">
+                                                                                            <value name="logging_variable">
+                                                                                              <shadow type="text" id="X7MiUByY(|5t7h^,[ZpH">
+                                                                                                <field name="TEXT"></field>
+                                                                                              </shadow>
+                                                                                              <block type="variables_get" id="{^vC?$t=({_fm`54Zu9]">
+                                                                                                <field name="VAR" id="Y%7;kKJwF1UkHI{DSg}B">i</field>
+                                                                                              </block>
+                                                                                            </value>
+                                                                                          </block>
+                                                                                        </next>
+                                                                                      </block>
+                                                                                    </next>
+                                                                                  </block>
+                                                                                </next>
+                                                                              </block>
+                                                                            </next>
+                                                                          </block>
+                                                                        </next>
+                                                                      </block>
+                                                                    </next>
+                                                                  </block>
+                                                                </next>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
                           </block>
-                        </value>
+                        </next>
                       </block>
                     </next>
                   </block>
-                </statement>
-                <value name="return_value">
-                  <shadow xmlns="http://www.w3.org/1999/xhtml" type="math_number" id="%+m817x6ei=jSY@CM7:1">
-                    <field name="NUM">0</field>
+                </next>
+              </block>
+            </statement>
+          </block>
+          <block type="procedures_defnoreturn" id=";ijB^.:C_lptbXkU$$g+" x="1053" y="49">
+            <field name="NAME">foo</field>
+            <comment pinned="false" h="80" w="160">Describe this function...</comment>
+            <statement name="STACK">
+              <block type="ea_debug" id="[J%y=_fqJFH.Sp?9]#xC">
+                <value name="logging_variable">
+                  <shadow type="text" id="7hOfn0RS4r{{!bSRNb^S">
+                    <field name="TEXT">Threads can not be run in functions</field>
                   </shadow>
-                  <block type="variables_get" id="nJ=d)7/^_H##;okrZqww">
-                    <field name="VAR" id="AC;]KI:M|x/D1OPpcA3F">fib</field>
-                  </block>
                 </value>
                 <next>
-                  <block type="ea_debug" id="vN4KN(A[yW,QW~YVERVg">
-                    <value name="logging_variable">
-                      <shadow xmlns="http://www.w3.org/1999/xhtml" type="text" id="lctlZ.SeDWujmBzS*Q1S">
-                        <field name="TEXT"></field>
+                  <block type="run_thread" id="zh=U)-S5pN|`kw9e2{@M" disabled="true">
+                    <field name="output_array" id="^9K_}r2Tdt3tpZp[h_|r">result</field>
+                    <value name="thread_count">
+                      <shadow type="math_number" id="N#_!/^Hi4Tl*TztJ4]By">
+                        <field name="NUM">10</field>
                       </shadow>
-                      <block type="variables_get" id=".y}VOyzCkW=g,YUTSLA3">
-                        <field name="VAR" id="*Wgz~b#b5fswbi-cUe)x">result</field>
-                      </block>
+                    </value>
+                    <value name="return_value">
+                      <shadow type="math_number" id=":VlQ)M#MHKYg=reoeN-}">
+                        <field name="NUM">0</field>
+                      </shadow>
                     </value>
                   </block>
                 </next>
               </block>
             </statement>
+          </block>
+          <block type="variables_set" id=";?Su9l$Zv/}hOiXT1aQ*" disabled="true" x="554" y="1384">
+            <field name="VAR" id="*b+Q}ingpG7]CAE,M{GD">fib</field>
           </block>
         </xml>
 
