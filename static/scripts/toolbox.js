@@ -23,7 +23,7 @@ let toolbox = `
   <block type="leading_ones"></block>
 </category>
 <category name="Algorithm parts" colour="230">
-  <block type="init_meta"></block>
+  <block type="ea_init"></block>
   <block type="init_uniform"></block>
   <block type="init_constant"></block>
   <block type="pop_init"></block>
@@ -213,11 +213,15 @@ let toolbox = `
 </category>
 <category name="experimental" colour="#111111">
   <block type="ea_print">
-  <value name="logging_variable">
-  <shadow type="text">
-    <field name="TEXT"></field>
-  </shadow>
-</value>
+    <value name="logging_variable">
+      <block type="ea_print_cell">
+        <value name="input">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+      </block>
+    </value>
   </block>
 </category>
 `

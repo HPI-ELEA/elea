@@ -1,6 +1,25 @@
 Blockly.defineBlocksWithJsonArray([
     //
     {
+      "type": "ea_init",
+      "message0": "Initialize program %1 will be run once %2 %3",
+      "args0": [
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "input_statement",
+          "name": "init_statements"
+        }
+      ],
+      "colour": 230,
+      "tooltip": "",
+      "helpUrl": ""
+    },
+    {
         "type": "init_meta",
         "message0": "Initialize global vars and metainfo %1 will be run once %2 %3",
         "args0": [
@@ -998,6 +1017,18 @@ Blockly.JavaScript['fibonacci'] = function(block) {
 //   return code;
 // };
 
+// the init block encapsulates everything else into a generator function to allow for multi-threading
+Blockly.JavaScript['ea_init'] = function(block) {
+  var statements_simulation_steps = Blockly.JavaScript.statementToCode(block, 'init_statements');
+
+  let code = "";
+  code = "function* main() {\n\n";
+  code += statements_simulation_steps;
+  code += "\n}\n";
+  code += "var main = main();\n";
+  code += "main.next();\n";
+  return code;
+};
 
 // TODO: init all developer variables with
 // https://developers.google.com/blockly/reference/js/Blockly.Variables#.allDeveloperVariables
