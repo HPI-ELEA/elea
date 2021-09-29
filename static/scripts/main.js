@@ -68,8 +68,8 @@ const copyToClipboard = str => {
   var jsonLog = null;
   var worker = null;
   var downloadLogLink = document.getElementById("download_json");
-  var bestFitness = document.getElementById('best-fitness');
-  var bestIndividual = document.getElementById('best-individual');
+  // var bestFitness = document.getElementById('best-fitness');
+  // var bestIndividual = document.getElementById('best-individual');
   var outputArea = document.getElementById('outputArea');
 
   var pauseAtNewBlock = true;

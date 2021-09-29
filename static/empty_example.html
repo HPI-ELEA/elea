@@ -173,26 +173,22 @@
 
   <p>Use blocks from the toolbar on the left to customize your algorithm or drag existing blocks into a new order.</p>
 
-  <div class="container-fluid">
+  <div id="appSpace" class="container-fluid">
     <div class="row">
       <div id="blocklyArea" class="col-8">
       </div>
-      <div class="col-3 bg-white" style="height: 800px">
-        <h2>Best fitness:</h2>
-        <h3 id="best-fitness"></h3>
-        <h2>Best individual:</h2>
-        <p style="overflow-wrap: break-word;"id="best-individual"></p>
-        <h2>Output:</h2>
-        <div id="scroller">
-          <pre>
-            <code class="language-none" id="outputArea" max-height="600px" style="max-height: 600px; display: block"></code>
+      <div id = "outputColumn" class="col-3 bg-white">
+        <h2 class="columnHeader">Output:</h2>
+        <div class="columnContent">
+          <pre id="scroller">
+            <code class="language-none" id="outputArea"></code>
           </pre>
           <div id="anchor"></div>
         </div>
         
       </div>
-      <div class="col-1 bg-white">
-        <p>
+      <div id="buttonColumn" class="col-1 bg-white">
+        <p class="columnContent">
           <button id="show-button" data-toggle="modal" onclick="Prism.highlightAll()" href="#jsModal">Show JavaScript</button>
           <button id="show-dashboard-button" data-toggle="modal" href="#jsModalRun">Open Dashboard</button>
           <button id="run-button" onclick="runCode()">Run JavaScript</button>
