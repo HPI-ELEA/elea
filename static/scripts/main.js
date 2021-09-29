@@ -71,6 +71,7 @@ const copyToClipboard = str => {
   // var bestFitness = document.getElementById('best-fitness');
   // var bestIndividual = document.getElementById('best-individual');
   var outputArea = document.getElementById('outputArea');
+  var outputScroll = document.getElementById("scroller");
 
   var pauseAtNewBlock = true;
   var blocklyArea = document.getElementById('blocklyArea');
@@ -217,6 +218,8 @@ const copyToClipboard = str => {
         outputArea.innerHTML += "[Thread#"+msg.data.source+"] "+msg.data.data+"\n";
       else
         outputArea.innerHTML += msg.data.data+"\n";
+
+      outputScroll.scroll(0, outputScroll.scrollHeight);
       return;
     }
     if (msg.data['terminate'] == true) {
