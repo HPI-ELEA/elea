@@ -65,6 +65,14 @@ function selectedFileChanged() {
   reader.readAsText(input.files[0]);
 }
 
+// loads the given xml file into the Blockly workspace
+async function loadExample(exampleFile) {
+  console.log("loading example "+exampleFile);
+  let response = await fetch(exampleFile);
+  let xml = await response.text();
+  replaceWorkspaceWithXml(xml);  
+}
+
 var jsonLog = null;
 var worker = null;
 var downloadLogLink = document.getElementById("download_json");
