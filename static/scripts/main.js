@@ -69,6 +69,8 @@ function selectedFileChanged() {
 async function loadExample(exampleFile) {
   console.log("loading example "+exampleFile);
   let response = await fetch(exampleFile);
+  if (!response.ok) return;
+
   let xml = await response.text();
   replaceWorkspaceWithXml(xml);  
 }

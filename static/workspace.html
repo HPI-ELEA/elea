@@ -85,15 +85,16 @@
             Examples
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
-            <a class="dropdown-item active" href="full_example.html">Full example</a>
-            <a class="dropdown-item" href="simple_example.html">Simple example</a>
-            <a class="dropdown-item" href="empty_example.html">Empty starting point</a>
+            <a class="dropdown-item" onclick="loadExample('examples/empty.xml')">Empty starting point</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="oneplusone.html">1+1</a>
+            <a class="dropdown-item" onclick="loadExample('examples/full.xml')">Full example</a>
+            <a class="dropdown-item" onclick="loadExample('examples/simple.xml')">Simple example</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" onclick="loadExample('examples/oneplusone.xml')">1+1</a>
             <a class="dropdown-item" href="#">1+λ (TODO)</a>
             <a class="dropdown-item" href="#">1,λ (TODO)</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="multithread_example.html">Multi-Threading Example</a>
+            <a class="dropdown-item" onclick="loadExample('examples/multithread.xml')">Multi-Threading Example</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -216,6 +217,7 @@
 
   <script src="scripts/toolbox.js"></script>
   <script src="scripts/main.js"></script>
+  <script src="scripts/workspace.js"></script>
 </body>
 
 </html>
