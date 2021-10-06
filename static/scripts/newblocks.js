@@ -974,7 +974,7 @@ Blockly.JavaScript['ea_init'] = function(block) {
   var statements_simulation_steps = Blockly.JavaScript.statementToCode(block, 'init_statements');
 
   let code = "";
-  code = "function* main() {\n\n";
+  code = "async function* main() {\n\n";
   code += statements_simulation_steps;
   code += "\n}\n";
   code += "var main = main();\n";
@@ -1158,13 +1158,23 @@ Blockly.JavaScript['ea_run_breeding'] = function(block) {
 };
 
 Blockly.JavaScript['ea_addtopopulation'] = function(block) {
+  var functionName = Blockly.JavaScript.provideFunction_(
+    'sortFitness',
+    ['function ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+    '(individual) {',
+    // '   console.log(individual)',
+    '   return individual.reduce(function(x, y) {return x + y;});',
+     '}']);
+
+
   var dropdown_selection_strategy = block.getFieldValue('SELECTION_STRATEGY');
   var POPULATION = Blockly.JavaScript.valueToCode(block, 'POPULATION', Blockly.JavaScript.ORDER_ATOMIC);
   var dropdown_tiebreak = block.getFieldValue('TIEBREAK'); // TODO ensure sort is stable and fits the NEWER tiebreak
   var length = "_C2_B5"; //Blockly.JavaScript.nameDB_.getName('µ');
   var code = '';
   if (dropdown_selection_strategy == "BEST") {
-    code += POPULATION + '.sort(function(a,b) { return fitness(b)-fitness(a)}).slice(0,' + length + ')';
+    // code += POPULATION + '.sort(function(a,b) { return fitness(b)-fitness(a)}).slice(0,' + length + ')';
+    var code = POPULATION + '.sort(function(a,b) { return '+functionName+'(b)-'+functionName+'(a)}).slice(0,' + length + ')';
   } else if (dropdown_selection_strategy == "RANDOM") {
     code += 'shuffle(parent_population).slice(0,' + length + ')';
   }
@@ -1173,8 +1183,16 @@ Blockly.JavaScript['ea_addtopopulation'] = function(block) {
 };
 
 Blockly.JavaScript['ea_select_best'] = function(block) {
+  var functionName = Blockly.JavaScript.provideFunction_(
+    'sortFitness',
+    ['function ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+    '(individual) {',
+    // '   console.log(individual)',
+    '   return individual.reduce(function(x, y) {return x + y;});',
+     '}']);
+
   var POPULATION = Blockly.JavaScript.valueToCode(block, 'POPULATION', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = POPULATION + '.sort(function(a,b) { return fitness(b)-fitness(a)})[0]';
+  var code = POPULATION + '.sort(function(a,b) { return '+functionName+'(b)-'+functionName+'(a)})[0]';
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
