@@ -210,18 +210,27 @@ let THREAD_BLOCKS = {
   }
   
   Blockly.JavaScript['run_thread'] = function(block) {
-    let surround_block = block.getSurroundParent();
-    while (surround_block != null && surround_block.getSurroundParent() != null) {
-      surround_block = surround_block.getSurroundParent();
-    }
-    
-    if (surround_block != null && (surround_block.type == "procedures_defnoreturn" || surround_block.type == "procedures_defreturn") ) {
+  // disable the block if the thread is inside of a function or a thread block
+  let surround_block = block;
+  while (surround_block.getSurroundParent() != null) {
+    surround_block = surround_block.getSurroundParent();
+
+    if (surround_block.type == "procedures_defnoreturn" || surround_block.type == "procedures_defreturn") {
       block.disabled = true;
       block.setWarningText("thread blocks can not be placed inside a function block");
       block.updateDisabled();
+      break;
+
+    } else if (THREAD_BLOCKS[surround_block.type]) {
+      block.disabled = true;
+      block.setWarningText("thread blocks can not be placed inside another thread block");
+      block.updateDisabled();
+      break;
+
     } else {
       block.setWarningText(null);
     }
+  }
   
     // This flag tells Elea to run the generate code twice so that this block can get function definitions
     USING_THREADS = true
@@ -264,18 +273,27 @@ let THREAD_BLOCKS = {
   
   // same as the thread block above, but only runs a set number of threads at any one time
   Blockly.JavaScript['run_thread_limited'] = function(block) {
-    let surround_block = block.getSurroundParent();
-    while (surround_block != null && surround_block.getSurroundParent() != null) {
-      surround_block = surround_block.getSurroundParent();
-    }
-    
-    if (surround_block != null && (surround_block.type == "procedures_defnoreturn" || surround_block.type == "procedures_defreturn") ) {
+  // disable the block if the thread is inside of a function or a thread block
+  let surround_block = block;
+  while (surround_block.getSurroundParent() != null) {
+    surround_block = surround_block.getSurroundParent();
+
+    if (surround_block.type == "procedures_defnoreturn" || surround_block.type == "procedures_defreturn") {
       block.disabled = true;
       block.setWarningText("thread blocks can not be placed inside a function block");
       block.updateDisabled();
+      break;
+
+    } else if (THREAD_BLOCKS[surround_block.type]) {
+      block.disabled = true;
+      block.setWarningText("thread blocks can not be placed inside another thread block");
+      block.updateDisabled();
+      break;
+
     } else {
       block.setWarningText(null);
     }
+  }
   
     // This flag tells Elea to run the generate code twice so that this block can get function definitions
     USING_THREADS = true
