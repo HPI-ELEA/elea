@@ -1,6 +1,7 @@
 // This is a modified definition of Blockly's function block generators for potential
 // modification of the functions to perform async execution
-// both the original and the async functions are stored in case we need to 
+// both the original and the async functions are stored so we can switch between them dynamically
+// https://github.com/google/blockly/blob/64188ae27297b1ca23a3244cc987dfbfc6e98f34/generators/javascript/procedures.js
 
 var ORIGINAL_FUNCTION_GENERATOR = Blockly.JavaScript['procedures_defreturn'];
 var ASYNC_FUNCTION_GENERATOR = function(block) {
