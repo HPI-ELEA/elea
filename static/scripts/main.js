@@ -249,12 +249,17 @@ function highlightBlock(id) {
   }
 }
 
+// tells the worker to stop
+// this is usually completely useless, since messages aren't handled until the current
+// execution finishes, which means that, unless one is using multi-threading, the stop code won't
+// be processed until the entire algorithm finishes
 function stopWorker() {
   if (worker != null) {
     worker.postMessage("stop");
   }
 }
 
+// kills the currently running worker
 function terminateWorker() {
   if (worker != null) {
     worker.terminate();
@@ -262,12 +267,17 @@ function terminateWorker() {
   }
 }
 
+function clearOutput() {
+  outputArea.innerText = "";
+}
 
-
+// updates the code that appears in the popup whenever a change happens
+// this could probably just be done when the button is pressed, which would reduce console spam
 workspace.addChangeListener(function(event) {
   if (!(event instanceof Blockly.Events.Ui)) {
     codeArea.innerHTML = getCode();
   }
 });
 
+// disables any blocks that are floating in empty space
 workspace.addChangeListener(Blockly.Events.disableOrphans);
