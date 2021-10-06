@@ -65,16 +65,6 @@ function selectedFileChanged() {
   reader.readAsText(input.files[0]);
 }
 
-// loads the given xml file into the Blockly workspace
-async function loadExample(exampleFile) {
-  console.log("loading example "+exampleFile);
-  let response = await fetch(exampleFile);
-  if (!response.ok) return;
-
-  let xml = await response.text();
-  replaceWorkspaceWithXml(xml);  
-}
-
 var jsonLog = null;
 var worker = null;
 var downloadLogLink = document.getElementById("download_json");
@@ -237,12 +227,12 @@ function handleMessageFromWorker(msg) {
     worker.terminate();
     return
   }
-  if (msg.data['fitness'] != null) {
-    bestFitness.innerHTML = msg.data['fitness'];
-  }
-  if (msg.data['individual'] != null) {
-    bestIndividual.innerHTML = msg.data['individual'];
-  }
+  // if (msg.data['fitness'] != null) {
+  //   bestFitness.innerHTML = msg.data['fitness'];
+  // }
+  // if (msg.data['individual'] != null) {
+  //   bestIndividual.innerHTML = msg.data['individual'];
+  // }
   if (![undefined, '', null].includes(msg.data['output'])) {
     outputArea.innerHTML += msg.data['output']+"\n"
   }
