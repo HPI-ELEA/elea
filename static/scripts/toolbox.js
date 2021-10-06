@@ -212,17 +212,7 @@ let toolbox = `
   </block>
 </category>
 <category name="experimental" colour="#111111">
-  <block type="ea_print">
-    <value name="logging_variable">
-      <block type="ea_print_cell">
-        <value name="input">
-          <shadow type="text">
-            <field name="TEXT"></field>
-          </shadow>
-        </value>
-      </block>
-    </value>
-  </block>
+  <block type="comment"></block>
 </category>
 `
 

@@ -702,9 +702,30 @@ Blockly.defineBlocksWithJsonArray([
         "colour": 389,
         "tooltip": "",
         "helpUrl": ""
+      },
+
+      {
+        "type": "comment",
+        "message0": '// "%1"',
+        "args0": [
+          {
+            "type": "field_input",
+            "name": "text",
+            "text": "Add comment"
+          },
+        ],
+        "inputsInLine": true,
+        "previousStatement": true,
+        "nextStatement": true,
+        "colour": 0,
+        "tooltip": "",
+        "helpUrl": ""
       }
 ]);
 
+Blockly.JavaScript['comment'] = function(block) {
+  return "//"+block.getFieldValue('text')+"\n";
+}
 
 let THREAD_BLOCKS = {
   "run_thread": true,
