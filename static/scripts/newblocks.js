@@ -637,6 +637,7 @@ Blockly.JavaScript['pop_init'] = function(block) {
 };
 
 Blockly.JavaScript['jump_k'] = function(block) {
+  console.warn("jump_k uses hardcoded variables");
   var k = Blockly.JavaScript.valueToCode(block, 'K', Blockly.JavaScript.ORDER_ATOMIC); // TODO: cache
   var variable_individual = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('INDIVIDUAL'), Blockly.Variables.NAME_TYPE);
   var functionName = Blockly.JavaScript.provideFunction_(
@@ -690,6 +691,7 @@ Blockly.JavaScript['init_uniform'] = function(block) {
 };
   
 Blockly.JavaScript['init_constant'] = function(block) {
+  console.warn("init_constant uses hardcoded variables");
   var dropdown_constant = block.getFieldValue('CONSTANT');
   
   if (dropdown_constant == "ZERO") {
@@ -729,27 +731,25 @@ Blockly.JavaScript['init_constant'] = function(block) {
   }
 };
 
+// all of the logging functionality of this block has been removed due to the modified messsage handling system used for
+// multi-threading. The logging system needs to be re-implemented and potentially redesigned
 Blockly.JavaScript['run_loop'] = function(block) {
-
+    console.warn("the run_loop_logging block has had logging disabled while multi-threading is being worked on");
     var continue_condition = Blockly.JavaScript.valueToCode(block, 'continue_condition', Blockly.JavaScript.ORDER_NONE);
     var exit_number = Blockly.JavaScript.valueToCode(block, 'exit_number', Blockly.JavaScript.ORDER_NONE);
     var statements_simulation_steps = Blockly.JavaScript.statementToCode(block, 'loop_statement');
     // TODO: create or update global dev var counter and also reset in "prepare next run"
     var code = 'for (var i=0;(' + continue_condition + ' || false) && i < ' + exit_number + ';i++){\n';
-    code += '  fittestInd = (parent_population.sort(function(a,b) { return fitness(b)-fitness(a)})[0]);\n'
-    code += '  fittest = fitness(fittestInd);\n'
-    code += '  self.postMessage({fitness:fittest, individual:fittestInd});\n'
     code += statements_simulation_steps;
     code += '}\n';
-    code += 'fittestInd = (parent_population.sort(function(a,b) { return fitness(b)-fitness(a)})[0]);\n'
-    code += 'fittest = fitness(fittestInd);\n'
-    code += 'self.postMessage({fitness:fittest, individual:fittestInd});\n'
     // TODO: increment global counter used for cost calculation
     return code;
 };
 
+// all of the logging functionality of this block has been removed due to the modified messsage handling system used for
+// multi-threading. The logging system needs to be re-implemented and potentially redesigned
 Blockly.JavaScript['run_loop_logging'] = function(block) {
-  console.warn("the run_loop_logging block has been partially disabled while multi-threading is being worked on")
+  console.warn("the run_loop_logging block has had logging disabled while multi-threading is being worked on");
   var continue_condition = Blockly.JavaScript.valueToCode(block, 'continue_condition', Blockly.JavaScript.ORDER_NONE);
   var exit_number = Blockly.JavaScript.valueToCode(block, 'exit_number', Blockly.JavaScript.ORDER_NONE);
   var logging_list = Blockly.JavaScript.valueToCode(block, 'logging_list', Blockly.JavaScript.ORDER_NONE);
@@ -758,27 +758,10 @@ Blockly.JavaScript['run_loop_logging'] = function(block) {
   // TODO: create or update globael dev var counter and also reset in "prepare next run"
 
   var code = ''
-  // code += 'jsonLogName = (new Date).nowAsString();\n'
-  // code += 'jsonLog = [];\n'
   code += '\n'
   code += 'for (var i=0;(' + continue_condition + ' || false) && i < ' + exit_number + ';i++){\n';
-  // code += '  jsonLogItem = {};\n'
-  code += '  fittestInd = (parent_population.sort(function(a,b) { return fitness(b)-fitness(a)})[0]);\n'
-  code += '  fittest = fitness(fittestInd);\n'
-  // code += '  self.postMessage({fitness:fittest, individual:fittestInd});\n'
-  // code += '  if (i%' + log_every_x_number + ' == 0){\n'
-  // code += '    jsonLogItem["i"] = i;\n'
-  // code += '    jsonLogItem["fittest"] = fittest;\n'
-  // code += '    jsonLogItem["fittestInd"] = fittestInd;\n'
-  // code += '    jsonLogItem["custom"] = ' + logging_list + ';\n'
-  // code += '  }\n'
   code += statements_simulation_steps;
-  // code += '  jsonLog.push(jsonLogItem);\n';
   code += '}\n';
-  code += 'fittestInd = (parent_population.sort(function(a,b) { return fitness(b)-fitness(a)})[0]);\n'
-  code += 'fittest = fitness(fittestInd);\n'
-  // code += 'self.postMessage({fitness:fittest, individual:fittestInd});\n'
-  // code += 'jsonLogs.push({name: jsonLogName, µ: _C2_B5, λ: _CE_BB, genome_length: genome_length, log: jsonLog});\n'
   // TODO: increment global counter used for cost calculation
   return code;
 };
@@ -793,6 +776,7 @@ Blockly.JavaScript['ea_run_breeding'] = function(block) {
 };
 
 Blockly.JavaScript['ea_addtopopulation'] = function(block) {
+  console.warn("ea_addtopopulation uses hardcoded variables and requires the fitness function");
   var dropdown_selection_strategy = block.getFieldValue('SELECTION_STRATEGY');
   var POPULATION = Blockly.JavaScript.valueToCode(block, 'POPULATION', Blockly.JavaScript.ORDER_ATOMIC);
   var dropdown_tiebreak = block.getFieldValue('TIEBREAK'); // TODO ensure sort is stable and fits the NEWER tiebreak
@@ -808,6 +792,7 @@ Blockly.JavaScript['ea_addtopopulation'] = function(block) {
 };
 
 Blockly.JavaScript['ea_select_best'] = function(block) {
+  console.warn("ea_select_best requires the fitness function");
   var POPULATION = Blockly.JavaScript.valueToCode(block, 'POPULATION', Blockly.JavaScript.ORDER_ATOMIC);
   var code = POPULATION + '.sort(function(a,b) { return fitness(b)-fitness(a)})[0]';
   return [code, Blockly.JavaScript.ORDER_NONE];
@@ -843,6 +828,7 @@ Blockly.JavaScript['max_diversity'] = function(block) {
 };
 
 Blockly.JavaScript['ea_select_parent'] = function(block) {
+  console.warn("ea_select_parent uses hardcoded variables");
   var dropdown_name = block.getFieldValue('NAME');
   var variable_population = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('POPULATION'), Blockly.Variables.NAME_TYPE);
   if (dropdown_name == "UNIFORM") {
@@ -890,6 +876,7 @@ Blockly.JavaScript['ea_mutate_prob'] = function(block) {
 };
 
 Blockly.JavaScript['ea_mutate_bit'] = function(block) {
+  console.warn("ea_mutate_bit uses hardcoded variables")
   var variable_individual = Blockly.JavaScript.valueToCode(block, 'individual', Blockly.JavaScript.ORDER_ATOMIC);
   var code = 'function(i) {var ind_index = Math.floor(Math.random()*genome_length); i[ind_index] = (1-i[ind_index]); return i}(' + variable_individual + ')'
   return [code, Blockly.JavaScript.ORDER_NONE];
