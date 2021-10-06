@@ -27,50 +27,38 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">elea: Build Your Own EA</a>
+    <a class="navbar-brand" href="index.html">elea: Build Your Own EA</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link active" href="full_example.html">Demo<span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+          <a class="nav-link" href="workspace.html?example=full">Demo<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" target="_blank" href="faq.html">FAQ (TODO)</a>
+          <a class="nav-link" target="_blank" href="faq.html">FAQ</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarExampleDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Examples
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
-            <a class="dropdown-item active" href="full_example.html">Full example</a>
-            <a class="dropdown-item" href="simple_example.html">Simple example</a>
-            <a class="dropdown-item" href="empty_example.html">Empty starting point</a>
+            <a class="dropdown-item" href="workspace.html?example=empty">Empty starting point</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">1+1</a>
-            <a class="dropdown-item" href="#">1+λ</a>
-            <a class="dropdown-item" href="#">1,λ</a>
+            <a class="dropdown-item" href="workspace.html?example=fulll">Full example</a>
+            <a class="dropdown-item" href="workspace.html?example=simple">Simple example</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="workspace.html?example=oneplusone">1+1</a>
+            <a class="dropdown-item" href="#">1+λ (TODO)</a>
+            <a class="dropdown-item" href="#">1,λ (TODO)</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="workspace.html?example=multithread">Multi-Threading Example</a>
           </div>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarSaveDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Save/Restore
-          </a>
-          <input type="file" id="upload_xml" style="display:none" onchange="selectedFileChanged()">
-          <div class="dropdown-menu" aria-labelledby="navbarSaveDropdown">
+      </li>
 
-            <a class="dropdown-item" onclick="document.getElementById('upload_xml').click()" href="#">Upload XML file</a>
-            <a class="dropdown-item" onclick="promptForXML()" href="#">Paste XML string</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="download_xml" onclick="downloadWorkspace()" href="" >Download XML file</a>
-            <a class="dropdown-item" onclick="copyXMLToClipboard()" href="#">Copy XML string</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="download_js" onclick="downloadWorkspaceAsJS()" href="" >Download JS file</a>
-            <a class="dropdown-item" onclick="copyJSToClipboard()" href="#">Copy JS string</a>
-          </div>
-        </li>
       </ul>
     </div>
   </nav>
