@@ -1101,14 +1101,14 @@ Blockly.JavaScript['run_loop'] = function(block) {
     var statements_simulation_steps = Blockly.JavaScript.statementToCode(block, 'loop_statement');
     // TODO: create or update global dev var counter and also reset in "prepare next run"
     var code = 'for (var i=0;(' + continue_condition + ' || false) && i < ' + exit_number + ';i++){\n';
-    code += '  fittestInd = (parent_population.sort(function(a,b) { return fitness(b)-fitness(a)})[0]);\n'
-    code += '  fittest = fitness(fittestInd);\n'
-    code += '  self.postMessage({fitness:fittest, individual:fittestInd});\n'
+    // code += '  fittestInd = (parent_population.sort(function(a,b) { return fitness(b)-fitness(a)})[0]);\n'
+    // code += '  fittest = fitness(fittestInd);\n'
+    // code += '  self.postMessage({fitness:fittest, individual:fittestInd});\n'
     code += statements_simulation_steps;
     code += '}\n';
-    code += 'fittestInd = (parent_population.sort(function(a,b) { return fitness(b)-fitness(a)})[0]);\n'
-    code += 'fittest = fitness(fittestInd);\n'
-    code += 'self.postMessage({fitness:fittest, individual:fittestInd});\n'
+    // code += 'fittestInd = (parent_population.sort(function(a,b) { return fitness(b)-fitness(a)})[0]);\n'
+    // code += 'fittest = fitness(fittestInd);\n'
+    // code += 'self.postMessage({fitness:fittest, individual:fittestInd});\n'
     // TODO: increment global counter used for cost calculation
     return code;
 };
@@ -1128,8 +1128,8 @@ Blockly.JavaScript['run_loop_logging'] = function(block) {
   code += '\n'
   code += 'for (var i=0;(' + continue_condition + ' || false) && i < ' + exit_number + ';i++){\n';
   // code += '  jsonLogItem = {};\n'
-  code += '  fittestInd = (parent_population.sort(function(a,b) { return fitness(b)-fitness(a)})[0]);\n'
-  code += '  fittest = fitness(fittestInd);\n'
+  // code += '  fittestInd = (parent_population.sort(function(a,b) { return fitness(b)-fitness(a)})[0]);\n'
+  // code += '  fittest = fitness(fittestInd);\n'
   // code += '  self.postMessage({fitness:fittest, individual:fittestInd});\n'
   // code += '  if (i%' + log_every_x_number + ' == 0){\n'
   // code += '    jsonLogItem["i"] = i;\n'
@@ -1140,8 +1140,8 @@ Blockly.JavaScript['run_loop_logging'] = function(block) {
   code += statements_simulation_steps;
   // code += '  jsonLog.push(jsonLogItem);\n';
   code += '}\n';
-  code += 'fittestInd = (parent_population.sort(function(a,b) { return fitness(b)-fitness(a)})[0]);\n'
-  code += 'fittest = fitness(fittestInd);\n'
+  // code += 'fittestInd = (parent_population.sort(function(a,b) { return fitness(b)-fitness(a)})[0]);\n'
+  // code += 'fittest = fitness(fittestInd);\n'
   // code += 'self.postMessage({fitness:fittest, individual:fittestInd});\n'
   // code += 'jsonLogs.push({name: jsonLogName, µ: _C2_B5, λ: _CE_BB, genome_length: genome_length, log: jsonLog});\n'
   // TODO: increment global counter used for cost calculation
