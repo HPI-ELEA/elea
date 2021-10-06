@@ -68,8 +68,6 @@ function selectedFileChanged() {
 var jsonLog = null;
 var worker = null;
 var downloadLogLink = document.getElementById("download_json");
-// var bestFitness = document.getElementById('best-fitness');
-// var bestIndividual = document.getElementById('best-individual');
 var outputArea = document.getElementById('outputArea');
 var outputScroll = document.getElementById("scroller");
 
@@ -124,12 +122,12 @@ function download(text, name, type) {
 // DO NOT CHANGE THIS BEFORE UNDERSTANDING THE BELOW INFO
 
 // in order for multi-threading to work we need to add all of the function definitions to each thread,
-// Blockly provides the code for all these definitions, however it adds the source code to the internal object
+// Blockly stores the code for all these definitions, however it adds the source code to an internal object
 // in the order the objects are on the screen, this means that the threading blocks will only be able to see the
-// definitions that are physically higher on the screen than that block.
+// definitions that have already been generated be other blocks before that specific thread block.
 // To get around this we need to grab the definitions from the end of the previous generation and use those in
 // the next one, therefore we need to generate the whole codebase at least twice before running the code.
-// GENERATE_TWICE is set to true when Blockly runs the generate code for multi-thread blocks
+// USING_THREADS is set to true when Blockly runs the generate code for multi-thread blocks
 function getCode() {
   Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
   Blockly.JavaScript.STATEMENT_PREFIX = '';
@@ -168,14 +166,6 @@ function runCode() {
 
   var code = getCode();
 
-  /*var callbackStats =
-  'function updateStats() {\
-    //console.warn("test");\n\
-    //console.warn({fitness:Math.random(), individual: [0,0,0,1,2,0,1], output:""});\n\
-      self.postMessage({fitness:fittest, individual: fittestInd, output:".\\n"});\n\
-    }\n\
-    setInterval(updateStats, 200);\n\
-    \n'*/
   var dateSetup =   'Date.prototype.nowAsString = function () {\n'
   dateSetup +=      '    return + this.getFullYear() + (((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) + ((this.getDate() < 10)?"0":"") + this.getDate() + ((this.getHours() < 10)?"0":"") + this.getHours() + ((this.getMinutes() < 10)?"0":"") + this.getMinutes() + ((this.getSeconds() < 10)?"0":"") + this.getSeconds() + (((this.getMilliseconds()) < 100)?"0":"") + (((this.getMilliseconds()) < 10)?"0":"") + this.getMilliseconds();\n';
   dateSetup +=      '}\n';
@@ -202,7 +192,6 @@ function runCode() {
   imports += "importScripts(('"+self.location+"').replace(/([^/]*$)/, '')+'scripts/MessageHandler.js');\n"
   imports += "_thread_id = null;\n";
 
-  /*"function consolelog(x) {self.postMessage({output:x})};\n*/
   code = imports + "function windowalert(x) {self.postMessage({output:x})};\n" + messageHandler + dateSetup + logSetup + code + logSave //+ termination // TODO? we don't really need it other than for abort
   console.log(code);
   // TODO: find implementation for window.alert for both webworker and stepping
@@ -213,7 +202,6 @@ function runCode() {
 
 function handleMessageFromWorker(msg) {
   if (msg.data.ctrl == "log") {
-    // console.log.apply(this, msg.data.data);
     if (msg.data.source)
       outputArea.innerHTML += "[Thread#"+msg.data.source+"] "+msg.data.data+"\n";
     else
@@ -222,24 +210,12 @@ function handleMessageFromWorker(msg) {
     outputScroll.scroll(0, outputScroll.scrollHeight);
     return;
   }
+
+  // this is leftover from the previous message passing system, but may be re-implemented
   if (msg.data['terminate'] == true) {
     console.log("terminate worker due to its request.")
     worker.terminate();
     return
-  }
-  // if (msg.data['fitness'] != null) {
-  //   bestFitness.innerHTML = msg.data['fitness'];
-  // }
-  // if (msg.data['individual'] != null) {
-  //   bestIndividual.innerHTML = msg.data['individual'];
-  // }
-  if (![undefined, '', null].includes(msg.data['output'])) {
-    outputArea.innerHTML += msg.data['output']+"\n"
-  }
-  if (msg.data['log'] != null) {
-    console.log("log Arrived");
-    downloadLogLink.style.backgroundColor = "grey"
-    jsonLog = msg.data['log'];
   }
 }
 
@@ -253,45 +229,6 @@ function loadUserWorkspace() {
   var workspacestring = prompt();
   Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
   workspace);
-}
-
-function initApi(interpreter, globalObject) {
-  // Add an API function for the alert() block, generated for "text_print" blocks.
-  /*interpreter.setProperty(globalObject, 'alert',
-    interpreter.createNativeFunction(function(text) {
-    text = arguments.length ? text : '';
-    outputArea.value += '\n' + text;
-  }));*/
-  // TODO: remove all alerts from js block code
-
-  // Add an API function for the prompt() block.
-  var wrapper = function(text) {
-    return interpreter.createPrimitive(prompt(text));
-  };
-  interpreter.setProperty(globalObject, 'prompt',
-      interpreter.createNativeFunction(wrapper));
-
-  // Add an API function for the log() block.
-  var wrapper = function(text) {
-    return interpreter.createPrimitive(console.log(text));
-  };
-  interpreter.setProperty(globalObject, 'consolelog',
-      interpreter.createNativeFunction(wrapper));
-
-  // Add an API function for the log() block.
-  var wrapper = function(text) {
-      return interpreter.createPrimitive(console.log(text));
-    };
-    interpreter.setProperty(globalObject, 'windowalert',
-        interpreter.createNativeFunction(wrapper));
-
-  // Add an API function for highlighting blocks.
-  var wrapper = function(id) {
-    id = String(id || '');
-    return interpreter.createPrimitive(highlightBlock(id));
-  };
-  interpreter.setProperty(globalObject, 'highlightBlock',
-      interpreter.createNativeFunction(wrapper));
 }
 
 var highlightPause = false;
@@ -325,78 +262,11 @@ function terminateWorker() {
   }
 }
 
-// function resetStepUi(clearOutput) {
-//   terminateWorker();
-//   workspace.highlightBlock(null);
-//   highlightPause = false;
 
-//   if (clearOutput) {
-//     outputArea.innerHTML = ""
-//     // TODO: clear output of eventual output field
-//     //outputArea.value = 'Program output:\n=================';
-//   }
-// }
 
-function generateCodeAndLoadIntoInterpreter() {
-  // Generate JavaScript code and parse it.
-  // TODO: remove highlightBlock and only use for stepping
-  // Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-  // Blockly.JavaScript.addReservedWords('highlightBlock');
-  // latestCode = Blockly.JavaScript.workspaceToCode(workspace);
-  // resetStepUi(true);
-  outputArea.innerHTML = "";
-}
-
-// function stepCode() {
-//   pauseAtNewBlock = true;
-//   if (!myInterpreter) {
-//     // First statement of this code.
-//     // Clear the program output.
-//     resetStepUi(true);
-//     myInterpreter = new Interpreter(latestCode, initApi);
-
-//     // And then show generated code in an alert.
-//     // In a timeout to allow the outputArea.value to reset first.
-//     setTimeout(function() {
-//       alert('Ready to execute the following code\n' +
-//         '===================================\n' + latestCode);
-//       highlightPause = true;
-//       stepCode();
-//     }, 1);
-//     return;
-//   }
-//   highlightPause = false;
-//   do {
-//     try {
-//       var hasMoreCode = myInterpreter.step();
-//     } finally {
-//       if (!hasMoreCode) {
-//         // Program complete, no more code to execute.
-//         //outputArea.value += '\n\n<< Program complete >>';
-
-//         myInterpreter = null;
-//         resetStepUi(false);
-
-//         // Cool down, to discourage accidentally restarting the program.
-//         stepButton.disabled = 'disabled';
-//         setTimeout(function() {
-//           stepButton.disabled = '';
-//         }, 2000);
-
-//         return;
-//       }
-//     }
-//     // Keep executing until a highlight statement is reached,
-//     // or the code completes or errors.
-//   } while (hasMoreCode && !highlightPause);
-// }
-
-// Load the interpreter now, and upon future changes.
-// generateCodeAndLoadIntoInterpreter();
 workspace.addChangeListener(function(event) {
   if (!(event instanceof Blockly.Events.Ui)) {
     codeArea.innerHTML = getCode();
-    // generateCodeAndLoadIntoInterpreter();
   }
 });
 
