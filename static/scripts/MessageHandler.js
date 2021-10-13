@@ -29,6 +29,7 @@ class Message {
         this.destination = destination;
         this.data = data;
         this.source = null;
+        this.sources = new Array();
         this.ctrl = ctrl || null;
     }
 }
@@ -135,6 +136,7 @@ class MessageHandler {
         // ensure that messages from this thread specify the correct source
         newThread.addEventListener("message", function(msg) {
             msg.data.source = id;
+            msg.data.sources.unshift(id);
 
             // we cannot use 'this' inside a callback function
             handler.handleIncomingMessage(msg);

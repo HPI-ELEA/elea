@@ -213,7 +213,7 @@ function generate_worker_code(statements, return_val) {
 
 // runs a series of statements in x threads, then waits for them all to return a result
 Blockly.JavaScript['run_thread'] = function(block) {
-  // disable the block if the thread is inside of a function or a thread block
+  // disable the block if the thread is inside of a function block
   let surround_block = block;
   while (surround_block.getSurroundParent() != null) {
     surround_block = surround_block.getSurroundParent();
@@ -221,12 +221,6 @@ Blockly.JavaScript['run_thread'] = function(block) {
     if (surround_block.type == "procedures_defnoreturn" || surround_block.type == "procedures_defreturn") {
       block.disabled = true;
       block.setWarningText("thread blocks can not be placed inside a function block");
-      block.updateDisabled();
-      break;
-
-    } else if (THREAD_BLOCKS[surround_block.type]) {
-      block.disabled = true;
-      block.setWarningText("thread blocks can not be placed inside another thread block");
       block.updateDisabled();
       break;
 
@@ -268,7 +262,7 @@ Blockly.JavaScript['run_thread'] = function(block) {
 
 // same as the thread block above, but only runs a set number of threads at any one time
 Blockly.JavaScript['run_thread_limited'] = function(block) {
-  // disable the block if the thread is inside of a function or a thread block
+  // disable the block if the thread is inside of a function block
   let surround_block = block;
   while (surround_block.getSurroundParent() != null) {
     surround_block = surround_block.getSurroundParent();
@@ -276,12 +270,6 @@ Blockly.JavaScript['run_thread_limited'] = function(block) {
     if (surround_block.type == "procedures_defnoreturn" || surround_block.type == "procedures_defreturn") {
       block.disabled = true;
       block.setWarningText("thread blocks can not be placed inside a function block");
-      block.updateDisabled();
-      break;
-
-    } else if (THREAD_BLOCKS[surround_block.type]) {
-      block.disabled = true;
-      block.setWarningText("thread blocks can not be placed inside another thread block");
       block.updateDisabled();
       break;
 

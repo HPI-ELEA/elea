@@ -203,7 +203,7 @@ function runCode() {
 function handleMessageFromWorker(msg) {
   if (msg.data.ctrl == "log") {
     if (msg.data.source)
-      outputArea.innerHTML += "[Thread#"+msg.data.source+"] "+msg.data.data+"\n";
+      outputArea.innerHTML += "[Thread#"+msg.data.sources.join(".")+"] "+msg.data.data+"\n";
     else
       outputArea.innerHTML += msg.data.data+"\n";
 
