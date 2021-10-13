@@ -172,7 +172,7 @@ Blockly.JavaScript['thread_import_variable'] = function(block) {
 // break - the strings must not break encapsulation when inserted into '`' quotes.
 function escape_string(str) {
   str = str.replace(/\\/g, "\\\\");
-  str = str.replace(/\`/g, "\\`");
+  str = str.replace(/`/g, "\\`");
   return str;
 }
 
