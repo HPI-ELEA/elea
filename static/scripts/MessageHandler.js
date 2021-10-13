@@ -38,7 +38,7 @@ class Message {
 class MessageHandler {
     constructor() {
         this.ANY_CHILD_SOURCE = -1;
-        this.PARENT_SOURCE = 0;
+        this.PARENT_ID = 0;
 
         this.idCounter = 1;
         this.pendingRequest = null;
@@ -52,31 +52,35 @@ class MessageHandler {
     }
 
     // sends a message to the specified location
-    // if the destination is -1 then send to the parent
     // if the id is not valid then print a warning to the console
     sendMessage(msg) {
-        let destThread = this.threadMap.get(msg.destination == -1 ? 0 : msg.destination);
+        let destThread = this.threadMap.get(msg.destination);
         if (destThread == undefined) {
             console.warn("could not send message", msg, "- destination thread not found");
             return false;
         }
 
-        // if (msg.ctrl == "log" && msg.source != null) {
-        //     msg.data[0] = msg.source+':'+msg.data[0];
-        // }
         destThread.postMessage(msg);
     }
 
     handleIncomingMessage(message) {
         message = message.data;
 
-        // if the message came from a child and isn't addressed to the parent (this thread) then redirect
-        // this will mostly be used for print statements, which need to be handled by the top level thread
+        // if the message came from a child and isn't addressed to the parent (this thread) then forward
+        // this should never be used by any of the current elea blocks, it was in case threads ever wished to speak to eachother
         if (message.source != 0 && message.destination != 0) {
             this.sendMessage(message);
             return;
         }
 
+        // if the message is a log or a print statement then forward the message further up the chain
+        if (message.ctrl == "log" || message.ctrl == "print") {
+            this.sendMessage(message);
+            return;
+        }
+
+        // if the message is a variable import request then send a message back to the source of the request
+        // with the value of the given variable, available through the global `self` object
         if (message.ctrl == "import") {
             this.sendMessage(new Message(message.source, self[message.data]));
             return;
@@ -89,7 +93,7 @@ class MessageHandler {
         }
 
         // if the waiting request is valid then continue the execution
-        if (this.pendingRequest.source == message.source || (this.pendingRequest.source == this.ANY_CHILD_SOURCE && message.source != this.PARENT_SOURCE)) {
+        if (this.pendingRequest.source == message.source || (this.pendingRequest.source == this.ANY_CHILD_SOURCE && message.source != this.PARENT_ID)) {
             this.pendingRequest = null;
             main.next(message);
             return;
@@ -104,9 +108,9 @@ class MessageHandler {
         
         // grab the message if it is already buffered
         // if the receiver is set to ANY then grab the first item in the buffer not from the parent
-        if (request.source == Handler.ANY_CHILD_SOURCE) {
+        if (request.source == this.ANY_CHILD_SOURCE) {
             for (const key in this.messageBuffer) {
-                if (key == this.PARENT_SOURCE) continue;
+                if (key == this.PARENT_ID) continue;
                 if (this.messageBuffer[key].length != 0) {
                     msg = this.messageBuffer[key].pop();
                 }
@@ -162,10 +166,10 @@ class MessageHandler {
     }
 }
 
-// the variable argument syntax is not supported in IE as of 2021-08-27:
+// the variable argument syntax is supported in everything except IE as of 2021-08-27:
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
 consolelog = function(...v) {
-    Handler.sendMessage(new Message(-1, v.join(" "), "log"));
+    Handler.sendMessage(new Message(Handler.PARENT_ID, v.join(" "), "print"));
 }
 
 consoleLog = function(...v) {
@@ -178,6 +182,6 @@ var Handler = new MessageHandler();
 // redirect messages from the parent to the message handler
 // labels the source as having an ID of 0 - the parent's ID
 self.onmessage = function(msg) {
-    msg.data.source = 0;
+    msg.data.source = Handler.PARENT_ID;
     Handler.handleIncomingMessage(msg);
 }

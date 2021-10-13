@@ -163,8 +163,8 @@ Blockly.JavaScript['thread_import_variable'] = function(block) {
 
   // makes a request from the parent to import a variable
   var code = '';
-  code += "Handler.sendMessage(new Message(Handler.PARENT_SOURCE, '"+input_var+"', 'import'));\n"
-  code += input_var+" = ( yield(Handler.recvRequest(new RecvRequest(Handler.PARENT_SOURCE))) ).data;\n"
+  code += "Handler.sendMessage(new Message(Handler.PARENT_ID, '"+input_var+"', 'import'));\n"
+  code += input_var+" = ( yield(Handler.recvRequest(new RecvRequest(Handler.PARENT_ID))) ).data;\n"
   return code;
 };
 
@@ -199,11 +199,11 @@ function generate_worker_code(statements, return_val) {
     worker_code += "function* main() {\n";
   
     // receive the starter values from the parent
-    worker_code += "  var _thread_id = ( yield(Handler.recvRequest(new RecvRequest(Handler.PARENT_SOURCE))) ).data;\n"
+    worker_code += "  var _thread_id = ( yield(Handler.recvRequest(new RecvRequest(Handler.PARENT_ID))) ).data;\n"
   
     // execute the internal statements and return the value
     worker_code += "\`+\`"+escape_string(statements)+"\`+\`;\n";
-    worker_code += "  Handler.sendMessage(new Message(Handler.PARENT_SOURCE, "+return_val+"));\n";
+    worker_code += "  Handler.sendMessage(new Message(Handler.PARENT_ID, "+return_val+"));\n";
     worker_code += "}\n";
     worker_code += "var main = main();\n";
     worker_code += "main.next();\n";
