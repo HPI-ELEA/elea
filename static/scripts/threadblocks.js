@@ -168,6 +168,14 @@ Blockly.JavaScript['thread_import_variable'] = function(block) {
   return code;
 };
 
+// escapes special characters so that the string encapsulation does not
+// break - the strings must not break encapsulation when inserted into '`' quotes.
+function escape_string(str) {
+  str = str.replace(/\\/g, "\\\\");
+  str = str.replace(/\`/g, "\\`");
+  return str;
+}
+
 // this is a general function for generating the worker code for threads
 // this significantly shortens the other blocks, and makes adding other threading blocks easier
 function generate_worker_code(statements, return_val) {
@@ -179,7 +187,7 @@ function generate_worker_code(statements, return_val) {
     let definitions = Blockly.JavaScript.definitions_;
     let used_definitions = PREV_DEFINITIONS != null ? PREV_DEFINITIONS : definitions;
     for (const key in used_definitions) {
-      worker_code += used_definitions[key]+"\n\n";
+      worker_code += escape_string(used_definitions[key])+"\n\n";
     }
   
     // We need to keep track of the definitions object because it will continue to be filled in as
@@ -194,13 +202,13 @@ function generate_worker_code(statements, return_val) {
     worker_code += "  var _thread_id = ( yield(Handler.recvRequest(new RecvRequest(Handler.PARENT_SOURCE))) ).data;\n"
   
     // execute the internal statements and return the value
-    worker_code += "\`+\`"+statements+"\`+\`;\n";
+    worker_code += "\`+\`"+escape_string(statements)+"\`+\`;\n";
     worker_code += "  Handler.sendMessage(new Message(Handler.PARENT_SOURCE, "+return_val+"));\n";
     worker_code += "}\n";
     worker_code += "var main = main();\n";
     worker_code += "main.next();\n";
 
-    return worker_code
+    return worker_code;
 }
 
 // runs a series of statements in x threads, then waits for them all to return a result
