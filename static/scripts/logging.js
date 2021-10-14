@@ -11,6 +11,16 @@ function handleLogFromWorker(log) {
         logDB[log.algorithm][log.dimension] = {};
     if (!logDB[log.algorithm][log.dimension][log.run])
         logDB[log.algorithm][log.dimension][log.run] = new Array();
+
+    logDB[log.algorithm][log.dimension][log.run]["max_evaluations"] = log.max_evaluations;
+
+    for (let i = 0; i < log.length; i++) {
+        logDB[log.algorithm][log.dimension][log.run].push({
+            "evaluation": log[i].evaluation,
+            "fitness": log[i].fitness
+        }) ;
+    }
+}
     
     logDB[log.algorithm][log.dimension][log.run].push({"evaluation": log.evaluation, "fitness": log.fitness});
 }

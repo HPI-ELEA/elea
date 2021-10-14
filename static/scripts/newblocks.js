@@ -774,26 +774,29 @@ Blockly.JavaScript['run_loop_logging'] = function(block) {
   var run = Blockly.JavaScript.valueToCode(block, 'run', Blockly.JavaScript.ORDER_NONE);
   var statements_simulation_steps = Blockly.JavaScript.statementToCode(block, 'loop_statement');
   var loopVar = Blockly.JavaScript.nameDB_.getDistinctName('count', Blockly.VARIABLE_CATEGORY_NAME);
-  var log = Blockly.JavaScript.nameDB_.getDistinctName('log', Blockly.VARIABLE_CATEGORY_NAME);
+  var logs = Blockly.JavaScript.nameDB_.getDistinctName('logs', Blockly.VARIABLE_CATEGORY_NAME);
   var bestFitness = Blockly.JavaScript.nameDB_.getDistinctName('bestFitness', Blockly.VARIABLE_CATEGORY_NAME);
 
   var code = ''
   code += '\n'
   code += 'let '+bestFitness+' = Number.MIN_VALUE;\n';
+  code += 'let '+logs+' = new Array();\n';
   code += 'for (var '+loopVar+'=1;(' + continue_condition + ' || false) && '+loopVar+' <= ' + exit_number + ';'+loopVar+'++){\n';
   code += statements_simulation_steps;
   code += '  if ('+fitness+' <= '+bestFitness+') continue;\n';
   code += '\n';
   code += '  '+bestFitness+' = '+fitness+';\n';
-  code += '  let '+log+' = {\n';
+  code += '  '+logs+'.push({\n';
   code += '    "evaluation": '+loopVar+',\n';
-  code += '    "algorithm": "'+algId+'",\n';
   code += '    "fitness": '+fitness+',\n';
-  code += '    "dimension": '+dimension+',\n';
-  code += '    "run": '+run+',\n';
-  code += '  };\n';
-  code += '  Handler.sendMessage(new Message(Handler.PARENT_ID, '+log+', "log"));\n';
+  code += '  });\n';
   code += '}\n';
+  code += logs+'["algorithm"] = "'+algId+'";\n';
+  code += logs+'["dimension"] = '+dimension+';\n';
+  code += logs+'["run"] = '+run+';\n';
+  code += logs+'["max_evaluations"] = '+exit_number+';\n';
+  code += 'Handler.sendMessage(new Message(Handler.PARENT_ID, '+logs+', "log"));\n';
+  code += '\n';
   return code;
 };
 
