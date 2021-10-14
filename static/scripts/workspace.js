@@ -45,6 +45,9 @@ function update_url() {
 // history items are added by the update_url function above
 // this ensures that navigating with the history arrows updates the examples in the page
 window.onpopstate = function(){
+    if (window.location.hash) {
+        return;
+    }
     update_parameters();
     load_example_from_url();
 };
