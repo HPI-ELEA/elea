@@ -159,7 +159,7 @@ Blockly.defineBlocksWithJsonArray([
       },
       {
         "type": "run_loop_logging",
-        "message0": "While %1 Maximum loops %2 Algorithm ID %3 %4 %5 %6 Log: %7 fitness %8 dimension %9 run %10",
+        "message0": "While %1 Budget %2 Algorithm ID %3 %4 %5 %6 Log: %7 fitness %8 dimension %9 run %10",
         "args0": [
           {
             "type": "input_value",
