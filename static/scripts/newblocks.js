@@ -780,9 +780,9 @@ Blockly.JavaScript['run_loop_logging'] = function(block) {
   var code = ''
   code += '\n'
   code += 'let '+bestFitness+' = Number.MIN_VALUE;\n';
-  code += 'for (var '+loopVar+'=0;(' + continue_condition + ' || false) && '+loopVar+' < ' + exit_number + ';'+loopVar+'++){\n';
+  code += 'for (var '+loopVar+'=1;(' + continue_condition + ' || false) && '+loopVar+' <= ' + exit_number + ';'+loopVar+'++){\n';
   code += statements_simulation_steps;
-  code += '  if ('+fitness+' < '+bestFitness+') continue;\n';
+  code += '  if ('+fitness+' <= '+bestFitness+') continue;\n';
   code += '\n';
   code += '  '+bestFitness+' = '+fitness+';\n';
   code += '  let '+log+' = {\n';

@@ -202,16 +202,21 @@ function runCode() {
 }
 
 function handleMessageFromWorker(msg) {
-  if (msg.data.ctrl == "print") {
-    if (msg.data.source)
-      outputArea.innerHTML += "[Thread#"+msg.data.sources.join(".")+"] "+msg.data.data+"\n";
+  msg = msg.data;
+  if (msg.ctrl == "print") {
+    if (msg.source)
+      outputArea.innerHTML += "[Thread#"+msg.sources.join(".")+"] "+msg.data+"\n";
     else
-      outputArea.innerHTML += msg.data.data+"\n";
+      outputArea.innerHTML += msg.data+"\n";
 
     outputScroll.scroll(0, outputScroll.scrollHeight);
     return;
   }
-
+  
+  if (msg.ctrl == "log") {
+    handleLogFromWorker(msg.data);
+    return;
+  }
 
   // this is sent by the worker when the main function returns
   if (msg.ctrl == "terminate") {
