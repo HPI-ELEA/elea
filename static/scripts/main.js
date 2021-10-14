@@ -10,6 +10,20 @@ const copyToClipboard = str => {
     document.body.removeChild(el);
   };
 
+// this function was taken from: https://stackoverflow.com/a/52829183
+const downloadFile = (blob, fileName) => {
+  const link = document.createElement('a');
+  // create a blobURI pointing to our Blob
+  link.href = URL.createObjectURL(blob);
+  link.download = fileName;
+  // some browser needs the anchor to be in the doc
+  document.body.append(link);
+  link.click();
+  link.remove();
+  // in case the Blob uses a lot of memory
+  setTimeout(() => URL.revokeObjectURL(link.href), 7000);
+};
+
 function replaceWorkspaceQuestion(xml) {
     // TODO: Ask for unsaved changes
     replaceWorkspaceWithXml(xml);
@@ -34,14 +48,6 @@ function copyXMLToClipboard() {
 function copyJSToClipboard() {
   var js = getCode();
   copyToClipboard(js);
-}
-
-function downloadLog() {
-  const fileObject = JSON.stringify({code: getCode(), log: jsonLog});
-  var a = document.getElementById("download_json");
-  var file = new Blob([fileObject], {type: "application/json"});
-  a.href = URL.createObjectURL(file);
-  a.download = "log.json";
 }
 
 function showXMLInPopup() {
@@ -106,17 +112,13 @@ function downloadWorkspace() {
 
 function downloadWorkspaceAsJS() {
   var js = getCode();
-  var a = document.getElementById("download_js");
   var file = new Blob([js], {type: "text/javascript"});
-  a.href = URL.createObjectURL(file);
-  a.download = "algorithm.js";
+  downloadFile(file, "algorithm.js");
 }
 
 function download(text, name, type) {
-  var a = document.getElementById("download_xml");
   var file = new Blob([text], {type: type});
-  a.href = URL.createObjectURL(file);
-  a.download = name;
+  downloadFile(file, name);
 }
 
 // DO NOT CHANGE THIS BEFORE UNDERSTANDING THE BELOW INFO
