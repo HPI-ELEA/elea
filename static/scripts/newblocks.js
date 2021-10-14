@@ -794,7 +794,7 @@ Blockly.JavaScript['run_loop_logging'] = function(block) {
   code += logs+'["algorithm"] = "'+algId+'";\n';
   code += logs+'["dimension"] = '+dimension+';\n';
   code += logs+'["run"] = '+run+';\n';
-  code += logs+'["max_evaluations"] = '+exit_number+';\n';
+  code += logs+'["budget"] = '+exit_number+';\n';
   code += 'Handler.sendMessage(new Message(Handler.PARENT_ID, '+logs+', "log"));\n';
   code += '\n';
   return code;

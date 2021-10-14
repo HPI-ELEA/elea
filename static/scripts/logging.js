@@ -14,7 +14,7 @@ function handleLogFromWorker(log) {
     if (!logDB[log.algorithm][log.dimension][log.run])
         logDB[log.algorithm][log.dimension][log.run] = new Array();
 
-    logDB[log.algorithm][log.dimension][log.run]["max_evaluations"] = log.max_evaluations;
+    logDB[log.algorithm][log.dimension][log.run]["budget"] = log.budget;
 
     for (let i = 0; i < log.length; i++) {
         logDB[log.algorithm][log.dimension][log.run].push({
@@ -41,7 +41,7 @@ function zipAlgorithm(zip, db, algorithm) {
         // adding the meta-info for each run in each data file
         for (const run in db[dim]) {
             const runDB = dimDB[run];
-            contents += ", 1:"+runDB.max_evaluations+"|"+runDB[ runDB.length-1 ].fitness;
+            contents += ", 1:"+runDB.budget+"|"+runDB[ runDB.length-1 ].fitness;
         }
         contents += "\n";
 
@@ -53,7 +53,7 @@ function zipAlgorithm(zip, db, algorithm) {
         for (const run in dimDB) {
             contentsData += header;
     
-            // we can't use 'for (const in ...' because the run object also contains a max_evaluations field
+            // we can't use 'for (const in ...' because the run object also contains a budget field
             for (let i = 0; i < dimDB[run].length; i++) {
                 const element = dimDB[run][i];
                 contentsData += element.evaluation+" "+element.fitness+"\n";
