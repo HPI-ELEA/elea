@@ -169,30 +169,31 @@ function runCode() {
   var dateSetup =   'Date.prototype.nowAsString = function () {\n'
   dateSetup +=      '    return + this.getFullYear() + (((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) + ((this.getDate() < 10)?"0":"") + this.getDate() + ((this.getHours() < 10)?"0":"") + this.getHours() + ((this.getMinutes() < 10)?"0":"") + this.getMinutes() + ((this.getSeconds() < 10)?"0":"") + this.getSeconds() + (((this.getMilliseconds()) < 100)?"0":"") + (((this.getMilliseconds()) < 10)?"0":"") + this.getMilliseconds();\n';
   dateSetup +=      '}\n';
-  var logSetup = 'var jsonLog = [];\n'; // log of one run
-  logSetup +=    'var jsonLogItem = {};\n'; // smallest unit, one round in while loop
-  logSetup +=    'var jsonLogName = "";\n'; // current log name, will be set to current datetime
-  logSetup +=    'var jsonLogs = [];\n'; // list of all runs/logs
-  var logSave = 'if (jsonLogs != []) {\n';
-  logSave +=    '  self.postMessage({log:jsonLogs});\n';
-  logSave +=    '}\n';
-  var termination = 'self.postMessage({terminate:true});\n';
-  var messageHandler = 'self.addEventListener("message", function(e) {\n';
-  messageHandler +=    '  console.log("worker received message: ", e.data)\n';
-  messageHandler +=    '  if (e.data == "stop") {\n';
-  messageHandler += logSave;
-  messageHandler +=    '    self.close();\n';
-  messageHandler +=    '  } else {\n';
-  messageHandler +=    '    console.warn("unused Message in worker: ", e.data)\n';
-  messageHandler +=    '  }\n';
-  messageHandler +=    '}, false);\n';
+  // var logSetup = 'var jsonLog = [];\n'; // log of one run
+  // logSetup +=    'var jsonLogItem = {};\n'; // smallest unit, one round in while loop
+  // logSetup +=    'var jsonLogName = "";\n'; // current log name, will be set to current datetime
+  // logSetup +=    'var jsonLogs = [];\n'; // list of all runs/logs
+  // var logSave = 'if (jsonLogs != []) {\n';
+  // logSave +=    '  self.postMessage({log:jsonLogs});\n';
+  // logSave +=    '}\n';
+  var termination = 'Handler.sendMessage(new Message(Handler.PARENT_ID, 0, "terminate"));\n';
+  // var messageHandler = 'self.addEventListener("message", function(e) {\n';
+  // messageHandler +=    '  console.log("worker received message: ", e.data)\n';
+  // messageHandler +=    '  if (e.data == "stop") {\n';
+  // messageHandler += logSave;
+  // messageHandler +=    '    self.close();\n';
+  // messageHandler +=    '  } else {\n';
+  // messageHandler +=    '    console.warn("unused Message in worker: ", e.data)\n';
+  // messageHandler +=    '  }\n';
+  // messageHandler +=    '}, false);\n';
 
   // import the message handler header
   let imports = "";
   imports += "importScripts(('"+self.location+"').replace(/([^/]*$)/, '')+'scripts/MessageHandler.js');\n"
   imports += "_thread_id = null;\n";
 
-  code = imports + "function windowalert(x) {self.postMessage({output:x})};\n" + messageHandler + dateSetup + logSetup + code + logSave //+ termination // TODO? we don't really need it other than for abort
+  // code = imports + "function windowalert(x) {self.postMessage({output:x})};\n" + messageHandler + dateSetup + code termination//logSetup + code + logSave + termination // TODO? we don't really need it other than for abort
+  code = imports + dateSetup + code;
   console.log(code);
   // TODO: find implementation for window.alert for both webworker and stepping
   const blob = new Blob([code], {type: 'application/javascript'})
@@ -211,8 +212,9 @@ function handleMessageFromWorker(msg) {
     return;
   }
 
-  // this is leftover from the previous message passing system, but may be re-implemented
-  if (msg.data['terminate'] == true) {
+
+  // this is sent by the worker when the main function returns
+  if (msg.ctrl == "terminate") {
     console.log("terminate worker due to its request.")
     worker.terminate();
     return

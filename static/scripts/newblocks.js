@@ -627,7 +627,9 @@ Blockly.JavaScript['ea_init'] = function(block) {
   let code = "";
   code = "function* main() {\n\n";
   code += statements_simulation_steps;
-  code += "\n}\n";
+  code += "\n";
+  code += '  Handler.sendMessage(new Message(Handler.PARENT_ID, 0, "terminate"));\n'
+  code += "}\n";
   code += "var main = main();\n";
   code += "main.next();\n";
   return code;
