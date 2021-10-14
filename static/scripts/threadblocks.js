@@ -128,7 +128,7 @@ let THREAD_BLOCKS = {
 
 // this value is sent to the workers after the thread is created
 Blockly.JavaScript['thread_num'] = function(block) {
-  var code = '_thread_id';
+  var code = 'Handler.THREAD_ID';
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
@@ -199,7 +199,7 @@ function generate_worker_code(statements, return_val) {
     worker_code += "function* main() {\n";
   
     // receive the starter values from the parent
-    worker_code += "  var _thread_id = ( yield(Handler.recvRequest(new RecvRequest(Handler.PARENT_ID))) ).data;\n"
+    worker_code += "  Handler.THREAD_ID = ( yield(Handler.recvRequest(new RecvRequest(Handler.PARENT_ID))) ).data;\n"
   
     // execute the internal statements and return the value
     worker_code += "\`+\`"+escape_string(statements)+"\`+\`;\n";

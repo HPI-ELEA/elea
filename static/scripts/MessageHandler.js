@@ -39,6 +39,7 @@ class MessageHandler {
     constructor() {
         this.ANY_CHILD_SOURCE = -1;
         this.PARENT_ID = 0;
+        this.THREAD_ID = null;
 
         this.idCounter = 1;
         this.pendingRequest = null;
