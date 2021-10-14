@@ -159,7 +159,7 @@ Blockly.defineBlocksWithJsonArray([
       },
       {
         "type": "run_loop_logging",
-        "message0": "While %1 and rounds less than %2 %3 Log %4 %5 every x-th time. x= %6",
+        "message0": "While %1 Maximum loops %2 Algorithm ID %3 %4 %5 %6 Log: %7 fitness %8 dimension %9 run %10",
         "args0": [
           {
             "type": "input_value",
@@ -172,6 +172,14 @@ Blockly.defineBlocksWithJsonArray([
             "check": "Number"
           },
           {
+            "type": "field_input",
+            "name": "algId",
+            "text": "elea"
+          },
+          {
+            "type": "input_dummy"
+          },
+          {
             "type": "input_statement",
             "name": "loop_statement"
           },
@@ -179,21 +187,29 @@ Blockly.defineBlocksWithJsonArray([
             "type": "input_dummy"
           },
           {
-            "type": "input_value",
-            "name": "logging_list",
-            "check": ["Array", "String", "Number"]
+            "type": "input_dummy"
           },
           {
             "type": "input_value",
-            "name": "log_every_x_number",
+            "name": "fitness",
             "check": "Number"
           },
+          {
+            "type": "input_value",
+            "name": "dim",
+            "check": "Number"
+          },
+          {
+            "type": "input_value",
+            "name": "run",
+            "check": "Number"
+          }
         ],
         "inputsInline": false,
         "previousStatement": null,
         "nextStatement": null,
         "colour": 230,
-        "tooltip": "Like other breeding loop, but with logging. Best fitness and fittest individual are logged automatically, you can specify a list of values that should be logged, as well as the interval at which they should be logged. Default is 1",
+        "tooltip": "An experimental breeding loop with logging",
         "helpUrl": ""
       },
       {
@@ -746,23 +762,36 @@ Blockly.JavaScript['run_loop'] = function(block) {
     return code;
 };
 
-// all of the logging functionality of this block has been removed due to the modified messsage handling system used for
-// multi-threading. The logging system needs to be re-implemented and potentially redesigned
+// a breeding loop designed to send a log message every time the best fitness is improved
 Blockly.JavaScript['run_loop_logging'] = function(block) {
-  console.warn("the run_loop_logging block has had logging disabled while multi-threading is being worked on");
   var continue_condition = Blockly.JavaScript.valueToCode(block, 'continue_condition', Blockly.JavaScript.ORDER_NONE);
   var exit_number = Blockly.JavaScript.valueToCode(block, 'exit_number', Blockly.JavaScript.ORDER_NONE);
-  var logging_list = Blockly.JavaScript.valueToCode(block, 'logging_list', Blockly.JavaScript.ORDER_NONE);
-  var log_every_x_number = Blockly.JavaScript.valueToCode(block, 'log_every_x_number', Blockly.JavaScript.ORDER_NONE);
+  var algId = block.getFieldValue('algId');
+  var fitness = Blockly.JavaScript.valueToCode(block, 'fitness', Blockly.JavaScript.ORDER_NONE);
+  var dimension = Blockly.JavaScript.valueToCode(block, 'dim', Blockly.JavaScript.ORDER_NONE);
+  var run = Blockly.JavaScript.valueToCode(block, 'run', Blockly.JavaScript.ORDER_NONE);
   var statements_simulation_steps = Blockly.JavaScript.statementToCode(block, 'loop_statement');
-  // TODO: create or update globael dev var counter and also reset in "prepare next run"
+  var loopVar = Blockly.JavaScript.nameDB_.getDistinctName('count', Blockly.VARIABLE_CATEGORY_NAME);
+  var log = Blockly.JavaScript.nameDB_.getDistinctName('log', Blockly.VARIABLE_CATEGORY_NAME);
+  var bestFitness = Blockly.JavaScript.nameDB_.getDistinctName('bestFitness', Blockly.VARIABLE_CATEGORY_NAME);
 
   var code = ''
   code += '\n'
-  code += 'for (var i=0;(' + continue_condition + ' || false) && i < ' + exit_number + ';i++){\n';
+  code += 'let '+bestFitness+' = Number.MIN_VALUE;\n';
+  code += 'for (var '+loopVar+'=0;(' + continue_condition + ' || false) && '+loopVar+' < ' + exit_number + ';'+loopVar+'++){\n';
   code += statements_simulation_steps;
+  code += '  if ('+fitness+' < '+bestFitness+') continue;\n';
+  code += '\n';
+  code += '  '+bestFitness+' = '+fitness+';\n';
+  code += '  let '+log+' = {\n';
+  code += '    "evaluation": '+loopVar+',\n';
+  code += '    "algorithm": "'+algId+'",\n';
+  code += '    "fitness": '+fitness+',\n';
+  code += '    "dimension": '+dimension+',\n';
+  code += '    "run": '+run+',\n';
+  code += '  };\n';
+  code += '  Handler.sendMessage(new Message(Handler.PARENT_ID, '+log+', "log"));\n';
   code += '}\n';
-  // TODO: increment global counter used for cost calculation
   return code;
 };
 
