@@ -153,6 +153,7 @@ switch (msg.data.aTopic) {\
 }"
 
 function runCode() {
+  clearLog();
   terminateWorker();
   Blockly.JavaScript.STATEMENT_PREFIX = '';
   //Blockly.JavaScript.addReservedWords('highlightBlock');
