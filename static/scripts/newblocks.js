@@ -159,7 +159,7 @@ Blockly.defineBlocksWithJsonArray([
       },
       {
         "type": "run_loop_logging",
-        "message0": "While %1 Budget %2 Algorithm ID %3 %4 %5 %6 Log: %7 fitness %8 dimension %9 run %10",
+        "message0": "While %1 Budget %2 Algorithm ID %3 %4 Function ID %5 %6 %7 %8 Log: %9 fitness %10 dimension %11 run %12",
         "args0": [
           {
             "type": "input_value",
@@ -175,6 +175,16 @@ Blockly.defineBlocksWithJsonArray([
             "type": "field_input",
             "name": "algId",
             "text": "elea"
+          },
+          {
+            "type": "input_dummy"
+          },
+          {
+            "type": "field_number",
+            "name": "fnId",
+            "value": 1,
+            "min": 1,
+            "precision": 1
           },
           {
             "type": "input_dummy"
@@ -769,6 +779,7 @@ Blockly.JavaScript['run_loop_logging'] = function(block) {
   var continue_condition = Blockly.JavaScript.valueToCode(block, 'continue_condition', Blockly.JavaScript.ORDER_NONE);
   var exit_number = Blockly.JavaScript.valueToCode(block, 'exit_number', Blockly.JavaScript.ORDER_NONE);
   var algId = block.getFieldValue('algId');
+  var fnId = block.getFieldValue('fnId');
   var fitness = Blockly.JavaScript.valueToCode(block, 'fitness', Blockly.JavaScript.ORDER_NONE);
   var dimension = Blockly.JavaScript.valueToCode(block, 'dim', Blockly.JavaScript.ORDER_NONE);
   var run = Blockly.JavaScript.valueToCode(block, 'run', Blockly.JavaScript.ORDER_NONE);
@@ -792,6 +803,7 @@ Blockly.JavaScript['run_loop_logging'] = function(block) {
   code += '  });\n';
   code += '}\n';
   code += logs+'["algorithm"] = "'+algId+'";\n';
+  code += logs+'["function"] = '+fnId+';\n';
   code += logs+'["dimension"] = '+dimension+';\n';
   code += logs+'["run"] = '+run+';\n';
   code += logs+'["budget"] = '+exit_number+';\n';

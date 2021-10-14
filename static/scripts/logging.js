@@ -9,15 +9,20 @@ function clearLog() {
 function handleLogFromWorker(log) {
     if (!logDB[log.algorithm])
         logDB[log.algorithm] = {};
-    if (!logDB[log.algorithm][log.dimension])
-        logDB[log.algorithm][log.dimension] = {};
-    if (!logDB[log.algorithm][log.dimension][log.run])
-        logDB[log.algorithm][log.dimension][log.run] = new Array();
 
-    logDB[log.algorithm][log.dimension][log.run]["budget"] = log.budget;
+    if (!logDB[log.algorithm][log.function])
+        logDB[log.algorithm][log.function] = {};
+
+    if (!logDB[log.algorithm][log.function][log.dimension])
+        logDB[log.algorithm][log.function][log.dimension] = {};
+
+    if (!logDB[log.algorithm][log.function][log.dimension][log.run])
+        logDB[log.algorithm][log.function][log.dimension][log.run] = new Array();
+
+    logDB[log.algorithm][log.function] [log.dimension][log.run]["budget"] = log.budget;
 
     for (let i = 0; i < log.length; i++) {
-        logDB[log.algorithm][log.dimension][log.run].push({
+        logDB[log.algorithm][log.function] [log.dimension][log.run].push({
             "evaluation": log[i].evaluation,
             "fitness": log[i].fitness
         }) ;
@@ -26,45 +31,50 @@ function handleLogFromWorker(log) {
 
 // parse the logs for a specific algorithm, and create the meta and data files in the zip
 function zipAlgorithm(zip, db, algorithm) {
-    /////////////////////////////
-    // CREATING THE META FILE  //
-    /////////////////////////////
-    zip.folder(algorithm+"/data_f1");
-    let contents = ""
-    for (const dim in db) {
-        const dimDB = db[dim];
+    // Creating each function
+    for (const fn in db) {
+        const fnDB = db[fn];
 
-        contents += "suite = 'elea', funcId = 1, DIM = "+dim+", algId = '"+algorithm+"'\n";
-        contents += "%\n";
-        contents += "data_f1/IOHprofiler_f1_DIM"+dim+".dat";
+        /////////////////////////////
+        // CREATING THE META FILE  //
+        /////////////////////////////
+        zip.folder(algorithm+"/data_f"+fn+"");
+        let contents = ""
+        for (const dim in fnDB) {
+            const dimDB = fnDB[dim];
 
-        // adding the meta-info for each run in each data file
-        for (const run in db[dim]) {
-            const runDB = dimDB[run];
-            contents += ", 1:"+runDB.budget+"|"+runDB[ runDB.length-1 ].fitness;
-        }
-        contents += "\n";
+            contents += "suite = 'elea', funcId = "+fn+", DIM = "+dim+", algId = '"+algorithm+"'\n";
+            contents += "%\n";
+            contents += "data_f"+fn+"/IOHprofiler_f"+fn+"_DIM"+dim+".dat";
 
-        /////////////////////////////////////////
-        // CREATING THE DATA FILE FOR EACH DIM //
-        /////////////////////////////////////////
-        const header = '"function evaluation" "best-so-far f(x)"\n';
-        let contentsData = "";
-        for (const run in dimDB) {
-            contentsData += header;
-    
-            // we can't use 'for (const in ...' because the run object also contains a budget field
-            for (let i = 0; i < dimDB[run].length; i++) {
-                const element = dimDB[run][i];
-                contentsData += element.evaluation+" "+element.fitness+"\n";
+            // adding the meta-info for each run in each data file
+            for (const run in dimDB) {
+                const runDB = dimDB[run];
+                contents += ", 1:"+runDB.budget+"|"+runDB[ runDB.length-1 ].fitness;
             }
-        }
-        zip.file(algorithm+"/data_f1/IOHprofiler_f1_DIM"+dim+".dat", contentsData);
-        /////////////////////////////////////////
-        /////////////////////////////////////////
-    }
+            contents += "\n";
 
-    zip.file(algorithm+"/IOHprofiler_f1.info", contents);
+            /////////////////////////////////////////
+            // CREATING THE DATA FILE FOR EACH DIM //
+            /////////////////////////////////////////
+            const header = '"function evaluation" "best-so-far f(x)"\n';
+            let contentsData = "";
+            for (const run in dimDB) {
+                contentsData += header;
+        
+                // we can't use 'for (const in ...' because the run object also contains a budget field
+                for (let i = 0; i < dimDB[run].length; i++) {
+                    const element = dimDB[run][i];
+                    contentsData += element.evaluation+" "+element.fitness+"\n";
+                }
+            }
+            zip.file(algorithm+"/data_f"+fn+"/IOHprofiler_f"+fn+"_DIM"+dim+".dat", contentsData);
+            /////////////////////////////////////////
+            /////////////////////////////////////////
+        }
+
+        zip.file(algorithm+"/IOHprofiler_f"+fn+".info", contents);
+    }
 }
 
 // compile the zip file and give it to the user as a download
@@ -80,5 +90,4 @@ async function downloadLog() {
 
     let file = await zip.generateAsync({type: "blob"});
     downloadFile(file, "log.zip");
-    if (file) clearLog();
 }
