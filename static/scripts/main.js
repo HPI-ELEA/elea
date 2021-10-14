@@ -275,7 +275,7 @@ function clearOutput() {
 // this could probably just be done when the button is pressed, which would reduce console spam
 workspace.addChangeListener(function(event) {
   if (!(event instanceof Blockly.Events.Ui)) {
-    codeArea.innerHTML = getCode();
+    codeArea.innerHTML = "\r"+getCode();
   }
 });
 
