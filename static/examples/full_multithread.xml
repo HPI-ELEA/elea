@@ -1,10 +1,11 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
   <variables>
     <variable id="gx=Kau1h[kq#}B+/w|ur&quot;">individual</variable>
-    <variable id="$zt),?8|})G,(/E.43Jj">count</variable>
+    <variable id="H](kLHl1zd+9;TEkQWpQ">result</variable>
     <variable id="P|ZK6ZqqY5OhR$:,p(;_">µ</variable>
-    <variable id="h4c7;v-h7FBq[(3h_qy6">result</variable>
+    <variable id="$zt),?8|})G,(/E.43Jj">count</variable>
     <variable id="-*|uDjwhmvz~~T(Am;%J">λ</variable>
+    <variable id="]p(t3ot;9D*nn|GGyQjQ">i</variable>
     <variable id="pKD29N|CKo,l4}AetItV">parent_population</variable>
     <variable id="v`D6r417R_rR.AyGB:]O">n</variable>
     <variable id="_`RU](?6R2Mdm}^monre">genome_length</variable>
@@ -13,43 +14,66 @@
     <variable id="4SV3N2eF(}.8?1D)pNoq">parent1</variable>
     <variable id="UqHTCO.0^{dWk@)6gp!7">offspring1</variable>
   </variables>
-  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="76" y="-51">
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="196" y="-73">
     <statement name="init_statements">
-      <block type="controls_for" id="}XR@KNXf}G(1Dm;n:tdN">
-        <field name="VAR" id="$zt),?8|})G,(/E.43Jj">count</field>
-        <value name="FROM">
-          <shadow type="math_number" id="H{:n3{d4`_,-8%B]5)uH">
-            <field name="NUM">10</field>
+      <block type="run_thread_limited" id="[Zi(61zu:!P4XKseJgL6">
+        <field name="output_array" id="H](kLHl1zd+9;TEkQWpQ">result</field>
+        <value name="thread_count">
+          <shadow type="math_number" id="sPl:`N#4-[,:5o:OWjnl">
+            <field name="NUM">5</field>
           </shadow>
         </value>
-        <value name="TO">
-          <shadow type="math_number" id="!VZ2_VVZ{0/YQ}dA/tk+">
-            <field name="NUM">90</field>
+        <value name="thread_limit">
+          <shadow xmlns="http://www.w3.org/1999/xhtml" type="math_number">
+            <field name="NUM">8</field>
           </shadow>
+          <block type="thread_hardware_concurrency" id="MYywx93?I=V1.]hIIzsE"></block>
         </value>
-        <value name="BY">
-          <shadow type="math_number" id=";5R*6p_FSWQI8TvyC18I">
-            <field name="NUM">20</field>
-          </shadow>
-        </value>
-        <statement name="DO">
-          <block type="run_thread_limited" id="rdCp#*DS3Bc3jBuxk34:">
-            <field name="output_array" id="h4c7;v-h7FBq[(3h_qy6">result</field>
-            <value name="thread_count">
-              <shadow type="math_number" id="JO0ew=mZTWM#r~mbFoiy">
-                <field name="NUM">5</field>
-              </shadow>
+        <statement name="thread_statements">
+          <block type="variables_set" id="8k@,{/]~E^X0!:XkmH2?">
+            <field name="VAR" id="$zt),?8|})G,(/E.43Jj">count</field>
+            <value name="VALUE">
+              <block type="math_arithmetic" id="WropngK[.+qC)=5JNg@*">
+                <field name="OP">MINUS</field>
+                <value name="A">
+                  <block type="math_arithmetic" id="D5B?DX9SPPreX./6[C=F">
+                    <field name="OP">MULTIPLY</field>
+                    <value name="A">
+                      <block type="thread_num" id="ZTme[-];[uwQXf8-N9::"></block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number" id="}o_n-jmVcs5f(zzp)wF.">
+                        <field name="NUM">20</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_number" id="pMbq%-e[oOXmY2)K7)BQ">
+                    <field name="NUM">10</field>
+                  </block>
+                </value>
+              </block>
             </value>
-            <value name="thread_limit">
-              <shadow xmlns="http://www.w3.org/1999/xhtml" type="math_number">
-                <field name="NUM">8</field>
-              </shadow>
-              <block type="thread_hardware_concurrency" id="M-TAc[SPQkV^qs}8;#lo"></block>
-            </value>
-            <statement name="thread_statements">
-              <block type="thread_import_variable" id=",)E5cVwUv!9RR(R|;Cs@">
-                <field name="input" id="$zt),?8|})G,(/E.43Jj">count</field>
-                <next>
+            <next>
+              <block type="controls_for" id="w+yWE0-.yOO4=aAM6lC;">
+                <field name="VAR" id="]p(t3ot;9D*nn|GGyQjQ">i</field>
+                <value name="FROM">
+                  <shadow type="math_number" id="J4lRa-P5CWHbd#:S/]PZ">
+                    <field name="NUM">1</field>
+                  </shadow>
+                </value>
+                <value name="TO">
+                  <shadow type="math_number" id="{ZxwOThM;+,:A%))eaU0">
+                    <field name="NUM">3</field>
+                  </shadow>
+                </value>
+                <value name="BY">
+                  <shadow type="math_number" id="1L#8XtXw?ygbb9:V7@rK">
+                    <field name="NUM">1</field>
+                  </shadow>
+                </value>
+                <statement name="DO">
                   <block type="variables_set" id="XSr6{9T}`^/@y8^EVzaL">
                     <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
                     <value name="VALUE">
@@ -93,20 +117,20 @@
                       </block>
                     </next>
                   </block>
-                </next>
+                </statement>
               </block>
-            </statement>
-            <value name="return_value">
-              <shadow type="math_number" id=")-^OW+4VK`qPNU$_bhUE">
-                <field name="NUM">0</field>
-              </shadow>
-            </value>
+            </next>
           </block>
         </statement>
+        <value name="return_value">
+          <shadow type="math_number" id="bljz?fihzRtC]1Yp^rt7">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
       </block>
     </statement>
   </block>
-  <block type="procedures_defreturn" id="1l$!B6_|@#-1qZ]|6OQ7" x="654" y="40">
+  <block type="procedures_defreturn" id="1l$!B6_|@#-1qZ]|6OQ7" x="778" y="68">
     <mutation>
       <arg name="individual" varid="gx=Kau1h[kq#}B+/w|ur&quot;"></arg>
     </mutation>
@@ -164,7 +188,8 @@
                     </value>
                     <next>
                       <block type="run_loop_logging" id="{*t)k-B:j*v0*V1V0=Gj">
-                        <field name="algID">eleaFull</field>
+                        <field name="algId">elea</field>
+                        <field name="fnId">1</field>
                         <value name="continue_condition">
                           <block type="logic_compare" id="tV%BK#PsA5}%-B5Nde*`">
                             <field name="OP">LT</field>
@@ -284,21 +309,23 @@
                           </block>
                         </statement>
                         <value name="fitness">
-                          <block type="max_diversity" id="!Z/r}.duA.-jj@vNtfA^">
+                          <block type="max_diversity" id="KY9be{hUr=),vPfg|dNi">
                             <value name="POPULATION">
-                              <block type="variables_get" id="h$splLmZml3r@+`p(GnL">
+                              <block type="variables_get" id="xzYIkY$$JIY8I(rad;Qv">
                                 <field name="VAR" id="pKD29N|CKo,l4}AetItV">parent_population</field>
                               </block>
                             </value>
                           </block>
                         </value>
                         <value name="dim">
-                          <block type="variables_get" id="hB_GayTI|D2y3Fd12khm">
+                          <block type="variables_get" id="guI/MMDESs3~x_#os:;5">
                             <field name="VAR" id="$zt),?8|})G,(/E.43Jj">count</field>
                           </block>
                         </value>
                         <value name="run">
-                          <block type="thread_num" id="-6;?O4978;$)GL6$RE@]"></block>
+                          <block type="variables_get" id="wH{%hE0mzEGVx^^Laoj#">
+                            <field name="VAR" id="]p(t3ot;9D*nn|GGyQjQ">i</field>
+                          </block>
                         </value>
                         <next>
                           <block type="ea_debug" id="5E9O@8`ON,~:D2}9PKnS">
