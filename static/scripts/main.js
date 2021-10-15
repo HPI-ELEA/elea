@@ -105,6 +105,11 @@ window.addEventListener('resize', onresize, false);
 onresize();
 Blockly.svgResize(workspace);
 
+function download(text, name, type) {
+  var file = new Blob([text], {type: type});
+  downloadFile(file, name);
+}
+
 function downloadWorkspace() {
   var xml = Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(workspace));
   download(xml, "algorithm", "text/xml");
@@ -112,14 +117,10 @@ function downloadWorkspace() {
 
 function downloadWorkspaceAsJS() {
   var js = getCode();
-  var file = new Blob([js], {type: "text/javascript"});
-  downloadFile(file, "algorithm.js");
+  download(js, "algorithm.js", "text/javascript");
 }
 
-function download(text, name, type) {
-  var file = new Blob([text], {type: type});
-  downloadFile(file, name);
-}
+
 
 // DO NOT CHANGE THIS BEFORE UNDERSTANDING THE BELOW INFO
 
@@ -225,6 +226,7 @@ function handleMessageFromWorker(msg) {
   if (msg.ctrl == "terminate") {
     console.log("terminate worker due to its request.")
     worker.terminate();
+    console.log(logDB);
     return
   }
 }
