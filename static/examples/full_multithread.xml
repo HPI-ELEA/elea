@@ -187,7 +187,7 @@
                       </block>
                     </value>
                     <next>
-                      <block type="run_loop_logging" id="{*t)k-B:j*v0*V1V0=Gj">
+                      <block type="run_loop_logging" id="H@=TIy$Rd]:MPBqbAfpa">
                         <field name="algId">elea</field>
                         <field name="fnId">1</field>
                         <value name="continue_condition">
@@ -217,6 +217,9 @@
                           </block>
                         </value>
                         <value name="exit_number">
+                          <shadow type="math_number" id="JEP[**[Kff:+-l(P2Cnb">
+                            <field name="NUM">1000</field>
+                          </shadow>
                           <block type="math_arithmetic" id="5OZ78.QYM-S(~T/f,-W@">
                             <field name="OP">MULTIPLY</field>
                             <value name="A">
@@ -309,6 +312,9 @@
                           </block>
                         </statement>
                         <value name="fitness">
+                          <shadow type="math_number" id="PI2r%58D]TqLjx(gI0(Q">
+                            <field name="NUM">0</field>
+                          </shadow>
                           <block type="max_diversity" id="KY9be{hUr=),vPfg|dNi">
                             <value name="POPULATION">
                               <block type="variables_get" id="xzYIkY$$JIY8I(rad;Qv">
@@ -318,11 +324,17 @@
                           </block>
                         </value>
                         <value name="dim">
+                          <shadow type="math_number" id=":!uI5dMZ(f(2Dub^s6JA">
+                            <field name="NUM">1</field>
+                          </shadow>
                           <block type="variables_get" id="guI/MMDESs3~x_#os:;5">
                             <field name="VAR" id="$zt),?8|})G,(/E.43Jj">count</field>
                           </block>
                         </value>
                         <value name="run">
+                          <shadow type="math_number" id="2)#o`+9`~6=:|+~.;l47">
+                            <field name="NUM">1</field>
+                          </shadow>
                           <block type="variables_get" id="wH{%hE0mzEGVx^^Laoj#">
                             <field name="VAR" id="]p(t3ot;9D*nn|GGyQjQ">i</field>
                           </block>

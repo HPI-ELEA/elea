@@ -1,5 +1,4 @@
 let toolbox = `
-<!--
 <block type="logic_compare"></block>
 <block type="controls_repeat_ext"></block>
 <block type="math_number">
@@ -33,7 +32,22 @@ let toolbox = `
   <block type="ea_run_breeding"></block>
   <block type="run_loop"></block>
   <block type="run_loop_logging">
-    <value name="log_every_x_number">
+    <value name="exit_number">
+      <shadow type="math_number">
+        <field name="NUM">1000</field>
+      </shadow>
+    </value>
+    <value name="fitness">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+    <value name="dim">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="run">
       <shadow type="math_number">
         <field name="NUM">1</field>
       </shadow>
