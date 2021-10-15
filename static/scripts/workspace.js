@@ -36,18 +36,21 @@ function load_example_from_url() {
     }
 }
 
+// keep track of the latest url parameters
+let LATEST_SEARCH = window.location.search;
+
 // updates the url with the values in the PARAMETERS object
 function update_url() {
     window.history.pushState(null, null, "?"+PARAMETERS.toString());
+    LATEST_SEARCH = window.location.search;
 }
 
 // this function is triggered by using the history arrows
 // history items are added by the update_url function above
 // this ensures that navigating with the history arrows updates the examples in the page
 window.onpopstate = function(){
-    if (window.location.hash) {
-        return;
-    }
+    if (window.location.search == LATEST_SEARCH) return;
+    LATEST_SEARCH = window.location.search;
     update_parameters();
     load_example_from_url();
 };
