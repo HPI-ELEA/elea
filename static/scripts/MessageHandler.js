@@ -65,7 +65,6 @@ class MessageHandler {
     }
 
     handleIncomingMessage(message) {
-        message = message.data;
 
         // if the message came from a child and isn't addressed to the parent (this thread) then forward
         // this should never be used by any of the current elea blocks, it was in case threads ever wished to speak to eachother
@@ -144,7 +143,7 @@ class MessageHandler {
             msg.data.sources.unshift(id);
 
             // we cannot use 'this' inside a callback function
-            handler.handleIncomingMessage(msg);
+            handler.handleIncomingMessage(msg.data);
         });
 
         this.threadMap.set(id, newThread);
@@ -184,5 +183,5 @@ var Handler = new MessageHandler();
 // labels the source as having an ID of 0 - the parent's ID
 self.onmessage = function(msg) {
     msg.data.source = Handler.PARENT_ID;
-    Handler.handleIncomingMessage(msg);
+    Handler.handleIncomingMessage(msg.data);
 }
