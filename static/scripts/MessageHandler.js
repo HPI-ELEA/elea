@@ -172,7 +172,7 @@ class MessageHandler {
     }
 
     receiveId() {
-        if (this.THREAD_ID == null) return;
+        if (this.THREAD_ID == null || this.pendingRequest) return;
         setTimeout(function() { main.next(); }, 0)
     }
 }
