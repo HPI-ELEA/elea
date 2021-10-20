@@ -198,15 +198,12 @@ function generate_worker_code(statements, return_val) {
   
     worker_code += "function* main() {\n";
   
-    // receive the starter values from the parent
-    worker_code += "  yield(Handler.receiveId());\n"
-  
     // execute the internal statements and return the value
     worker_code += "\`+\`"+escape_string(statements)+"\`+\`;\n";
     worker_code += "  Handler.sendMessage(new Message(Handler.PARENT_ID, "+return_val+"));\n";
     worker_code += "}\n";
+    // the message handler will automatically run main.next() when the THREAD_ID is received
     worker_code += "var main = main();\n";
-    worker_code += "main.next();\n";
 
     return worker_code;
 }
