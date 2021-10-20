@@ -68,7 +68,7 @@ class MessageHandler {
 
         // if the message came from a child and isn't addressed to the parent (this thread) then forward
         // this should never be used by any of the current elea blocks, it was in case threads ever wished to speak to eachother
-        if (message.source != 0 && message.destination != 0) {
+        if (message.source != Handler.PARENT_ID && message.destination != Handler.PARENT_ID) {
             this.sendMessage(message);
             return;
         }
