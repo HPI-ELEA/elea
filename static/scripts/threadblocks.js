@@ -199,7 +199,7 @@ function generate_worker_code(statements, return_val) {
     worker_code += "function* main() {\n";
   
     // receive the starter values from the parent
-    worker_code += "  Handler.THREAD_ID = ( yield(Handler.recvRequest(new RecvRequest(Handler.PARENT_ID))) ).data;\n"
+    worker_code += "  yield(Handler.receiveId());\n"
   
     // execute the internal statements and return the value
     worker_code += "\`+\`"+escape_string(statements)+"\`+\`;\n";

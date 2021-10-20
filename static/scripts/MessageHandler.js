@@ -73,6 +73,12 @@ class MessageHandler {
             return;
         }
 
+        if (message.ctrl == "id") {
+            this.THREAD_ID = message.data;
+            this.receiveId();
+            return;
+        }
+
         // if the message is a log or a print statement then forward the message further up the chain
         if (message.ctrl == "log" || message.ctrl == "print") {
             this.sendMessage(message);
@@ -150,7 +156,7 @@ class MessageHandler {
         this.messageBuffer.set(id, new Queue());
 
         // sends the thread their id
-        this.sendMessage( new Message(id, id) );
+        this.sendMessage( new Message(id, id, "id") );
         return id;
     }
 
@@ -163,6 +169,11 @@ class MessageHandler {
 
     resetThreadIds() {
         this.idCounter = 1;
+    }
+
+    receiveId() {
+        if (this.THREAD_ID == null) return;
+        setTimeout(function() { main.next(); }, 0)
     }
 }
 
