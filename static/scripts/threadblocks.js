@@ -250,9 +250,8 @@ Blockly.JavaScript['run_thread'] = function(block) {
   code += "  _threads.push(Handler.createThread(_worker_obj));\n";
   code += "}\n";
   code += "for (let "+loopVar+" = 0; "+loopVar+" < "+thread_count+"; "+loopVar+"++) {;\n";
-  code += "  const element = _threads["+loopVar+"];\n";
-  code += "  "+output_array+".push( (yield( Handler.recvRequest(new RecvRequest(element)) )).data );\n";
-  code += "  Handler.removeThread(element);\n";
+  code += "  "+output_array+".push( (yield( Handler.recvRequest(new RecvRequest(_threads["+loopVar+"])) )).data );\n";
+  code += "  Handler.removeThread(_threads["+loopVar+"]);\n";
   code += "}\n";
   code += "Handler.resetThreadIds();\n"
   return code;
@@ -289,7 +288,7 @@ Blockly.JavaScript['run_thread_limited'] = function(block) {
   // declare the developer variables used by this block
   // I don't know why this is the way they've done it
   block.getDeveloperVariables = function() {
-    return ["_worker_code", "_worker_obj", "_threads", "_thread_counter"]
+    return ["_worker_code", "_worker_obj", "_threads", "_thread_counter", "msg"]
   }
 
   let code = "";
