@@ -233,6 +233,7 @@ Blockly.JavaScript['run_thread'] = function(block) {
   let output_array = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('output_array'), Blockly.Variables.NAME_TYPE);
   let return_val = Blockly.JavaScript.valueToCode(block, 'return_value', Blockly.JavaScript.ORDER_NONE);
   let statements_simulation_steps = Blockly.JavaScript.statementToCode(block, 'thread_statements');
+  var loopVar = Blockly.JavaScript.nameDB_.getDistinctName('count', Blockly.VARIABLE_CATEGORY_NAME);
 
   // declare the developer variables used by this block
   // I don't know why this is the way they've done it
@@ -245,11 +246,11 @@ Blockly.JavaScript['run_thread'] = function(block) {
   code += "_worker_obj = URL.createObjectURL( new Blob([_worker_code], {type: 'application/javascript'}) );\n";
   code += "_threads = new Array();\n";
   code += output_array+" = new Array();\n"
-  code += "for (let index = 0; index < "+thread_count+"; index++) {\n";
+  code += "for (let "+loopVar+" = 0; "+loopVar+" < "+thread_count+"; "+loopVar+"++) {\n";
   code += "  _threads.push(Handler.createThread(_worker_obj));\n";
   code += "}\n";
-  code += "for (let index = 0; index < "+thread_count+"; index++) {;\n";
-  code += "  const element = _threads[index];\n";
+  code += "for (let "+loopVar+" = 0; "+loopVar+" < "+thread_count+"; "+loopVar+"++) {;\n";
+  code += "  const element = _threads["+loopVar+"];\n";
   code += "  "+output_array+".push( (yield( Handler.recvRequest(new RecvRequest(element)) )).data );\n";
   code += "  Handler.removeThread(element);\n";
   code += "}\n";
@@ -283,6 +284,7 @@ Blockly.JavaScript['run_thread_limited'] = function(block) {
   let output_array = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('output_array'), Blockly.Variables.NAME_TYPE);
   let return_val = Blockly.JavaScript.valueToCode(block, 'return_value', Blockly.JavaScript.ORDER_NONE);
   let statements_simulation_steps = Blockly.JavaScript.statementToCode(block, 'thread_statements');
+  var loopVar = Blockly.JavaScript.nameDB_.getDistinctName('count', Blockly.VARIABLE_CATEGORY_NAME);
 
   // declare the developer variables used by this block
   // I don't know why this is the way they've done it
@@ -295,7 +297,7 @@ Blockly.JavaScript['run_thread_limited'] = function(block) {
   code += "_worker_obj = URL.createObjectURL( new Blob([_worker_code], {type: 'application/javascript'}) );\n";
   code += "_threads = new Array();\n";
   code += output_array+" = new Array();\n"
-  code += "for (let index = 0; index < Math.min("+thread_limit+", "+thread_count+") ; index++) {\n";
+  code += "for (let "+loopVar+" = 0; "+loopVar+" < Math.min("+thread_limit+", "+thread_count+") ; "+loopVar+"++) {\n";
   code += "  _threads.push( Handler.createThread(_worker_obj) );\n";
   code += " }\n";
   code += "_thread_counter = Math.min("+thread_limit+", "+thread_count+");\n";
@@ -306,12 +308,12 @@ Blockly.JavaScript['run_thread_limited'] = function(block) {
   code += "  _threads.push( Handler.createThread(_worker_obj) );\n";
   code += "  _thread_counter ++;\n";
   code += "}\n";
-  code += "for (let index = 0; index < Math.min("+thread_limit+", "+thread_count+"); index++) {\n";
+  code += "for (let "+loopVar+" = 0; index < Math.min("+thread_limit+", "+thread_count+"); "+loopVar+"++) {\n";
   code += "  let msg = yield(Handler.recvRequest( new RecvRequest(Handler.ANY_CHILD_SOURCE) ));\n"
   code += "  "+output_array+"[msg.source-1] = msg.data;\n";
   code += " }\n";
-  code += "for (let index = 0; index < "+thread_count+"; index++) {;\n";
-  code += "  Handler.removeThread(_threads[index]);\n";
+  code += "for (let "+loopVar+" = 0; "+loopVar+" < "+thread_count+"; "+loopVar+"++) {;\n";
+  code += "  Handler.removeThread(_threads["+loopVar+"]);\n";
   code += "}\n";
   code += "Handler.resetThreadIds();\n"
   return code;
