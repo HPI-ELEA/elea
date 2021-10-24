@@ -184,7 +184,7 @@ consolelog = function(...v) {
 }
 
 consoleLog = function(...v) {
-    conseolelog(v);
+    consolelog(v);
 }
 
 // creates the message handler object for the calling script to use
