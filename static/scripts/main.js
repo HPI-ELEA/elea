@@ -36,6 +36,7 @@ function replaceWorkspaceWithXml(xml) {
 
 function promptForXML() {
   var xml = prompt();
+  if (xml == null) return;
   console.warn(xml);
   replaceWorkspaceWithXml(xml);
 }
