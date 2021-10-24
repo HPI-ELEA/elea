@@ -1,12 +1,15 @@
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "run_thread",
-    "message0": "Run in %1 threads %2 save %3 in %4",
+    "message0": "Run in %1 threads %2 do %3 save %4 in %5",
     "args0": [
       {
         "type": "input_value",
         "name": "thread_count",
         "check": "Number"
+      },
+      {
+        "type": "input_dummy"
       },
       {
         "type": "input_statement",
@@ -32,7 +35,7 @@ Blockly.defineBlocksWithJsonArray([
 
   {
     "type": "run_thread_limited",
-    "message0": "Run in %1 threads limited to %2 %3 save %4 in %5",
+    "message0": "Run in %1 threads limited to %2 do %3 save %4 in %5",
     "args0": [
       {
         "type": "input_value",
