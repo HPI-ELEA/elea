@@ -10,7 +10,7 @@
       <block type="ea_debug" id="}b)+PH*,%.+|0SmSg2,j">
         <value name="logging_variable">
           <shadow type="text" id="L#-pTOoU81`eeo3KqoMj">
-            <field name="TEXT">num_iterations,num_threads,time</field>
+            <field name="TEXT">threads,num_iterations,num_threads,time</field>
           </shadow>
         </value>
         <next>
@@ -142,7 +142,7 @@
                                     <mutation items="4"></mutation>
                                     <value name="ADD0">
                                       <block type="text" id="Cqtl0hGh%8Db0=itn|3`">
-                                        <field name="TEXT">threads</field>
+                                        <field name="TEXT">all</field>
                                       </block>
                                     </value>
                                     <value name="ADD1">
