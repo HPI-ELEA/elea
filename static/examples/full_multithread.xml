@@ -287,20 +287,6 @@
                                                 </value>
                                               </block>
                                             </value>
-                                            <next>
-                                              <block type="ea_log" id="xJueh:GUJdDnz`i+eo=q">
-                                                <value name="logging_variable">
-                                                  <block type="variables_get" id="vHA9xf=RN.jJeXVm!$i}">
-                                                    <field name="VAR" id="UqHTCO.0^{dWk@)6gp!7">offspring1</field>
-                                                  </block>
-                                                </value>
-                                                <value name="logging_tag">
-                                                  <shadow type="text" id="|NIJfE%%q)4X}bhyb*,,">
-                                                    <field name="TEXT">offspring</field>
-                                                  </shadow>
-                                                </value>
-                                              </block>
-                                            </next>
                                           </block>
                                         </next>
                                       </block>
