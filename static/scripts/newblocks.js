@@ -623,11 +623,88 @@ Blockly.defineBlocksWithJsonArray([
         "colour": 0,
         "tooltip": "",
         "helpUrl": ""
+      },
+
+      {
+        "type": "experimental_timer",
+        "message0": "measure runtime of %1 %2 save result in %3",
+        "args0": [
+          {
+            "type": "input_dummy"
+          },
+          {
+            "type": "input_statement",
+            "name": "code"
+          },
+          {
+            "type": "field_variable",
+            "name": "output_time",
+            "variable": "time"
+          }
+        ],
+        "inputsInLine": true,
+        "previousStatement": true,
+        "nextStatement": true,
+        "colour": 0
+      },
+
+      {
+        "type": "experimental_raw_code",
+        "message0": "%1",
+        "args0": [
+          {
+            "type": "field_input",
+            "name": "code"
+          }
+        ],
+        "inputsInLine": true,
+        "previousStatement": true,
+        "nextStatement": true,
+        "colour": 0,
+        "tooltip": "enter raw line of code to execute"
+      },
+
+      {
+        "type": "experimental_raw_value",
+        "message0": "%1",
+        "args0": [
+          {
+            "type": "field_input",
+            "name": "code"
+          }
+        ],
+        "inputsInLine": true,
+        "output": null,
+        "colour": 0,
+        "tooltip": "enter raw code value to use"
       }
 ]);
 
+Blockly.JavaScript['experimental_raw_code'] = function(block) {
+  return block.getFieldValue("code")+'\n';
+}
+
+Blockly.JavaScript['experimental_raw_value'] = function(block) {
+  return [ block.getFieldValue("code"), Blockly.JavaScript.ORDER_NONE ];
+}
+
 Blockly.JavaScript['comment'] = function(block) {
   return "//"+block.getFieldValue('text')+"\n";
+}
+
+Blockly.JavaScript['experimental_timer'] = function(block) {
+  let statements = Blockly.JavaScript.statementToCode(block, 'code');
+  let result = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('output_time'), Blockly.Variables.NAME_TYPE);
+  let timer = Blockly.JavaScript.nameDB_.getDistinctName('startTime', Blockly.VARIABLE_CATEGORY_NAME);
+
+  let code = "";
+  code += "let "+timer+" = performance.now();\n";
+  code += "\n";
+  code += statements;
+  code += "\n";
+  code += result+" = performance.now() - "+timer+";\n";
+
+  return code;
 }
 
 // the init block encapsulates everything else into a generator function to allow for multi-threading
