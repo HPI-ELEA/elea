@@ -1,136 +1,101 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
   <variables>
     <variable id="gx=Kau1h[kq#}B+/w|ur&quot;">individual</variable>
-    <variable id="H](kLHl1zd+9;TEkQWpQ">result</variable>
+    <variable id="jpSMP=UtW)m]Fg0W0FxU">result</variable>
     <variable id="P|ZK6ZqqY5OhR$:,p(;_">µ</variable>
     <variable id="$zt),?8|})G,(/E.43Jj">count</variable>
     <variable id="-*|uDjwhmvz~~T(Am;%J">λ</variable>
-    <variable id="]p(t3ot;9D*nn|GGyQjQ">i</variable>
-    <variable id="pKD29N|CKo,l4}AetItV">parent_population</variable>
     <variable id="v`D6r417R_rR.AyGB:]O">n</variable>
+    <variable id="pKD29N|CKo,l4}AetItV">parent_population</variable>
     <variable id="_`RU](?6R2Mdm}^monre">genome_length</variable>
     <variable id="0dkovK!SuoHH%uP1/Uc}">chi</variable>
     <variable id="/elgL6jCIJ+fk$?p$D4D">offspring_population</variable>
     <variable id="4SV3N2eF(}.8?1D)pNoq">parent1</variable>
     <variable id="UqHTCO.0^{dWk@)6gp!7">offspring1</variable>
   </variables>
-  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="196" y="-73">
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="165" y="-17">
     <statement name="init_statements">
-      <block type="run_thread_limited" id="[Zi(61zu:!P4XKseJgL6">
-        <field name="output_array" id="H](kLHl1zd+9;TEkQWpQ">result</field>
+      <block type="run_thread" id="v3_MRZXz1chSWMiQ0Y2X">
+        <field name="output_array" id="jpSMP=UtW)m]Fg0W0FxU">result</field>
         <value name="thread_count">
-          <shadow type="math_number" id="sPl:`N#4-[,:5o:OWjnl">
+          <shadow type="math_number" id="t)n-ir}f|+hNv6_)S*dm">
             <field name="NUM">5</field>
           </shadow>
         </value>
-        <value name="thread_limit">
-          <shadow xmlns="http://www.w3.org/1999/xhtml" type="math_number">
-            <field name="NUM">8</field>
-          </shadow>
-          <block type="thread_hardware_concurrency" id="MYywx93?I=V1.]hIIzsE"></block>
-        </value>
         <statement name="thread_statements">
-          <block type="variables_set" id="8k@,{/]~E^X0!:XkmH2?">
+          <block type="controls_for" id="}XR@KNXf}G(1Dm;n:tdN">
             <field name="VAR" id="$zt),?8|})G,(/E.43Jj">count</field>
-            <value name="VALUE">
-              <block type="math_arithmetic" id="WropngK[.+qC)=5JNg@*">
-                <field name="OP">MINUS</field>
-                <value name="A">
-                  <block type="math_arithmetic" id="D5B?DX9SPPreX./6[C=F">
-                    <field name="OP">MULTIPLY</field>
-                    <value name="A">
-                      <block type="thread_num" id="ZTme[-];[uwQXf8-N9::"></block>
-                    </value>
-                    <value name="B">
-                      <block type="math_number" id="}o_n-jmVcs5f(zzp)wF.">
-                        <field name="NUM">20</field>
-                      </block>
-                    </value>
-                  </block>
-                </value>
-                <value name="B">
-                  <block type="math_number" id="pMbq%-e[oOXmY2)K7)BQ">
-                    <field name="NUM">10</field>
-                  </block>
-                </value>
-              </block>
+            <value name="FROM">
+              <shadow type="math_number" id="H{:n3{d4`_,-8%B]5)uH">
+                <field name="NUM">10</field>
+              </shadow>
             </value>
-            <next>
-              <block type="controls_for" id="w+yWE0-.yOO4=aAM6lC;">
-                <field name="VAR" id="]p(t3ot;9D*nn|GGyQjQ">i</field>
-                <value name="FROM">
-                  <shadow type="math_number" id="J4lRa-P5CWHbd#:S/]PZ">
-                    <field name="NUM">1</field>
-                  </shadow>
+            <value name="TO">
+              <shadow type="math_number" id="!VZ2_VVZ{0/YQ}dA/tk+">
+                <field name="NUM">90</field>
+              </shadow>
+            </value>
+            <value name="BY">
+              <shadow type="math_number" id=";5R*6p_FSWQI8TvyC18I">
+                <field name="NUM">20</field>
+              </shadow>
+            </value>
+            <statement name="DO">
+              <block type="variables_set" id="XSr6{9T}`^/@y8^EVzaL">
+                <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
+                <value name="VALUE">
+                  <block type="variables_get" id="RQeUWt[J?9xy*|Sy|y-e">
+                    <field name="VAR" id="$zt),?8|})G,(/E.43Jj">count</field>
+                  </block>
                 </value>
-                <value name="TO">
-                  <shadow type="math_number" id="{ZxwOThM;+,:A%))eaU0">
-                    <field name="NUM">3</field>
-                  </shadow>
-                </value>
-                <value name="BY">
-                  <shadow type="math_number" id="1L#8XtXw?ygbb9:V7@rK">
-                    <field name="NUM">1</field>
-                  </shadow>
-                </value>
-                <statement name="DO">
-                  <block type="variables_set" id="XSr6{9T}`^/@y8^EVzaL">
-                    <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
+                <next>
+                  <block type="variables_set" id="N8=or.WL#9!rDUnQrGuL">
+                    <field name="VAR" id="_`RU](?6R2Mdm}^monre">genome_length</field>
                     <value name="VALUE">
-                      <block type="variables_get" id="RQeUWt[J?9xy*|Sy|y-e">
-                        <field name="VAR" id="$zt),?8|})G,(/E.43Jj">count</field>
+                      <block type="variables_get" id="NyVAgE)ro=W:O`9UO#zi">
+                        <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
                       </block>
                     </value>
                     <next>
-                      <block type="variables_set" id="N8=or.WL#9!rDUnQrGuL">
-                        <field name="VAR" id="_`RU](?6R2Mdm}^monre">genome_length</field>
+                      <block type="variables_set" id="C/UG6ptuNDGHcFV6;TU*">
+                        <field name="VAR" id="0dkovK!SuoHH%uP1/Uc}">chi</field>
                         <value name="VALUE">
-                          <block type="variables_get" id="NyVAgE)ro=W:O`9UO#zi">
-                            <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
+                          <block type="math_arithmetic" id="ej3y^%yA%W7W6pI[6OdT">
+                            <field name="OP">DIVIDE</field>
+                            <value name="A">
+                              <block type="math_number" id="I.1c0%XaBZPwZd[k,d+q">
+                                <field name="NUM">1</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="variables_get" id=")$+PgRA^cqSn-mV.8t$k">
+                                <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
+                              </block>
+                            </value>
                           </block>
                         </value>
                         <next>
-                          <block type="variables_set" id="C/UG6ptuNDGHcFV6;TU*">
-                            <field name="VAR" id="0dkovK!SuoHH%uP1/Uc}">chi</field>
-                            <value name="VALUE">
-                              <block type="math_arithmetic" id="ej3y^%yA%W7W6pI[6OdT">
-                                <field name="OP">DIVIDE</field>
-                                <value name="A">
-                                  <block type="math_number" id="I.1c0%XaBZPwZd[k,d+q">
-                                    <field name="NUM">1</field>
-                                  </block>
-                                </value>
-                                <value name="B">
-                                  <block type="variables_get" id=")$+PgRA^cqSn-mV.8t$k">
-                                    <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
-                                  </block>
-                                </value>
-                              </block>
-                            </value>
-                            <next>
-                              <block type="procedures_callnoreturn" id="w5:,i%y3$aA=F~za5T1w">
-                                <mutation name="run_algorithm"></mutation>
-                              </block>
-                            </next>
+                          <block type="procedures_callnoreturn" id="w5:,i%y3$aA=F~za5T1w">
+                            <mutation name="run_algorithm"></mutation>
                           </block>
                         </next>
                       </block>
                     </next>
                   </block>
-                </statement>
+                </next>
               </block>
-            </next>
+            </statement>
           </block>
         </statement>
         <value name="return_value">
-          <shadow type="math_number" id="bljz?fihzRtC]1Yp^rt7">
+          <shadow type="math_number" id="Mop0x:h!O#gwH{xPG/*Y">
             <field name="NUM">0</field>
           </shadow>
         </value>
       </block>
     </statement>
   </block>
-  <block type="procedures_defreturn" id="1l$!B6_|@#-1qZ]|6OQ7" x="778" y="68">
+  <block type="procedures_defreturn" id="1l$!B6_|@#-1qZ]|6OQ7" x="654" y="40">
     <mutation>
       <arg name="individual" varid="gx=Kau1h[kq#}B+/w|ur&quot;"></arg>
     </mutation>
@@ -148,7 +113,7 @@
       </block>
     </value>
   </block>
-  <block type="procedures_defnoreturn" id="bGIA+-9Wc(p]`yydyvV2" x="195" y="361">
+  <block type="procedures_defnoreturn" id="bGIA+-9Wc(p]`yydyvV2" x="165" y="349">
     <field name="NAME">run_algorithm</field>
     <comment pinned="false" h="80" w="160">Describe this function...</comment>
     <statement name="STACK">
@@ -187,7 +152,7 @@
                       </block>
                     </value>
                     <next>
-                      <block type="run_loop_logging" id="H@=TIy$Rd]:MPBqbAfpa">
+                      <block type="run_loop_logging" id="#B4NglTn*~{.g;VdprAj">
                         <field name="algId">elea</field>
                         <field name="fnId">1</field>
                         <value name="continue_condition">
@@ -217,7 +182,7 @@
                           </block>
                         </value>
                         <value name="exit_number">
-                          <shadow type="math_number" id="JEP[**[Kff:+-l(P2Cnb">
+                          <shadow type="math_number" id="v|$W[x5Y.A#r$cbYS;D]">
                             <field name="NUM">1000</field>
                           </shadow>
                           <block type="math_arithmetic" id="5OZ78.QYM-S(~T/f,-W@">
@@ -298,7 +263,7 @@
                           </block>
                         </statement>
                         <value name="fitness">
-                          <shadow type="math_number" id="PI2r%58D]TqLjx(gI0(Q">
+                          <shadow type="math_number" id="9mW8dgIT;XRx2P:ejz4U">
                             <field name="NUM">0</field>
                           </shadow>
                           <block type="max_diversity" id="KY9be{hUr=),vPfg|dNi">
@@ -310,7 +275,7 @@
                           </block>
                         </value>
                         <value name="dim">
-                          <shadow type="math_number" id=":!uI5dMZ(f(2Dub^s6JA">
+                          <shadow type="math_number" id="1A![9a=joSzN=1b?8;@K">
                             <field name="NUM">1</field>
                           </shadow>
                           <block type="variables_get" id="guI/MMDESs3~x_#os:;5">
@@ -318,12 +283,10 @@
                           </block>
                         </value>
                         <value name="run">
-                          <shadow type="math_number" id="2)#o`+9`~6=:|+~.;l47">
+                          <shadow type="math_number" id="Or3*!(K9msHls);JpR,o">
                             <field name="NUM">1</field>
                           </shadow>
-                          <block type="variables_get" id="wH{%hE0mzEGVx^^Laoj#">
-                            <field name="VAR" id="]p(t3ot;9D*nn|GGyQjQ">i</field>
-                          </block>
+                          <block type="thread_num" id="K7fq7=={XVr76Y8~i[i2"></block>
                         </value>
                         <next>
                           <block type="ea_debug" id="5E9O@8`ON,~:D2}9PKnS">
