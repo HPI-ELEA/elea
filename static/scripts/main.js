@@ -74,9 +74,9 @@ function selectedFileChanged() {
 
 var jsonLog = null;
 var worker = null;
-var downloadLogLink = document.getElementById("download_json");
 var outputArea = document.getElementById('outputArea');
 var outputScroll = document.getElementById("scroller");
+var runButton = document.getElementById("run-button");
 
 var pauseAtNewBlock = true;
 var blocklyArea = document.getElementById('blocklyArea');
@@ -204,6 +204,10 @@ function runCode() {
   const blob = new Blob([code], {type: 'application/javascript'})
   worker = new Worker(URL.createObjectURL(blob))
   worker.addEventListener("message", handleMessageFromWorker)
+  worker.addEventListener("onerror", function(error) { console.error(error) ; terminateWorker() });
+
+  // indicate that the code is running
+  runButton.style.backgroundColor = "LightGreen";
 }
 
 function handleMessageFromWorker(msg) {
@@ -226,7 +230,7 @@ function handleMessageFromWorker(msg) {
   // this is sent by the worker when the main function returns
   if (msg.ctrl == "terminate") {
     console.log("terminate worker due to its request.")
-    worker.terminate();
+    terminateWorker();
     console.log(logDB);
     return
   }
@@ -278,6 +282,7 @@ function terminateWorker() {
     worker.terminate();
     console.warn("Terminated running worker");
   }
+  runButton.style.backgroundColor = "";
 }
 
 function clearOutput() {
