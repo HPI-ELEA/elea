@@ -204,7 +204,7 @@ function runCode() {
   const blob = new Blob([code], {type: 'application/javascript'})
   worker = new Worker(URL.createObjectURL(blob))
   worker.addEventListener("message", handleMessageFromWorker)
-  worker.addEventListener("onerror", function(error) { console.error(error) ; terminateWorker() });
+  worker.addEventListener("error", function(error) { console.error(error) ; terminateWorker() });
 
   // indicate that the code is running
   runButton.style.backgroundColor = "LightGreen";
