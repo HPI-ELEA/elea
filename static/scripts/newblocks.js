@@ -1019,7 +1019,12 @@ Blockly.JavaScript['ea_debug_all'] = function(block) {
 };
 Blockly.JavaScript['ea_debug'] = function(block) {
   var variable_ = Blockly.JavaScript.valueToCode(block, 'logging_variable', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = 'consolelog(' + variable_ + ');\n';
+
+  // Add new line characters if the logging_variable is a two-dimensional array
+  var code =  'var print_var = ' + variable_ + ";\n";
+  code +=     'if(' + variable_ + '.length != 0 && Array.isArray(' + variable_ + '[0]))\n';
+  code +=     '  print_var = ' + variable_  + '.join("\\n");\n';
+  code +=     'consolelog(print_var);\n';
   return code;
 };
 
