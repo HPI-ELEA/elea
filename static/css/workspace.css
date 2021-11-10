@@ -16,6 +16,26 @@
     max-height: 100%
 }
 
+#run-button {
+    width: 100%;
+    color: green;
+    height: 12%;
+}
+
+#kill-button {
+    width: 100%;
+    color: red;
+}
+
+#show-button {
+    margin-top: 50px;
+    width: 100%;
+}
+
+#clear-button {
+    width: 100%;
+}
+
 .columnHeader {
     height: 5%;
 }
