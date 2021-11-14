@@ -129,8 +129,8 @@ CHANGE_OPERATIONS = [
 function setHasUnsavedChanges(event) {
   if (CHANGE_OPERATIONS.includes(event.type)) {
     hasUnsavedChanges = true;
-    console.warn("Workspace has unsaved changes now");
     workspace.removeChangeListener(setHasUnsavedChanges);
+    console.warn("Workspace has unsaved changes now");
   }
 }
 
@@ -142,7 +142,7 @@ function resetHasUnsavedChanges() {
 
 function waitForFinishedLoading(event) {
   if (event.type == Blockly.Events.FINISHED_LOADING) {
-    workspace.addChangeListener(setHasUnsavedChanges);
+    resetHasUnsavedChanges()
     workspace.removeChangeListener(waitForFinishedLoading);
   }
 }
