@@ -31,6 +31,12 @@ function replaceWorkspaceQuestion(xml) {
     replaceWorkspaceWithXml(xml);
 }
 
+window.addEventListener("beforeunload", function(e){
+  if(hasUnsavedChanges){
+    e.preventDefault()
+  }
+})
+
 function replaceWorkspaceWithXml(xml) {
   if(hasUnsavedChanges){
     if(!window.confirm("Do you want discard your changes?"))
