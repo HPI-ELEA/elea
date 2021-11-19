@@ -32,3 +32,33 @@
 #scroller {
     max-height: 100%;
 }
+
+img {
+    object-fit: contain;
+  }
+  textarea {
+    font-size: 10px;
+  }
+  @media screen and (min-width: 676px) {
+    .modal-dialog {
+      max-width: 600px; /* New width for default modal */
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    .modal-dialog {
+      max-width: 1000px; /* New width for default modal */
+    }
+  }
+  #scroller * {
+    /* don't allow the children of the scrollable element to be selected as an anchor node */
+    overflow-anchor: none;
+  }
+  
+  #anchor {
+    /* allow the final child to be selected as an anchor node */
+    overflow-anchor: auto;
+  
+    /* anchor nodes are required to have non-zero area */
+    height: 1px;
+  }
+  
