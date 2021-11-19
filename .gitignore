@@ -1,3 +1,4 @@
 bin/
 node_modules/
-.parcel-cache/
+.cache/
+dist/
