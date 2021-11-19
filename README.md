@@ -3,8 +3,12 @@
 This is a little tool designed to prototype evolutionary algorithms, get an intuition for runtimes or for teaching EAs to students.
 
 ## Run
-- Use `go run webserver.go`
-- If you don't have go installed on your system or prefer to use docker, run: `docker build . -t elea` followed by `docker run -p 8080:8080 elea`
+
+- install nodeJS with npm
+- run `npm i` to install the dependencies
+- run `npm run start` to run the application
+
+You can find the application at `localhost:1234` propably.
 
 ## Write new blocks
 Steps:
