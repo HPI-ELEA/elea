@@ -2,25 +2,14 @@
 <html>
 <head>
     <title>Log of your algorithm</title>
-    <script src="https://d3js.org/d3.v6.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-  
-	<style>
-        text {
-            font-family: 'Yanone Kaffeesatz', sans-serif;
-            font-size: 0.5em;
-        }
-        .label {
-            font-size: 9pt;
-            text-anchor: middle;
-        }
-        h5, select {
-          display: inline-block;
-        }
-    </style>
+
+    <link rel="stylesheet" href="css/globals.css"/>
+    <link  rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="shortcut icon" href="./favicon.ico" />
+
+    <script src="../node_modules/d3/dist/d3.min.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" rel="script"></script>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -59,7 +48,6 @@
             <a class="dropdown-item" href="workspace.html?example=multithread-performance">Muti-Threading Performance Test</a>
           </div>
         </li>
-      </li>
         <input type="file" id="upload_json" style="display:none" onchange="selectedFileChanged()">
         <li class="nav-item">
           <a class="nav-link" onclick="document.getElementById('upload_json').click()" href="#"><button class="btn btn-primary">Upload JSON log file</button></a>
@@ -67,8 +55,6 @@
         <li class="nav-item">
           <a class="nav-link" id="visualize_log" href="visualization.html">Visualize Log</a>
         </li>
-      </li>
-
       </ul>
     </div>
   </nav>

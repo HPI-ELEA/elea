@@ -1,3 +1,4 @@
+import replaceWorkspaceWithXml from './main.js'
 var PARAMETERS;
 
 // updates the parameters map with the latest value from the url

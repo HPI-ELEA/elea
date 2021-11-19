@@ -1,3 +1,4 @@
+import * as JSZip from 'jszip'
 var logDB = {};
 
 // clear the database

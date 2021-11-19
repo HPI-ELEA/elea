@@ -1,6 +1,8 @@
-USING_THREADS = false;
-PREV_DEFINITIONS = null;
+import 'regenerator-runtime/runtime'
+var USING_THREADS = false;
+var PREV_DEFINITIONS = null;
 
+console.log(Blockly.JavaScript)
 const copyToClipboard = str => {
     const el = document.createElement('textarea');
     el.value = str;

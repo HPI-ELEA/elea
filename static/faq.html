@@ -4,20 +4,13 @@
 <head>
   <meta charset="utf-8">
   <title>elea Demo: Build Your Own EA</title>
-  <script src="scripts/ea_blocks.js"></script>
-  <script src="scripts/newblocks.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-  <style>
-    img {
-      object-fit: contain
-    }
-    textarea {
-      font-size: 10px;
-      }
-  </style>
+  
+  <link rel="stylesheet" href="css/globals.css"/>
+  <link  rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="shortcut icon" href="./favicon.ico" />
+
+  <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" rel="script"></script>
 </head>
 
 <body>
@@ -26,10 +19,11 @@
       <img src="favicon.svg" alt="elea-logo" width="30rem" height="30rem" class="d-inline-block align-top">
       Build Your Own EA
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
@@ -39,7 +33,8 @@
           <a class="nav-link" target="_blank" href="faq.html">FAQ</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarExampleDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarExampleDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             Examples
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
@@ -54,40 +49,39 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="workspace.html?example=multithread">Multi-Threading Example</a>
             <a class="dropdown-item" href="workspace.html?example=full_multithread">Full example with Muti-Threading</a>
-            <a class="dropdown-item" href="workspace.html?example=multithread-performance">Muti-Threading Performance Test</a>
+            <a class="dropdown-item" href="workspace.html?example=multithread-performance">Muti-Threading Performance
+              Test</a>
           </div>
         </li>
-      </li>
-
       </ul>
     </div>
   </nav>
   <div class="jumbotron">
     <div class="container">
-  <h1 class="display-3">FAQ</h1>
+      <h1 class="display-3">FAQ</h1>
     </div>
-</div>
-<div class="container">
-  <h2><strong>My Algorithm does not work</strong></h2>
+  </div>
+  <div class="container">
+    <h2><strong>My Algorithm does not work</strong></h2>
 
-  <p class="h4">▸ It does not do anything</p>
-  <p>Please double check that you set variables before using them. Crossover sets both
-    offsprings in a hidden way, since blockly does not support more than one return value. If you're not using
-    crossover, you need to set the offsprings yourself or use the parents directly.</p>
+    <p class="h4">▸ It does not do anything</p>
+    <p>Please double check that you set variables before using them. Crossover sets both
+      offsprings in a hidden way, since blockly does not support more than one return value. If you're not using
+      crossover, you need to set the offsprings yourself or use the parents directly.</p>
 
-  <h3 class="h4">▸ It stops before finding the optimum</h3>
-  <p> Double check that you set variables before using them. Crossover sets both
-    offsprings in a hidden way, since blockly does not support more than one return value. If you're not using
-    crossover, you need to set the offsprings yourself or use the parents directly.</p>
+    <h3 class="h4">▸ It stops before finding the optimum</h3>
+    <p> Double check that you set variables before using them. Crossover sets both
+      offsprings in a hidden way, since blockly does not support more than one return value. If you're not using
+      crossover, you need to set the offsprings yourself or use the parents directly.</p>
 
-  <h3 class="h4">▸ It crashes with an error</h3>
-  <p>Please download the XML file of your algorithm and send it to me:
-    jellyfishcoding at live.de</p>
+    <h3 class="h4">▸ It crashes with an error</h3>
+    <p>Please download the XML file of your algorithm and send it to me:
+      jellyfishcoding at live.de</p>
 
-  <h3 class="h4">▸ It crashes the browser completely</h3>
-  <p>Please make sure you don't have any infinite loops in your code.</p>
+    <h3 class="h4">▸ It crashes the browser completely</h3>
+    <p>Please make sure you don't have any infinite loops in your code.</p>
 
-</div>
+  </div>
 </body>
 
 </html>
