@@ -1,3 +1,4 @@
+import * as Blockly from 'blockly'
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "run_thread",

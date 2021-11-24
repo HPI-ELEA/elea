@@ -1,8 +1,12 @@
-import 'regenerator-runtime/runtime'
 var USING_THREADS = false;
 var PREV_DEFINITIONS = null;
 
-console.log(Blockly.JavaScript)
+import * as Blockly from 'blockly'
+import 'regenerator-runtime/runtime'
+import './ea_blocks'
+import './newblocks'
+import './threadblocks'
+
 const copyToClipboard = str => {
     const el = document.createElement('textarea');
     el.value = str;
@@ -26,7 +30,7 @@ const downloadFile = (blob, fileName) => {
   setTimeout(() => URL.revokeObjectURL(link.href), 7000);
 };
 
-function replaceWorkspaceQuestion(xml) {
+function replacepaceQuestion(xml) {
     // TODO: Ask for unsaved changes
     replaceWorkspaceWithXml(xml);
 }
