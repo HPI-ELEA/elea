@@ -1,4 +1,4 @@
-import * as JSZip from 'jszip'
+import './jszip'
 var logDB = {};
 
 // clear the database
@@ -92,3 +92,5 @@ async function downloadLog() {
     let file = await zip.generateAsync({type: "blob"});
     downloadFile(file, "log.zip");
 }
+
+export {clearLog}
