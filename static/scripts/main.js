@@ -1,7 +1,6 @@
 USING_THREADS = false;
 PREV_DEFINITIONS = null;
-
-let hasUnsavedChanges = false
+HAS_UNSAVED_CHANGES = false;
 
 const copyToClipboard = str => {
     const el = document.createElement('textarea');
@@ -31,14 +30,8 @@ function replaceWorkspaceQuestion(xml) {
     replaceWorkspaceWithXml(xml);
 }
 
-window.addEventListener("beforeunload", function(e){
-  if(hasUnsavedChanges){
-    e.preventDefault()
-  }
-})
-
 function replaceWorkspaceWithXml(xml) {
-  if(hasUnsavedChanges){
+  if(HAS_UNSAVED_CHANGES){
     if(!window.confirm("Do you want discard your changes?"))
       return
   }
@@ -132,18 +125,25 @@ CHANGE_OPERATIONS = [
   Blockly.Events.COMMENT_CHANGE,
   Blockly.Events.COMMENT_MOVE,
 ];
-function setHasUnsavedChanges(event) {
+function unsavedChangesListener(event) {
   if (CHANGE_OPERATIONS.includes(event.type)) {
-    hasUnsavedChanges = true;
-    workspace.removeChangeListener(setHasUnsavedChanges);
+    HAS_UNSAVED_CHANGES = true
+    workspace.removeChangeListener(unsavedChangesListener)
+    window.addEventListener("beforeunload", beforeUnloadListener)
     console.warn("Workspace has unsaved changes now");
   }
 }
 
+function beforeUnloadListener(e){
+  e.preventDefault();
+  return e.returnValue = "Are you sure you want to exit?";
+}
+
 function resetHasUnsavedChanges() {
-  hasUnsavedChanges = false;
-  workspace.addChangeListener(setHasUnsavedChanges);
-  console.warn("Workspace has no unsaved changes now");
+  HAS_UNSAVED_CHANGES = false
+  workspace.addChangeListener(unsavedChangesListener)
+  window.removeEventListener("beforeunload", beforeUnloadListener)
+  console.warn("Workspace has no unsaved changes now")
 }
 
 function waitForFinishedLoading(event) {
