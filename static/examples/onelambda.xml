@@ -192,56 +192,19 @@
                                         <field name="POPULATION" id="/elgL6jCIJ+fk$?p$D4D">offspring_population</field>
                                         <next>
                                           <block type="comment" id="[}o=k9Dk)Y9Ui1+)+I|D">
-                                            <field name="text">If there is a better individual in offspring_population it replaces the parent</field>
+                                            <field name="text">Set new parent to the best offspring</field>
                                             <next>
-                                              <block type="controls_if" id="=1~?%UcU%[O|:w]Lj,0j">
-                                                <value name="IF0">
-                                                  <block type="logic_compare" id="Buv`f/y/B[-h09Dcq2h:">
-                                                    <field name="OP">LTE</field>
-                                                    <value name="A">
-                                                      <block type="procedures_callreturn" id="VcN{{n02I%J.^kd^_5Uu">
-                                                        <mutation name="fitness">
-                                                          <arg name="individual"></arg>
-                                                        </mutation>
-                                                        <value name="ARG0">
-                                                          <block type="variables_get" id="]yS5b9|y~-4;]}7RZK~x">
-                                                            <field name="VAR" id="4SV3N2eF(}.8?1D)pNoq">parent1</field>
-                                                          </block>
-                                                        </value>
-                                                      </block>
-                                                    </value>
-                                                    <value name="B">
-                                                      <block type="procedures_callreturn" id="B*],3H_$?}=Z`U{++BE.">
-                                                        <mutation name="fitness">
-                                                          <arg name="individual"></arg>
-                                                        </mutation>
-                                                        <value name="ARG0">
-                                                          <block type="ea_select_best" id="+)3;{/gVcr`Xu|67W_8`">
-                                                            <value name="POPULATION">
-                                                              <block type="variables_get" id=":ps4D1Ynh:LX.(^SPp[W">
-                                                                <field name="VAR" id="/elgL6jCIJ+fk$?p$D4D">offspring_population</field>
-                                                              </block>
-                                                            </value>
-                                                          </block>
-                                                        </value>
+                                              <block type="variables_set" id="ZV|8%EFxNvXV-+yC7;8[">
+                                                <field name="VAR" id="4SV3N2eF(}.8?1D)pNoq">parent1</field>
+                                                <value name="VALUE">
+                                                  <block type="ea_select_best" id="7a9zi;$ndPXXY1FjGuJ-">
+                                                    <value name="POPULATION">
+                                                      <block type="variables_get" id="J/|m@qwT744-}gvq[]NW">
+                                                        <field name="VAR" id="/elgL6jCIJ+fk$?p$D4D">offspring_population</field>
                                                       </block>
                                                     </value>
                                                   </block>
                                                 </value>
-                                                <statement name="DO0">
-                                                  <block type="variables_set" id="+$q-peaD6SF`/Ui]hhhe">
-                                                    <field name="VAR" id="4SV3N2eF(}.8?1D)pNoq">parent1</field>
-                                                    <value name="VALUE">
-                                                      <block type="ea_select_best" id="n3#|4b2Hy_8{2(tj^`V}">
-                                                        <value name="POPULATION">
-                                                          <block type="variables_get" id="aarusv]v7G!^9%H}ZSC6">
-                                                            <field name="VAR" id="/elgL6jCIJ+fk$?p$D4D">offspring_population</field>
-                                                          </block>
-                                                        </value>
-                                                      </block>
-                                                    </value>
-                                                  </block>
-                                                </statement>
                                               </block>
                                             </next>
                                           </block>
