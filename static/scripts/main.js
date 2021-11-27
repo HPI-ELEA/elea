@@ -88,7 +88,16 @@ var pauseAtNewBlock = true;
 var blocklyArea = document.getElementById('blocklyArea');
 var blocklyDiv = document.getElementById('blocklyDiv');
 var workspace = Blockly.inject(blocklyDiv,
-  { toolbox: document.getElementById('toolbox') });
+  { toolbox: document.getElementById('toolbox'),
+    zoom:
+        {controls: true,
+         wheel: true,
+         startScale: 1.0,
+         maxScale: 2.5,
+         minScale: 0.4,
+         scaleSpeed: 1.05,
+         pinch: true},
+    trashcan: true });
 Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
   workspace);
 var onresize = function (e) {
