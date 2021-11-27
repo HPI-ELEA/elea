@@ -32,7 +32,7 @@ function replaceWorkspaceQuestion(xml) {
 
 function replaceWorkspaceWithXml(xml) {
   if(HAS_UNSAVED_CHANGES){
-    if(!window.confirm("Do you want discard your changes?"))
+    if(!window.confirm("Are you sure you want to exit without saving?"))
       return
   }
   workspace.clear();
@@ -136,7 +136,7 @@ function unsavedChangesListener(event) {
 
 function beforeUnloadListener(e){
   e.preventDefault();
-  return e.returnValue = "Are you sure you want to exit?";
+  return e.returnValue = "Are you sure you want to exit without saving?";
 }
 
 function resetHasUnsavedChanges() {
