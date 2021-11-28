@@ -171,7 +171,7 @@ function download(text, name, type) {
 
 function downloadWorkspace() {
   var xml = Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(workspace));
-  download(xml, "algorithm", "text/xml");
+  download(xml, "algorithm.xml", "text/xml");
 }
 
 function downloadWorkspaceAsJS() {
