@@ -50,11 +50,13 @@ function promptForXML() {
 function copyXMLToClipboard() {
   var xml = Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(workspace));
   copyToClipboard(xml)
+  resetHasUnsavedChanges()
 }
 
 function copyJSToClipboard() {
   var js = getCode();
   copyToClipboard(js);
+  resetHasUnsavedChanges()
 }
 
 function showXMLInPopup() {
