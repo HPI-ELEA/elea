@@ -74,6 +74,7 @@ function selectedFileChanged() {
   reader.onload = function fileReadCompleted() {
       replaceWorkspaceQuestion(reader.result);
       console.log("algorithm updated")
+      document.getElementById("workspace-title").innerHTML = input.files[0].name
   };
   reader.readAsText(input.files[0]);
 }
@@ -139,6 +140,8 @@ function unsavedChangesListener(event) {
     HAS_UNSAVED_CHANGES = true
     workspace.removeChangeListener(unsavedChangesListener)
     window.addEventListener("beforeunload", beforeUnloadListener)
+    let workspaceTitle = document.getElementById("workspace-title").innerHTML
+    document.getElementById("workspace-title").innerHTML = workspaceTitle + "*"
     console.warn("Workspace has unsaved changes now");
   }
 }
@@ -152,6 +155,8 @@ function resetHasUnsavedChanges() {
   HAS_UNSAVED_CHANGES = false
   workspace.addChangeListener(unsavedChangesListener)
   window.removeEventListener("beforeunload", beforeUnloadListener)
+  let workspaceTitle = document.getElementById("workspace-title").innerHTML
+  document.getElementById("workspace-title").innerHTML = workspaceTitle.replace(/\*$/, '')
   console.warn("Workspace has no unsaved changes now")
 }
 
