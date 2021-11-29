@@ -27,10 +27,10 @@ async function loadExample(example, causedByUrl) {
         update_url();
     }
 
-    let workspaceTile = "Untitled"
+    let workspaceTitle = "Untitled"
     if(example != "empty")
-        workspaceTile = "Example: " + example
-    document.getElementById("workspace-title").innerHTML = workspaceTile
+        workspaceTitle = "Example: " + example
+    document.getElementById("workspace-title").innerHTML = workspaceTitle
 }
 
 // loads the example as defined by the url parameters
