@@ -1,4 +1,4 @@
-import './jszip'
+import '../jszip'
 var logDB = {};
 
 // clear the database
@@ -93,4 +93,4 @@ async function downloadLog() {
     downloadFile(file, "log.zip");
 }
 
-export {clearLog}
+export {clearLog, handleLogFromWorker}

@@ -32,7 +32,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link active" href="#" onclick="loadExample('full')">Demo<span class="sr-only">(current)</span></a>
+          <a class="nav-link active" href="#" id="example-demo">Demo<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" target="_blank" href="faq.html">FAQ</a>
@@ -42,38 +42,38 @@
             Examples
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
-            <a class="dropdown-item" onclick="loadExample('empty')">Empty starting point</a>
+            <a class="dropdown-item" id="example-empty">Empty starting point</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" onclick="loadExample('full')">Full example</a>
-            <a class="dropdown-item" onclick="loadExample('simple')">Simple example</a>
+            <a class="dropdown-item" id="example-full">Full example</a>
+            <a class="dropdown-item" id="example-simple">Simple example</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" onclick="loadExample('oneplusone')">1+1</a>
-            <a class="dropdown-item" href="#">1+λ (TODO)</a>
-            <a class="dropdown-item" href="#">1,λ (TODO)</a>
+            <a class="dropdown-item" id="example-oneplusone">1+1</a>
+            <a class="dropdown-item" id="example-onepluslambda" href="#">1+λ (TODO)</a>
+            <a class="dropdown-item" id="example-onelambda" href="#">1,λ (TODO)</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" onclick="loadExample('multithread')">Multi-Threading Example</a>
-            <a class="dropdown-item" onclick="loadExample('full_multithread')">Full Example with Multi-Threading</a>
-            <a class="dropdown-item" onclick="loadExample('multithread-performance')">Multi-Threading Performance Test</a>
+            <a class="dropdown-item" id="example-multithread">Multi-Threading Example</a>
+            <a class="dropdown-item" id="example-full-multithread">Full Example with Multi-Threading</a>
+            <a class="dropdown-item" id="example-multithread-performance">Multi-Threading Performance Test</a>
           </div>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarSaveDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Save/Restore Algorithm
           </a>
-          <input type="file" id="upload_xml" style="display:none" onchange="selectedFileChanged()">
+          <input type="file" id="upload_xml_input" style="display:none">
           <div class="dropdown-menu" aria-labelledby="navbarSaveDropdown">
 
-            <a class="dropdown-item" onclick="document.getElementById('upload_xml').click()" href="#">Upload XML file</a>
-            <a class="dropdown-item" onclick="promptForXML()" href="#">Paste XML string</a>
+            <a class="dropdown-item" id="upload_xml" href="#">Upload XML file</a>
+            <a class="dropdown-item" id="promt_for_xml" href="#">Paste XML string</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="download_xml" onclick="downloadWorkspace()" href="#" >Download XML file</a>
-            <a class="dropdown-item" onclick="copyXMLToClipboard()" href="#">Copy XML string</a>
+            <a class="dropdown-item" id="download_xml" href="#" >Download XML file</a>
+            <a class="dropdown-item" id="copy_xml" href="#">Copy XML string</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="download_js" onclick="downloadWorkspaceAsJS()" href="#" >Download JS file</a>
-            <a class="dropdown-item" onclick="copyJSToClipboard()" href="#">Copy JS string</a>
-            <a class="dropdown-item" data-toggle="modal" onclick="Prism.highlightAll()"" href="#jsModal">Show JS</a>
+            <a class="dropdown-item" id="download_js" href="#" >Download JS file</a>
+            <a class="dropdown-item" id="copy_js" href="#">Copy JS string</a>
+            <a class="dropdown-item" data-toggle="modal" id="show_js" href="#jsModal">Show JS</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="download_json" onclick="downloadLog()"" href="#jsModal">Download Log</a>
+            <a class="dropdown-item" id="download_json"" href="#jsModal">Download Log</a>
           </div>
         </li>
         <li class="nav-item">
@@ -147,14 +147,14 @@
       </div>
       <div id="buttonColumn" class="col-1 bg-white">
         <p class="columnContent">
-          <button type="button" class="btn btn-success btn-block" id="run-button" onclick="runCode()">Run JavaScript</button>
-          <button type="button" class="btn btn-danger btn-block" id="kill-button" onclick="terminateWorker()">Kill execution</button>
-          <button type="button" class="btn btn-warning btn-block" id="clear-button" onclick="clearOutput()">Clear Output</button>
-          <button type="button" class="btn btn-outline-dark btn-block" id="show-button" data-toggle="modal" onclick="Prism.highlightAll()" href="#jsModal">Show JavaScript</button>
+          <button type="button" class="btn btn-success btn-block" id="run-button">Run JavaScript</button>
+          <button type="button" class="btn btn-danger btn-block" id="kill-button"">Kill execution</button>
+          <button type="button" class="btn btn-warning btn-block" id="clear-button">Clear Output</button>
+          <button type="button" class="btn btn-outline-dark btn-block" id="show-button" data-toggle="modal" href="#jsModal">Show JavaScript</button>
           <button type="button" class="btn btn-outline-dark btn-block" id="show-dashboard-button" data-toggle="modal" href="#jsModalRun">Dashboard</button>
-     <!-- <button type="button" class="btn btn-outline-dark btn-block" id="stop-button" onclick="stopWorker()">Stop execution</button> -->
-     <!-- <button type="button" class="btn btn-outline-dark btn-block" id="step-button" onclick="stepCode()">Step JavaScript</button> -->
-     <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button" onclick="generateCodeAndLoadIntoInterpreter()">Reset execution</button> -->
+     <!-- <button type="button" class="btn btn-outline-dark btn-block" id="stop-button">Stop execution</button> -->
+     <!-- <button type="button" class="btn btn-outline-dark btn-block" id="step-button">Step JavaScript</button> -->
+     <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button">Reset execution</button> -->
           
         </p>
       </div>
@@ -393,9 +393,7 @@
       <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38"></block>
   </xml>
 
-  <script src="scripts/main.js"></script>
   <script src="scripts/workspace.js"></script>
-  <script src="scripts/logging.js"></script>
 </body>
 
 </html>

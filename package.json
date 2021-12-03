@@ -16,7 +16,15 @@
     "parcel-plugin-static-files-copy": "^2.6.0"
   },
   "staticFiles": {
-    "staticOutDir": "examples",
-    "staticPath": "static/examples"
+    "staticPath": [
+      {
+        "staticOutDir": "examples",
+        "staticPath": "static/examples"
+      },
+      {
+        "staticOutDir": "scripts",
+        "staticPath": "static/scripts"
+      }
+    ]
   }
 }

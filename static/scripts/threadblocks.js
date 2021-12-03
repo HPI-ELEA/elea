@@ -1,4 +1,7 @@
 import * as Blockly from 'blockly'
+import {setUsingThreads} from './modules/blocklyHandling'
+var PREV_DEFINITIONS = null;
+
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "run_thread",
@@ -231,7 +234,7 @@ Blockly.JavaScript['run_thread'] = function(block) {
   }
 
   // This flag tells Elea to run the generate code twice so that this block can get function definitions
-  USING_THREADS = true
+  setUsingThreads()
 
   let thread_count = Blockly.JavaScript.valueToCode(block, 'thread_count', Blockly.JavaScript.ORDER_NONE);
   let output_array = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('output_array'), Blockly.Variables.NAME_TYPE);
@@ -280,7 +283,7 @@ Blockly.JavaScript['run_thread_limited'] = function(block) {
   }
 
   // This flag tells Elea to run the generate code twice so that this block can get function definitions
-  USING_THREADS = true
+  setUsingThreads()
 
   let thread_count = Blockly.JavaScript.valueToCode(block, 'thread_count', Blockly.JavaScript.ORDER_NONE);
   let thread_limit = Blockly.JavaScript.valueToCode(block, 'thread_limit', Blockly.JavaScript.ORDER_NONE);

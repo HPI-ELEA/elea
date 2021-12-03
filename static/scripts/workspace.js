@@ -1,65 +1,41 @@
-import replaceWorkspaceWithXml from './main.js'
-var PARAMETERS;
+import {runCode, terminateWorker, clearOutput} from './modules/blocklyHandling'
+import {loadExample} from './modules/exampleHandling'
+import {selectedFileChanged, promptForXML} from './modules/import'
+import {copyJSToClipboard, copyXMLToClipboard, downloadWorkspace, downloadWorkspaceAsJS} from './modules/export'
+import {downloadLog} from "./modules/logging"
+import {highlightAll} from 'prismjs'
+import $ from "jquery";
 
-// updates the parameters map with the latest value from the url
-function update_parameters() {
-    PARAMETERS = new URLSearchParams(window.location.search)
-}
+$('#run-button').click(runCode)
+$('#kill-button').click(terminateWorker)
+$('#clear-button').click(clearOutput)
+$('#show-button').click(highlightAll)
+$('#show-dashboard-button').click((e) => {})
+// $('#stop-button').click(stopWorker)
+// $('#step-button').click(stepCode)
+// $('#reset-button').click(generateCodeAndLoadIntoInterpreter)
 
-// loads the given xml file into the Blockly workspace
-async function loadExampleFile(exampleFile) {
-    console.log("loading example "+exampleFile);
-    let response = await fetch(exampleFile);
-    if (!response.ok) return false;
-  
-    let xml = await response.text();
-    replaceWorkspaceWithXml(xml);
-    return true; 
-}
+$('#example-demo').click(() => loadExample('full'))
 
-// loads the example in a url friendly format, with the folder and xml extension removed
-async function loadExample(example, causedByUrl) {
-    if (!await loadExampleFile("examples/"+example+".xml")) return false;
-    
-    // if the example is being loaded because of a change in the url parameters,
-    // then we don't want to update the url/parameters again, that makes forward/backwards seeking break
-    if (!causedByUrl) {
-        PARAMETERS.set("example", example);
-        update_url();
-    }
+$('#example-empty').click(() => loadExample('empty'))
+$('#example-full').click(() => loadExample('full'))
+$('#example-simple').click(() => loadExample('simple'))
+$('#example-oneplusone').click(() => loadExample('oneplusone'))
+$('#example-onepluslambda').click(() => {})
+$('#example-onelambda').click(() => {})
+$('#example-multithread').click(() => loadExample("multithread"))
+$('#example-full-multithread').click(() => loadExample("full_multithread"))
+$('#example-multithread-performance').click(() => loadExample("multithread-performance"))
 
-    let workspaceTitle = "Untitled"
-    if(example != "empty")
-        workspaceTitle = "Example: " + example
-    document.getElementById("workspace-title").innerHTML = workspaceTitle
-}
+$("#upload_xml_input").change(selectedFileChanged)
 
-// loads the example as defined by the url parameters
-function load_example_from_url() {
-    let example = PARAMETERS.get("example");
-    if (example) {
-        loadExample(example, true);
-    }
-}
+$("#upload_xml").click($("upload_xml_input").click)
+$("#promt_for_xml").click(promptForXML)
+$("#download_xml").click(downloadWorkspace)
+$("#copy_xml").click(copyXMLToClipboard)
+$("#download_js").click(downloadWorkspaceAsJS)
+$("#copy_js").click(copyJSToClipboard)
+$("#show_js").click(highlightAll)
+$("#download_json").click(downloadLog)
 
-// keep track of the latest url parameters
-let LATEST_SEARCH = window.location.search;
 
-// updates the url with the values in the PARAMETERS object
-function update_url() {
-    window.history.pushState(null, null, "?"+PARAMETERS.toString());
-    LATEST_SEARCH = window.location.search;
-}
-
-// this function is triggered by using the history arrows
-// history items are added by the update_url function above
-// this ensures that navigating with the history arrows updates the examples in the page
-window.onpopstate = function(){
-    if (window.location.search == LATEST_SEARCH) return;
-    LATEST_SEARCH = window.location.search;
-    update_parameters();
-    load_example_from_url();
-};
-
-update_parameters();
-load_example_from_url();

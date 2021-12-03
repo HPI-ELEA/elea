@@ -1,91 +1,11 @@
-var USING_THREADS = false;
-var PREV_DEFINITIONS = null;
-HAS_UNSAVED_CHANGES = false;
+var USING_THREADS = false;  
 
 import * as Blockly from 'blockly'
+import { clearLog, handleLogFromWorker } from './logging';
 import 'regenerator-runtime/runtime'
-import './ea_blocks'
-import './newblocks'
-import './threadblocks'
-
-const copyToClipboard = str => {
-    const el = document.createElement('textarea');
-    el.value = str;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-  };
-
-// this function was taken from: https://stackoverflow.com/a/52829183
-const downloadFile = (blob, fileName) => {
-  const link = document.createElement('a');
-  // create a blobURI pointing to our Blob
-  link.href = URL.createObjectURL(blob);
-  link.download = fileName;
-  // some browser needs the anchor to be in the doc
-  document.body.append(link);
-  link.click();
-  link.remove();
-  // in case the Blob uses a lot of memory
-  setTimeout(() => URL.revokeObjectURL(link.href), 7000);
-};
-
-function replacepaceQuestion(xml) {
-    // TODO: Ask for unsaved changes
-    replaceWorkspaceWithXml(xml);
-}
-
-function replaceWorkspaceWithXml(xml) {
-  if(HAS_UNSAVED_CHANGES){
-    if(!window.confirm("Are you sure you want to exit without saving?"))
-      return
-  }
-  workspace.clear();
-  Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
-  workspace.addChangeListener(waitForFinishedLoading)
-}
-
-function promptForXML() {
-  var xml = prompt();
-  if (xml == null) return;
-  console.warn(xml);
-  replaceWorkspaceWithXml(xml);
-}
-
-function copyXMLToClipboard() {
-  var xml = Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(workspace));
-  copyToClipboard(xml)
-  resetHasUnsavedChanges()
-}
-
-function copyJSToClipboard() {
-  var js = getCode();
-  copyToClipboard(js);
-  resetHasUnsavedChanges()
-}
-
-function showXMLInPopup() {
-  var xml = Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(workspace));
-  window.alert(xml);
-}
-
-function selectedFileChanged() {
-    console.log("fileChanged")
-  var input = document.getElementById('upload_xml')
-  if (input.files.length === 0) {
-    console.log('No file selected.');
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = function fileReadCompleted() {
-      replaceWorkspaceQuestion(reader.result);
-      console.log("algorithm updated")
-      document.getElementById("workspace-title").innerHTML = input.files[0].name
-  };
-  reader.readAsText(input.files[0]);
-}
+import '../ea_blocks'
+import '../newblocks'
+import '../threadblocks'
 
 var jsonLog = null;
 var worker = null;
@@ -129,70 +49,6 @@ var onresize = function (e) {
 window.addEventListener('resize', onresize, false);
 onresize();
 Blockly.svgResize(workspace);
-
-CHANGE_OPERATIONS = [
-  Blockly.Events.BLOCK_CHANGE,
-  Blockly.Events.BLOCK_CREATE,
-  Blockly.Events.BLOCK_DELETE,
-  Blockly.Events.BLOCK_MOVE,
-  Blockly.Events.VAR_CREATE,
-  Blockly.Events.VAR_DELETE,
-  Blockly.Events.VAR_RENAME,
-  Blockly.Events.COMMENT_CREATE,
-  Blockly.Events.COMMENT_DELETE,
-  Blockly.Events.COMMENT_CHANGE,
-  Blockly.Events.COMMENT_MOVE,
-];
-function unsavedChangesListener(event) {
-  if (CHANGE_OPERATIONS.includes(event.type)) {
-    HAS_UNSAVED_CHANGES = true
-    workspace.removeChangeListener(unsavedChangesListener)
-    window.addEventListener("beforeunload", beforeUnloadListener)
-    let workspaceTitle = document.getElementById("workspace-title").innerHTML
-    document.getElementById("workspace-title").innerHTML = workspaceTitle + "*"
-    console.warn("Workspace has unsaved changes now");
-  }
-}
-
-function beforeUnloadListener(e){
-  e.preventDefault();
-  return e.returnValue = "Are you sure you want to exit without saving?";
-}
-
-function resetHasUnsavedChanges() {
-  HAS_UNSAVED_CHANGES = false
-  workspace.addChangeListener(unsavedChangesListener)
-  window.removeEventListener("beforeunload", beforeUnloadListener)
-  let workspaceTitle = document.getElementById("workspace-title").innerHTML
-  document.getElementById("workspace-title").innerHTML = workspaceTitle.replace(/\*$/, '')
-  console.warn("Workspace has no unsaved changes now")
-}
-
-function waitForFinishedLoading(event) {
-  if (event.type == Blockly.Events.FINISHED_LOADING) {
-    resetHasUnsavedChanges()
-    workspace.removeChangeListener(waitForFinishedLoading);
-  }
-}
-workspace.addChangeListener(waitForFinishedLoading);
-
-function download(text, name, type) {
-  var file = new Blob([text], {type: type});
-  downloadFile(file, name);
-  resetHasUnsavedChanges()
-}
-
-function downloadWorkspace() {
-  var xml = Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(workspace));
-  download(xml, "algorithm.xml", "text/xml");
-}
-
-function downloadWorkspaceAsJS() {
-  var js = getCode();
-  download(js, "algorithm.js", "text/javascript");
-}
-
-
 
 // DO NOT CHANGE THIS BEFORE UNDERSTANDING THE BELOW INFO
 
@@ -312,12 +168,6 @@ var resetButton = document.getElementById('reset-button');
 var codeArea = document.getElementById('jsCodePopup');
 var myInterpreter = null;
 
-function loadUserWorkspace() {
-  var workspacestring = prompt();
-  Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-  workspace);
-}
-
 var highlightPause = false;
 var latestCode = '';
 
@@ -356,8 +206,8 @@ function terminateWorker() {
 }
 
 function clearOutput() {
-  outputArea.innerText = "";
-}
+    outputArea.innerText = "";
+  }
 
 // updates the code that appears in the popup whenever a change happens
 // this could probably just be done when the button is pressed, which would reduce console spam
@@ -369,3 +219,9 @@ workspace.addChangeListener(function(event) {
 
 // disables any blocks that are floating in empty space
 workspace.addChangeListener(Blockly.Events.disableOrphans);
+
+function setUsingThreads(){
+  USING_THREADS = true
+}
+
+export {setUsingThreads, workspace, runCode, getCode, terminateWorker, clearOutput}
