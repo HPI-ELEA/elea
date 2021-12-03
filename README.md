@@ -10,9 +10,16 @@ This is a little tool designed to prototype evolutionary algorithms, get an intu
 
 You can find the application at `localhost:1234` propably.
 
+## More commands for developer
+
+- run `npm run lint` to show current linting errors and warnings
+- run `npm run prettier` to fix formating errors
+
 ## Write new blocks
+
 Steps:
-1. Think of all the connections you need and build your block in the [block factory](https://blockly-demo.appspot.com/static/demos/blockfactory/index.html): 
+
+1. Think of all the connections you need and build your block in the [block factory](https://blockly-demo.appspot.com/static/demos/blockfactory/index.html):
 2. Copy the json definition into the `newblocks.js` or similar JS file and include it
 3. Also copy the JS code stub from the factory into this JS file.
 4. Add the block to the toolbox in any category via its name (roughly in lines 200-450 in workspace.html). You should now be able to see it in the toolbox and use it.
