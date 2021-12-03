@@ -1,26 +1,29 @@
 <!doctype html>
 <html>
+
 <head>
-    <title>Log of your algorithm</title>
+  <title>Log of your algorithm</title>
 
-    <link rel="stylesheet" href="css/globals.css"/>
-    <link  rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="shortcut icon" href="./favicon.ico" />
+  <link rel="stylesheet" href="css/globals.css" />
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="shortcut icon" href="./favicon.ico" />
 
-    <script src="../node_modules/d3/dist/d3.min.js"></script>
-    <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" rel="script"></script>
+  <script src="../node_modules/d3/dist/d3.min.js"></script>
+  <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" rel="script"></script>
 </head>
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">
       <img src="favicon.svg" alt="elea-logo" width="30rem" height="30rem" class="d-inline-block align-top">
       Build Your Own EA
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
@@ -30,7 +33,8 @@
           <a class="nav-link" target="_blank" href="faq.html">FAQ</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarExampleDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarExampleDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             Examples
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
@@ -45,12 +49,14 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="workspace.html?example=multithread">Multi-Threading Example</a>
             <a class="dropdown-item" href="workspace.html?example=full_multithread">Full example with Muti-Threading</a>
-            <a class="dropdown-item" href="workspace.html?example=multithread-performance">Muti-Threading Performance Test</a>
+            <a class="dropdown-item" href="workspace.html?example=multithread-performance">Muti-Threading Performance
+              Test</a>
           </div>
         </li>
         <input type="file" id="upload_json" style="display:none" onchange="selectedFileChanged()">
         <li class="nav-item">
-          <a class="nav-link" onclick="document.getElementById('upload_json').click()" href="#"><button class="btn btn-primary">Upload JSON log file</button></a>
+          <a class="nav-link" onclick="document.getElementById('upload_json').click()" href="#"><button
+              class="btn btn-primary">Upload JSON log file</button></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="visualize_log" href="visualization.html">Visualize Log</a>
@@ -58,228 +64,229 @@
       </ul>
     </div>
   </nav>
-    <div>
-    </div>
-    <svg id="scatter" width="100%" height="800px" viewBox="0 0 500 300"></svg>
-    <script>
+  <div>
+  </div>
+  <svg id="scatter" width="100%" height="800px" viewBox="0 0 500 300"></svg>
+  <script>
 
-      var data = undefined;
-      var chosenLogs = [];
-      var chosenVariants = null;
-      var numberOfLogs = 0;
-      var columns = [];
-      var properties = [];
-      var variants = [];
-      var stats = {};
+    var data = undefined;
+    var chosenLogs = [];
+    var chosenVariants = null;
+    var numberOfLogs = 0;
+    var columns = [];
+    var properties = [];
+    var variants = [];
+    var stats = {};
 
-      var log = null;
+    var log = null;
 
-      // GENERAL HELPER METHODS
-            // taken from https://stackoverflow.com/a/9229821/
-      function uniqBy(a, key) {
-          var seen = {};
-          return a.filter(function(item) {
-              var k = key(item);
-              return seen.hasOwnProperty(k) ? false : (seen[k] = true);
-          })
+    // GENERAL HELPER METHODS
+    // taken from https://stackoverflow.com/a/9229821/
+    function uniqBy(a, key) {
+      var seen = {};
+      return a.filter(function (item) {
+        var k = key(item);
+        return seen.hasOwnProperty(k) ? false : (seen[k] = true);
+      })
+    }
+
+    function arrayEquals(arr1, arr2) {
+      if (arr1.length != arr2.length) {
+        return false;
       }
-
-      function arrayEquals(arr1, arr2) {
-        if (arr1.length != arr2.length) {
+      for (i in arr1) {
+        if (arr1[i] != arr2[i]) {
           return false;
         }
-        for (i in arr1) {
-          if (arr1[i] != arr2[i]) {
-            return false;
+      }
+      return true;
+    }
+
+    // OUR HELPER METHODS
+
+    function filterLogs(variant) {
+      return data['log'].filter(function (x) {
+        var count = 0;
+        for (i in variant) {
+          if (x[properties[i]] == variant[i]) {
+            count += 1
           }
         }
-        return true;
+        return count == variant.length
+      })
+    }
+
+    function getPropertiesOf(log) {
+      return Object.keys(log).filter(x => x != 'log' & x != 'name')
+    }
+
+    function getVariantOf(log) {
+      properties = getPropertiesOf(log);
+      variant = Array(properties.length).fill(0);
+      for (var i = 0; i < properties.length; i++) {
+        variant[i] = log[properties[i]];
       }
+      return variant;
+    }
 
-      // OUR HELPER METHODS
+    function calcVariants() {
+      properties = Object.keys(data['log'][0]).filter(x => x != 'log' & x != 'name')
+      var allLogs = Array(data['log'].length).fill(0).map(x => Array(properties.length).fill(0))
+      for (logIndex in data['log']) {
+        for (i in properties) {
+          allLogs[logIndex][i] = JSON.parse(JSON.stringify(data['log'][logIndex][properties[i]]));
+        }
+      }
+      variants = uniqBy(allLogs, JSON.stringify);
+    }
 
-      function filterLogs(variant) {
-        return data['log'].filter(function(x) {
-          var count = 0;
-          for (i in variant) {
-            if (x[properties[i]] == variant[i]) {
-              count += 1
-            }
+    function calcStats() {
+      stats = {};
+      for (i in variants) {
+        stats[JSON.stringify(variants[i])] = { runtimes: [] };
+      }
+      for (i in chosenLogs) {
+        var log = chosenLogs[i];
+        var variant = getVariantOf(log);
+        var variantName = JSON.stringify(variant);
+        stats[variantName].runtimes.push(log['log'].length);
+      }
+    }
+
+    function selectedFileChanged() {
+      console.log("fileChanged")
+      var input = document.getElementById('upload_json')
+      if (input.files.length === 0) {
+        console.log('No file selected.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function fileReadCompleted() {
+        data = JSON.parse(reader.result);
+        numberOfLogs = data['log'].length
+        //console.warn(numberOfLogs);
+        columns = Object.keys(data['log'][0]['log'][0]);
+
+
+
+        // calculate all variants, i.e. combinations of parameters
+        calcVariants();
+
+        // chose subset of variants to use
+        // should be interactive later
+        chosenVariants = variants;//[variants[2], variants[3], variants[4]];
+        for (var i = 0; i < chosenVariants.length; i++) {
+          let filteredLogs = filterLogs(chosenVariants[i]);
+          for (var j = 0; j < filteredLogs.length; j++) {
+            chosenLogs.push(filteredLogs[j]);
           }
-          return count == variant.length
-        })
-      }
-
-      function getPropertiesOf(log) {
-        return Object.keys(log).filter(x => x != 'log' & x != 'name')
-      }
-
-      function getVariantOf(log) {
-        properties = getPropertiesOf(log);
-        variant = Array(properties.length).fill(0);
-        for (var i=0;i<properties.length;i++) {
-          variant[i] = log[properties[i]];
         }
-        return variant;
-      }
 
-      function calcVariants() {
-        properties = Object.keys(data['log'][0]).filter(x => x != 'log' & x != 'name')
-        var allLogs = Array(data['log'].length).fill(0).map(x => Array(properties.length).fill(0))
-        for (logIndex in data['log']) {
-          for (i in properties) {
-            allLogs[logIndex][i] = JSON.parse(JSON.stringify(data['log'][logIndex][properties[i]]));
-          }
-        }
-        variants = uniqBy(allLogs, JSON.stringify);
-      }
+        // calc accumulative stats for chosen logs
+        calcStats();
 
-      function calcStats() {
-        stats = {};
-        for (i in variants) {
-          stats[JSON.stringify(variants[i])] = {runtimes: []};
-        }
-        for (i in chosenLogs) {
-          var log  = chosenLogs[i];
-          var variant = getVariantOf(log);
-          var variantName = JSON.stringify(variant);
-          stats[variantName].runtimes.push(log['log'].length);
-        }
-      }
+        // plot stats of chosen logs
+        plot();
+        console.log("log updated")
 
-      function selectedFileChanged() {
-        console.log("fileChanged")
-        var input = document.getElementById('upload_json')
-        if (input.files.length === 0) {
-          console.log('No file selected.');
-          return;
-        }
-        const reader = new FileReader();
-        reader.onload = function fileReadCompleted() {
-          data = JSON.parse(reader.result);
-          numberOfLogs = data['log'].length
-          //console.warn(numberOfLogs);
-          columns = Object.keys(data['log'][0]['log'][0]);
+      };
+      reader.readAsText(input.files[0]);
+    }
 
 
-
-          // calculate all variants, i.e. combinations of parameters
-          calcVariants();
-
-          // chose subset of variants to use
-          // should be interactive later
-          chosenVariants = variants;//[variants[2], variants[3], variants[4]];
-          for (var i=0;i<chosenVariants.length;i++) {
-            let filteredLogs = filterLogs(chosenVariants[i]);
-            for (var j=0;j<filteredLogs.length;j++) {
-              chosenLogs.push(filteredLogs[j]);
-            }
-          }
-
-          // calc accumulative stats for chosen logs
-          calcStats();
-
-          // plot stats of chosen logs
-          plot();
-          console.log("log updated")
-
-        };
-        reader.readAsText(input.files[0]);
-      }
+    function plot() {
+      // All object handling is pretty dirty, but visualisation works as is and was intended as a one-off example
+      // Should be refactored by someone who knows what they are doing ;)
+      var test = Object.entries(stats).map(function (d) { return { variant: d[0], runtimes: d[1].runtimes } }).filter(d => d.runtimes.length > 0)
+      var sumstat = d3.rollup(test, function (d) {
+        q1 = d3.quantile(d[0].runtimes.sort(d3.ascending), .25)
+        median = d3.quantile(d[0].runtimes.sort(d3.ascending), .5)
+        q3 = d3.quantile(d[0].runtimes.sort(d3.ascending), .75)
+        interQuantileRange = q3 - q1
+        min = q1 - 1.5 * interQuantileRange
+        max = q3 + 1.5 * interQuantileRange
+        return ({ q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max })
+      }, k => k.variant);
 
 
-      function plot() {
-        // All object handling is pretty dirty, but visualisation works as is and was intended as a one-off example
-        // Should be refactored by someone who knows what they are doing ;)
-        var test = Object.entries(stats).map(function(d) {return {variant: d[0],runtimes: d[1].runtimes}}).filter(d => d.runtimes.length > 0)
-        var sumstat = d3.rollup(test, function (d) {
-            q1 = d3.quantile(d[0].runtimes.sort(d3.ascending), .25)
-            median = d3.quantile(d[0].runtimes.sort(d3.ascending), .5)
-            q3 = d3.quantile(d[0].runtimes.sort(d3.ascending), .75)
-            interQuantileRange = q3 - q1
-            min = q1 - 1.5 * interQuantileRange
-            max = q3 + 1.5 * interQuantileRange
-            return ({ q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max })
-        }, k => k.variant);
+      // Show the X scale
+      var x = d3.scaleBand()
+        .range([0, width])
+        .domain(sumstat.keys())
+        .paddingInner(1)
+        .paddingOuter(.5)
+      svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x))
 
 
-        // Show the X scale
-        var x = d3.scaleBand()
-          .range([0, width])
-          .domain(sumstat.keys())
-          .paddingInner(1)
-          .paddingOuter(.5)
-        svg.append("g")
-          .attr("transform", "translate(0," + height + ")")
-          .call(d3.axisBottom(x))
+      var yMin = d3.min(sumstat, d => d[1].min);
+      var yMax = d3.max(sumstat, d => d[1].max)
+      var padding = (yMax - yMin) * 0.1
 
-        
-        var yMin = d3.min(sumstat, d => d[1].min);
-        var yMax = d3.max(sumstat, d => d[1].max)
-        var padding = (yMax-yMin)*0.1
+      // Show the Y scale
+      var y = d3.scaleLinear()
+        .domain([yMin - padding, yMax + padding])
+        .range([height, 0])
+      svg.append("g").call(d3.axisLeft(y))
 
-        // Show the Y scale
-        var y = d3.scaleLinear()
-          .domain([yMin-padding, yMax+padding])
-          .range([height, 0])
-        svg.append("g").call(d3.axisLeft(y))
+      // Show the main vertical line
+      svg
+        .selectAll("vertLines")
+        .data(sumstat)
+        .enter()
+        .append("line")
+        .attr("x1", d => x(d[0]))
+        .attr("x2", d => x(d[0]))
+        .attr("y1", function (d) { return (y(d[1].min)) })
+        .attr("y2", function (d) { return (y(d[1].max)) })
+        .attr("stroke", "black")
+        .style("width", 40)
 
-        // Show the main vertical line
-        svg
-          .selectAll("vertLines")
-          .data(sumstat)
-          .enter()
-          .append("line")
-          .attr("x1", d => x(d[0]) ) 
-          .attr("x2", d => x(d[0]) )
-          .attr("y1", function (d) { return (y(d[1].min)) })
-          .attr("y2", function (d) { return (y(d[1].max)) })
-          .attr("stroke", "black")
-          .style("width", 40)
+      // rectangle for the main box
+      var boxWidth = width / test.length / 3
+      svg
+        .selectAll("boxes")
+        .data(sumstat)
+        .enter()
+        .append("rect")
+        .attr("x", function (d) { return (x(d[0]) - boxWidth / 2) })
+        .attr("y", function (d) { return (y(d[1].q3)) })
+        .attr("height", function (d) { return (y(d[1].q1) - y(d[1].q3)) })
+        .attr("width", boxWidth)
+        .attr("stroke", "black")
+        .style("fill", "#69b3a2")
 
-        // rectangle for the main box
-        var boxWidth = width / test.length / 3
-        svg
-          .selectAll("boxes")
-          .data(sumstat)
-          .enter()
-          .append("rect")
-          .attr("x", function (d) { return (x(d[0]) - boxWidth / 2) })
-          .attr("y", function (d) { return (y(d[1].q3)) })
-          .attr("height", function (d) { return (y(d[1].q1) - y(d[1].q3)) })
-          .attr("width", boxWidth)
-          .attr("stroke", "black")
-          .style("fill", "#69b3a2")
+      // Show the median
+      svg
+        .selectAll("medianLines")
+        .data(sumstat)
+        .enter()
+        .append("line")
+        .attr("x1", function (d) { return (x(d[0]) - boxWidth / 2) })
+        .attr("x2", function (d) { return (x(d[0]) + boxWidth / 2) })
+        .attr("y1", function (d) { return (y(d[1].median)) })
+        .attr("y2", function (d) { return (y(d[1].median)) })
+        .attr("stroke", "black")
+        .style("width", 80)
 
-        // Show the median
-        svg
-          .selectAll("medianLines")
-          .data(sumstat)
-          .enter()
-          .append("line")
-          .attr("x1", function (d) { return (x(d[0]) - boxWidth / 2) })
-          .attr("x2", function (d) { return (x(d[0]) + boxWidth / 2) })
-          .attr("y1", function (d) { return (y(d[1].median)) })
-          .attr("y2", function (d) { return (y(d[1].median)) })
-          .attr("stroke", "black")
-          .style("width", 80)
+    }
 
-      }
+    // REST OF SCRIPT
 
-      // REST OF SCRIPT
-      
-      var margin = {top: 10, right: 30, bottom: 30, left: 40},
+    var margin = { top: 10, right: 30, bottom: 30, left: 40 },
       width = 460 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom;
 
-      var svg = d3.select("#scatter")
-          .append("g")
-          .attr("transform",
-                "translate(" + margin.left + "," + margin.top + ")");
+    var svg = d3.select("#scatter")
+      .append("g")
+      .attr("transform",
+        "translate(" + margin.left + "," + margin.top + ")");
 
 
-      console.log("script read successful")
+    console.log("script read successful")
 
-    </script>
+  </script>
 </body>
+
 </html>

@@ -3,20 +3,20 @@
 
 <head>
   <meta charset="utf-8">
-  <title>elea Demo: Build Your Own EA</title>  
+  <title>elea Demo: Build Your Own EA</title>
 
-  <link rel="stylesheet" href="css/globals.css"/>
-  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"  />
-  <link rel="stylesheet" href="css/workspace.css"/>
+  <link rel="stylesheet" href="css/globals.css" />
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/workspace.css" />
   <link rel="stylesheet" href="css/gh-fork-ribbon.css">
   <link rel="shortcut icon" href="favicon.ico" />
 
-  <link  rel="stylesheet" href="../node_modules/prismjs/themes/prism.css"/>
+  <link rel="stylesheet" href="../node_modules/prismjs/themes/prism.css" />
   <script src="../node_modules/prismjs/prism.js"></script>
 
   <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
   <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" rel="script"></script>
-  
+
 </head>
 
 <body>
@@ -25,10 +25,11 @@
       <img src="favicon.svg" alt="elea-logo" width="30rem" height="30rem" class="d-inline-block align-top">
       Build Your Own EA
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
@@ -38,7 +39,8 @@
           <a class="nav-link" target="_blank" href="faq.html">FAQ</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarExampleDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarExampleDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             Examples
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
@@ -57,7 +59,8 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarSaveDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarSaveDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             Save/Restore Algorithm
           </a>
           <input type="file" id="upload_xml_input" style="display:none">
@@ -66,14 +69,14 @@
             <a class="dropdown-item" id="upload_xml" href="#">Upload XML file</a>
             <a class="dropdown-item" id="promt_for_xml" href="#">Paste XML string</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="download_xml" href="#" >Download XML file</a>
+            <a class="dropdown-item" id="download_xml" href="#">Download XML file</a>
             <a class="dropdown-item" id="copy_xml" href="#">Copy XML string</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="download_js" href="#" >Download JS file</a>
+            <a class="dropdown-item" id="download_js" href="#">Download JS file</a>
             <a class="dropdown-item" id="copy_js" href="#">Copy JS string</a>
             <a class="dropdown-item" data-toggle="modal" id="show_js" href="#jsModal">Show JS</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="download_json"" href="#jsModal">Download Log</a>
+            <a class="dropdown-item" id="download_json"" href=" #jsModal">Download Log</a>
           </div>
         </li>
         <li class="nav-item">
@@ -86,45 +89,46 @@
     </div>
   </nav>
 
-  <a class="github-fork-ribbon right-bottom" href="https://github.com/HPI-ELEA/elea" data-ribbon="Fork us on GitHub" title="Fork us on GitHub">Fork us on GitHub</a>
-    
+  <a class="github-fork-ribbon right-bottom" href="https://github.com/HPI-ELEA/elea" data-ribbon="Fork us on GitHub"
+    title="Fork us on GitHub">Fork us on GitHub</a>
+
 
   <div id="jsModal" class="modal">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Javascript Code</h5>
-              <button type="button" class="close" data-dismiss="modal">×</button>
-            </div>
-            <div class="modal-body">
-              <pre>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Javascript Code</h5>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        <div class="modal-body">
+          <pre>
                 <code id="jsCodePopup" class="language-js"></code>
               </pre>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <div id="jsModalRun" class="modal" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Run dashboard</h5>
-              <button type="button" class="close" data-dismiss="modal">×</button>
-            </div>
-            <div class="modal-body">
-              <div>
-                <h1>Placeholder for live dashboard</h1>
-                <svg id="loggingPlot" width="80%" height="80%" viewBox="0 0 500 300"></svg>
-              </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Run dashboard</h5>
+          <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
+        <div class="modal-body">
+          <div>
+            <h1>Placeholder for live dashboard</h1>
+            <svg id="loggingPlot" width="80%" height="80%" viewBox="0 0 500 300"></svg>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
   </div>
   <div id="workspace-header">
@@ -135,7 +139,7 @@
     <div class="row">
       <div id="blocklyArea" class="col-8">
       </div>
-      <div id = "outputColumn" class="col-3 bg-white">
+      <div id="outputColumn" class="col-3 bg-white">
         <h2 class="columnHeader">Output:</h2>
         <div class="columnContent">
           <pre id="scroller">
@@ -143,19 +147,21 @@
           </pre>
           <div id="anchor"></div>
         </div>
-        
+
       </div>
       <div id="buttonColumn" class="col-1 bg-white">
         <p class="columnContent">
           <button type="button" class="btn btn-success btn-block" id="run-button">Run JavaScript</button>
           <button type="button" class="btn btn-danger btn-block" id="kill-button"">Kill execution</button>
-          <button type="button" class="btn btn-warning btn-block" id="clear-button">Clear Output</button>
-          <button type="button" class="btn btn-outline-dark btn-block" id="show-button" data-toggle="modal" href="#jsModal">Show JavaScript</button>
-          <button type="button" class="btn btn-outline-dark btn-block" id="show-dashboard-button" data-toggle="modal" href="#jsModalRun">Dashboard</button>
-     <!-- <button type="button" class="btn btn-outline-dark btn-block" id="stop-button">Stop execution</button> -->
-     <!-- <button type="button" class="btn btn-outline-dark btn-block" id="step-button">Step JavaScript</button> -->
-     <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button">Reset execution</button> -->
-          
+          <button type=" button" class="btn btn-warning btn-block" id="clear-button">Clear Output</button>
+          <button type="button" class="btn btn-outline-dark btn-block" id="show-button" data-toggle="modal"
+            href="#jsModal">Show JavaScript</button>
+          <button type="button" class="btn btn-outline-dark btn-block" id="show-dashboard-button" data-toggle="modal"
+            href="#jsModalRun">Dashboard</button>
+          <!-- <button type="button" class="btn btn-outline-dark btn-block" id="stop-button">Stop execution</button> -->
+          <!-- <button type="button" class="btn btn-outline-dark btn-block" id="step-button">Step JavaScript</button> -->
+          <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button">Reset execution</button> -->
+
         </p>
       </div>
 
@@ -390,7 +396,7 @@
       the browser console. Add the inside of the xml block inside this one.
       Lastly, replace all " with ", eg all <backslash quotation> with a single quotation  -->
   <xml xmlns="https://developers.google.com/blockly/xml" id="startBlocks" style="display: none">
-      <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38"></block>
+    <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38"></block>
   </xml>
 
   <script src="scripts/workspace.js"></script>

@@ -1,44 +1,45 @@
-import * as Blockly from 'blockly'
+import * as Blockly from "blockly";
 Blockly.defineBlocksWithJsonArray([
   //
   {
-    "type": "ea_crossover_detail",
-    "message0": "crossover | used variables: %1 %2 %3 %4 %5 Make sure to use the copy functions %6 child1 and child2 should contain the offsprings %7 %8",
-    "args0": [
+    type: "ea_crossover_detail",
+    message0:
+      "crossover | used variables: %1 %2 %3 %4 %5 Make sure to use the copy functions %6 child1 and child2 should contain the offsprings %7 %8",
+    args0: [
       {
-        "type": "field_variable",
-        "name": "parent1",
-        "variable": "parent1"
+        type: "field_variable",
+        name: "parent1",
+        variable: "parent1",
       },
       {
-        "type": "field_variable",
-        "name": "parent2",
-        "variable": "parent2"
+        type: "field_variable",
+        name: "parent2",
+        variable: "parent2",
       },
       {
-        "type": "field_variable",
-        "name": "child1",
-        "variable": "child1"
+        type: "field_variable",
+        name: "child1",
+        variable: "child1",
       },
       {
-        "type": "field_variable",
-        "name": "child2",
-        "variable": "child2"
+        type: "field_variable",
+        name: "child2",
+        variable: "child2",
       },
       {
-        "type": "input_dummy"
+        type: "input_dummy",
       },
       {
-        "type": "input_dummy"
+        type: "input_dummy",
       },
       {
-        "type": "input_dummy"
+        type: "input_dummy",
       },
       {
-        "type": "input_statement",
-        "name": "crossover"
+        type: "input_statement",
+        name: "crossover",
       },
-    ]
+    ],
   },
 ]);
 
