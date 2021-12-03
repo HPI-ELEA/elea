@@ -1,5 +1,6 @@
 var USING_THREADS = false;
 var PREV_DEFINITIONS = null;
+HAS_UNSAVED_CHANGES = false;
 
 import * as Blockly from 'blockly'
 import 'regenerator-runtime/runtime'
@@ -36,8 +37,13 @@ function replacepaceQuestion(xml) {
 }
 
 function replaceWorkspaceWithXml(xml) {
+  if(HAS_UNSAVED_CHANGES){
+    if(!window.confirm("Are you sure you want to exit without saving?"))
+      return
+  }
   workspace.clear();
   Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
+  workspace.addChangeListener(waitForFinishedLoading)
 }
 
 function promptForXML() {
@@ -50,11 +56,13 @@ function promptForXML() {
 function copyXMLToClipboard() {
   var xml = Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(workspace));
   copyToClipboard(xml)
+  resetHasUnsavedChanges()
 }
 
 function copyJSToClipboard() {
   var js = getCode();
   copyToClipboard(js);
+  resetHasUnsavedChanges()
 }
 
 function showXMLInPopup() {
@@ -74,6 +82,7 @@ function selectedFileChanged() {
   reader.onload = function fileReadCompleted() {
       replaceWorkspaceQuestion(reader.result);
       console.log("algorithm updated")
+      document.getElementById("workspace-title").innerHTML = input.files[0].name
   };
   reader.readAsText(input.files[0]);
 }
@@ -88,7 +97,16 @@ var pauseAtNewBlock = true;
 var blocklyArea = document.getElementById('blocklyArea');
 var blocklyDiv = document.getElementById('blocklyDiv');
 var workspace = Blockly.inject(blocklyDiv,
-  { toolbox: document.getElementById('toolbox') });
+  { toolbox: document.getElementById('toolbox'),
+    zoom:
+        {controls: true,
+         wheel: true,
+         startScale: 1.0,
+         maxScale: 2.5,
+         minScale: 0.4,
+         scaleSpeed: 1.05,
+         pinch: true},
+    trashcan: true });
 Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
   workspace);
 var onresize = function (e) {
@@ -112,14 +130,61 @@ window.addEventListener('resize', onresize, false);
 onresize();
 Blockly.svgResize(workspace);
 
+CHANGE_OPERATIONS = [
+  Blockly.Events.BLOCK_CHANGE,
+  Blockly.Events.BLOCK_CREATE,
+  Blockly.Events.BLOCK_DELETE,
+  Blockly.Events.BLOCK_MOVE,
+  Blockly.Events.VAR_CREATE,
+  Blockly.Events.VAR_DELETE,
+  Blockly.Events.VAR_RENAME,
+  Blockly.Events.COMMENT_CREATE,
+  Blockly.Events.COMMENT_DELETE,
+  Blockly.Events.COMMENT_CHANGE,
+  Blockly.Events.COMMENT_MOVE,
+];
+function unsavedChangesListener(event) {
+  if (CHANGE_OPERATIONS.includes(event.type)) {
+    HAS_UNSAVED_CHANGES = true
+    workspace.removeChangeListener(unsavedChangesListener)
+    window.addEventListener("beforeunload", beforeUnloadListener)
+    let workspaceTitle = document.getElementById("workspace-title").innerHTML
+    document.getElementById("workspace-title").innerHTML = workspaceTitle + "*"
+    console.warn("Workspace has unsaved changes now");
+  }
+}
+
+function beforeUnloadListener(e){
+  e.preventDefault();
+  return e.returnValue = "Are you sure you want to exit without saving?";
+}
+
+function resetHasUnsavedChanges() {
+  HAS_UNSAVED_CHANGES = false
+  workspace.addChangeListener(unsavedChangesListener)
+  window.removeEventListener("beforeunload", beforeUnloadListener)
+  let workspaceTitle = document.getElementById("workspace-title").innerHTML
+  document.getElementById("workspace-title").innerHTML = workspaceTitle.replace(/\*$/, '')
+  console.warn("Workspace has no unsaved changes now")
+}
+
+function waitForFinishedLoading(event) {
+  if (event.type == Blockly.Events.FINISHED_LOADING) {
+    resetHasUnsavedChanges()
+    workspace.removeChangeListener(waitForFinishedLoading);
+  }
+}
+workspace.addChangeListener(waitForFinishedLoading);
+
 function download(text, name, type) {
   var file = new Blob([text], {type: type});
   downloadFile(file, name);
+  resetHasUnsavedChanges()
 }
 
 function downloadWorkspace() {
   var xml = Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(workspace));
-  download(xml, "algorithm", "text/xml");
+  download(xml, "algorithm.xml", "text/xml");
 }
 
 function downloadWorkspaceAsJS() {

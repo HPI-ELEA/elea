@@ -32,7 +32,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link active" href="workspace.html?example=full">Demo<span class="sr-only">(current)</span></a>
+          <a class="nav-link active" href="#" onclick="loadExample('full')">Demo<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" target="_blank" href="faq.html">FAQ</a>
@@ -72,10 +72,9 @@
             <a class="dropdown-item" id="download_js" onclick="downloadWorkspaceAsJS()" href="#" >Download JS file</a>
             <a class="dropdown-item" onclick="copyJSToClipboard()" href="#">Copy JS string</a>
             <a class="dropdown-item" data-toggle="modal" onclick="Prism.highlightAll()"" href="#jsModal">Show JS</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" id="download_json" onclick="downloadLog()"" href="#jsModal">Download Log</a>
           </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="download_json" onclick="downloadLog()" href="#">Download Log</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="visualize_log" target="_blank" href="visualization.html">Scatter plot</a>
@@ -87,7 +86,7 @@
     </div>
   </nav>
 
-  <a class="github-fork-ribbon right-bottom" href="https://github.com/bjrne/elea" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
+  <a class="github-fork-ribbon right-bottom" href="https://github.com/HPI-ELEA/elea" data-ribbon="Fork us on GitHub" title="Fork us on GitHub">Fork us on GitHub</a>
     
 
   <div id="jsModal" class="modal">
@@ -128,8 +127,9 @@
         </div>
     </div>
   </div>
-
-  <p>Use blocks from the toolbar on the left to customize your algorithm or drag existing blocks into a new order.</p>
+  <div id="workspace-header">
+    <h3 class="display-5" id="workspace-title">Untitled</h3>
+  </div>
 
   <div id="appSpace" class="container-fluid">
     <div class="row">
@@ -147,14 +147,15 @@
       </div>
       <div id="buttonColumn" class="col-1 bg-white">
         <p class="columnContent">
-          <button id="show-button" data-toggle="modal" onclick="Prism.highlightAll()" href="#jsModal">Show JavaScript</button>
-          <button id="show-dashboard-button" data-toggle="modal" href="#jsModalRun">Open Dashboard</button>
-          <button id="run-button" onclick="runCode()">Run JavaScript</button>
-          <!-- <button id="stop-button" onclick="stopWorker()">Stop execution</button> -->
-          <button id="kill-button" onclick="terminateWorker()">Kill execution</button>
-          <!-- <button id="step-button" onclick="stepCode()">Step JavaScript</button> -->
-          <!-- <button id="reset-button" onclick="generateCodeAndLoadIntoInterpreter()">Reset execution</button> -->
-          <button id="clear-button" onclick="clearOutput()">Clear Output</button>
+          <button type="button" class="btn btn-success btn-block" id="run-button" onclick="runCode()">Run JavaScript</button>
+          <button type="button" class="btn btn-danger btn-block" id="kill-button" onclick="terminateWorker()">Kill execution</button>
+          <button type="button" class="btn btn-warning btn-block" id="clear-button" onclick="clearOutput()">Clear Output</button>
+          <button type="button" class="btn btn-outline-dark btn-block" id="show-button" data-toggle="modal" onclick="Prism.highlightAll()" href="#jsModal">Show JavaScript</button>
+          <button type="button" class="btn btn-outline-dark btn-block" id="show-dashboard-button" data-toggle="modal" href="#jsModalRun">Dashboard</button>
+     <!-- <button type="button" class="btn btn-outline-dark btn-block" id="stop-button" onclick="stopWorker()">Stop execution</button> -->
+     <!-- <button type="button" class="btn btn-outline-dark btn-block" id="step-button" onclick="stepCode()">Step JavaScript</button> -->
+     <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button" onclick="generateCodeAndLoadIntoInterpreter()">Reset execution</button> -->
+          
         </p>
       </div>
 
@@ -162,6 +163,7 @@
     </div>
   </div>
   <div id="blocklyDiv" style="position: absolute"></div>
+  <p>Use blocks from the toolbar on the left to customize your algorithm or drag existing blocks into a new order.</p>
 
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
     <category name="Measures" colour=180>
@@ -230,6 +232,7 @@
         </value>
       </block>
       <block type="text"></block>
+      <block type="comment"></block>
     </category>
     <sep></sep>
     <category name="Variables" colour="330" custom="VARIABLE"></category>
@@ -376,7 +379,6 @@
       </block>
     </category>
     <category name="experimental" colour="#111111">
-      <block type="comment"></block>
       <block type="experimental_timer"></block>
       <block type="experimental_raw_code"></block>
       <block type="experimental_raw_value"></block>
@@ -390,7 +392,7 @@
   <xml xmlns="https://developers.google.com/blockly/xml" id="startBlocks" style="display: none">
       <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38"></block>
   </xml>
-  
+
   <script src="scripts/main.js"></script>
   <script src="scripts/workspace.js"></script>
   <script src="scripts/logging.js"></script>

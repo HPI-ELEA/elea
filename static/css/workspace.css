@@ -16,6 +16,14 @@
     max-height: 100%
 }
 
+#run-button{
+    height: 10%;
+}
+
+#show-button{
+    margin-top: 50%;
+}
+
 .columnHeader {
     height: 5%;
 }
@@ -62,3 +70,7 @@ img {
     height: 1px;
   }
   
+
+#workspace-header {
+    margin: 0.5rem;
+}
