@@ -41,12 +41,6 @@
   max-height: 100%;
 }
 
-img {
-  object-fit: contain;
-}
-textarea {
-  font-size: 10px;
-}
 @media screen and (min-width: 676px) {
   .modal-dialog {
     max-width: 600px; /* New width for default modal */

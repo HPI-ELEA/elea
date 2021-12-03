@@ -1,405 +1,541 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>elea Demo: Build Your Own EA</title>
 
-<head>
-  <meta charset="utf-8">
-  <title>elea Demo: Build Your Own EA</title>
+    <link rel="stylesheet" href="css/globals.css" />
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="css/workspace.css" />
+    <link rel="stylesheet" href="css/gh-fork-ribbon.css" />
+    <link rel="shortcut icon" href="favicon.ico" />
 
-  <link rel="stylesheet" href="css/globals.css" />
-  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="css/workspace.css" />
-  <link rel="stylesheet" href="css/gh-fork-ribbon.css">
-  <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="../node_modules/prismjs/themes/prism.css" />
+    <script src="../node_modules/prismjs/prism.js"></script>
 
-  <link rel="stylesheet" href="../node_modules/prismjs/themes/prism.css" />
-  <script src="../node_modules/prismjs/prism.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script
+      src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+      rel="script"
+    ></script>
+  </head>
 
-  <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
-  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" rel="script"></script>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index.html">
+        <img
+          src="favicon.svg"
+          alt="elea-logo"
+          width="30rem"
+          height="30rem"
+          class="d-inline-block align-top"
+        />
+        Build Your Own EA
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-</head>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link active" href="#" id="example-demo">
+              Demo
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" target="_blank" href="faq.html">FAQ</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarExampleDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Examples
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
+              <a class="dropdown-item" id="example-empty">
+                Empty starting point
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="example-full">Full example</a>
+              <a class="dropdown-item" id="example-simple">Simple example</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="example-oneplusone">1+1</a>
+              <a class="dropdown-item" id="example-onepluslambda" href="#">
+                1+λ (TODO)
+              </a>
+              <a class="dropdown-item" id="example-onelambda" href="#">
+                1,λ (TODO)
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="example-multithread">
+                Multi-Threading Example
+              </a>
+              <a class="dropdown-item" id="example-full-multithread">
+                Full Example with Multi-Threading
+              </a>
+              <a class="dropdown-item" id="example-multithread-performance">
+                Multi-Threading Performance Test
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarSaveDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Save/Restore Algorithm
+            </a>
+            <input type="file" id="upload_xml_input" style="display: none" />
+            <div class="dropdown-menu" aria-labelledby="navbarSaveDropdown">
+              <a class="dropdown-item" id="upload_xml" href="#">
+                Upload XML file
+              </a>
+              <a class="dropdown-item" id="promt_for_xml" href="#">
+                Paste XML string
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="download_xml" href="#">
+                Download XML file
+              </a>
+              <a class="dropdown-item" id="copy_xml" href="#">
+                Copy XML string
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="download_js" href="#">
+                Download JS file
+              </a>
+              <a class="dropdown-item" id="copy_js" href="#">Copy JS string</a>
+              <a
+                class="dropdown-item"
+                data-toggle="modal"
+                id="show_js"
+                href="#jsModal"
+              >
+                Show JS
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="download_json" href="#jsModal">
+                Download Log
+              </a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              id="visualize_log"
+              target="_blank"
+              href="visualization.html"
+            >
+              Scatter plot
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              id="visualize_log"
+              target="_blank"
+              href="visualization2.html"
+            >
+              Boxplots
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="index.html">
-      <img src="favicon.svg" alt="elea-logo" width="30rem" height="30rem" class="d-inline-block align-top">
-      Build Your Own EA
+    <a
+      class="github-fork-ribbon right-bottom"
+      href="https://github.com/HPI-ELEA/elea"
+      data-ribbon="Fork us on GitHub"
+      title="Fork us on GitHub"
+    >
+      Fork us on GitHub
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link active" href="#" id="example-demo">Demo<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" target="_blank" href="faq.html">FAQ</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarExampleDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Examples
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
-            <a class="dropdown-item" id="example-empty">Empty starting point</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="example-full">Full example</a>
-            <a class="dropdown-item" id="example-simple">Simple example</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="example-oneplusone">1+1</a>
-            <a class="dropdown-item" id="example-onepluslambda" href="#">1+λ (TODO)</a>
-            <a class="dropdown-item" id="example-onelambda" href="#">1,λ (TODO)</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="example-multithread">Multi-Threading Example</a>
-            <a class="dropdown-item" id="example-full-multithread">Full Example with Multi-Threading</a>
-            <a class="dropdown-item" id="example-multithread-performance">Multi-Threading Performance Test</a>
+    <div id="jsModal" class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Javascript Code</h5>
+            <button type="button" class="close" data-dismiss="modal">×</button>
           </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarSaveDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Save/Restore Algorithm
-          </a>
-          <input type="file" id="upload_xml_input" style="display:none">
-          <div class="dropdown-menu" aria-labelledby="navbarSaveDropdown">
-
-            <a class="dropdown-item" id="upload_xml" href="#">Upload XML file</a>
-            <a class="dropdown-item" id="promt_for_xml" href="#">Paste XML string</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="download_xml" href="#">Download XML file</a>
-            <a class="dropdown-item" id="copy_xml" href="#">Copy XML string</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="download_js" href="#">Download JS file</a>
-            <a class="dropdown-item" id="copy_js" href="#">Copy JS string</a>
-            <a class="dropdown-item" data-toggle="modal" id="show_js" href="#jsModal">Show JS</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" id="download_json"" href=" #jsModal">Download Log</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="visualize_log" target="_blank" href="visualization.html">Scatter plot</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="visualize_log" target="_blank" href="visualization2.html">Boxplots</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-
-  <a class="github-fork-ribbon right-bottom" href="https://github.com/HPI-ELEA/elea" data-ribbon="Fork us on GitHub"
-    title="Fork us on GitHub">Fork us on GitHub</a>
-
-
-  <div id="jsModal" class="modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Javascript Code</h5>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-        <div class="modal-body">
-          <pre>
+          <div class="modal-body">
+            <pre>
                 <code id="jsCodePopup" class="language-js"></code>
               </pre>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="jsModalRun" class="modal" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Run dashboard</h5>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-        <div class="modal-body">
-          <div>
-            <h1>Placeholder for live dashboard</h1>
-            <svg id="loggingPlot" width="80%" height="80%" viewBox="0 0 500 300"></svg>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              Close
+            </button>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+    <div
+      id="jsModalRun"
+      class="modal"
+      role="dialog"
+      aria-labelledby="myExtraLargeModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Run dashboard</h5>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <h1>Placeholder for live dashboard</h1>
+              <svg
+                id="loggingPlot"
+                width="80%"
+                height="80%"
+                viewBox="0 0 500 300"
+              ></svg>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div id="workspace-header">
-    <h3 class="display-5" id="workspace-title">Untitled</h3>
-  </div>
+    <div id="workspace-header">
+      <h3 class="display-5" id="workspace-title">Untitled</h3>
+    </div>
 
-  <div id="appSpace" class="container-fluid">
-    <div class="row">
-      <div id="blocklyArea" class="col-8">
-      </div>
-      <div id="outputColumn" class="col-3 bg-white">
-        <h2 class="columnHeader">Output:</h2>
-        <div class="columnContent">
-          <pre id="scroller">
+    <div id="appSpace" class="container-fluid">
+      <div class="row">
+        <div id="blocklyArea" class="col-8"></div>
+        <div id="outputColumn" class="col-3 bg-white">
+          <h2 class="columnHeader">Output:</h2>
+          <div class="columnContent">
+            <pre id="scroller">
             <code class="language-none" id="outputArea"></code>
           </pre>
-          <div id="anchor"></div>
+            <div id="anchor"></div>
+          </div>
         </div>
-
+        <div id="buttonColumn" class="col-1 bg-white">
+          <p class="columnContent">
+            <button
+              type="button"
+              class="btn btn-success btn-block"
+              id="run-button"
+            >
+              Run JavaScript
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger btn-block"
+              id="kill-button"
+            >
+              Kill execution
+            </button>
+            <button
+              type=" button"
+              class="btn btn-warning btn-block"
+              id="clear-button"
+            >
+              Clear Output
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-dark btn-block"
+              id="show-button"
+              data-toggle="modal"
+              href="#jsModal"
+            >
+              Show JavaScript
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-dark btn-block"
+              id="show-dashboard-button"
+              data-toggle="modal"
+              href="#jsModalRun"
+            >
+              Dashboard
+            </button>
+            <!-- <button type="button" class="btn btn-outline-dark btn-block" id="stop-button">Stop execution</button> -->
+            <!-- <button type="button" class="btn btn-outline-dark btn-block" id="step-button">Step JavaScript</button> -->
+            <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button">Reset execution</button> -->
+          </p>
+        </div>
       </div>
-      <div id="buttonColumn" class="col-1 bg-white">
-        <p class="columnContent">
-          <button type="button" class="btn btn-success btn-block" id="run-button">Run JavaScript</button>
-          <button type="button" class="btn btn-danger btn-block" id="kill-button"">Kill execution</button>
-          <button type=" button" class="btn btn-warning btn-block" id="clear-button">Clear Output</button>
-          <button type="button" class="btn btn-outline-dark btn-block" id="show-button" data-toggle="modal"
-            href="#jsModal">Show JavaScript</button>
-          <button type="button" class="btn btn-outline-dark btn-block" id="show-dashboard-button" data-toggle="modal"
-            href="#jsModalRun">Dashboard</button>
-          <!-- <button type="button" class="btn btn-outline-dark btn-block" id="stop-button">Stop execution</button> -->
-          <!-- <button type="button" class="btn btn-outline-dark btn-block" id="step-button">Step JavaScript</button> -->
-          <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button">Reset execution</button> -->
-
-        </p>
-      </div>
-
-
     </div>
-  </div>
-  <div id="blocklyDiv" style="position: absolute"></div>
-  <p>Use blocks from the toolbar on the left to customize your algorithm or drag existing blocks into a new order.</p>
+    <div id="blocklyDiv" style="position: absolute"></div>
+    <p>
+      Use blocks from the toolbar on the left to customize your algorithm or
+      drag existing blocks into a new order.
+    </p>
 
-  <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
-    <category name="Measures" colour=180>
-      <block type="max_diversity"></block>
-      <block type="math_on_list">
-        <field name="OP">SUM</field>
-      </block>
-      <block type="jump_k">leading_ones
-        <value name="K">
-          <shadow type="math_number">
-            <field name="NUM">2</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="leading_ones"></block>
-    </category>
-    <category name="Algorithm parts" colour="230">
-      <block type="ea_init"></block>
-      <block type="init_uniform"></block>
-      <block type="init_constant"></block>
-      <block type="pop_init"></block>
-      <block type="ea_select_parent"></block>
-      <block type="ea_select_best"></block>
-      <block type="ea_addtopopulation"></block>
-      <block type="ea_run_breeding"></block>
-      <block type="run_loop"></block>
-      <block type="run_loop_logging">
-        <value name="exit_number">
-          <shadow type="math_number">
-            <field name="NUM">1000</field>
-          </shadow>
-        </value>
-        <value name="fitness">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-        </value>
-        <value name="dim">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
-        </value>
-        <value name="run">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
-        </value>
-      </block>
-    </category>
-    <category name="Changing individuals" colour="120">
-      <block type="ea_copy"></block>
-      <block type="ea_crossover"></block>
-      <block type="ea_crossover_onepoint"></block>
-      <block type="ea_crossover_twopoint"></block>
-      <block type="ea_crossover_uniform"></block>
-      <block type="ea_mutate"></block>
-      <block type="ea_mutate_prob"></block>
-      <block type="ea_mutate_bit"></block>
-    </category>
-    <category name="Logging" colour="#777">
-      <block type="ea_debug">
-        <value name="logging_variable">
-          <shadow type="text">
-            <field name="TEXT"></field>
-          </shadow>
-        </value>
-      </block>
-      <block type="text"></block>
-      <block type="comment"></block>
-    </category>
-    <sep></sep>
-    <category name="Variables" colour="330" custom="VARIABLE"></category>
-    <category name="Functions" colour="290" custom="PROCEDURE"></category>
-    <category name="List" colour="290">
-      <block type="lists_create_with">
-        <mutation items="0"></mutation>
-      </block>
-      <block type="lists_create_with"></block>
-      <block type="lists_repeat">
-        <value name="NUM">
-          <shadow type="math_number">
-            <field name="NUM">5</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="lists_length"></block>
-      <block type="lists_isEmpty"></block>
-      <block type="lists_indexOf">
-        <value name="VALUE">
-          <block type="variables_get">
-            <field name="VAR">{listVariable}</field>
-          </block>
-        </value>
-      </block>
-      <block type="lists_getIndex">
-        <value name="VALUE">
-          <block type="variables_get">
-            <field name="VAR">{listVariable}</field>
-          </block>
-        </value>
-      </block>
-      <block type="lists_setIndex">
-        <value name="LIST">
-          <block type="variables_get">
-            <field name="VAR">{listVariable}</field>
-          </block>
-        </value>
-      </block>
-      <block type="lists_getSublist">
-        <value name="LIST">
-          <block type="variables_get">
-            <field name="VAR">{listVariable}</field>
-          </block>
-        </value>
-      </block>
-      <block type="lists_split">
-        <value name="DELIM">
-          <shadow type="text">
-            <field name="TEXT">,</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="lists_sort"></block>
-      <block type="lists_concat"></block>
-      <block type="lists_append"></block>
-    </category>
-    <category name="Logic" colour="290">
-      <block type="controls_if"></block>
-      <block type="logic_compare"></block>
-      <block type="logic_operation"></block>
-      <block type="logic_negate"></block>
-      <block type="logic_boolean"></block>
-      <block type="logic_null"></block>
-      <block type="logic_ternary"></block>
-    </category>
-    <category name="Math" colour="230">
-      <block type="math_number"></block>
-      <block type="math_arithmetic"></block>
-      <block type="math_on_list"></block>
-      <block type="math_random_int"></block>
-      <block type="math_constrain"></block>
-    </category>
-    <category name="Loops" colour="120">
-      <block type="controls_repeat_ext">
-        <value name="TIMES">
-          <shadow type="math_number">
-            <field name="NUM">10</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="controls_whileUntil"></block>
-      <block type="controls_for">
-        <value name="FROM">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
-        </value>
-        <value name="TO">
-          <shadow type="math_number">
-            <field name="NUM">10</field>
-          </shadow>
-        </value>
-        <value name="BY">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="controls_forEach"></block>
-      <block type="controls_flow_statements"></block>
-    </category>
-    <sep></sep>
-    <category name="Multi-Threading" colour="#338899">
-      <block type="run_thread">
-        <value name="thread_count">
-          <shadow type="math_number">
-            <field name="NUM">10</field>
-          </shadow>
-        </value>
-        <value name="return_value">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="run_thread_limited">
-        <value name="thread_count">
-          <shadow type="math_number">
-            <field name="NUM">10</field>
-          </shadow>
-        </value>
-        <value name="thread_limit">
-          <block type="thread_hardware_concurrency"></block>
-          <shadow type="math_number">
-            <field name="NUM">8</field>
-          </shadow>
-        </value>
-        <value name="return_value">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-        </value>
-      </block>
-      <block type="thread_import_variable"></block>
-      <block type="thread_num"></block>
-      <block type="thread_hardware_concurrency"></block>
-      <block type="fibonacci">
-        <value name="fib_number">
-          <shadow type="math_number">
-            <field name="NUM">10</field>
-          </shadow>
-        </value>
-      </block>
-    </category>
-    <category name="experimental" colour="#111111">
-      <block type="experimental_timer"></block>
-      <block type="experimental_raw_code"></block>
-      <block type="experimental_raw_value"></block>
-    </category>
-  </xml>
+    <xml
+      xmlns="https://developers.google.com/blockly/xml"
+      id="toolbox"
+      style="display: none"
+    >
+      <category name="Measures" colour="180">
+        <block type="max_diversity"></block>
+        <block type="math_on_list">
+          <field name="OP">SUM</field>
+        </block>
+        <block type="jump_k">
+          leading_ones
+          <value name="K">
+            <shadow type="math_number">
+              <field name="NUM">2</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="leading_ones"></block>
+      </category>
+      <category name="Algorithm parts" colour="230">
+        <block type="ea_init"></block>
+        <block type="init_uniform"></block>
+        <block type="init_constant"></block>
+        <block type="pop_init"></block>
+        <block type="ea_select_parent"></block>
+        <block type="ea_select_best"></block>
+        <block type="ea_addtopopulation"></block>
+        <block type="ea_run_breeding"></block>
+        <block type="run_loop"></block>
+        <block type="run_loop_logging">
+          <value name="exit_number">
+            <shadow type="math_number">
+              <field name="NUM">1000</field>
+            </shadow>
+          </value>
+          <value name="fitness">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+          <value name="dim">
+            <shadow type="math_number">
+              <field name="NUM">1</field>
+            </shadow>
+          </value>
+          <value name="run">
+            <shadow type="math_number">
+              <field name="NUM">1</field>
+            </shadow>
+          </value>
+        </block>
+      </category>
+      <category name="Changing individuals" colour="120">
+        <block type="ea_copy"></block>
+        <block type="ea_crossover"></block>
+        <block type="ea_crossover_onepoint"></block>
+        <block type="ea_crossover_twopoint"></block>
+        <block type="ea_crossover_uniform"></block>
+        <block type="ea_mutate"></block>
+        <block type="ea_mutate_prob"></block>
+        <block type="ea_mutate_bit"></block>
+      </category>
+      <category name="Logging" colour="#777">
+        <block type="ea_debug">
+          <value name="logging_variable">
+            <shadow type="text">
+              <field name="TEXT"></field>
+            </shadow>
+          </value>
+        </block>
+        <block type="text"></block>
+        <block type="comment"></block>
+      </category>
+      <sep></sep>
+      <category name="Variables" colour="330" custom="VARIABLE"></category>
+      <category name="Functions" colour="290" custom="PROCEDURE"></category>
+      <category name="List" colour="290">
+        <block type="lists_create_with">
+          <mutation items="0"></mutation>
+        </block>
+        <block type="lists_create_with"></block>
+        <block type="lists_repeat">
+          <value name="NUM">
+            <shadow type="math_number">
+              <field name="NUM">5</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="lists_length"></block>
+        <block type="lists_isEmpty"></block>
+        <block type="lists_indexOf">
+          <value name="VALUE">
+            <block type="variables_get">
+              <field name="VAR">{listVariable}</field>
+            </block>
+          </value>
+        </block>
+        <block type="lists_getIndex">
+          <value name="VALUE">
+            <block type="variables_get">
+              <field name="VAR">{listVariable}</field>
+            </block>
+          </value>
+        </block>
+        <block type="lists_setIndex">
+          <value name="LIST">
+            <block type="variables_get">
+              <field name="VAR">{listVariable}</field>
+            </block>
+          </value>
+        </block>
+        <block type="lists_getSublist">
+          <value name="LIST">
+            <block type="variables_get">
+              <field name="VAR">{listVariable}</field>
+            </block>
+          </value>
+        </block>
+        <block type="lists_split">
+          <value name="DELIM">
+            <shadow type="text">
+              <field name="TEXT">,</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="lists_sort"></block>
+        <block type="lists_concat"></block>
+        <block type="lists_append"></block>
+      </category>
+      <category name="Logic" colour="290">
+        <block type="controls_if"></block>
+        <block type="logic_compare"></block>
+        <block type="logic_operation"></block>
+        <block type="logic_negate"></block>
+        <block type="logic_boolean"></block>
+        <block type="logic_null"></block>
+        <block type="logic_ternary"></block>
+      </category>
+      <category name="Math" colour="230">
+        <block type="math_number"></block>
+        <block type="math_arithmetic"></block>
+        <block type="math_on_list"></block>
+        <block type="math_random_int"></block>
+        <block type="math_constrain"></block>
+      </category>
+      <category name="Loops" colour="120">
+        <block type="controls_repeat_ext">
+          <value name="TIMES">
+            <shadow type="math_number">
+              <field name="NUM">10</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="controls_whileUntil"></block>
+        <block type="controls_for">
+          <value name="FROM">
+            <shadow type="math_number">
+              <field name="NUM">1</field>
+            </shadow>
+          </value>
+          <value name="TO">
+            <shadow type="math_number">
+              <field name="NUM">10</field>
+            </shadow>
+          </value>
+          <value name="BY">
+            <shadow type="math_number">
+              <field name="NUM">1</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="controls_forEach"></block>
+        <block type="controls_flow_statements"></block>
+      </category>
+      <sep></sep>
+      <category name="Multi-Threading" colour="#338899">
+        <block type="run_thread">
+          <value name="thread_count">
+            <shadow type="math_number">
+              <field name="NUM">10</field>
+            </shadow>
+          </value>
+          <value name="return_value">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="run_thread_limited">
+          <value name="thread_count">
+            <shadow type="math_number">
+              <field name="NUM">10</field>
+            </shadow>
+          </value>
+          <value name="thread_limit">
+            <block type="thread_hardware_concurrency"></block>
+            <shadow type="math_number">
+              <field name="NUM">8</field>
+            </shadow>
+          </value>
+          <value name="return_value">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="thread_import_variable"></block>
+        <block type="thread_num"></block>
+        <block type="thread_hardware_concurrency"></block>
+        <block type="fibonacci">
+          <value name="fib_number">
+            <shadow type="math_number">
+              <field name="NUM">10</field>
+            </shadow>
+          </value>
+        </block>
+      </category>
+      <category name="experimental" colour="#111111">
+        <block type="experimental_timer"></block>
+        <block type="experimental_raw_code"></block>
+        <block type="experimental_raw_value"></block>
+      </category>
+    </xml>
 
-  <!-- In order to add blocks here, build your workspace as desired and then run
+    <!-- In order to add blocks here, build your workspace as desired and then run
       run Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(workspace)) in
       the browser console. Add the inside of the xml block inside this one.
       Lastly, replace all " with ", eg all <backslash quotation> with a single quotation  -->
-  <xml xmlns="https://developers.google.com/blockly/xml" id="startBlocks" style="display: none">
-    <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38"></block>
-  </xml>
+    <xml
+      xmlns="https://developers.google.com/blockly/xml"
+      id="startBlocks"
+      style="display: none"
+    >
+      <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38"></block>
+    </xml>
 
-  <script src="scripts/workspace.js"></script>
-</body>
-
+    <script src="scripts/workspace.js"></script>
+  </body>
 </html>

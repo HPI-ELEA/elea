@@ -1,87 +1,143 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>elea Demo: Build Your Own EA</title>
 
-<head>
-  <meta charset="utf-8">
-  <title>elea Demo: Build Your Own EA</title>
+    <link rel="stylesheet" href="css/globals.css" />
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.css"
+    />
+    <link rel="shortcut icon" href="./favicon.ico" />
 
-  <link rel="stylesheet" href="css/globals.css" />
-  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css" />
-  <link rel="shortcut icon" href="./favicon.ico" />
+    <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script
+      src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+      rel="script"
+    ></script>
+  </head>
 
-  <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
-  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" rel="script"></script>
-</head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index.html">
+        <img
+          src="favicon.svg"
+          alt="elea-logo"
+          width="30rem"
+          height="30rem"
+          class="d-inline-block align-top"
+        />
+        Build Your Own EA
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="index.html">
-      <img src="favicon.svg" alt="elea-logo" width="30rem" height="30rem" class="d-inline-block align-top">
-      Build Your Own EA
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="workspace.html?example=full">Demo<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" target="_blank" href="faq.html">FAQ</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarExampleDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Examples
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
-            <a class="dropdown-item" href="workspace.html?example=empty">Empty starting point</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="workspace.html?example=fulll">Full example</a>
-            <a class="dropdown-item" href="workspace.html?example=simple">Simple example</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="workspace.html?example=oneplusone">1+1</a>
-            <a class="dropdown-item" href="#">1+λ (TODO)</a>
-            <a class="dropdown-item" href="#">1,λ (TODO)</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="workspace.html?example=multithread">Multi-Threading Example</a>
-            <a class="dropdown-item" href="workspace.html?example=full_multithread">Full example with Muti-Threading</a>
-            <a class="dropdown-item" href="workspace.html?example=multithread-performance">Muti-Threading Performance
-              Test</a>
-          </div>
-        </li>
-      </ul>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="workspace.html?example=full">
+              Demo
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" target="_blank" href="faq.html">FAQ</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarExampleDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Examples
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
+              <a class="dropdown-item" href="workspace.html?example=empty">
+                Empty starting point
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="workspace.html?example=fulll">
+                Full example
+              </a>
+              <a class="dropdown-item" href="workspace.html?example=simple">
+                Simple example
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="workspace.html?example=oneplusone">
+                1+1
+              </a>
+              <a class="dropdown-item" href="#">1+λ (TODO)</a>
+              <a class="dropdown-item" href="#">1,λ (TODO)</a>
+              <div class="dropdown-divider"></div>
+              <a
+                class="dropdown-item"
+                href="workspace.html?example=multithread"
+              >
+                Multi-Threading Example
+              </a>
+              <a
+                class="dropdown-item"
+                href="workspace.html?example=full_multithread"
+              >
+                Full example with Muti-Threading
+              </a>
+              <a
+                class="dropdown-item"
+                href="workspace.html?example=multithread-performance"
+              >
+                Muti-Threading Performance Test
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-3">FAQ</h1>
+      </div>
     </div>
-  </nav>
-  <div class="jumbotron">
     <div class="container">
-      <h1 class="display-3">FAQ</h1>
+      <h2><strong>My Algorithm does not work</strong></h2>
+
+      <p class="h4">▸ It does not do anything</p>
+      <p>
+        Please double check that you set variables before using them. Crossover
+        sets both offsprings in a hidden way, since blockly does not support
+        more than one return value. If you're not using crossover, you need to
+        set the offsprings yourself or use the parents directly.
+      </p>
+
+      <h3 class="h4">▸ It stops before finding the optimum</h3>
+      <p>
+        Double check that you set variables before using them. Crossover sets
+        both offsprings in a hidden way, since blockly does not support more
+        than one return value. If you're not using crossover, you need to set
+        the offsprings yourself or use the parents directly.
+      </p>
+
+      <h3 class="h4">▸ It crashes with an error</h3>
+      <p>
+        Please download the XML file of your algorithm and send it to me:
+        jellyfishcoding at live.de
+      </p>
+
+      <h3 class="h4">▸ It crashes the browser completely</h3>
+      <p>Please make sure you don't have any infinite loops in your code.</p>
     </div>
-  </div>
-  <div class="container">
-    <h2><strong>My Algorithm does not work</strong></h2>
-
-    <p class="h4">▸ It does not do anything</p>
-    <p>Please double check that you set variables before using them. Crossover sets both
-      offsprings in a hidden way, since blockly does not support more than one return value. If you're not using
-      crossover, you need to set the offsprings yourself or use the parents directly.</p>
-
-    <h3 class="h4">▸ It stops before finding the optimum</h3>
-    <p> Double check that you set variables before using them. Crossover sets both
-      offsprings in a hidden way, since blockly does not support more than one return value. If you're not using
-      crossover, you need to set the offsprings yourself or use the parents directly.</p>
-
-    <h3 class="h4">▸ It crashes with an error</h3>
-    <p>Please download the XML file of your algorithm and send it to me:
-      jellyfishcoding at live.de</p>
-
-    <h3 class="h4">▸ It crashes the browser completely</h3>
-    <p>Please make sure you don't have any infinite loops in your code.</p>
-
-  </div>
-</body>
-
+  </body>
 </html>
