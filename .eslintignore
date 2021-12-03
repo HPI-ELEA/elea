@@ -2,4 +2,4 @@ bin/
 node_modules/
 .cache/
 dist/
-scripts/jszip.js
+static/scripts/jszip.js

@@ -3,7 +3,7 @@
   "scripts": {
     "start": "parcel static/index.html",
     "build": "parcel build static/index.html",
-    "lint": "eslint **/*.js",
+    "lint": "eslint \"static/scripts/**\"",
     "prettier": "prettier **/*.js **/*.html **/*.css --write"
   },
   "dependencies": {
