@@ -785,7 +785,7 @@ Blockly.JavaScript["leading_ones"] = function (block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.JavaScript["init_uniform"] = function (block) {
+Blockly.JavaScript["init_uniform"] = function () {
   var functionName = Blockly.JavaScript.provideFunction_(
     "uniformInitPopulation",
     [
@@ -1173,7 +1173,7 @@ Blockly.JavaScript["ea_mutate_bit"] = function (block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.JavaScript["ea_debug_all"] = function (block) {
+Blockly.JavaScript["ea_debug_all"] = function () {
   var code = 'windowalert("genome_length: " + genome_length);\n';
   code += 'windowalert("lambda: " + _CE_BB);\n';
   code += 'windowalert("mu: " + _C2_B5);\n';
@@ -1205,7 +1205,7 @@ Blockly.JavaScript["ea_debug"] = function (block) {
   return code;
 };
 
-Blockly.JavaScript["ea_log"] = function (block) {
+Blockly.JavaScript["ea_log"] = function () {
   console.warn(
     "the ea_log block has been disabled while multi-threading is worked on"
   );
@@ -1216,7 +1216,7 @@ Blockly.JavaScript["ea_log"] = function (block) {
   return "";
 };
 
-Blockly.JavaScript["ea_crossover_onepoint"] = function (block) {
+Blockly.JavaScript["ea_crossover_onepoint"] = function () {
   var functionCrossover = Blockly.JavaScript.provideFunction_(
     "crossoverOnepoint",
     [
@@ -1235,7 +1235,7 @@ Blockly.JavaScript["ea_crossover_onepoint"] = function (block) {
   return [functionCrossover, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.JavaScript["ea_crossover_twopoint"] = function (block) {
+Blockly.JavaScript["ea_crossover_twopoint"] = function () {
   var functionCrossover2 = Blockly.JavaScript.provideFunction_(
     "crossoverTwopoint",
     [
@@ -1250,7 +1250,7 @@ Blockly.JavaScript["ea_crossover_twopoint"] = function (block) {
   return [functionCrossover2, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.JavaScript["ea_crossover_uniform"] = function (block) {
+Blockly.JavaScript["ea_crossover_uniform"] = function () {
   var functionCrossover3 = Blockly.JavaScript.provideFunction_(
     "crossoverUniform",
     [

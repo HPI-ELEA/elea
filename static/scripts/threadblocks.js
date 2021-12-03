@@ -132,13 +132,13 @@ let THREAD_BLOCKS = {
 };
 
 // this value is sent to the workers after the thread is created
-Blockly.JavaScript["thread_num"] = function (block) {
+Blockly.JavaScript["thread_num"] = function () {
   var code = "Handler.THREAD_ID";
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
 // the available hardware threads on the device
-Blockly.JavaScript["thread_hardware_concurrency"] = function (block) {
+Blockly.JavaScript["thread_hardware_concurrency"] = function () {
   var code = "self.navigator.hardwareConcurrency";
   return [code, Blockly.JavaScript.ORDER_NONE];
 };

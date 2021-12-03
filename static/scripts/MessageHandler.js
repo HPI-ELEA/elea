@@ -197,13 +197,13 @@ class MessageHandler {
 
 // the variable argument syntax is supported in everything except IE as of 2021-08-27:
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
-consolelog = function (...v) {
+function consolelog(...v) {
   Handler.sendMessage(new Message(Handler.PARENT_ID, v.join(" "), "print"));
-};
+}
 
-consoleLog = function (...v) {
+function consoleLog(...v) {
   consolelog(v);
-};
+}
 
 // creates the message handler object for the calling script to use
 var Handler = new MessageHandler();

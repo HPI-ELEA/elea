@@ -1,6 +1,7 @@
 import * as Blockly from "blockly";
 import { HAS_UNSAVED_CHANGES, workspace } from "./blocklyHandling";
 import { waitForFinishedLoading } from "./unsavedChangesHandling";
+
 function replacepaceQuestion(xml) {
   // TODO: Ask for unsaved changes
   replaceWorkspaceWithXml(xml);
