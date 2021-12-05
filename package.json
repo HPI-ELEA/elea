@@ -1,0 +1,36 @@
+{
+  "name": "elea",
+  "scripts": {
+    "start": "parcel static/index.html",
+    "build": "parcel build static/index.html",
+    "lint": "eslint \"static/scripts/**\"",
+    "prettier": "prettier **/*.js **/*.html **/*.css --write"
+  },
+  "dependencies": {
+    "blockly": "^6.20210701.0",
+    "bootstrap": "^4.0.0",
+    "d3": "^7.1.1",
+    "jquery": "^3.6.0",
+    "prismjs": "^1.25.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "parcel": "^1.12.3",
+    "parcel-plugin-static-files-copy": "^2.6.0",
+    "prettier-eslint": "^13.0.0"
+  },
+  "staticFiles": {
+    "staticPath": [
+      {
+        "staticOutDir": "examples",
+        "staticPath": "static/examples"
+      },
+      {
+        "staticOutDir": "scripts",
+        "staticPath": "static/scripts"
+      }
+    ]
+  }
+}

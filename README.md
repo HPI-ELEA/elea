@@ -3,12 +3,23 @@
 This is a little tool designed to prototype evolutionary algorithms, get an intuition for runtimes or for teaching EAs to students.
 
 ## Run
-- Use `go run webserver.go`
-- If you don't have go installed on your system or prefer to use docker, run: `docker build . -t elea` followed by `docker run -p 8080:8080 elea`
+
+- install nodeJS with npm
+- run `npm i` to install the dependencies
+- run `npm run start` to run the application
+
+You can find the application at `localhost:1234` propably.
+
+## More commands for developer
+
+- run `npm run lint` to show current linting errors and warnings
+- run `npm run prettier` to fix formating errors
 
 ## Write new blocks
+
 Steps:
-1. Think of all the connections you need and build your block in the [block factory](https://blockly-demo.appspot.com/static/demos/blockfactory/index.html): 
+
+1. Think of all the connections you need and build your block in the [block factory](https://blockly-demo.appspot.com/static/demos/blockfactory/index.html):
 2. Copy the json definition into the `newblocks.js` or similar JS file and include it
 3. Also copy the JS code stub from the factory into this JS file.
 4. Add the block to the toolbox in any category via its name (roughly in lines 200-450 in workspace.html). You should now be able to see it in the toolbox and use it.

@@ -1,0 +1,5 @@
+bin/
+node_modules/
+.cache/
+dist/
+static/scripts/jszip.js
