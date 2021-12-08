@@ -50,7 +50,7 @@ function waitForFinishedLoading(event) {
 }
 
 function setupUnsavedChangesHandling() {
-  waitForFinishedLoading();
+  workspace.addChangeListener(waitForFinishedLoading);
 }
 
 export {
