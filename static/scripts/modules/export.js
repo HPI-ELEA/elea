@@ -15,11 +15,6 @@ function copyJSToClipboard() {
   resetHasUnsavedChanges();
 }
 
-function showXMLInPopup() {
-  var xml = Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(workspace));
-  window.alert(xml);
-}
-
 function download(text, name, type) {
   var file = new Blob([text], { type: type });
   downloadFile(file, name);

@@ -1,5 +1,6 @@
 import * as Blockly from "blockly";
 import { workspace } from "./blocklyHandling";
+
 var HAS_UNSAVED_CHANGES = false;
 const CHANGE_OPERATIONS = [
   Blockly.Events.BLOCK_CHANGE,
@@ -50,4 +51,4 @@ function waitForFinishedLoading(event) {
 }
 workspace.addChangeListener(waitForFinishedLoading);
 
-export { resetHasUnsavedChanges, waitForFinishedLoading };
+export {HAS_UNSAVED_CHANGES, resetHasUnsavedChanges, waitForFinishedLoading };

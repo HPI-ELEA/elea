@@ -15,6 +15,7 @@ class Queue {
 }
 
 // an object used to request a message receive
+//eslint-disable-next-line no-unused-vars -- is used in code blockly compiles
 class RecvRequest {
   constructor(source) {
     this.source = source;
@@ -111,7 +112,7 @@ class MessageHandler {
         message.source != this.PARENT_ID)
     ) {
       this.pendingRequest = null;
-      main.next(message);
+      main.next(message); //eslint-disable-line no-undef -- is defined in block code
       return;
     }
 
@@ -146,7 +147,7 @@ class MessageHandler {
     // we can't resume main until it properly yields, hence we add main to the task queue, and it will be run after
     setTimeout(
       function (msg) {
-        main.next(msg);
+        main.next(msg); //eslint-disable-line no-undef -- is defined in block code
       },
       0,
       msg
@@ -190,7 +191,7 @@ class MessageHandler {
   receiveId() {
     if (this.THREAD_ID == null || this.pendingRequest) return;
     setTimeout(function () {
-      main.next();
+      main.next(); //eslint-disable-line no-undef -- is defined in block code
     }, 0);
   }
 }
@@ -201,6 +202,7 @@ function consolelog(...v) {
   Handler.sendMessage(new Message(Handler.PARENT_ID, v.join(" "), "print"));
 }
 
+//eslint-disable-next-line no-unused-vars -- is used in code blockly compiles
 function consoleLog(...v) {
   consolelog(v);
 }

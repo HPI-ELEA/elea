@@ -2,7 +2,7 @@ import * as Blockly from "blockly";
 import { HAS_UNSAVED_CHANGES, workspace } from "./blocklyHandling";
 import { waitForFinishedLoading } from "./unsavedChangesHandling";
 
-function replacepaceQuestion(xml) {
+function replaceWorkspaceQuestion(xml) {
   // TODO: Ask for unsaved changes
   replaceWorkspaceWithXml(xml);
 }
@@ -39,11 +39,6 @@ function selectedFileChanged() {
     document.getElementById("workspace-title").innerHTML = input.files[0].name;
   };
   reader.readAsText(input.files[0]);
-}
-
-function loadUserWorkspace() {
-  var workspacestring = prompt();
-  Blockly.Xml.domToWorkspace(document.getElementById("startBlocks"), workspace);
 }
 
 export { replaceWorkspaceWithXml, selectedFileChanged, promptForXML };
