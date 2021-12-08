@@ -30,24 +30,23 @@ function beforeUnloadListener(e) {
   return (e.returnValue = "Are you sure you want to exit without saving?");
 }
 
-function resetHasUnsavedChanges() {
-  HAS_UNSAVED_CHANGES = false;
-  workspace.addChangeListener(unsavedChangesListener);
-  window.removeEventListener("beforeunload", beforeUnloadListener);
-  let workspaceTitle = document.getElementById("workspace-title").innerHTML;
-  document.getElementById("workspace-title").innerHTML = workspaceTitle.replace(
-    /\*$/,
-    ""
-  );
-  console.warn("Workspace has no unsaved changes now");
+function resetHasUnsavedChanges(finishedLoading = false) {
+  if (HAS_UNSAVED_CHANGES | finishedLoading) {
+    HAS_UNSAVED_CHANGES = false;
+    workspace.addChangeListener(unsavedChangesListener);
+    window.removeEventListener("beforeunload", beforeUnloadListener);
+    let workspaceTitle = document.getElementById("workspace-title").innerHTML;
+    document.getElementById("workspace-title").innerHTML =
+      workspaceTitle.replace(/\*$/, "");
+    console.warn("Workspace has no unsaved changes now");
+  }
 }
 
 function waitForFinishedLoading(event) {
   if (event.type == Blockly.Events.FINISHED_LOADING) {
-    resetHasUnsavedChanges();
+    resetHasUnsavedChanges(true);
     workspace.removeChangeListener(waitForFinishedLoading);
   }
 }
-workspace.addChangeListener(waitForFinishedLoading);
 
 export { resetHasUnsavedChanges, waitForFinishedLoading };
