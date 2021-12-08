@@ -30,7 +30,7 @@ function beforeUnloadListener(e) {
   return (e.returnValue = "Are you sure you want to exit without saving?");
 }
 
-function resetHasUnsavedChanges(finishedLoading = false) {
+function resetHasUnsavedChangesHandling(finishedLoading = false) {
   if (HAS_UNSAVED_CHANGES | finishedLoading) {
     HAS_UNSAVED_CHANGES = false;
     workspace.addChangeListener(unsavedChangesListener);
@@ -44,9 +44,17 @@ function resetHasUnsavedChanges(finishedLoading = false) {
 
 function waitForFinishedLoading(event) {
   if (event.type == Blockly.Events.FINISHED_LOADING) {
-    resetHasUnsavedChanges(true);
+    resetHasUnsavedChangesHandling(true);
     workspace.removeChangeListener(waitForFinishedLoading);
   }
 }
 
-export { resetHasUnsavedChanges, waitForFinishedLoading };
+function setupUnsavedChangesHandling() {
+  waitForFinishedLoading();
+}
+
+export {
+  HAS_UNSAVED_CHANGES,
+  resetHasUnsavedChangesHandling,
+  setupUnsavedChangesHandling,
+};

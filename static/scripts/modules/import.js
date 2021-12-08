@@ -1,6 +1,9 @@
 import * as Blockly from "blockly";
-import { HAS_UNSAVED_CHANGES, workspace } from "./blocklyHandling";
-import { waitForFinishedLoading } from "./unsavedChangesHandling";
+import { workspace } from "./blocklyHandling";
+import {
+  HAS_UNSAVED_CHANGES,
+  setupUnsavedChangesHandling,
+} from "./unsavedChangesHandling";
 
 function replacepaceQuestion(xml) {
   // TODO: Ask for unsaved changes
@@ -14,7 +17,7 @@ function replaceWorkspaceWithXml(xml) {
   }
   workspace.clear();
   Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
-  workspace.addChangeListener(waitForFinishedLoading);
+  setupUnsavedChangesHandling();
 }
 
 function promptForXML() {
