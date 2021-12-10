@@ -809,9 +809,9 @@ Blockly.JavaScript["init_uniform"] = function () {
 Blockly.JavaScript["init_constant"] = function (block) {
   console.warn("init_constant uses hardcoded variables");
   var dropdown_constant = block.getFieldValue("CONSTANT");
-
+  var code, functionName;
   if (dropdown_constant == "ZERO") {
-    var functionName = Blockly.JavaScript.provideFunction_(
+    functionName = Blockly.JavaScript.provideFunction_(
       "zeroInitPopulation",
       [
         "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
@@ -827,10 +827,10 @@ Blockly.JavaScript["init_constant"] = function (block) {
         "}",
       ]
     );
-    var code = functionName + "()";
+    code = functionName + "()";
     return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
   } else {
-    var functionName = Blockly.JavaScript.provideFunction_(
+    functionName = Blockly.JavaScript.provideFunction_(
       "oneInitPopulation",
       [
         "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
@@ -846,7 +846,7 @@ Blockly.JavaScript["init_constant"] = function (block) {
         "}",
       ]
     );
-    var code = functionName + "()";
+    code = functionName + "()";
     return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
   }
 };
@@ -991,6 +991,8 @@ Blockly.JavaScript["ea_addtopopulation"] = function (block) {
     "POPULATION",
     Blockly.JavaScript.ORDER_ATOMIC
   );
+  
+  // eslint-disable-next-line no-unused-vars -- part of TODO
   var dropdown_tiebreak = block.getFieldValue("TIEBREAK"); // TODO ensure sort is stable and fits the NEWER tiebreak
   var length = "_C2_B5"; //Blockly.JavaScript.nameDB_.getName('µ');
   var code = "";
