@@ -12,8 +12,7 @@ async function loadExampleFile(exampleFile) {
   if (!response.ok) return false;
 
   let xml = await response.text();
-  replaceWorkspaceWithXml(xml);
-  return true;
+  return replaceWorkspaceWithXml(xml);
 }
 
 // loads the example in a url friendly format, with the folder and xml extension removed
