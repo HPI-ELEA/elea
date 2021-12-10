@@ -74,6 +74,14 @@ Blockly.defineBlocksWithJsonArray([
     helpUrl: "",
   },
   {
+    type: "individual_init_uniform",
+    message0: "individual uniform random init",
+    output: "init_strategy",
+    colour: 230,
+    tooltip: "",
+    helpUrl: "",
+  },
+  {
     type: "init_constant",
     message0: "constant init %1",
     args0: [
@@ -799,6 +807,23 @@ Blockly.JavaScript["init_uniform"] = function () {
       "    fullArray[j] = tempArray;",
       "  }",
       "  return fullArray;",
+      "}",
+    ]
+  );
+  var code = functionName + "()";
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+
+Blockly.JavaScript["individual_init_uniform"] = function () {
+  var functionName = Blockly.JavaScript.provideFunction_(
+    "uniformInitIndividual",
+    [
+      "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
+      "  var tempArray = Array(genome_length).fill(0);",
+      "  for (var k=0; k< genome_length; k++) {",
+      "      tempArray[k] = Math.round(Math.random());",
+      "    }",
+      "  return tempArray;",
       "}",
     ]
   );
