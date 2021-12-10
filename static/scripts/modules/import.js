@@ -1,27 +1,32 @@
 import * as Blockly from "blockly";
-import { HAS_UNSAVED_CHANGES, workspace } from "./blocklyHandling";
-import { waitForFinishedLoading } from "./unsavedChangesHandling";
+import { workspace } from "./blocklyHandling";
+import {
+  HAS_UNSAVED_CHANGES,
+  setupUnsavedChangesHandling,
+} from "./unsavedChangesHandling";
 
-function replacepaceQuestion(xml) {
-  // TODO: Ask for unsaved changes
-  replaceWorkspaceWithXml(xml);
+function replaceWorkspaceQuestion(xml) {
+  if(!replaceWorkspaceWithXml(xml))
+    return;
+  document.getElementById("workspace-title").innerHTML = "Untitled";
 }
 
 function replaceWorkspaceWithXml(xml) {
   if (HAS_UNSAVED_CHANGES) {
     if (!window.confirm("Are you sure you want to exit without saving?"))
-      return;
+      return false;
   }
   workspace.clear();
   Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
-  workspace.addChangeListener(waitForFinishedLoading);
+  setupUnsavedChangesHandling();
+  return true;
 }
 
 function promptForXML() {
   var xml = prompt();
   if (xml == null) return;
   console.warn(xml);
-  replaceWorkspaceWithXml(xml);
+  replaceWorkspaceQuestion(xml);
 }
 
 function selectedFileChanged() {

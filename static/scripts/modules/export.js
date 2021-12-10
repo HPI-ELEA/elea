@@ -1,18 +1,18 @@
 import * as Blockly from "blockly";
-import { resetHasUnsavedChanges } from "./unsavedChangesHandling";
+import { resetHasUnsavedChangesHandling } from "./unsavedChangesHandling";
 import { workspace, getCode } from "./blocklyHandling";
 import { downloadFile, copyToClipboard } from "./fileUtils";
 
 function copyXMLToClipboard() {
   var xml = Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(workspace));
   copyToClipboard(xml);
-  resetHasUnsavedChanges();
+  resetHasUnsavedChangesHandling();
 }
 
 function copyJSToClipboard() {
   var js = getCode();
   copyToClipboard(js);
-  resetHasUnsavedChanges();
+  resetHasUnsavedChangesHandling();
 }
 
 function showXMLInPopup() {
@@ -23,7 +23,7 @@ function showXMLInPopup() {
 function download(text, name, type) {
   var file = new Blob([text], { type: type });
   downloadFile(file, name);
-  resetHasUnsavedChanges();
+  resetHasUnsavedChangesHandling();
 }
 
 function downloadWorkspace() {
