@@ -589,7 +589,7 @@ Blockly.defineBlocksWithJsonArray([
     message0: '// "%1"',
     args0: [
       {
-        type: "field_input",
+        type: "field_multilinetext",
         name: "text",
         text: "Add comment",
       },
@@ -666,7 +666,7 @@ Blockly.JavaScript["experimental_raw_value"] = function (block) {
 };
 
 Blockly.JavaScript["comment"] = function (block) {
-  return "//" + block.getFieldValue("text") + "\n";
+  return "//" + block.getFieldValue("text").replaceAll('\n',' ') + "\n";
 };
 
 Blockly.JavaScript["experimental_timer"] = function (block) {
