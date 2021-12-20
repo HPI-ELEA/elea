@@ -7,13 +7,13 @@ import "../ea_blocks";
 import "../newblocks";
 import "../threadblocks";
 
-var jsonLog = null;
+// var jsonLog = null;
 var worker = null;
 var outputArea = document.getElementById("outputArea");
 var outputScroll = document.getElementById("scroller");
 var runButton = document.getElementById("run-button");
 
-var pauseAtNewBlock = true;
+// var pauseAtNewBlock = true;
 var blocklyArea = document.getElementById("blocklyArea");
 var blocklyDiv = document.getElementById("blocklyDiv");
 var workspace = Blockly.inject(blocklyDiv, {
@@ -30,7 +30,7 @@ var workspace = Blockly.inject(blocklyDiv, {
   trashcan: true,
 });
 Blockly.Xml.domToWorkspace(document.getElementById("startBlocks"), workspace);
-var onresize = function (e) {
+var onresize = function () {
   // Compute the absolute coordinates and dimensions of blocklyArea.
   var element = blocklyArea;
   var x = 0;
@@ -72,6 +72,7 @@ function getCode() {
 }
 
 // TODO: modify to terminate worker
+//eslint-disable-next-line no-unused-vars -- is part of TODO
 const onMessageFunctionForWorker =
   "self.onmessage = function (msg) {\
 switch (msg.data.aTopic) {\
@@ -111,8 +112,8 @@ function runCode() {
   // var logSave = 'if (jsonLogs != []) {\n';
   // logSave +=    '  self.postMessage({log:jsonLogs});\n';
   // logSave +=    '}\n';
-  var termination =
-    'Handler.sendMessage(new Message(Handler.PARENT_ID, 0, "terminate"));\n';
+  //var termination =
+  //  'Handler.sendMessage(new Message(Handler.PARENT_ID, 0, "terminate"));\n';
   // var messageHandler = 'self.addEventListener("message", function(e) {\n';
   // messageHandler +=    '  console.log("worker received message: ", e.data)\n';
   // messageHandler +=    '  if (e.data == "stop") {\n';
@@ -172,12 +173,9 @@ function handleMessageFromWorker(msg) {
   }
 }
 
-var stepButton = document.getElementById("step-button");
-var runButton = document.getElementById("run-button");
-var resetButton = document.getElementById("reset-button");
 var codeArea = document.getElementById("jsCodePopup");
-var myInterpreter = null;
 
+/*
 var highlightPause = false;
 var latestCode = "";
 
@@ -196,11 +194,12 @@ function highlightBlock(id) {
     highlightPause = pauseAtNewBlock;
   }
 }
-
+*/
 // tells the worker to stop
 // this is usually completely useless, since messages aren't handled until the current
 // execution finishes, which means that, unless one is using multi-threading, the stop code won't
 // be processed until the entire algorithm finishes
+//eslint-disable-next-line no-unused-vars -- is part of commented stop, step, and reset Buttons
 function stopWorker() {
   if (worker != null) {
     worker.postMessage("stop");

@@ -615,7 +615,7 @@ Blockly.defineBlocksWithJsonArray([
     message0: '// "%1"',
     args0: [
       {
-        type: "field_input",
+        type: "field_multilinetext",
         name: "text",
         text: "Add comment",
       },
@@ -692,7 +692,7 @@ Blockly.JavaScript["experimental_raw_value"] = function (block) {
 };
 
 Blockly.JavaScript["comment"] = function (block) {
-  return "//" + block.getFieldValue("text") + "\n";
+  return "//" + block.getFieldValue("text").replaceAll('\n',' ') + "\n";
 };
 
 Blockly.JavaScript["experimental_timer"] = function (block) {
@@ -1041,6 +1041,8 @@ Blockly.JavaScript["ea_addtopopulation"] = function (block) {
     "POPULATION",
     Blockly.JavaScript.ORDER_ATOMIC
   );
+  
+  // eslint-disable-next-line no-unused-vars -- part of TODO
   var dropdown_tiebreak = block.getFieldValue("TIEBREAK"); // TODO ensure sort is stable and fits the NEWER tiebreak
   var length = "_C2_B5"; //Blockly.JavaScript.nameDB_.getName('µ');
   var code = "";

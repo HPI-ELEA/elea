@@ -46,9 +46,4 @@ function selectedFileChanged() {
   reader.readAsText(input.files[0]);
 }
 
-function loadUserWorkspace() {
-  var workspacestring = prompt();
-  Blockly.Xml.domToWorkspace(document.getElementById("startBlocks"), workspace);
-}
-
 export { replaceWorkspaceWithXml, selectedFileChanged, promptForXML };
