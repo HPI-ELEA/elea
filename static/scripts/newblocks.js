@@ -74,6 +74,14 @@ Blockly.defineBlocksWithJsonArray([
     helpUrl: "",
   },
   {
+    type: "individual_init_uniform",
+    message0: "individual uniform random init",
+    output: "individual_init_strategy",
+    colour: 230,
+    tooltip: "",
+    helpUrl: "",
+  },
+  {
     type: "init_constant",
     message0: "constant init %1",
     args0: [
@@ -87,6 +95,24 @@ Blockly.defineBlocksWithJsonArray([
       },
     ],
     output: "init_strategy",
+    colour: 230,
+    tooltip: "",
+    helpUrl: "",
+  },
+  {
+    type: "individual_init_constant",
+    message0: "individual constant init %1",
+    args0: [
+      {
+        type: "field_dropdown",
+        name: "CONSTANT",
+        options: [
+          ["0", "ZERO"],
+          ["1", "ONE"],
+        ],
+      },
+    ],
+    output: "individual_init_strategy",
     colour: 230,
     tooltip: "",
     helpUrl: "",
@@ -806,49 +832,73 @@ Blockly.JavaScript["init_uniform"] = function () {
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
+Blockly.JavaScript["individual_init_uniform"] = function () {
+  var functionName = Blockly.JavaScript.provideFunction_(
+    "uniformInitIndividual",
+    [
+      "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
+      "  var tempArray = Array(genome_length).fill(0);",
+      "  for (var k=0; k< genome_length; k++) {",
+      "      tempArray[k] = Math.round(Math.random());",
+      "    }",
+      "  return tempArray;",
+      "}",
+    ]
+  );
+  var code = functionName + "()";
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+
 Blockly.JavaScript["init_constant"] = function (block) {
   console.warn("init_constant uses hardcoded variables");
   var dropdown_constant = block.getFieldValue("CONSTANT");
-  var code, functionName;
-  if (dropdown_constant == "ZERO") {
-    functionName = Blockly.JavaScript.provideFunction_(
-      "zeroInitPopulation",
-      [
-        "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
-        "  var fullArray = Array(_C2_B5);",
-        "  var tempArray = Array(genome_length);",
-        "  for (var j=0; j < genome_length;j++) {",
-        "    tempArray[j] = 0;",
-        "  }",
-        "  for (var j=0; j < _C2_B5;j++) {",
-        "    fullArray[j] = tempArray;",
-        "  }",
-        "  return fullArray;",
-        "}",
-      ]
-    );
-    code = functionName + "()";
-    return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
-  } else {
-    functionName = Blockly.JavaScript.provideFunction_(
-      "oneInitPopulation",
-      [
-        "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
-        "  var fullArray = Array(_C2_B5);",
-        "  var tempArray = Array(genome_length);",
-        "  for (var j=0; j < genome_length;j++) {",
-        "    tempArray[j] = 1;",
-        "  }",
-        "  for (var j=0; j < _C2_B5;j++) {",
-        "    fullArray[j] = tempArray;",
-        "  }",
-        "  return fullArray;",
-        "}",
-      ]
-    );
-    code = functionName + "()";
-    return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+  if(dropdown_constant == "ZERO") {
+    dropdown_constant = "0";
+  }else{
+    dropdown_constant = "1";
   }
+  var functionName = Blockly.JavaScript.provideFunction_(
+    "zeroInitPopulation",
+    [
+      "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
+      "  var fullArray = Array(_C2_B5);",
+      "  var tempArray = Array(genome_length);",
+      "  for (var j=0; j < genome_length;j++) {",
+      "    tempArray[j] = "+dropdown_constant+ ";",
+      "  }",
+      "  for (var j=0; j < _C2_B5;j++) {",
+      "    fullArray[j] = tempArray;",
+      "  }",
+      "  return fullArray;",
+      "}",
+    ]
+  );
+  var code = functionName + "()";
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+
+Blockly.JavaScript["individual_init_constant"] = function (block) {
+  console.warn("individual_init_constant uses hardcoded variables");
+  var dropdown_constant = block.getFieldValue("CONSTANT");
+  if(dropdown_constant == "ZERO") {
+    dropdown_constant = "0";
+  }else{
+    dropdown_constant = "1";
+  }
+  var functionName = Blockly.JavaScript.provideFunction_(
+    "zeroInitIndividual",
+    [
+      "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
+      "  var tempArray = Array(genome_length);",
+      "  for (var j=0; j < genome_length;j++) {",
+      "    tempArray[j] ="+dropdown_constant+ ";",
+      "  }",
+      "  return tempArray;",
+      "}",
+    ]
+  );
+  var code = functionName + "()";
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
 // all of the logging functionality of this block has been removed due to the modified messsage handling system used for
