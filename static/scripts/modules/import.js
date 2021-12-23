@@ -7,10 +7,9 @@ import {
 import { PARAMETERS, update_url } from "./exampleHandling";
 
 function replaceWorkspaceQuestion(xml) {
-  if(!replaceWorkspaceWithXml(xml))
-    return;
+  if (!replaceWorkspaceWithXml(xml)) return;
   document.getElementById("workspace-title").innerHTML = "Untitled";
-  PARAMETERS.delete('example');
+  PARAMETERS.delete("example");
   update_url();
 }
 
