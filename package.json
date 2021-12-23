@@ -4,7 +4,8 @@
     "start": "parcel static/index.html",
     "build": "parcel build static/index.html",
     "lint": "eslint \"static/scripts/**\"",
-    "prettier": "prettier **/*.js **/*.html **/*.css --write"
+    "prettier": "prettier **/*.js **/*.html **/*.css --write",
+    "prepare": "husky install"
   },
   "dependencies": {
     "blockly": "^6.20210701.0",
@@ -17,9 +18,11 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^8.5.0",
     "eslint-plugin-import": "^2.25.3",
+    "husky": "^7.0.4",
     "parcel": "^1.12.3",
     "parcel-plugin-static-files-copy": "^2.6.0",
-    "prettier-eslint": "^13.0.0"
+    "prettier-eslint": "^13.0.0",
+    "pretty-quick": "^3.1.3"
   },
   "staticFiles": {
     "staticPath": [

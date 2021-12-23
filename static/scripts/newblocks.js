@@ -692,7 +692,7 @@ Blockly.JavaScript["experimental_raw_value"] = function (block) {
 };
 
 Blockly.JavaScript["comment"] = function (block) {
-  return "//" + block.getFieldValue("text").replaceAll('\n',' ') + "\n";
+  return "//" + block.getFieldValue("text").replaceAll("\n", " ") + "\n";
 };
 
 Blockly.JavaScript["experimental_timer"] = function (block) {
@@ -852,27 +852,24 @@ Blockly.JavaScript["individual_init_uniform"] = function () {
 Blockly.JavaScript["init_constant"] = function (block) {
   console.warn("init_constant uses hardcoded variables");
   var dropdown_constant = block.getFieldValue("CONSTANT");
-  if(dropdown_constant == "ZERO") {
+  if (dropdown_constant == "ZERO") {
     dropdown_constant = "0";
-  }else{
+  } else {
     dropdown_constant = "1";
   }
-  var functionName = Blockly.JavaScript.provideFunction_(
-    "zeroInitPopulation",
-    [
-      "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
-      "  var fullArray = Array(_C2_B5);",
-      "  var tempArray = Array(genome_length);",
-      "  for (var j=0; j < genome_length;j++) {",
-      "    tempArray[j] = "+dropdown_constant+ ";",
-      "  }",
-      "  for (var j=0; j < _C2_B5;j++) {",
-      "    fullArray[j] = tempArray;",
-      "  }",
-      "  return fullArray;",
-      "}",
-    ]
-  );
+  var functionName = Blockly.JavaScript.provideFunction_("zeroInitPopulation", [
+    "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
+    "  var fullArray = Array(_C2_B5);",
+    "  var tempArray = Array(genome_length);",
+    "  for (var j=0; j < genome_length;j++) {",
+    "    tempArray[j] = " + dropdown_constant + ";",
+    "  }",
+    "  for (var j=0; j < _C2_B5;j++) {",
+    "    fullArray[j] = tempArray;",
+    "  }",
+    "  return fullArray;",
+    "}",
+  ]);
   var code = functionName + "()";
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
@@ -880,23 +877,20 @@ Blockly.JavaScript["init_constant"] = function (block) {
 Blockly.JavaScript["individual_init_constant"] = function (block) {
   console.warn("individual_init_constant uses hardcoded variables");
   var dropdown_constant = block.getFieldValue("CONSTANT");
-  if(dropdown_constant == "ZERO") {
+  if (dropdown_constant == "ZERO") {
     dropdown_constant = "0";
-  }else{
+  } else {
     dropdown_constant = "1";
   }
-  var functionName = Blockly.JavaScript.provideFunction_(
-    "zeroInitIndividual",
-    [
-      "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
-      "  var tempArray = Array(genome_length);",
-      "  for (var j=0; j < genome_length;j++) {",
-      "    tempArray[j] ="+dropdown_constant+ ";",
-      "  }",
-      "  return tempArray;",
-      "}",
-    ]
-  );
+  var functionName = Blockly.JavaScript.provideFunction_("zeroInitIndividual", [
+    "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
+    "  var tempArray = Array(genome_length);",
+    "  for (var j=0; j < genome_length;j++) {",
+    "    tempArray[j] =" + dropdown_constant + ";",
+    "  }",
+    "  return tempArray;",
+    "}",
+  ]);
   var code = functionName + "()";
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
@@ -1041,7 +1035,7 @@ Blockly.JavaScript["ea_addtopopulation"] = function (block) {
     "POPULATION",
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  
+
   // eslint-disable-next-line no-unused-vars -- part of TODO
   var dropdown_tiebreak = block.getFieldValue("TIEBREAK"); // TODO ensure sort is stable and fits the NEWER tiebreak
   var length = "_C2_B5"; //Blockly.JavaScript.nameDB_.getName('µ');

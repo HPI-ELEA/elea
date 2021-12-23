@@ -6,8 +6,7 @@ import {
 } from "./unsavedChangesHandling";
 
 function replaceWorkspaceQuestion(xml) {
-  if(!replaceWorkspaceWithXml(xml))
-    return;
+  if (!replaceWorkspaceWithXml(xml)) return;
   document.getElementById("workspace-title").innerHTML = "Untitled";
 }
 
