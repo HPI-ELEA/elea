@@ -207,6 +207,13 @@ function consoleLog(...v) {
   consolelog(v);
 }
 
+//eslint-disable-next-line no-unused-vars -- is used in code blockly compiles
+function consoleerror(e){
+  consolelog(e)
+  consolelog('Find more information in the console.')
+  console.error(e)
+}
+
 // creates the message handler object for the calling script to use
 var Handler = new MessageHandler();
 
