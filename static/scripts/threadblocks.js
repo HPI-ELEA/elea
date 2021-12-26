@@ -219,6 +219,7 @@ function generate_worker_code(statements, return_val) {
   PREV_DEFINITIONS = definitions;
 
   worker_code += "function* main() {\n";
+  worker_code += "try {\n";
 
   // execute the internal statements and return the value
   worker_code += "`+`" + escape_string(statements) + "`+`;\n";
@@ -226,6 +227,9 @@ function generate_worker_code(statements, return_val) {
     "  Handler.sendMessage(new Message(Handler.PARENT_ID, " +
     return_val +
     "));\n";
+  worker_code += "} catch (e) {\n";
+  worker_code += "    consoleerror(e);\n"
+  worker_code += "}\n"
   worker_code += "}\n";
   // the message handler will automatically run main.next() when the THREAD_ID is received
   worker_code += "var main = main();\n";
