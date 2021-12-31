@@ -38,9 +38,8 @@ $("#example-multithread-performance").click(() =>
   loadExample("multithread-performance")
 );
 
+$("#upload_xml").click(() => $("#upload_xml_input").click())
 $("#upload_xml_input").change(selectedFileChanged);
-
-$("#upload_xml").click($("upload_xml_input").click);
 $("#promt_for_xml").click(promptForXML);
 $("#download_xml").click(downloadWorkspace);
 $("#copy_xml").click(copyXMLToClipboard);
