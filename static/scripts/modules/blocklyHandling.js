@@ -1,6 +1,7 @@
 var USING_THREADS = false;
 
 import * as Blockly from "blockly";
+import beautify from "js-beautify";
 import { clearLog, handleLogFromWorker } from "./logging";
 import "regenerator-runtime/runtime";
 import "../ea_blocks";
@@ -68,6 +69,7 @@ function getCode() {
   let code = Blockly.JavaScript.workspaceToCode(workspace);
   if (USING_THREADS) code = Blockly.JavaScript.workspaceToCode(workspace);
   USING_THREADS = false;
+  code = beautify(code, { indent_size: 2, space_in_empty_paren: true })
   return code;
 }
 
