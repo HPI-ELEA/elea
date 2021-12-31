@@ -61,4 +61,4 @@ window.onpopstate = function () {
 update_parameters();
 load_example_from_url();
 
-export { loadExample };
+export { loadExample, update_url, PARAMETERS };
