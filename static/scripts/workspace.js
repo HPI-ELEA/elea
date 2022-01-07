@@ -38,7 +38,7 @@ $("#example-multithread-performance").click(() =>
   loadExample("multithread-performance")
 );
 
-$("#upload_xml").click(() => $("#upload_xml_input").click())
+$("#upload_xml").click(() => $("#upload_xml_input").click());
 $("#upload_xml_input").change(selectedFileChanged);
 $("#promt_for_xml").click(promptForXML);
 $("#download_xml").click(downloadWorkspace);
@@ -47,3 +47,7 @@ $("#download_js").click(downloadWorkspaceAsJS);
 $("#copy_js").click(copyJSToClipboard);
 $("#show_js").click(highlightAll);
 $("#download_json").click(downloadLog);
+
+$(".dropdown-menu>a").on("click", function () {
+  $(".navbar-collapse").removeClass("show");
+});
