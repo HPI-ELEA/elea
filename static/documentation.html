@@ -7,15 +7,24 @@
     <link rel="stylesheet" href="css/globals.css" />
     <link
       rel="stylesheet"
-      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+      href="../node_modules/bootstrap/dist/css/bootstrap.css"
     />
-    <link rel="stylesheet" href="css/gh-fork-ribbon.css" />
     <link rel="shortcut icon" href="./favicon.ico" />
 
     <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
     <script
       src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
       rel="script"
+    ></script>
+    <script
+      id="blocksJSON"
+      type="application/json"
+      src="blocks/blocks.json"
+    ></script>
+    <script
+      id="threadBlocksJSON"
+      type="application/json"
+      src="blocks/threadBlocks.json"
     ></script>
   </head>
 
@@ -52,10 +61,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="faq.html">FAQ</a>
+            <a class="nav-link" target="_blank" href="faq.html">FAQ</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="documentation.html">Documentation</a>
+            <a class="nav-link" target="_blank" href="documentation.html">
+              Documentation
+            </a>
           </li>
           <li class="nav-item dropdown">
             <a
@@ -74,7 +85,7 @@
                 Empty starting point
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="workspace.html?example=full">
+              <a class="dropdown-item" href="workspace.html?example=fulll">
                 Full example
               </a>
               <a class="dropdown-item" href="workspace.html?example=simple">
@@ -84,15 +95,8 @@
               <a class="dropdown-item" href="workspace.html?example=oneplusone">
                 1+1
               </a>
-              <a
-                class="dropdown-item"
-                href="workspace.html?example=onepluslambda"
-              >
-                1+λ
-              </a>
-              <a class="dropdown-item" href="workspace.html?example=onelambda">
-                1,λ
-              </a>
+              <a class="dropdown-item" href="#">1+λ (TODO)</a>
+              <a class="dropdown-item" href="#">1,λ (TODO)</a>
               <div class="dropdown-divider"></div>
               <a
                 class="dropdown-item"
@@ -104,7 +108,7 @@
                 class="dropdown-item"
                 href="workspace.html?example=full_multithread"
               >
-                Full example with Multi-Threading
+                Full example with Muti-Threading
               </a>
               <a
                 class="dropdown-item"
@@ -117,92 +121,27 @@
         </ul>
       </div>
     </nav>
-
-    <a
-      class="github-fork-ribbon right-bottom"
-      href="https://github.com/HPI-ELEA/elea"
-      data-ribbon="Fork us on GitHub"
-      title="Fork us on GitHub"
-    >
-      Fork us on GitHub
-    </a>
-
-    <main role="main">
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <div
-          class="container d-flex flex-row align-items-center justify-content-between flex-wrap-reverse"
-        >
-          <div>
-            <h1 class="display-3">
-              Build your own
-              <br />
-              Evolutionary Algorithm!
-            </h1>
-            <p></p>
-            <p>
-              <a
-                class="btn btn-primary btn-lg"
-                href="workspace.html"
-                role="button"
-              >
-                Build it »
-              </a>
-            </p>
-          </div>
-          <img src="favicon.svg" width="200rem" height="200rem" />
-        </div>
-      </div>
-
+    <div class="jumbotron">
       <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Blocks, not code</h2>
-            <p>
-              Create your own algorithms without ever touching a line of code
-            </p>
-            <p>
-              <a class="btn btn-secondary" href="workspace.html" role="button">
-                Get started »
-              </a>
-            </p>
-          </div>
-          <div class="col-md-4">
-            <h2>Export Javascript</h2>
-            <p>
-              Prototype in your browser, optimise in your IDE. Once you have
-              your first prototype, take the generated Javascript code and run
-              it in your favorite controlled environment. Add custom profiling,
-              logging, you name it.
-            </p>
-            <p>
-              <a class="btn btn-secondary" href="workspace.html" role="button">
-                Save time »
-              </a>
-            </p>
-          </div>
-          <div class="col-md-4">
-            <h2>Use for teaching</h2>
-            <p>
-              Quickly demonstrate evolutionary behaviours to students to help
-              their understanding
-            </p>
-            <p>
-              <a class="btn btn-secondary" href="workspace.html" role="button">
-                Prepare lecture »
-              </a>
-            </p>
-          </div>
-        </div>
-
-        <hr />
+        <h1 class="display-3">Documentation</h1>
       </div>
-      <!-- /container -->
-    </main>
-
-    <footer class="container">
-      <p>Project elea</p>
-    </footer>
+    </div>
+    <div class="container">
+      <!-- introduction -->
+      <!-- links to categories -->
+      <h2 id="cat-measures">Measures</h2>
+      <h2 id="cat-algorithm-parts">Algorithm parts</h2>
+      <h2 id="cat-individuals">Individuals</h2>
+      <h2 id="cat-logging">Logging</h2>
+      <h2 id="cat-variable">Variable</h2>
+      <h2 id="cat-functions">Functions</h2>
+      <h2 id="cat-list">List</h2>
+      <h2 id="cat-logic">Logic</h2>
+      <h2 id="cat-math">Math</h2>
+      <h2 id="cat-loops">Loops</h2>
+      <h2 id="cat-multi-threading">Multi-Threading</h2>
+      <h2 id="cat-experimental">Experimental</h2>
+    </div>
+    <script src="scripts/documentation.js"></script>
   </body>
 </html>
