@@ -532,7 +532,7 @@ Blockly.defineBlocksWithJsonArray([
       },
     ],
     inputsInline: false,
-    output: "Individual",
+    output: "Array",
     colour: 230,
     tooltip: "",
     helpUrl: "",
@@ -1445,7 +1445,7 @@ Blockly.JavaScript["variables_get_individual"] = function (block) {
   );
 
   var code = variable_individual;
-  return code;
+  return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
 Blockly.JavaScript["variables_set_individual"] = function (block) {
@@ -1470,7 +1470,7 @@ Blockly.JavaScript["variables_get_population"] = function (block) {
   );
 
   var code = variable_population;
-  return code;
+  return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
 Blockly.JavaScript["variables_set_population"] = function (block) {
