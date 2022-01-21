@@ -7,7 +7,7 @@ function get_block_name(json_object) {
     if (!substr.match(/%\d+/g)) {
       block_name.concat(substr + " ");
     } else if (
-      json_object.args0[parseInt(x.substring(1)) - 1].type == "input_dummy"
+      json_object.args0[parseInt(substr.substring(1)) - 1].type == "input_dummy"
     ) {
       block_name.concat("%" + num_args++ + " ");
     }
@@ -50,11 +50,12 @@ function set_block_image(json_object, div_element) {
     zoom: false,
   });
 
-  Blockly.Blocks["math_change"] = {
+  Blockly.Blocks["tmp_block"] = {
     init: function () {
       this.jsonInit(json_object);
     },
   };
+  workspace.newBlock("tmp_block");
 
   var metrics = workspace.getMetrics();
   div_element.style.height = metrics.contentHeight + "px";
