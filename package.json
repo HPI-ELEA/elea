@@ -10,15 +10,15 @@
   "dependencies": {
     "blockly": "^6.20210701.0",
     "bootstrap": "^4.6.1",
-    "d3": "^7.2.1",
+    "d3": "^7.3.0",
     "jquery": "^3.6.0",
     "js-beautify": "^1.14.0",
-    "prismjs": "^1.25.0"
+    "prismjs": "^1.26.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.6.0",
-    "eslint-plugin-import": "^2.25.3",
+    "eslint": "^8.7.0",
+    "eslint-plugin-import": "^2.25.4",
     "husky": "^7.0.4",
     "parcel": "^1.12.3",
     "parcel-plugin-static-files-copy": "^2.6.0",

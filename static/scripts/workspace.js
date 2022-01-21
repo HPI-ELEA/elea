@@ -31,14 +31,14 @@ $("#example-full").click(() => loadExample("full"));
 $("#example-simple").click(() => loadExample("simple"));
 $("#example-oneplusone").click(() => loadExample("oneplusone"));
 $("#example-onepluslambda").click(() => loadExample("onepluslambda"));
-$("#example-onelambda").click(() => {});
+$("#example-onelambda").click(() => loadExample("onelambda"));
 $("#example-multithread").click(() => loadExample("multithread"));
 $("#example-full-multithread").click(() => loadExample("full_multithread"));
 $("#example-multithread-performance").click(() =>
   loadExample("multithread-performance")
 );
 
-$("#upload_xml").click(() => $("#upload_xml_input").click())
+$("#upload_xml").click(() => $("#upload_xml_input").click());
 $("#upload_xml_input").change(selectedFileChanged);
 $("#promt_for_xml").click(promptForXML);
 $("#download_xml").click(downloadWorkspace);

@@ -7,188 +7,119 @@
   </variables>
   <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="59" y="86">
     <statement name="init_statements">
-      <block type="ea_debug" id="}b)+PH*,%.+|0SmSg2,j">
-        <value name="logging_variable">
-          <shadow type="text" id="L#-pTOoU81`eeo3KqoMj">
-            <field name="TEXT">threads,num_iterations,num_threads,time</field>
-          </shadow>
-        </value>
+      <block type="comment" id="LOwOwZ$D:tC_z0l6cSaM">
+        <field name="text">Demonstrate how different multithread methods &amp;#10;influence the runtime of the algorithm by &amp;#10;performing the same calculation in different &amp;#10;numbers of threads</field>
         <next>
-          <block type="controls_repeat_ext" id="4qBb!3#oN;fcZLeu.O!3">
-            <value name="TIMES">
-              <shadow type="math_number" id="s`?Mt/4)A(+b_/XpH*-I">
-                <field name="NUM">5</field>
+          <block type="ea_debug" id="}b)+PH*,%.+|0SmSg2,j">
+            <value name="logging_variable">
+              <shadow type="text" id="L#-pTOoU81`eeo3KqoMj">
+                <field name="TEXT">threads,num_iterations,num_threads,time</field>
               </shadow>
             </value>
-            <statement name="DO">
-              <block type="controls_for" id="Kr},q!@c$HP0{;yp9MUl">
+            <next>
+              <block type="controls_for" id="k`||eM{.Zzivh$u-CT|Q">
                 <field name="VAR" id="y[EZLf_4sEfiA2y)MhA:">i</field>
                 <value name="FROM">
-                  <shadow type="math_number" id="Q0yV|mMxEV:m7r07NPav">
+                  <shadow type="math_number" id="f$3lN|bT,@f_n(*C%pUI">
                     <field name="NUM">1</field>
                   </shadow>
                 </value>
                 <value name="TO">
-                  <shadow type="math_number" id="/b)rmGtopb]!tKg30qQ]">
+                  <shadow type="math_number" id="ZCm2B[[ZgHG{4Pb(dkSw">
                     <field name="NUM">18</field>
                   </shadow>
                 </value>
                 <value name="BY">
-                  <shadow type="math_number" id="!F*G(sR5h^e~/Oh~xr-/">
+                  <shadow type="math_number" id="z`I#LaPCb77v@Oa{mWbg">
                     <field name="NUM">1</field>
                   </shadow>
                 </value>
                 <statement name="DO">
-                  <block type="experimental_timer" id="+]}iJgLLXMI1P?-:pJKx">
-                    <field name="output_time" id="V6L~_cSe2:wd%LF+fHRl">time</field>
-                    <statement name="code">
-                      <block type="controls_repeat_ext" id="jfuJT1`N4v(zKsEH5ACa">
-                        <value name="TIMES">
-                          <shadow type="math_number" id="G2ug%Ha[z/P-J5WF07v[">
-                            <field name="NUM">10</field>
-                          </shadow>
-                          <block type="variables_get" id="Zz6lXPI1lkut47Q}}|+~">
-                            <field name="VAR" id="y[EZLf_4sEfiA2y)MhA:">i</field>
-                          </block>
-                        </value>
-                        <statement name="DO">
-                          <block type="variables_set" id="zQi~Ob%J@Sd9+qf?sW#n">
-                            <field name="VAR" id="b!@f8OP^Ceri}:0Ul5Bc">fib</field>
-                            <value name="VALUE">
-                              <block type="fibonacci" id="A|_u8:w!{nBx]F,Aty:l">
-                                <value name="fib_number">
-                                  <shadow type="math_number" id="#aGi.a:WPFIWn6G5ih-N">
-                                    <field name="NUM">38</field>
-                                  </shadow>
-                                </value>
-                              </block>
-                            </value>
-                          </block>
-                        </statement>
-                      </block>
-                    </statement>
+                  <block type="comment" id="~V#B3L/K8moU@I]fj8sZ">
+                    <field name="text">Run the calculation in one thread</field>
                     <next>
-                      <block type="ea_debug" id="^-[]f,KxQ-c/z,UjhB=s">
-                        <value name="logging_variable">
-                          <shadow type="text" id="iDHf86JT8D_HNd/)tL2f">
-                            <field name="TEXT"></field>
-                          </shadow>
-                          <block type="lists_create_with" id="~v}18p,oj+[imi-bJqP2" inline="true">
-                            <mutation items="4"></mutation>
-                            <value name="ADD0">
-                              <block type="text" id="0o11eX:ep:S)5EH_!F!)">
-                                <field name="TEXT">single</field>
-                              </block>
-                            </value>
-                            <value name="ADD1">
-                              <block type="variables_get" id="[DX[=pM*n^0vu=VHg)_/">
+                      <block type="experimental_timer" id="w4HZk,E,-;Q}Y6$c,E[k">
+                        <field name="output_time" id="V6L~_cSe2:wd%LF+fHRl">time</field>
+                        <statement name="code">
+                          <block type="controls_repeat_ext" id="p{AZLa-EC-.+R6gTBE|9">
+                            <value name="TIMES">
+                              <shadow type="math_number">
+                                <field name="NUM">10</field>
+                              </shadow>
+                              <block type="variables_get" id="Jw8g+OWR#dNOn17+Y@T+">
                                 <field name="VAR" id="y[EZLf_4sEfiA2y)MhA:">i</field>
                               </block>
                             </value>
-                            <value name="ADD2">
-                              <block type="math_number" id="[zYAFJW2l2vTDI{2JM]N">
-                                <field name="NUM">1</field>
-                              </block>
-                            </value>
-                            <value name="ADD3">
-                              <block type="variables_get" id="iCj$rEKGFgLpgkzfsBP*">
-                                <field name="VAR" id="V6L~_cSe2:wd%LF+fHRl">time</field>
-                              </block>
-                            </value>
-                          </block>
-                        </value>
-                        <next>
-                          <block type="experimental_timer" id="mN`H-3L.!KJ-slg?D~er">
-                            <field name="output_time" id="V6L~_cSe2:wd%LF+fHRl">time</field>
-                            <statement name="code">
-                              <block type="run_thread" id="W6U$[Pz!S+yM5$s[|4yG">
-                                <field name="output_array" id="99$amqG0$ExBHhp3:,@l">result</field>
-                                <value name="thread_count">
-                                  <shadow type="math_number" id="$h*O^c{Fm{|$oHCDBlV|">
-                                    <field name="NUM">10</field>
-                                  </shadow>
-                                  <block type="variables_get" id="3jNV(N(wh*82xEs7HHjx">
-                                    <field name="VAR" id="y[EZLf_4sEfiA2y)MhA:">i</field>
-                                  </block>
-                                </value>
-                                <statement name="thread_statements">
-                                  <block type="variables_set" id="U*P(,`TbE*R?{)6XiLK6">
-                                    <field name="VAR" id="b!@f8OP^Ceri}:0Ul5Bc">fib</field>
-                                    <value name="VALUE">
-                                      <block type="fibonacci" id="gcC{|,BFgq%G^P1oV4NX">
-                                        <value name="fib_number">
-                                          <shadow type="math_number" id="WYo~c8RFguJaSWvAmE}D">
-                                            <field name="NUM">38</field>
-                                          </shadow>
-                                        </value>
-                                      </block>
+                            <statement name="DO">
+                              <block type="variables_set" id="ZauDOQ^l_,qwKB0T4m6f">
+                                <field name="VAR" id="b!@f8OP^Ceri}:0Ul5Bc">fib</field>
+                                <value name="VALUE">
+                                  <block type="fibonacci" id="$,fbT$$54Ba0lbwY;]ZF">
+                                    <value name="fib_number">
+                                      <shadow type="math_number" id="avv:/B4lT,EL](SIS3z@">
+                                        <field name="NUM">38</field>
+                                      </shadow>
                                     </value>
                                   </block>
-                                </statement>
-                                <value name="return_value">
-                                  <shadow type="math_number" id="yx/puuL2c^,ou6eRm^Rf">
-                                    <field name="NUM">0</field>
-                                  </shadow>
                                 </value>
                               </block>
                             </statement>
-                            <next>
-                              <block type="ea_debug" id="%;+ngViVU}T*f!@3(sB8">
-                                <value name="logging_variable">
-                                  <shadow type="text" id="Y6)[u~!6.E6z~^e*untX">
-                                    <field name="TEXT"></field>
-                                  </shadow>
-                                  <block type="lists_create_with" id=")P5Im{Dc;5W:QshGc!xl" inline="true">
-                                    <mutation items="4"></mutation>
-                                    <value name="ADD0">
-                                      <block type="text" id="Cqtl0hGh%8Db0=itn|3`">
-                                        <field name="TEXT">all</field>
-                                      </block>
-                                    </value>
-                                    <value name="ADD1">
-                                      <block type="variables_get" id="6I5]DFXw~{.w4i^,i4yU">
-                                        <field name="VAR" id="y[EZLf_4sEfiA2y)MhA:">i</field>
-                                      </block>
-                                    </value>
-                                    <value name="ADD2">
-                                      <block type="variables_get" id="yZ4{ahG`VmVeL!M^Wowa">
-                                        <field name="VAR" id="y[EZLf_4sEfiA2y)MhA:">i</field>
-                                      </block>
-                                    </value>
-                                    <value name="ADD3">
-                                      <block type="variables_get" id="Zw/%X}%E*gGXaT_=,EyM">
-                                        <field name="VAR" id="V6L~_cSe2:wd%LF+fHRl">time</field>
-                                      </block>
-                                    </value>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="ea_debug" id="+~Ns$oRczLe,ee!Ws]T`">
+                            <value name="logging_variable">
+                              <shadow type="text">
+                                <field name="TEXT"></field>
+                              </shadow>
+                              <block type="lists_create_with" id="_~XV%GeV+s4zW6h;]7cN" inline="true">
+                                <mutation items="4"></mutation>
+                                <value name="ADD0">
+                                  <block type="text" id="2%+%U{m:rb=,0nLBmPBG">
+                                    <field name="TEXT">one thread</field>
                                   </block>
                                 </value>
+                                <value name="ADD1">
+                                  <block type="variables_get" id="$m?Y?y8fmuf]Tr|AW,JY">
+                                    <field name="VAR" id="y[EZLf_4sEfiA2y)MhA:">i</field>
+                                  </block>
+                                </value>
+                                <value name="ADD2">
+                                  <block type="math_number" id="-jI|*E.l@y88~?!l2SpR">
+                                    <field name="NUM">1</field>
+                                  </block>
+                                </value>
+                                <value name="ADD3">
+                                  <block type="variables_get" id=";])Uh(T$~^omV/%Sdk72">
+                                    <field name="VAR" id="V6L~_cSe2:wd%LF+fHRl">time</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="comment" id="vU[gJA7.0qQB-sMO/vk~">
+                                <field name="text">Run the calculation in i threads</field>
                                 <next>
-                                  <block type="experimental_timer" id="^,sBfTJljC-18,V737xB">
+                                  <block type="experimental_timer" id="2gRtIA=UQ6%xDz}jL`)?">
                                     <field name="output_time" id="V6L~_cSe2:wd%LF+fHRl">time</field>
                                     <statement name="code">
-                                      <block type="run_thread_limited" id="|!F@wxSBI?U5=UN9IY]r">
+                                      <block type="run_thread" id="SL33z4~ri%p9#k5iRv?[">
                                         <field name="output_array" id="99$amqG0$ExBHhp3:,@l">result</field>
                                         <value name="thread_count">
-                                          <shadow type="math_number" id="y;{JTb$yy)oJyJ;n`aJv">
+                                          <shadow type="math_number">
                                             <field name="NUM">10</field>
                                           </shadow>
-                                          <block type="variables_get" id="[:1Ub]Z=^ml%MQi;ujpK">
+                                          <block type="variables_get" id="hyOv1m;%+8bn.Rx=LS@@">
                                             <field name="VAR" id="y[EZLf_4sEfiA2y)MhA:">i</field>
                                           </block>
                                         </value>
-                                        <value name="thread_limit">
-                                          <shadow xmlns="http://www.w3.org/1999/xhtml" type="math_number">
-                                            <field name="NUM">8</field>
-                                          </shadow>
-                                          <block type="thread_hardware_concurrency" id="i9EJXpw%^gGiL(-Pf$^N"></block>
-                                        </value>
                                         <statement name="thread_statements">
-                                          <block type="variables_set" id=",xEaK%bp;]nJ#c=B{eLE">
+                                          <block type="variables_set" id="jDnnVoieaCHVrGQ=R{1+">
                                             <field name="VAR" id="b!@f8OP^Ceri}:0Ul5Bc">fib</field>
                                             <value name="VALUE">
-                                              <block type="fibonacci" id="GD/OXJ/liY@u1g-aaV=0">
+                                              <block type="fibonacci" id="/La.4hN:U);(l/!,-J%v">
                                                 <value name="fib_number">
-                                                  <shadow type="math_number" id="D/qI~$r@9S!!b9lePs1g">
+                                                  <shadow type="math_number" id="#|]9BOXCrwVT#DeXo9sU">
                                                     <field name="NUM">38</field>
                                                   </shadow>
                                                 </value>
@@ -197,56 +128,145 @@
                                           </block>
                                         </statement>
                                         <value name="return_value">
-                                          <shadow type="math_number" id="]Xl9C;([kV|NQ@e-4jjM">
+                                          <shadow type="math_number" id="%);xx()#N?Jq)O]_It5c">
                                             <field name="NUM">0</field>
                                           </shadow>
                                         </value>
                                       </block>
                                     </statement>
                                     <next>
-                                      <block type="ea_debug" id="v!K)cy09i1q)$P7^XD8O">
+                                      <block type="ea_debug" id="g9.Rh7C6jy:+{3(m(*Q~">
                                         <value name="logging_variable">
-                                          <shadow type="text" id=";I_,tI$H|kP0u3;U~(aF">
+                                          <shadow type="text">
                                             <field name="TEXT"></field>
                                           </shadow>
-                                          <block type="lists_create_with" id="1PUZrJJx1aq)QQiLRsk%" inline="true">
+                                          <block type="lists_create_with" id=":4g*wYqt9,@Uc+qv:nd#" inline="true">
                                             <mutation items="4"></mutation>
                                             <value name="ADD0">
-                                              <block type="text" id="DtY%4j.c(f,rOA8]9oy=">
-                                                <field name="TEXT">limited</field>
+                                              <block type="text" id="7.5m7QG^BD,LJf;g_qw/">
+                                                <field name="TEXT">all threads</field>
                                               </block>
                                             </value>
                                             <value name="ADD1">
-                                              <block type="variables_get" id="M2kyvbi-f{Xa?)N1w+Q6">
+                                              <block type="variables_get" id="8[=p@y#T_JzfRQ;C8iMs">
                                                 <field name="VAR" id="y[EZLf_4sEfiA2y)MhA:">i</field>
                                               </block>
                                             </value>
                                             <value name="ADD2">
-                                              <block type="math_on_list" id="9AS)o6xv?+:zvVI;I1i8">
-                                                <mutation op="MIN"></mutation>
-                                                <field name="OP">MIN</field>
-                                                <value name="LIST">
-                                                  <block type="lists_create_with" id="[~FT!rA!B5pUJo{N+YSt">
-                                                    <mutation items="2"></mutation>
-                                                    <value name="ADD0">
-                                                      <block type="variables_get" id=")ibU_5`p[Zb22$ryy?=o">
-                                                        <field name="VAR" id="y[EZLf_4sEfiA2y)MhA:">i</field>
-                                                      </block>
-                                                    </value>
-                                                    <value name="ADD1">
-                                                      <block type="thread_hardware_concurrency" id="X*Fq*2vI$/YZGZm!8JGo"></block>
-                                                    </value>
-                                                  </block>
-                                                </value>
+                                              <block type="variables_get" id="PZE^Dv{p|6_U5=^(t=/;">
+                                                <field name="VAR" id="y[EZLf_4sEfiA2y)MhA:">i</field>
                                               </block>
                                             </value>
                                             <value name="ADD3">
-                                              <block type="variables_get" id="hYa@:WhmepN}SrtD(I(B">
+                                              <block type="variables_get" id="6ts5R}.spOvYfKjM3@0;">
                                                 <field name="VAR" id="V6L~_cSe2:wd%LF+fHRl">time</field>
                                               </block>
                                             </value>
                                           </block>
                                         </value>
+                                        <next>
+                                          <block type="comment" id="B9?~dACs1BR9xaiPb%Xz">
+                                            <field name="text">Run the calculation in i threads if possible</field>
+                                            <next>
+                                              <block type="experimental_timer" id="[JzDfZP[GZ+~9HvhOvqp">
+                                                <field name="output_time" id="V6L~_cSe2:wd%LF+fHRl">time</field>
+                                                <statement name="code">
+                                                  <block type="run_thread_limited" id="ss6fhGJ4C8*y8FgynhGw">
+                                                    <field name="output_array" id="99$amqG0$ExBHhp3:,@l">result</field>
+                                                    <value name="thread_count">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">10</field>
+                                                      </shadow>
+                                                      <block type="variables_get" id="DUO:^t}dxc5VyPGs_-zQ">
+                                                        <field name="VAR" id="y[EZLf_4sEfiA2y)MhA:">i</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="thread_limit">
+                                                      <shadow xmlns="http://www.w3.org/1999/xhtml" type="math_number">
+                                                        <field name="NUM">8</field>
+                                                      </shadow>
+                                                      <block type="thread_hardware_concurrency" id="`Fefd%$zs[kpsga]HI-@"></block>
+                                                    </value>
+                                                    <statement name="thread_statements">
+                                                      <block type="variables_set" id="s/vW-w2wE3;^AjZR6ei=">
+                                                        <field name="VAR" id="b!@f8OP^Ceri}:0Ul5Bc">fib</field>
+                                                        <value name="VALUE">
+                                                          <block type="fibonacci" id="y]6@bXVmrL3yVU5{3Y8T">
+                                                            <value name="fib_number">
+                                                              <shadow type="math_number" id="za=g,0}Z/c2EKQlR_)rX">
+                                                                <field name="NUM">38</field>
+                                                              </shadow>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </statement>
+                                                    <value name="return_value">
+                                                      <shadow type="math_number" id="C@gbIS}$B6H~2oSI}ysi">
+                                                        <field name="NUM">0</field>
+                                                      </shadow>
+                                                    </value>
+                                                  </block>
+                                                </statement>
+                                                <next>
+                                                  <block type="ea_debug" id="yCZ5V{2R+o+S(E@c]V6P">
+                                                    <value name="logging_variable">
+                                                      <shadow type="text">
+                                                        <field name="TEXT"></field>
+                                                      </shadow>
+                                                      <block type="lists_create_with" id="6u{YfqVDK=]05yV`:lQ{" inline="true">
+                                                        <mutation items="4"></mutation>
+                                                        <value name="ADD0">
+                                                          <block type="text" id="VT#.eX@F.r*,RW;}vw2E">
+                                                            <field name="TEXT">limited threads</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD1">
+                                                          <block type="variables_get" id="txc!rnaH+f]bUP-T$,W*">
+                                                            <field name="VAR" id="y[EZLf_4sEfiA2y)MhA:">i</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD2">
+                                                          <block type="math_on_list" id="7MPU1okthh|Z[Y4B*ig0">
+                                                            <mutation op="MIN"></mutation>
+                                                            <field name="OP">MIN</field>
+                                                            <value name="LIST">
+                                                              <block type="lists_create_with" id="xQtC}n-YdN]Z|e63g{}H">
+                                                                <mutation items="2"></mutation>
+                                                                <value name="ADD0">
+                                                                  <block type="variables_get" id="R6}KgnZmls#vTSaIZ6-f">
+                                                                    <field name="VAR" id="y[EZLf_4sEfiA2y)MhA:">i</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="ADD1">
+                                                                  <block type="thread_hardware_concurrency" id="Pu{NTC+Md}*ab465g?Ns"></block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD3">
+                                                          <block type="variables_get" id="d|73GKh93[s9,RUkDg@/">
+                                                            <field name="VAR" id="V6L~_cSe2:wd%LF+fHRl">time</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="ea_debug" id="f9yOrpg9HxVD1vETRVbi">
+                                                        <value name="logging_variable">
+                                                          <shadow type="text" id="(e=c[T}?_-_0g*jk5pzb">
+                                                            <field name="TEXT">------------------------------------------------</field>
+                                                          </shadow>
+                                                        </value>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
                                       </block>
                                     </next>
                                   </block>
@@ -260,7 +280,7 @@
                   </block>
                 </statement>
               </block>
-            </statement>
+            </next>
           </block>
         </next>
       </block>
