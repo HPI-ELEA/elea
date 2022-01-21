@@ -131,7 +131,7 @@ Blockly.defineBlocksWithJsonArray([
       },
     ],
     inputsInline: true,
-    output: "Population",
+    output: "Array",
     colour: 230,
     tooltip: "Use this function to init your population",
     helpUrl: "",
@@ -304,8 +304,8 @@ Blockly.defineBlocksWithJsonArray([
         type: "field_variable",
         name: "POPULATION",
         variable: "offspring_population",
-        variable_types: ["Population"],
-        default_type: "Population",
+        variable_types: ["Array"],
+        default_type: "Array",
       },
     ],
     previousStatement: null,
@@ -322,18 +322,18 @@ Blockly.defineBlocksWithJsonArray([
         type: "field_variable",
         name: "POPULATION1",
         variable: "parent_population",
-        variable_types: ["Population"],
-        default_type: "Population",
+        variable_types: ["Array"],
+        default_type: "Array",
       },
       {
         type: "field_variable",
         name: "POPULATION2",
         variable: "offspring_population",
-        variable_types: ["Population"],
-        default_type: "Population",
+        variable_types: ["Array"],
+        default_type: "Array",
       },
     ],
-    output: "Population",
+    output: "Array",
     colour: 260,
     tooltip: "",
     helpUrl: "",
@@ -354,8 +354,8 @@ Blockly.defineBlocksWithJsonArray([
         type: "field_variable",
         name: "POPULATION",
         variable: "parent_population",
-        variable_types: ["Population"],
-        default_type: "Population",
+        variable_types: ["Array"],
+        default_type: "Array",
       },
     ],
     output: "Individual",
@@ -520,7 +520,7 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "input_value",
         name: "POPULATION",
-        check: "Population",
+        check: "Array",
       },
       {
         type: "field_dropdown",
@@ -544,7 +544,7 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "input_value",
         name: "POPULATION",
-        check: "Population",
+        check: "Array",
       },
     ],
     inputsInline: false,
@@ -560,7 +560,7 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "input_value",
         name: "POPULATION",
-        check: "Population",
+        check: "Array",
       },
     ],
     inputsInline: false,
@@ -713,6 +713,86 @@ Blockly.defineBlocksWithJsonArray([
     output: null,
     colour: 0,
     tooltip: "enter raw code value to use",
+  },
+  {
+    type: "variables_get_individual",
+    message0: "individual %1",
+    args0: [
+      {
+        type: "field_variable",
+        name: "VAR",
+        variable: "%{BKY_VARIABLES_DEFAULT_NAME}",
+        variableTypes: ["Individual"],
+        defaultType: "Individual",
+      },
+    ],
+    output: "Individual",
+    colour: 330,
+    tooltip: "",
+    helpUrl: "",
+  },
+  {
+    type: "variables_set_individual",
+    message0: "set individual %1 to %2",
+    args0: [
+      {
+        type: "field_variable",
+        name: "VAR",
+        variable: "%{BKY_VARIABLES_DEFAULT_NAME}",
+        variableTypes: ["Individual"],
+        defaultType: "Individual",
+      },
+      {
+        type: "input_value",
+        name: "VALUE",
+        check: "Individual",
+      },
+    ],
+    previousStatement: null,
+    nextStatement: null,
+    colour: 330,
+    tooltip: "",
+    helpUrl: "",
+  },
+  {
+    type: "variables_get_population",
+    message0: "population %1",
+    args0: [
+      {
+        type: "field_variable",
+        name: "VAR",
+        variable: "%{BKY_VARIABLES_DEFAULT_NAME}",
+        variableTypes: ["Array"],
+        defaultType: "Array",
+      },
+    ],
+    output: "Array",
+    colour: 330,
+    tooltip: "",
+    helpUrl: "",
+  },
+  {
+    type: "variables_set_population",
+    message0: "set population %1 to %2",
+    args0: [
+      {
+        type: "field_variable",
+        name: "VAR",
+        variable: "%{BKY_VARIABLES_DEFAULT_NAME}",
+        variableTypes: ["Array"],
+        defaultType: "Array",
+      },
+      {
+        type: "input_value",
+        name: "VALUE",
+        check: "Array",
+      },
+    ],
+    previousStatement: null,
+    nextStatement: null,
+    colour: 330,
+    tooltip: "",
+    helpUrl: "",
   },
 ]);
 
@@ -1356,6 +1436,56 @@ Blockly.JavaScript["ea_crossover_uniform"] = function () {
     ]
   );
   return [functionCrossover3, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript["variables_get_individual"] = function (block) {
+  var variable_individual = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("VAR"),
+    Blockly.Variables.NAME_TYPE
+  );
+
+  var code = variable_individual;
+  return code;
+};
+
+Blockly.JavaScript["variables_set_individual"] = function (block) {
+  var variable_individual = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("VAR"),
+    Blockly.Variables.NAME_TYPE
+  );
+  var new_value_individual = Blockly.JavaScript.valueToCode(
+    block,
+    "VALUE",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  var code = variable_individual + " = " + new_value_individual + ";\n";
+  return code;
+};
+
+Blockly.JavaScript["variables_get_population"] = function (block) {
+  var variable_population = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("VAR"),
+    Blockly.Variables.NAME_TYPE
+  );
+
+  var code = variable_population;
+  return code;
+};
+
+Blockly.JavaScript["variables_set_population"] = function (block) {
+  var variable_population = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("VAR"),
+    Blockly.Variables.NAME_TYPE
+  );
+  var new_value_population = Blockly.JavaScript.valueToCode(
+    block,
+    "VALUE",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  var code = variable_population + " = " + new_value_population + ";\n";
+  return code;
 };
 
 // TODO: add global shuffle function from https://stackoverflow.com/a/2450976 :
