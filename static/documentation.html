@@ -9,22 +9,13 @@
       rel="stylesheet"
       href="../node_modules/bootstrap/dist/css/bootstrap.css"
     />
+    <link rel="stylesheet" href="css/documentation.css" />
     <link rel="shortcut icon" href="./favicon.ico" />
 
     <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
     <script
       src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
       rel="script"
-    ></script>
-    <script
-      id="blocksJSON"
-      type="application/json"
-      src="blocks/blocks.json"
-    ></script>
-    <script
-      id="threadBlocksJSON"
-      type="application/json"
-      src="blocks/threadBlocks.json"
     ></script>
   </head>
 
@@ -129,18 +120,54 @@
     <div class="container">
       <!-- introduction -->
       <!-- links to categories -->
-      <h2 id="cat-measures">Measures</h2>
-      <h2 id="cat-algorithm-parts">Algorithm parts</h2>
-      <h2 id="cat-individuals">Individuals</h2>
-      <h2 id="cat-logging">Logging</h2>
-      <h2 id="cat-variable">Variable</h2>
-      <h2 id="cat-functions">Functions</h2>
-      <h2 id="cat-list">List</h2>
-      <h2 id="cat-logic">Logic</h2>
-      <h2 id="cat-math">Math</h2>
-      <h2 id="cat-loops">Loops</h2>
-      <h2 id="cat-multi-threading">Multi-Threading</h2>
-      <h2 id="cat-experimental">Experimental</h2>
+      <h2 class="display-5 alert alert-info" id="cat-measures">
+        <strong>Measures</strong>
+      </h2>
+      <hr id="cat-measures-separator" class="category-seperator" />
+      <h2 class="display-5 alert alert-info" id="cat-algorithm-parts">
+        <strong>Algorithm parts</strong>
+      </h2>
+      <hr id="cat-algorithm-separator" class="category-seperator" />
+      <h2 class="display-5 alert alert-info" id="cat-individuals">
+        <strong>Individuals</strong>
+      </h2>
+      <hr id="cat-individuals-separator" class="category-seperator" />
+      <h2 class="display-5 alert alert-info" id="cat-logging">
+        <strong>Logging</strong>
+      </h2>
+      <hr id="cat-logging-separator" class="category-seperator" />
+      <h2 class="display-5 alert alert-info" id="cat-variable">
+        <strong>Variable</strong>
+      </h2>
+      <hr id="cat-variable-separator" class="category-seperator" />
+      <h2 class="display-5 alert alert-info" id="cat-functions">
+        <strong>Functions</strong>
+      </h2>
+      <hr id="cat-functions-separator" class="category-seperator" />
+      <h2 class="display-5 alert alert-info" id="cat-list">
+        <strong>List</strong>
+      </h2>
+      <hr id="cat-list-separator" class="category-seperator" />
+      <h2 class="display-5 alert alert-info" id="cat-logic">
+        <strong>Logic</strong>
+      </h2>
+      <hr id="cat-logic-separator" class="category-seperator" />
+      <h2 class="display-5 alert alert-info" id="cat-math">
+        <strong>Math</strong>
+      </h2>
+      <hr id="cat-math-separator" class="category-seperator" />
+      <h2 class="display-5 alert alert-info" id="cat-loops">
+        <strong>Loops</strong>
+      </h2>
+      <hr id="cat-loops-separator" class="category-seperator" />
+      <h2 class="display-5 alert alert-info" id="cat-multi-threading">
+        <strong>Multi-Threading</strong>
+      </h2>
+      <hr id="cat-threading-separator" class="category-seperator" />
+      <h2 class="display-5 alert alert-info" id="cat-experimental">
+        <strong>Experimental</strong>
+      </h2>
+      <hr id="cat-experimental-separator" class="category-seperator" />
     </div>
     <script src="scripts/documentation.js"></script>
   </body>

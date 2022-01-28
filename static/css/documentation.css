@@ -1,0 +1,17 @@
+.category-separator {
+  margin-bottom: 0.5rem;
+}
+
+.block-svg {
+  width: 100%;
+  margin: 1.5rem;
+}
+
+.block-svg > * {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.blocklyMainBackground {
+  stroke-width: 0;
+}

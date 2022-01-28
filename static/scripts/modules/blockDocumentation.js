@@ -1,17 +1,19 @@
 import * as Blockly from "blockly";
 
 function get_block_name(json_object) {
+  console.log(json_object.message0);
   let block_name = "";
   let num_args = 1;
-  for (let substr in json_object.message0.split(" ")) {
+  json_object.message0.split(" ").forEach((substr) => {
     if (!substr.match(/%\d+/g)) {
-      block_name.concat(substr + " ");
+      block_name += substr + " ";
     } else if (
+      json_object.args0 &&
       json_object.args0[parseInt(substr.substring(1)) - 1].type == "input_dummy"
     ) {
-      block_name.concat("%" + num_args++ + " ");
+      block_name += "%" + num_args++ + " ";
     }
-  }
+  });
   return block_name;
 }
 
@@ -28,15 +30,16 @@ function get_output_type(json_object) {
 }
 
 function get_input(json_object) {
+  let args0 = json_object.args0 || [];
   let inputs = [];
-  for (let input in json_object.args0) {
-    if (input.type == "input_dummy")
+  args0.forEach((input) => {
+    if (input.type != "input_dummy")
       inputs.push({
         name: input.name,
         type: input.type,
         comment: input.comment || false,
       });
-  }
+  });
   return inputs;
 }
 
@@ -50,12 +53,14 @@ function set_block_image(json_object, div_element) {
     zoom: false,
   });
 
-  Blockly.Blocks["tmp_block"] = {
+  Blockly.Blocks[json_object.type] = {
     init: function () {
       this.jsonInit(json_object);
     },
   };
-  workspace.newBlock("tmp_block");
+  var block = workspace.newBlock(json_object.type);
+  block.initSvg();
+  block.render();
 
   var metrics = workspace.getMetrics();
   div_element.style.height = metrics.contentHeight + "px";
