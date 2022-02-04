@@ -31,6 +31,7 @@ export const blockDefinitions = [
     colour: 389,
     tooltip: "",
     helpUrl: "",
+    category: "multi-threading",
   },
 
   {
@@ -67,6 +68,7 @@ export const blockDefinitions = [
     colour: 389,
     tooltip: "",
     helpUrl: "",
+    category: "multi-threading",
   },
 
   {
@@ -87,6 +89,7 @@ export const blockDefinitions = [
     colour: 389,
     tooltip: "",
     helpUrl: "",
+    category: "multi-threading",
   },
 
   {
@@ -102,6 +105,7 @@ export const blockDefinitions = [
     previousStatement: ["ThreadImport", "ThreadStart"],
     nextStatement: ["ThreadImport"],
     colour: 389,
+    category: "multi-threading",
   },
 
   {
@@ -119,5 +123,6 @@ export const blockDefinitions = [
     colour: 389,
     tooltip: "",
     helpUrl: "",
+    category: "multi-threading",
   },
 ];

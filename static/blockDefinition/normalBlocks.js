@@ -18,6 +18,7 @@ export const blockDefinitions = [
     colour: 230,
     tooltip: "",
     helpUrl: "",
+    category: "algorithm-parts",
   },
   {
     type: "init_meta",
@@ -71,6 +72,7 @@ export const blockDefinitions = [
     colour: 230,
     tooltip: "",
     helpUrl: "",
+    category: "algorithm-parts",
   },
   {
     type: "individual_init_uniform",
@@ -79,6 +81,7 @@ export const blockDefinitions = [
     colour: 230,
     tooltip: "",
     helpUrl: "",
+    category: "individuals",
   },
   {
     type: "init_constant",
@@ -97,6 +100,7 @@ export const blockDefinitions = [
     colour: 230,
     tooltip: "",
     helpUrl: "",
+    category: "algorithm-parts",
   },
   {
     type: "individual_init_constant",
@@ -115,6 +119,7 @@ export const blockDefinitions = [
     colour: 230,
     tooltip: "",
     helpUrl: "",
+    category: "individuals",
   },
   {
     type: "pop_init",
@@ -133,6 +138,7 @@ export const blockDefinitions = [
     colour: 230,
     tooltip: "Use this function to init your population",
     helpUrl: "",
+    category: "algorithm-parts",
   },
   {
     type: "init_lambda",
@@ -177,6 +183,7 @@ export const blockDefinitions = [
     colour: 230,
     tooltip: "",
     helpUrl: "",
+    category: "algorithm-parts",
   },
   {
     type: "run_loop_logging",
@@ -243,6 +250,7 @@ export const blockDefinitions = [
     colour: 230,
     tooltip: "An experimental breeding loop with logging",
     helpUrl: "",
+    category: "algorithm-parts",
   },
   {
     type: "jump_k",
@@ -263,6 +271,7 @@ export const blockDefinitions = [
     colour: 180,
     tooltip: "Calculate jump-k value on individual",
     helpUrl: "",
+    category: "measures",
   },
 
   {
@@ -280,6 +289,7 @@ export const blockDefinitions = [
     colour: 180,
     tooltip: "Calculate leading ones value on individual",
     helpUrl: "",
+    category: "measures",
   },
 
   {
@@ -302,6 +312,7 @@ export const blockDefinitions = [
     colour: 260,
     tooltip: "",
     helpUrl: "",
+    category: "list",
   },
   {
     type: "lists_concat",
@@ -322,6 +333,7 @@ export const blockDefinitions = [
     colour: 260,
     tooltip: "",
     helpUrl: "",
+    category: "list",
   },
   {
     type: "ea_select_parent",
@@ -345,6 +357,7 @@ export const blockDefinitions = [
     colour: 230,
     tooltip: "",
     helpUrl: "",
+    category: "algorithm-parts",
   },
   {
     type: "ea_copy",
@@ -360,6 +373,7 @@ export const blockDefinitions = [
     colour: 120,
     tooltip: "",
     helpUrl: "",
+    category: "individuals",
   },
   {
     type: "ea_run_breeding",
@@ -387,6 +401,7 @@ export const blockDefinitions = [
     colour: 230,
     tooltip: "",
     helpUrl: "",
+    category: "algorithm-parts",
   },
   {
     type: "ea_crossover",
@@ -426,6 +441,7 @@ export const blockDefinitions = [
     colour: 120,
     tooltip: "",
     helpUrl: "",
+    category: "individuals",
   },
   {
     type: "ea_mutate",
@@ -441,6 +457,7 @@ export const blockDefinitions = [
     colour: 120,
     tooltip: "",
     helpUrl: "",
+    category: "individuals",
   },
   {
     type: "ea_mutate_prob",
@@ -460,6 +477,7 @@ export const blockDefinitions = [
     colour: 120,
     tooltip: "",
     helpUrl: "",
+    category: "individuals",
   },
   {
     type: "ea_mutate_bit",
@@ -475,6 +493,7 @@ export const blockDefinitions = [
     colour: 120,
     tooltip: "",
     helpUrl: "",
+    category: "individuals",
   },
   {
     type: "ea_addtopopulation",
@@ -506,6 +525,7 @@ export const blockDefinitions = [
     colour: 230,
     tooltip: "",
     helpUrl: "",
+    category: "individuals",
   },
   {
     type: "ea_select_best",
@@ -521,6 +541,7 @@ export const blockDefinitions = [
     colour: 230,
     tooltip: "",
     helpUrl: "",
+    category: "individuals",
   },
   {
     type: "max_diversity",
@@ -536,6 +557,7 @@ export const blockDefinitions = [
     colour: 180,
     tooltip: "",
     helpUrl: "",
+    category: "measures",
   },
   {
     type: "ea_crossover_onepoint",
@@ -544,6 +566,7 @@ export const blockDefinitions = [
     colour: 120,
     tooltip: "",
     helpUrl: "",
+    category: "individuals",
   },
   {
     type: "ea_crossover_twopoint",
@@ -552,6 +575,7 @@ export const blockDefinitions = [
     colour: 120,
     tooltip: "",
     helpUrl: "",
+    category: "individuals",
   },
   {
     type: "ea_crossover_uniform",
@@ -560,6 +584,7 @@ export const blockDefinitions = [
     colour: 120,
     tooltip: "",
     helpUrl: "",
+    category: "individuals",
   },
 
   {
@@ -586,6 +611,7 @@ export const blockDefinitions = [
     colour: "#777",
     tooltip: "",
     helpUrl: "",
+    category: "logging",
   },
   {
     type: "ea_log",
@@ -625,6 +651,7 @@ export const blockDefinitions = [
     colour: 60,
     tooltip: "",
     helpUrl: "",
+    category: "logging",
   },
 
   {
@@ -648,6 +675,7 @@ export const blockDefinitions = [
     previousStatement: true,
     nextStatement: true,
     colour: 0,
+    category: "experimental",
   },
 
   {
@@ -679,5 +707,6 @@ export const blockDefinitions = [
     output: null,
     colour: 0,
     tooltip: "enter raw code value to use",
+    category: "experimental",
   },
 ];
