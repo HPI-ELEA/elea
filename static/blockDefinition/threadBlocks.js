@@ -29,7 +29,8 @@ export const blockDefinitions = [
     previousStatement: null,
     nextStatement: null,
     colour: 389,
-    tooltip: "",
+    tooltip:
+      "Runs the included statements in a number of threads and saves generated values into a variable.",
     helpUrl: "",
     category: "multi-threading",
   },
@@ -66,7 +67,8 @@ export const blockDefinitions = [
     previousStatement: null,
     nextStatement: null,
     colour: 389,
-    tooltip: "",
+    tooltip:
+      "Runs the included statements in a number of threads and saves generated values into a variable with a thread limit.",
     helpUrl: "",
     category: "multi-threading",
   },
@@ -77,7 +79,7 @@ export const blockDefinitions = [
     inputsInline: true,
     output: "Number",
     colour: 389,
-    tooltip: "",
+    tooltip: "get the current thread-ID.",
     helpUrl: "",
   },
 
