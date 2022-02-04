@@ -36,7 +36,7 @@ function get_input(json_object) {
   args0.forEach((input) => {
     if (input.type != "input_dummy") {
       let type;
-      if (input.type == "field_variable") type = input.variable_types;
+      if (input.type == "field_variable") type = input.variableTypes;
       if (input.type == "input_value") type = input.check;
       if (input.type == "input_statement") type = "Statements";
 
