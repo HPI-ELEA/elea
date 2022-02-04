@@ -15,3 +15,18 @@
 .blocklyMainBackground {
   stroke-width: 0;
 }
+
+.intro-list-item {
+  margin: 0.5rem;
+  font-size: medium;
+}
+
+a {
+  color: #0c5460;
+}
+
+p {
+  margin: 1rem 0;
+  font-size: 17.5px;
+  line-height: 1.67;
+}

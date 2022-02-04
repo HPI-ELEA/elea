@@ -16,7 +16,7 @@ normalBlocks.concat(threadBlocks).forEach((block) => {
   if (category == "moreblocks" && $("#cat-moreblocks").length == 0) {
     // more blocks category doesn't exists
     $(
-      '<h2 class="display-5 alert alert-info" id="cat-moreblocks"><strong>More blocks</strong></h2>\
+      '<div class="display-5 alert alert-info" id="cat-moreblocks"><h2><strong>More blocks</strong></h2><p>Blocks without categorization. That means, you can\'t use them.</p></div>\
         <hr id="cat-moreblocks-separator">'
     ).insertAfter("#cat-experimental-separator");
   }
@@ -92,7 +92,7 @@ function block_single_input_div(block_input) {
   description +=
     "<p>" +
     block_input.name +
-    " (" +
+    " (type: " +
     (block_input.type || "<i>no type</i>") +
     ")</p>";
   description += "<p>" + (block_input.comment || "") + "</p>";
