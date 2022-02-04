@@ -90,12 +90,12 @@ function block_single_input_div(block_input) {
   if (!block_input) return "";
   let description = "<li>";
   description +=
-    "<p>" +
+    "<p><i>" +
     block_input.name +
-    " (type: " +
+    "</i> (type: " +
     (block_input.type || "<i>no type</i>") +
-    ")</p>";
-  description += "<p>" + (block_input.comment || "") + "</p>";
+    ")<br/>";
+  description += (block_input.comment || "") + "</p>";
   return description + "</li>";
 }
 

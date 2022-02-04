@@ -34,12 +34,18 @@ function get_input(json_object) {
   let args0 = json_object.args0 || [];
   let inputs = [];
   args0.forEach((input) => {
-    if (input.type != "input_dummy")
+    if (input.type != "input_dummy") {
+      let type;
+      if (input.type == "field_variable") type = input.variable_types;
+      if (input.type == "input_value") type = input.check;
+      if (input.type == "input_statement") type = "Statements";
+
       inputs.push({
         name: input.name.toUpperCase(),
-        type: input.type,
+        type: type,
         comment: input.comment || false,
       });
+    }
   });
   return inputs;
 }
