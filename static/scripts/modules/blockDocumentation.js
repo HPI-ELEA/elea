@@ -1,17 +1,18 @@
 import * as Blockly from "blockly";
 
 function get_block_name(json_object) {
-  console.log(json_object.message0);
   let block_name = "";
-  let num_args = 1;
   json_object.message0.split(" ").forEach((substr) => {
     if (!substr.match(/%\d+/g)) {
       block_name += substr + " ";
     } else if (
       json_object.args0 &&
-      json_object.args0[parseInt(substr.substring(1)) - 1].type == "input_dummy"
+      json_object.args0[parseInt(substr.substring(1)) - 1].type != "input_dummy"
     ) {
-      block_name += "%" + num_args++ + " ";
+      let input_name =
+        json_object.args0[parseInt(substr.substring(1)) - 1].name;
+      block_name +=
+        "<small><strong>" + input_name.toUpperCase() + "</strong></small> ";
     }
   });
   return block_name;
@@ -35,7 +36,7 @@ function get_input(json_object) {
   args0.forEach((input) => {
     if (input.type != "input_dummy")
       inputs.push({
-        name: input.name,
+        name: input.name.toUpperCase(),
         type: input.type,
         comment: input.comment || false,
       });
