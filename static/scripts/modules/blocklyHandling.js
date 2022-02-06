@@ -52,6 +52,29 @@ window.addEventListener("resize", onresize, false);
 onresize();
 Blockly.svgResize(workspace);
 
+// Add variable creator buttons
+workspace.registerButtonCallback("createIndividualButton", (button) => {
+  Blockly.Variables.createVariableButtonHandler(
+    button.getTargetWorkspace(),
+    null,
+    "Individual"
+  );
+});
+workspace.registerButtonCallback("createPopulationButton", (button) => {
+  Blockly.Variables.createVariableButtonHandler(
+    button.getTargetWorkspace(),
+    null,
+    "Array"
+  );
+});
+workspace.registerButtonCallback("createVariableButton", (button) => {
+  Blockly.Variables.createVariableButtonHandler(
+    button.getTargetWorkspace(),
+    null,
+    null
+  );
+});
+
 // DO NOT CHANGE THIS BEFORE UNDERSTANDING THE BELOW INFO
 
 // in order for multi-threading to work we need to add all of the function definitions to each thread,
@@ -69,7 +92,7 @@ function getCode() {
   let code = Blockly.JavaScript.workspaceToCode(workspace);
   if (USING_THREADS) code = Blockly.JavaScript.workspaceToCode(workspace);
   USING_THREADS = false;
-  code = beautify(code, { indent_size: 2, space_in_empty_paren: true })
+  code = beautify(code, { indent_size: 2, space_in_empty_paren: true });
   return code;
 }
 

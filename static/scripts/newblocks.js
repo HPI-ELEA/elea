@@ -76,7 +76,7 @@ Blockly.defineBlocksWithJsonArray([
   {
     type: "individual_init_uniform",
     message0: "individual uniform random init",
-    output: "individual_init_strategy",
+    output: "Individual",
     colour: 230,
     tooltip: "",
     helpUrl: "",
@@ -112,7 +112,7 @@ Blockly.defineBlocksWithJsonArray([
         ],
       },
     ],
-    output: "individual_init_strategy",
+    output: "Individual",
     colour: 230,
     tooltip: "",
     helpUrl: "",
@@ -127,10 +127,11 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "input_value",
         name: "INIT_STRATEGY",
+        check: "init_strategy",
       },
     ],
     inputsInline: true,
-    output: null,
+    output: "Array",
     colour: 230,
     tooltip: "Use this function to init your population",
     helpUrl: "",
@@ -253,14 +254,17 @@ Blockly.defineBlocksWithJsonArray([
         type: "field_variable",
         name: "INDIVIDUAL",
         variable: "individual",
+        variableTypes: ["Individual"],
+        defaultType: ["Individual"],
       },
       {
         type: "input_value",
         name: "K",
+        check: "Number",
       },
     ],
     inputsInline: true,
-    output: null,
+    output: "Number",
     colour: 180,
     tooltip: "Calculate jump-k value on individual",
     helpUrl: "",
@@ -274,10 +278,12 @@ Blockly.defineBlocksWithJsonArray([
         type: "field_variable",
         name: "INDIVIDUAL",
         variable: "individual",
+        variableTypes: ["Individual"],
+        defaultType: "Individual",
       },
     ],
     inputsInline: true,
-    output: null,
+    output: "Number",
     colour: 180,
     tooltip: "Calculate leading ones value on individual",
     helpUrl: "",
@@ -291,11 +297,15 @@ Blockly.defineBlocksWithJsonArray([
         type: "field_variable",
         name: "INDIVIDUAL",
         variable: "offspring1",
+        variableTypes: ["Individual"],
+        defaultType: "Individual",
       },
       {
         type: "field_variable",
         name: "POPULATION",
         variable: "offspring_population",
+        variableTypes: ["Array"],
+        defaultType: "Array",
       },
     ],
     previousStatement: null,
@@ -312,14 +322,18 @@ Blockly.defineBlocksWithJsonArray([
         type: "field_variable",
         name: "POPULATION1",
         variable: "parent_population",
+        variableTypes: ["Array"],
+        defaultType: "Array",
       },
       {
         type: "field_variable",
         name: "POPULATION2",
         variable: "offspring_population",
+        variableTypes: ["Array"],
+        defaultType: "Array",
       },
     ],
-    output: null,
+    output: "Array",
     colour: 260,
     tooltip: "",
     helpUrl: "",
@@ -340,9 +354,11 @@ Blockly.defineBlocksWithJsonArray([
         type: "field_variable",
         name: "POPULATION",
         variable: "parent_population",
+        variableTypes: ["Array"],
+        defaultType: "Array",
       },
     ],
-    output: "parent_selection_strategy",
+    output: "Individual",
     colour: 230,
     tooltip: "",
     helpUrl: "",
@@ -399,27 +415,35 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "input_value",
         name: "NAME",
-        check: "crossover_function",
+        check: "crossover_strategy",
       },
       {
         type: "field_variable",
         name: "PARENT1",
         variable: "parent1",
+        variableTypes: ["Individual"],
+        defaultType: "Individual",
       },
       {
         type: "field_variable",
         name: "PARENT2",
         variable: "parent2",
+        variableTypes: ["Individual"],
+        defaultType: "Individual",
       },
       {
         type: "field_variable",
         name: "OFFSPRING1",
         variable: "offspring1",
+        variableTypes: ["Individual"],
+        defaultType: "Individual",
       },
       {
         type: "field_variable",
         name: "OFFSPRING2",
         variable: "offspring2",
+        variableTypes: ["Individual"],
+        defaultType: "Individual",
       },
     ],
     previousStatement: null,
@@ -435,6 +459,7 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "input_value",
         name: "individual",
+        check: "Individual",
       },
     ],
     inputsInline: true,
@@ -450,14 +475,16 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "input_value",
         name: "individual",
+        check: "Individual",
       },
       {
         type: "input_value",
         name: "probability",
+        check: "Number",
       },
     ],
     inputsInline: true,
-    output: null,
+    output: "Individual",
     colour: 120,
     tooltip: "",
     helpUrl: "",
@@ -469,10 +496,11 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "input_value",
         name: "individual",
+        check: "Individual",
       },
     ],
     inputsInline: true,
-    output: null,
+    output: "Individual",
     colour: 120,
     tooltip: "",
     helpUrl: "",
@@ -492,6 +520,7 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "input_value",
         name: "POPULATION",
+        check: "Array",
       },
       {
         type: "field_dropdown",
@@ -503,7 +532,7 @@ Blockly.defineBlocksWithJsonArray([
       },
     ],
     inputsInline: false,
-    output: null,
+    output: "Array",
     colour: 230,
     tooltip: "",
     helpUrl: "",
@@ -515,10 +544,11 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "input_value",
         name: "POPULATION",
+        check: "Array",
       },
     ],
     inputsInline: false,
-    output: null,
+    output: "Individual",
     colour: 230,
     tooltip: "",
     helpUrl: "",
@@ -530,6 +560,7 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "input_value",
         name: "POPULATION",
+        check: "Array",
       },
     ],
     inputsInline: false,
@@ -541,7 +572,7 @@ Blockly.defineBlocksWithJsonArray([
   {
     type: "ea_crossover_onepoint",
     message0: "one-point",
-    output: "crossover_function",
+    output: "crossover_strategy",
     colour: 120,
     tooltip: "",
     helpUrl: "",
@@ -549,7 +580,7 @@ Blockly.defineBlocksWithJsonArray([
   {
     type: "ea_crossover_twopoint",
     message0: "two-point",
-    output: "crossover_function",
+    output: "crossover_strategy",
     colour: 120,
     tooltip: "",
     helpUrl: "",
@@ -557,7 +588,7 @@ Blockly.defineBlocksWithJsonArray([
   {
     type: "ea_crossover_uniform",
     message0: "uniform",
-    output: "crossover_function",
+    output: "crossover_strategy",
     colour: 120,
     tooltip: "",
     helpUrl: "",
@@ -643,6 +674,8 @@ Blockly.defineBlocksWithJsonArray([
         type: "field_variable",
         name: "output_time",
         variable: "time",
+        variableTypes: ["Number"],
+        defaultType: "Number",
       },
     ],
     inputsInLine: true,
@@ -681,13 +714,95 @@ Blockly.defineBlocksWithJsonArray([
     colour: 0,
     tooltip: "enter raw code value to use",
   },
+  {
+    type: "variables_get_individual",
+    message0: "individual %1",
+    args0: [
+      {
+        type: "field_variable",
+        name: "VAR",
+        variable: "%{BKY_VARIABLES_DEFAULT_NAME}",
+        variableTypes: ["Individual"],
+        defaultType: "Individual",
+      },
+    ],
+    output: "Individual",
+    colour: 330,
+    tooltip: "",
+    helpUrl: "",
+  },
+  {
+    type: "variables_set_individual",
+    message0: "set individual %1 to %2",
+    args0: [
+      {
+        type: "field_variable",
+        name: "VAR",
+        variable: "%{BKY_VARIABLES_DEFAULT_NAME}",
+        variableTypes: ["Individual"],
+        defaultType: "Individual",
+      },
+      {
+        type: "input_value",
+        name: "VALUE",
+        check: "Individual",
+      },
+    ],
+    previousStatement: null,
+    nextStatement: null,
+    colour: 330,
+    tooltip: "",
+    helpUrl: "",
+  },
+  {
+    type: "variables_get_population",
+    message0: "population %1",
+    args0: [
+      {
+        type: "field_variable",
+        name: "VAR",
+        variable: "%{BKY_VARIABLES_DEFAULT_NAME}",
+        variableTypes: ["Array"],
+        defaultType: "Array",
+      },
+    ],
+    output: "Array",
+    colour: 330,
+    tooltip: "",
+    helpUrl: "",
+  },
+  {
+    type: "variables_set_population",
+    message0: "set population %1 to %2",
+    args0: [
+      {
+        type: "field_variable",
+        name: "VAR",
+        variable: "%{BKY_VARIABLES_DEFAULT_NAME}",
+        variableTypes: ["Array"],
+        defaultType: "Array",
+      },
+      {
+        type: "input_value",
+        name: "VALUE",
+        check: "Array",
+      },
+    ],
+    previousStatement: null,
+    nextStatement: null,
+    colour: 330,
+    tooltip: "",
+    helpUrl: "",
+  },
 ]);
 
 Blockly.JavaScript["experimental_raw_code"] = function (block) {
+  // TODO add javascript validation
   return block.getFieldValue("code") + "\n";
 };
 
 Blockly.JavaScript["experimental_raw_value"] = function (block) {
+  // TODO add javascript validation
   return [block.getFieldValue("code"), Blockly.JavaScript.ORDER_NONE];
 };
 
@@ -728,11 +843,11 @@ Blockly.JavaScript["ea_init"] = function (block) {
   code += "try {\n";
   code += statements_simulation_steps;
   code += "} catch(e) {\n";
-  code += "    consoleerror(e);\n"
-  code += "} finally {\n"
+  code += "    consoleerror(e);\n";
+  code += "} finally {\n";
   code +=
-  '  Handler.sendMessage(new Message(Handler.PARENT_ID, 0, "terminate"));\n';
-  code += "};\n"
+    '  Handler.sendMessage(new Message(Handler.PARENT_ID, 0, "terminate"));\n';
+  code += "};\n";
   code += "}\n";
   code += "var main = main();\n";
   code += "main.next();\n";
@@ -944,6 +1059,7 @@ Blockly.JavaScript["run_loop_logging"] = function (block) {
     "exit_number",
     Blockly.JavaScript.ORDER_NONE
   );
+  // TODO Add validator checking wether aldID exists
   var algId = block.getFieldValue("algId");
   var fnId = block.getFieldValue("fnId");
   var fitness = Blockly.JavaScript.valueToCode(
@@ -1320,6 +1436,56 @@ Blockly.JavaScript["ea_crossover_uniform"] = function () {
     ]
   );
   return [functionCrossover3, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript["variables_get_individual"] = function (block) {
+  var variable_individual = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("VAR"),
+    Blockly.Variables.NAME_TYPE
+  );
+
+  var code = variable_individual;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript["variables_set_individual"] = function (block) {
+  var variable_individual = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("VAR"),
+    Blockly.Variables.NAME_TYPE
+  );
+  var new_value_individual = Blockly.JavaScript.valueToCode(
+    block,
+    "VALUE",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  var code = variable_individual + " = " + new_value_individual + ";\n";
+  return code;
+};
+
+Blockly.JavaScript["variables_get_population"] = function (block) {
+  var variable_population = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("VAR"),
+    Blockly.Variables.NAME_TYPE
+  );
+
+  var code = variable_population;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript["variables_set_population"] = function (block) {
+  var variable_population = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("VAR"),
+    Blockly.Variables.NAME_TYPE
+  );
+  var new_value_population = Blockly.JavaScript.valueToCode(
+    block,
+    "VALUE",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  var code = variable_population + " = " + new_value_population + ";\n";
+  return code;
 };
 
 // TODO: add global shuffle function from https://stackoverflow.com/a/2450976 :
