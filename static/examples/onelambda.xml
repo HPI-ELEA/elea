@@ -3,11 +3,11 @@
     <variable id="gx=Kau1h[kq#}B+/w|ur&quot;">individual</variable>
     <variable id="-*|uDjwhmvz~~T(Am;%J">λ</variable>
     <variable id="v`D6r417R_rR.AyGB:]O">n</variable>
-    <variable id="4SV3N2eF(}.8?1D)pNoq">parent1</variable>
+    <variable type="Individual" id="cTq%E8Zf6f93:4ksHg+$">parent</variable>
     <variable id="_`RU](?6R2Mdm}^monre">genome_length</variable>
     <variable id="0dkovK!SuoHH%uP1/Uc}">chi</variable>
-    <variable id="/elgL6jCIJ+fk$?p$D4D">offspring_population</variable>
-    <variable id="UqHTCO.0^{dWk@)6gp!7">offspring1</variable>
+    <variable type="Array" id="~;*AsD@4827rMP/(fs1P">offspring_population</variable>
+    <variable type="Individual" id="*5^D:E8Zu~=@S8sXG([6">offspring</variable>
   </variables>
   <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="191" y="42">
     <statement name="init_statements">
@@ -91,16 +91,16 @@
       <block type="comment" id="(sYVsOFpD6GwL(Zo-j/^">
         <field name="text">Initialize parent population as single individual</field>
         <next>
-          <block type="variables_set" id=":MdX~YD)0k!g=E*O%T(b">
-            <field name="VAR" id="4SV3N2eF(}.8?1D)pNoq">parent1</field>
+          <block type="variables_set_individual" id="%|$i40STkPS71cS|8{S9">
+            <field name="VAR" id="cTq%E8Zf6f93:4ksHg+$" variabletype="Individual">parent</field>
             <value name="VALUE">
               <block type="individual_init_uniform" id="l]i;afjsBeIgRss@Ax`m"></block>
             </value>
             <next>
               <block type="ea_debug" id="TlSJ3phn~m6=r0(GQRSD">
                 <value name="logging_variable">
-                  <block type="variables_get" id="7@:yBk/FT!oQm6`N3Nxm">
-                    <field name="VAR" id="4SV3N2eF(}.8?1D)pNoq">parent1</field>
+                  <block type="variables_get_individual" id="RzPi4,fdiR=L`U^0TZb/">
+                    <field name="VAR" id="cTq%E8Zf6f93:4ksHg+$" variabletype="Individual">parent</field>
                   </block>
                 </value>
                 <next>
@@ -114,8 +114,8 @@
                               <arg name="individual"></arg>
                             </mutation>
                             <value name="ARG0">
-                              <block type="variables_get" id="XYfqmIvt]~Vn^I[]SMtq">
-                                <field name="VAR" id="4SV3N2eF(}.8?1D)pNoq">parent1</field>
+                              <block type="variables_get_individual" id="Q[rfbg4X3Ti^NN@w,9a9">
+                                <field name="VAR" id="cTq%E8Zf6f93:4ksHg+$" variabletype="Individual">parent</field>
                               </block>
                             </value>
                           </block>
@@ -143,8 +143,8 @@
                       </block>
                     </value>
                     <statement name="loop_statement">
-                      <block type="variables_set" id="rgD/3@HRRD#,ZqQPRkSP">
-                        <field name="VAR" id="/elgL6jCIJ+fk$?p$D4D">offspring_population</field>
+                      <block type="variables_set_population" id="l[]2g0E`GK:$=)4,@Xhv">
+                        <field name="VAR" id="~;*AsD@4827rMP/(fs1P" variabletype="Array">offspring_population</field>
                         <value name="VALUE">
                           <block type="lists_create_with" id="{^C=IyXHS8;Xqn/M[XWx">
                             <mutation items="0"></mutation>
@@ -164,13 +164,13 @@
                                   </block>
                                 </value>
                                 <statement name="DO">
-                                  <block type="variables_set" id="i2-Ux`9hV~e@|jZ}]Lg8">
-                                    <field name="VAR" id="UqHTCO.0^{dWk@)6gp!7">offspring1</field>
+                                  <block type="variables_set_individual" id="fwbmLuI1E1nUW[=~U^~w">
+                                    <field name="VAR" id="*5^D:E8Zu~=@S8sXG([6" variabletype="Individual">offspring</field>
                                     <value name="VALUE">
                                       <block type="ea_mutate_prob" id="wlEGOEMJ/V`ry=*Dp2_%">
                                         <value name="individual">
-                                          <block type="variables_get" id="FW$(?}^!N,mh.JHXVkrn">
-                                            <field name="VAR" id="4SV3N2eF(}.8?1D)pNoq">parent1</field>
+                                          <block type="variables_get_individual" id="TM6J_lOq}Ck.w:5/*#{(">
+                                            <field name="VAR" id="cTq%E8Zf6f93:4ksHg+$" variabletype="Individual">parent</field>
                                           </block>
                                         </value>
                                         <value name="probability">
@@ -182,8 +182,8 @@
                                     </value>
                                     <next>
                                       <block type="lists_append" id="~X`%bFS9I?{^k-iKh6pi">
-                                        <field name="INDIVIDUAL" id="UqHTCO.0^{dWk@)6gp!7">offspring1</field>
-                                        <field name="POPULATION" id="/elgL6jCIJ+fk$?p$D4D">offspring_population</field>
+                                        <field name="INDIVIDUAL" id="*5^D:E8Zu~=@S8sXG([6" variabletype="Individual">offspring</field>
+                                        <field name="POPULATION" id="~;*AsD@4827rMP/(fs1P" variabletype="Array">offspring_population</field>
                                       </block>
                                     </next>
                                   </block>
@@ -192,13 +192,13 @@
                                   <block type="comment" id="[}o=k9Dk)Y9Ui1+)+I|D">
                                     <field name="text">Set new parent to the best offspring</field>
                                     <next>
-                                      <block type="variables_set" id="ZV|8%EFxNvXV-+yC7;8[">
-                                        <field name="VAR" id="4SV3N2eF(}.8?1D)pNoq">parent1</field>
+                                      <block type="variables_set_individual" id="KCQk2F1`EjHy+HCw*B#a">
+                                        <field name="VAR" id="cTq%E8Zf6f93:4ksHg+$" variabletype="Individual">parent</field>
                                         <value name="VALUE">
                                           <block type="ea_select_best" id="7a9zi;$ndPXXY1FjGuJ-">
                                             <value name="POPULATION">
-                                              <block type="variables_get" id="J/|m@qwT744-}gvq[]NW">
-                                                <field name="VAR" id="/elgL6jCIJ+fk$?p$D4D">offspring_population</field>
+                                              <block type="variables_get_population" id="9?r,hJ6V$ZZhC]bb}^oM">
+                                                <field name="VAR" id="~;*AsD@4827rMP/(fs1P" variabletype="Array">offspring_population</field>
                                               </block>
                                             </value>
                                           </block>
@@ -216,8 +216,8 @@
                     <next>
                       <block type="ea_debug" id="h{+-j^!Aln!O0Udmduk)">
                         <value name="logging_variable">
-                          <block type="variables_get" id="wb*+9_K)z}I?#+0}][E#">
-                            <field name="VAR" id="4SV3N2eF(}.8?1D)pNoq">parent1</field>
+                          <block type="variables_get_individual" id="q}TqLmQXAOZ!6`elTQm]">
+                            <field name="VAR" id="cTq%E8Zf6f93:4ksHg+$" variabletype="Individual">parent</field>
                           </block>
                         </value>
                         <next>
@@ -228,8 +228,8 @@
                                   <arg name="individual"></arg>
                                 </mutation>
                                 <value name="ARG0">
-                                  <block type="variables_get" id="kMo]z6srfUk]kh[UivK-">
-                                    <field name="VAR" id="4SV3N2eF(}.8?1D)pNoq">parent1</field>
+                                  <block type="variables_get_individual" id="XRzY3,x/oh~(|DA(4h6O">
+                                    <field name="VAR" id="cTq%E8Zf6f93:4ksHg+$" variabletype="Individual">parent</field>
                                   </block>
                                 </value>
                               </block>

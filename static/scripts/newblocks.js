@@ -3,10 +3,12 @@ import { blockDefinitions } from "../blockDefinition/normalBlocks";
 Blockly.defineBlocksWithJsonArray(blockDefinitions);
 
 Blockly.JavaScript["experimental_raw_code"] = function (block) {
+  // TODO add javascript validation
   return block.getFieldValue("code") + "\n";
 };
 
 Blockly.JavaScript["experimental_raw_value"] = function (block) {
+  // TODO add javascript validation
   return [block.getFieldValue("code"), Blockly.JavaScript.ORDER_NONE];
 };
 
@@ -263,6 +265,7 @@ Blockly.JavaScript["run_loop_logging"] = function (block) {
     "exit_number",
     Blockly.JavaScript.ORDER_NONE
   );
+  // TODO Add validator checking wether aldID exists
   var algId = block.getFieldValue("algId");
   var fnId = block.getFieldValue("fnId");
   var fitness = Blockly.JavaScript.valueToCode(
@@ -639,6 +642,56 @@ Blockly.JavaScript["ea_crossover_uniform"] = function () {
     ]
   );
   return [functionCrossover3, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript["variables_get_individual"] = function (block) {
+  var variable_individual = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("VAR"),
+    Blockly.Variables.NAME_TYPE
+  );
+
+  var code = variable_individual;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript["variables_set_individual"] = function (block) {
+  var variable_individual = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("VAR"),
+    Blockly.Variables.NAME_TYPE
+  );
+  var new_value_individual = Blockly.JavaScript.valueToCode(
+    block,
+    "VALUE",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  var code = variable_individual + " = " + new_value_individual + ";\n";
+  return code;
+};
+
+Blockly.JavaScript["variables_get_population"] = function (block) {
+  var variable_population = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("VAR"),
+    Blockly.Variables.NAME_TYPE
+  );
+
+  var code = variable_population;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript["variables_set_population"] = function (block) {
+  var variable_population = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("VAR"),
+    Blockly.Variables.NAME_TYPE
+  );
+  var new_value_population = Blockly.JavaScript.valueToCode(
+    block,
+    "VALUE",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  var code = variable_population + " = " + new_value_population + ";\n";
+  return code;
 };
 
 // TODO: add global shuffle function from https://stackoverflow.com/a/2450976 :

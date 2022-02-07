@@ -378,7 +378,26 @@
         <block type="comment"></block>
       </category>
       <sep></sep>
-      <category name="Variables" colour="330" custom="VARIABLE"></category>
+      <category name="Variables" colour="330">
+        <button
+          text="Create variable"
+          callbackKey="createVariableButton"
+        ></button>
+        <block type="variables_get"></block>
+        <block type="variables_set"></block>
+        <button
+          text="Create individual"
+          callbackKey="createIndividualButton"
+        ></button>
+        <block type="variables_get_individual"></block>
+        <block type="variables_set_individual"></block>
+        <button
+          text="Create population"
+          callbackKey="createPopulationButton"
+        ></button>
+        <block type="variables_get_population"></block>
+        <block type="variables_set_population"></block>
+      </category>
       <category name="Functions" colour="290" custom="PROCEDURE"></category>
       <category name="List" colour="290">
         <block type="lists_create_with">
