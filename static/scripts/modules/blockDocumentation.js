@@ -27,7 +27,7 @@ function get_category(json_object) {
 }
 
 function get_output_type(json_object) {
-  return json_object.output || false;
+  return get_type(json_object.output) || false;
 }
 
 function get_input(json_object) {
@@ -42,7 +42,7 @@ function get_input(json_object) {
 
       inputs.push({
         name: input.name.toUpperCase(),
-        type: type,
+        type: get_type(type),
         comment: input.comment || false,
       });
     }
@@ -73,6 +73,11 @@ function set_block_image(json_object, div_element) {
   div_element.style.height = metrics.contentHeight + "px";
   div_element.style.width = metrics.contentWidth + "px";
   Blockly.svgResize(workspace);
+}
+
+function get_type(type_string) {
+  if (type_string == "Array") return "Population";
+  return type_string;
 }
 
 export {

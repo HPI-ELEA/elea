@@ -34,10 +34,6 @@
       {
         "staticOutDir": "scripts",
         "staticPath": "static/scripts"
-      },
-      {
-        "staticOutDir": "blocks",
-        "staticPath": "static/blocks"
       }
     ]
   }
