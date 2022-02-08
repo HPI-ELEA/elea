@@ -1,0 +1,32 @@
+.category-separator {
+  margin-bottom: 0.5rem;
+}
+
+.block-svg {
+  width: 100%;
+  margin: 1.5rem;
+}
+
+.block-svg > * {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.blocklyMainBackground {
+  stroke-width: 0;
+}
+
+.intro-list-item {
+  margin: 0.5rem;
+  font-size: medium;
+}
+
+a {
+  color: #0c5460;
+}
+
+p {
+  margin: 1rem 0;
+  font-size: 17.5px;
+  line-height: 1.67;
+}
