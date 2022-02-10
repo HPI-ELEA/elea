@@ -5,3 +5,36 @@ img {
 textarea {
   font-size: 10px;
 }
+
+html,
+body {
+  height: 100%;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  position: relative;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  align-items: center;
+  align-self: center;
+  justify-content: flex-start;
+  width: 100vw;
+}
+
+footer {
+  text-align: center;
+  padding: 0.5rem;
+  background-color: #e9ecef;
+}
+
+footer > p {
+  margin-bottom: 0;
+}
+
+a {
+  color: #0c5460 !important;
+}

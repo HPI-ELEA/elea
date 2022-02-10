@@ -168,138 +168,161 @@
         </ul>
       </div>
     </nav>
+    <main>
+      <a
+        class="github-fork-ribbon right-bottom"
+        href="https://github.com/HPI-ELEA/elea"
+        data-ribbon="Fork us on GitHub"
+        title="Fork us on GitHub"
+      >
+        Fork us on GitHub
+      </a>
 
-    <a
-      class="github-fork-ribbon right-bottom"
-      href="https://github.com/HPI-ELEA/elea"
-      data-ribbon="Fork us on GitHub"
-      title="Fork us on GitHub"
-    >
-      Fork us on GitHub
-    </a>
-
-    <div id="jsModal" class="modal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Javascript Code</h5>
-            <button type="button" class="close" data-dismiss="modal">×</button>
-          </div>
-          <div class="modal-body">
-            <pre>
+      <div id="jsModal" class="modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Javascript Code</h5>
+              <button type="button" class="close" data-dismiss="modal">
+                ×
+              </button>
+            </div>
+            <div class="modal-body">
+              <pre>
                 <code id="jsCodePopup" class="language-js"></code>
               </pre>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
-      id="jsModalRun"
-      class="modal"
-      role="dialog"
-      aria-labelledby="myExtraLargeModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Run dashboard</h5>
-            <button type="button" class="close" data-dismiss="modal">×</button>
-          </div>
-          <div class="modal-body">
-            <div>
-              <h1>Placeholder for live dashboard</h1>
-              <svg
-                id="loggingPlot"
-                width="80%"
-                height="80%"
-                viewBox="0 0 500 300"
-              ></svg>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">
-              Close
-            </button>
+        </div>
+      </div>
+
+      <div
+        id="jsModalRun"
+        class="modal"
+        role="dialog"
+        aria-labelledby="myExtraLargeModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Run dashboard</h5>
+              <button type="button" class="close" data-dismiss="modal">
+                ×
+              </button>
+            </div>
+            <div class="modal-body">
+              <div>
+                <h1>Placeholder for live dashboard</h1>
+                <svg
+                  id="loggingPlot"
+                  width="80%"
+                  height="80%"
+                  viewBox="0 0 500 300"
+                ></svg>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div id="workspace-header">
-      <h3 class="display-5" id="workspace-title">Untitled</h3>
-    </div>
+      <div id="workspace-header">
+        <h3 class="display-5" id="workspace-title">Untitled</h3>
+      </div>
 
-    <div id="appSpace" class="container-fluid">
-      <div class="row">
-        <div id="blocklyArea" class="col-8"></div>
-        <div id="outputColumn" class="col-3 bg-white">
-          <h2 class="columnHeader">Output:</h2>
-          <div class="columnContent">
-            <pre id="scroller">
+      <div id="appSpace" class="container-fluid">
+        <div class="row">
+          <div id="blocklyArea" class="col-8"></div>
+          <div id="outputColumn" class="col-3 bg-white">
+            <h2 class="columnHeader">Output:</h2>
+            <div class="columnContent">
+              <pre id="scroller">
             <code class="language-none" id="outputArea"></code>
           </pre>
-            <div id="anchor"></div>
+              <div id="anchor"></div>
+            </div>
+          </div>
+          <div id="buttonColumn" class="col-1 bg-white">
+            <p class="columnContent">
+              <button
+                type="button"
+                class="btn btn-success btn-block"
+                id="run-button"
+              >
+                Run JavaScript
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger btn-block"
+                id="kill-button"
+              >
+                Kill execution
+              </button>
+              <button
+                type=" button"
+                class="btn btn-warning btn-block"
+                id="clear-button"
+              >
+                Clear Output
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-dark btn-block"
+                id="show-button"
+                data-toggle="modal"
+                href="#jsModal"
+              >
+                Show JavaScript
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-dark btn-block"
+                id="show-dashboard-button"
+                data-toggle="modal"
+                href="#jsModalRun"
+              >
+                Dashboard
+              </button>
+              <!-- <button type="button" class="btn btn-outline-dark btn-block" id="stop-button">Stop execution</button> -->
+              <!-- <button type="button" class="btn btn-outline-dark btn-block" id="step-button">Step JavaScript</button> -->
+              <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button">Reset execution</button> -->
+            </p>
           </div>
         </div>
-        <div id="buttonColumn" class="col-1 bg-white">
-          <p class="columnContent">
-            <button
-              type="button"
-              class="btn btn-success btn-block"
-              id="run-button"
-            >
-              Run JavaScript
-            </button>
-            <button
-              type="button"
-              class="btn btn-danger btn-block"
-              id="kill-button"
-            >
-              Kill execution
-            </button>
-            <button
-              type=" button"
-              class="btn btn-warning btn-block"
-              id="clear-button"
-            >
-              Clear Output
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline-dark btn-block"
-              id="show-button"
-              data-toggle="modal"
-              href="#jsModal"
-            >
-              Show JavaScript
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline-dark btn-block"
-              id="show-dashboard-button"
-              data-toggle="modal"
-              href="#jsModalRun"
-            >
-              Dashboard
-            </button>
-            <!-- <button type="button" class="btn btn-outline-dark btn-block" id="stop-button">Stop execution</button> -->
-            <!-- <button type="button" class="btn btn-outline-dark btn-block" id="step-button">Step JavaScript</button> -->
-            <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button">Reset execution</button> -->
-          </p>
-        </div>
       </div>
-    </div>
-    <div id="blocklyDiv" style="position: absolute"></div>
-    <p>
-      Use blocks from the toolbar on the left to customize your algorithm or
-      drag existing blocks into a new order.
-    </p>
+      <div id="blocklyDiv" style="position: absolute"></div>
+      <p>
+        Use blocks from the toolbar on the left to customize your algorithm or
+        drag existing blocks into a new order.
+      </p>
+    </main>
+    <footer>
+      <p>Project ELEA 💚 Build with Netlify</p>
+      <p>
+        <a href="https://github.com/HPI-ELEA/elea">Github</a>
+        •
+        <a href="/legal.html">Legal</a>
+        •
+        <a href="/privacy.html">Privacy</a>
+      </p>
+    </footer>
 
     <xml
       xmlns="https://developers.google.com/blockly/xml"

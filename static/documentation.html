@@ -112,187 +112,204 @@
         </ul>
       </div>
     </nav>
-    <div class="jumbotron">
-      <div class="container">
-        <h1 class="display-3">Documentation</h1>
+    <main>
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Documentation</h1>
+        </div>
       </div>
-    </div>
-    <div class="container">
-      <!-- introduction -->
-      <div>
-        <h3>Welcome to ELEA!</h3>
+      <div class="container">
+        <!-- introduction -->
+        <div id="introduction-container">
+          <h3>Welcome to ELEA!</h3>
+          <p>
+            With ELEA you can build your own Evolutionary Algorithm with blocks.
+            ELEA uses
+            <a href="https://developers.google.com/blockly">Blockly</a>
+            to define blocks and their functionality. Take a look at examples or
+            build your Algorithm with the
+            <a href="#ea_init">Initialize Programm</a>
+            block, define your score function and run your program. If you
+            create an algorithm from an empty starting point, please be sure to
+            define a function to named
+            <i>fitness</i>
+            with your score function.
+          </p>
+          <p>
+            On this page, every block you can use in ELEA is documented. The
+            documentation is separated into the categories you can also find in
+            the workspace:
+          </p>
+          <ul>
+            <li class="intro-list-item">
+              <a href="#cat-measures">Measures</a>
+            </li>
+            <li class="intro-list-item">
+              <a href="#cat-algorithm-parts">Algorithm parts</a>
+            </li>
+            <li class="intro-list-item">
+              <a href="#cat-individuals">Individuals</a>
+            </li>
+            <li class="intro-list-item"><a href="#cat-logging">Logging</a></li>
+            <li class="intro-list-item">
+              <a href="#cat-variable">Variable</a>
+            </li>
+            <li class="intro-list-item">
+              <a href="#cat-functions">Functions</a>
+            </li>
+            <li class="intro-list-item"><a href="#cat-list">List</a></li>
+            <li class="intro-list-item"><a href="#cat-logic">Logic</a></li>
+            <li class="intro-list-item"><a href="#cat-math">Math</a></li>
+            <li class="intro-list-item"><a href="#cat-loops">Loops</a></li>
+            <li class="intro-list-item">
+              <a href="#cat-multi-threading">Multi Threading</a>
+            </li>
+            <li class="intro-list-item">
+              <a href="#cat-experimental">Experimental</a>
+            </li>
+          </ul>
+          <p class="alert alert-warning">
+            <strong>INFO</strong>
+            Please be aware that some of the blocks you can find in the
+            workspace are predefined by blockly and not documented here yet.
+          </p>
+        </div>
+        <!-- links to categories -->
+        <div class="display-5 alert alert-info" id="cat-measures">
+          <h2><strong>Measures</strong></h2>
+          <p>
+            In the Measure-Category, you find methods that help you to define a
+            score function.
+          </p>
+        </div>
+        <hr id="cat-measures-separator" class="category-seperator" />
+        <div class="display-5 alert alert-info" id="cat-algorithm-parts">
+          <h2><strong>Algorithm parts</strong></h2>
+          <p>
+            In the Algorithm-Parts-Category, you find methods that are the
+            centerpiece of an evolutionary algorithm. With these, you can
+            initialize populations, select the best individual from a population
+            or initialize the program.
+          </p>
+        </div>
+        <hr id="cat-algorithm-parts-separator" class="category-seperator" />
+        <div class="display-5 alert alert-info" id="cat-individuals">
+          <h2><strong>Individuals</strong></h2>
+          <p>
+            in the Individuals-Category, you find methods to mutate individuals
+            and crossover them.
+          </p>
+        </div>
+        <p></p>
+        <hr id="cat-individuals-separator" class="category-seperator" />
+        <div class="display-5 alert alert-info" id="cat-logging">
+          <h2><strong>Logging</strong></h2>
+          <p>
+            In the Logging-Category, you find methods to print to the Output and
+            comment-blocks.
+          </p>
+        </div>
+        <hr id="cat-logging-separator" class="category-seperator" />
+        <div class="display-5 alert alert-info" id="cat-variable">
+          <h2><strong>Variable</strong></h2>
+          <p>
+            In the Variable-Category, you can create your variables, use setter-
+            and getter-functions. You can create and use untyped or typed ones.
+          </p>
+        </div>
         <p>
-          With ELEA you can build your own Evolutionary Algorithm with blocks.
-          ELEA uses
-          <a href="https://developers.google.com/blockly">Blockly</a>
-          to define blocks and their functionality. Take a look at examples or
-          build your Algorithm with the
-          <a href="#ea_init">Initialize Programm</a>
-          block, define your score function and run your program. If you create
-          an algorithm from an empty starting point, please be sure to define a
-          function to named
+          There are to types:
+          <i>Individuals</i>
+          and
+          <i>Population</i>
+          , which contains of individuals. Please take a look at the return and
+          parameter types of a block.
+        </p>
+        <hr id="cat-variable-separator" class="category-seperator" />
+        <div class="display-5 alert alert-info" id="cat-functions">
+          <h2><strong>Functions</strong></h2>
+          <p>
+            In the Functions-Category, you can create your functions. After
+            initializing them, you can find a block named after your function,
+            which you can use in your algorithm.
+          </p>
+        </div>
+        <p>
+          INFO: If you create an algorithm from an empty starting point, please
+          be sure to define a function to named
           <i>fitness</i>
           with your score function.
         </p>
-        <p>
-          On this page, every block you can use in ELEA is documented. The
-          documentation is separated into the categories you can also find in
-          the workspace:
-        </p>
-        <ul>
-          <li class="intro-list-item"><a href="#cat-measures">Measures</a></li>
-          <li class="intro-list-item">
-            <a href="#cat-algorithm-parts">Algorithm parts</a>
-          </li>
-          <li class="intro-list-item">
-            <a href="#cat-individuals">Individuals</a>
-          </li>
-          <li class="intro-list-item"><a href="#cat-logging">Logging</a></li>
-          <li class="intro-list-item"><a href="#cat-variable">Variable</a></li>
-          <li class="intro-list-item">
-            <a href="#cat-functions">Functions</a>
-          </li>
-          <li class="intro-list-item"><a href="#cat-list">List</a></li>
-          <li class="intro-list-item"><a href="#cat-logic">Logic</a></li>
-          <li class="intro-list-item"><a href="#cat-math">Math</a></li>
-          <li class="intro-list-item"><a href="#cat-loops">Loops</a></li>
-          <li class="intro-list-item">
-            <a href="#cat-multi-threading">Multi Threading</a>
-          </li>
-          <li class="intro-list-item">
-            <a href="#cat-experimental">Experimental</a>
-          </li>
-        </ul>
+        <hr id="cat-functions-separator" class="category-seperator" />
+        <div class="display-5 alert alert-info" id="cat-list">
+          <h2><strong>List</strong></h2>
+          <p>
+            In the List-Category, you find methods to transform, merge and
+            create lists or populations and select individuals.
+          </p>
+        </div>
         <p class="alert alert-warning">
           <strong>INFO</strong>
-          Please be aware that some of the blocks you can find in the workspace
-          are predefined by blockly and not documented here yet.
+          Many of the methods in the category
+          <i>List</i>
+          are predefined by Blockly and not documented there yet.
         </p>
-      </div>
-      <!-- links to categories -->
-      <div class="display-5 alert alert-info" id="cat-measures">
-        <h2><strong>Measures</strong></h2>
+        <hr id="cat-list-separator" class="category-seperator" />
+        <div class="display-5 alert alert-info" id="cat-logic">
+          <h2><strong>Logic</strong></h2>
+        </div>
         <p>
-          In the Measure-Category, you find methods that help you to define a
-          score function.
+          In the Logic-Category, you find logical methods to compaire numbers,
+          <i>if-else</i>
+          -statements or logical operation. Every method is predefined by
+          Blockly.
         </p>
-      </div>
-      <hr id="cat-measures-separator" class="category-seperator" />
-      <div class="display-5 alert alert-info" id="cat-algorithm-parts">
-        <h2><strong>Algorithm parts</strong></h2>
+        <hr id="cat-logic-separator" class="category-seperator" />
+        <div class="display-5 alert alert-info" id="cat-math">
+          <h2><strong>Math</strong></h2>
+        </div>
         <p>
-          In the Algorithm-Parts-Category, you find methods that are the
-          centerpiece of an evolutionary algorithm. With these, you can
-          initialize populations, select the best individual from a population
-          or initialize the program.
+          In the Math-Category, you find number operations and more. Every
+          method is predefined by Blockly.
         </p>
-      </div>
-      <hr id="cat-algorithm-parts-separator" class="category-seperator" />
-      <div class="display-5 alert alert-info" id="cat-individuals">
-        <h2><strong>Individuals</strong></h2>
+        <hr id="cat-math-separator" class="category-seperator" />
+        <div class="display-5 alert alert-info" id="cat-loops">
+          <h2><strong>Loops</strong></h2>
+        </div>
         <p>
-          in the Individuals-Category, you find methods to mutate individuals
-          and crossover them.
+          In the Loop-Category, you can find
+          <i>for</i>
+          -,
+          <i>for-each</i>
+          - and
+          <i>while</i>
+          -loops. Every method is predefined by Blockly.
         </p>
+        <hr id="cat-loops-separator" class="category-seperator" />
+        <div class="display-5 alert alert-info" id="cat-multi-threading">
+          <h2><strong>Multi-Threading</strong></h2>
+          <p>
+            In the Multi-Threading-Category, you find methods that help you use
+            multi-threading in ELEA.
+          </p>
+        </div>
+        <div id="cat-multi-threading-separator" class="category-seperator" />
+        <div class="display-5 alert alert-info" id="cat-experimental">
+          <h2><strong>Experimental</strong></h2>
+        </div>
+        <hr id="cat-experimental-separator" class="category-seperator" />
       </div>
-      <p></p>
-      <hr id="cat-individuals-separator" class="category-seperator" />
-      <div class="display-5 alert alert-info" id="cat-logging">
-        <h2><strong>Logging</strong></h2>
-        <p>
-          In the Logging-Category, you find methods to print to the Output and
-          comment-blocks.
-        </p>
-      </div>
-      <hr id="cat-logging-separator" class="category-seperator" />
-      <div class="display-5 alert alert-info" id="cat-variable">
-        <h2><strong>Variable</strong></h2>
-        <p>
-          In the Variable-Category, you can create your variables, use setter-
-          and getter-functions. You can create and use untyped or typed ones.
-        </p>
-      </div>
+    </main>
+    <footer>
+      <p>Project ELEA 💚 Build with Netlify</p>
       <p>
-        There are to types:
-        <i>Individuals</i>
-        and
-        <i>Population</i>
-        , which contains of individuals. Please take a look at the return and
-        parameter types of a block.
+        <a href="https://github.com/HPI-ELEA/elea">Github</a>
+        •
+        <a href="/legal.html">Legal</a>
+        •
+        <a href="/privacy.html">Privacy</a>
       </p>
-      <hr id="cat-variable-separator" class="category-seperator" />
-      <div class="display-5 alert alert-info" id="cat-functions">
-        <h2><strong>Functions</strong></h2>
-        <p>
-          In the Functions-Category, you can create your functions. After
-          initializing them, you can find a block named after your function,
-          which you can use in your algorithm.
-        </p>
-      </div>
-      <p>
-        INFO: If you create an algorithm from an empty starting point, please be
-        sure to define a function to named
-        <i>fitness</i>
-        with your score function.
-      </p>
-      <hr id="cat-functions-separator" class="category-seperator" />
-      <div class="display-5 alert alert-info" id="cat-list">
-        <h2><strong>List</strong></h2>
-        <p>
-          In the List-Category, you find methods to transform, merge and create
-          lists or populations and select individuals.
-        </p>
-      </div>
-      <p class="alert alert-warning">
-        <strong>INFO</strong>
-        Many of the methods in the category
-        <i>List</i>
-        are predefined by Blockly and not documented there yet.
-      </p>
-      <hr id="cat-list-separator" class="category-seperator" />
-      <div class="display-5 alert alert-info" id="cat-logic">
-        <h2><strong>Logic</strong></h2>
-      </div>
-      <p>
-        In the Logic-Category, you find logical methods to compaire numbers,
-        <i>if-else</i>
-        -statements or logical operation. Every method is predefined by Blockly.
-      </p>
-      <hr id="cat-logic-separator" class="category-seperator" />
-      <div class="display-5 alert alert-info" id="cat-math">
-        <h2><strong>Math</strong></h2>
-      </div>
-      <p>
-        In the Math-Category, you find number operations and more. Every method
-        is predefined by Blockly.
-      </p>
-      <hr id="cat-math-separator" class="category-seperator" />
-      <div class="display-5 alert alert-info" id="cat-loops">
-        <h2><strong>Loops</strong></h2>
-      </div>
-      <p>
-        In the Loop-Category, you can find
-        <i>for</i>
-        -,
-        <i>for-each</i>
-        - and
-        <i>while</i>
-        -loops. Every method is predefined by Blockly.
-      </p>
-      <hr id="cat-loops-separator" class="category-seperator" />
-      <div class="display-5 alert alert-info" id="cat-multi-threading">
-        <h2><strong>Multi-Threading</strong></h2>
-        <p>
-          In the Multi-Threading-Category, you find methods that help you use
-          multi-threading in ELEA.
-        </p>
-      </div>
-      <div id="cat-multi-threading-separator" class="category-seperator" />
-      <div class="display-5 alert alert-info" id="cat-experimental">
-        <h2><strong>Experimental</strong></h2>
-      </div>
-      <hr id="cat-experimental-separator" class="category-seperator" />
-    </div>
-    <script src="scripts/documentation.js"></script>
+    </footer>
   </body>
+  <script src="scripts/documentation.js"></script>
 </html>

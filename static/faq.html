@@ -53,6 +53,11 @@
           <li class="nav-item">
             <a class="nav-link" target="_blank" href="faq.html">FAQ</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" target="_blank" href="documentation.html">
+              Documentation
+            </a>
+          </li>
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -106,38 +111,50 @@
         </ul>
       </div>
     </nav>
-    <div class="jumbotron">
-      <div class="container">
-        <h1 class="display-3">FAQ</h1>
+    <main>
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">FAQ</h1>
+        </div>
       </div>
-    </div>
-    <div class="container">
-      <h2><strong>My Algorithm does not work</strong></h2>
+      <div class="container">
+        <h2><strong>My Algorithm does not work</strong></h2>
 
-      <p class="h4">▸ It does not do anything</p>
+        <p class="h4">▸ It does not do anything</p>
+        <p>
+          Please double check that you set variables before using them.
+          Crossover sets both offsprings in a hidden way, since blockly does not
+          support more than one return value. If you're not using crossover, you
+          need to set the offsprings yourself or use the parents directly.
+        </p>
+
+        <h3 class="h4">▸ It stops before finding the optimum</h3>
+        <p>
+          Double check that you set variables before using them. Crossover sets
+          both offsprings in a hidden way, since blockly does not support more
+          than one return value. If you're not using crossover, you need to set
+          the offsprings yourself or use the parents directly.
+        </p>
+
+        <h3 class="h4">▸ It crashes with an error</h3>
+        <p>
+          Please download the XML file of your algorithm and send it to me:
+          jellyfishcoding at live.de
+        </p>
+
+        <h3 class="h4">▸ It crashes the browser completely</h3>
+        <p>Please make sure you don't have any infinite loops in your code.</p>
+      </div>
+    </main>
+    <footer>
+      <p>Project ELEA 💚 Build with Netlify</p>
       <p>
-        Please double check that you set variables before using them. Crossover
-        sets both offsprings in a hidden way, since blockly does not support
-        more than one return value. If you're not using crossover, you need to
-        set the offsprings yourself or use the parents directly.
+        <a href="https://github.com/HPI-ELEA/elea">Github</a>
+        •
+        <a href="/legal.html">Legal</a>
+        •
+        <a href="/privacy.html">Privacy</a>
       </p>
-
-      <h3 class="h4">▸ It stops before finding the optimum</h3>
-      <p>
-        Double check that you set variables before using them. Crossover sets
-        both offsprings in a hidden way, since blockly does not support more
-        than one return value. If you're not using crossover, you need to set
-        the offsprings yourself or use the parents directly.
-      </p>
-
-      <h3 class="h4">▸ It crashes with an error</h3>
-      <p>
-        Please download the XML file of your algorithm and send it to me:
-        jellyfishcoding at live.de
-      </p>
-
-      <h3 class="h4">▸ It crashes the browser completely</h3>
-      <p>Please make sure you don't have any infinite loops in your code.</p>
-    </div>
+    </footer>
   </body>
 </html>
