@@ -26,3 +26,7 @@
   font-size: 17.5px;
   line-height: 1.67;
 }
+
+#into-category-list > li > a {
+  color: #0c5460 !important;
+}
