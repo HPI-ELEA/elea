@@ -251,6 +251,48 @@
         <div class="row">
           <div id="blocklyArea" class="col-8"></div>
           <div id="outputColumn" class="col-3 bg-white">
+            <button
+              type="button"
+              class="btn btn-success btn-block"
+              id="run-button"
+            >
+              Run JavaScript
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger btn-block"
+              id="kill-button"
+            >
+              Kill execution
+            </button>
+            <button
+              type=" button"
+              class="btn btn-warning btn-block"
+              id="clear-button"
+            >
+              Clear Output
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-dark btn-block"
+              id="show-button"
+              data-toggle="modal"
+              href="#jsModal"
+            >
+              Show JavaScript
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-dark btn-block"
+              id="show-dashboard-button"
+              data-toggle="modal"
+              href="#jsModalRun"
+            >
+              Dashboard
+            </button>
+            <!-- <button type="button" class="btn btn-outline-dark btn-block" id="stop-button">Stop execution</button> -->
+            <!-- <button type="button" class="btn btn-outline-dark btn-block" id="step-button">Step JavaScript</button> -->
+            <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button">Reset execution</button> -->
             <h2 class="columnHeader">Output:</h2>
             <div class="columnContent">
               <pre id="scroller">
@@ -258,52 +300,6 @@
           </pre>
               <div id="anchor"></div>
             </div>
-          </div>
-          <div id="buttonColumn" class="col-1 bg-white">
-            <p class="columnContent">
-              <button
-                type="button"
-                class="btn btn-success btn-block"
-                id="run-button"
-              >
-                Run JavaScript
-              </button>
-              <button
-                type="button"
-                class="btn btn-danger btn-block"
-                id="kill-button"
-              >
-                Kill execution
-              </button>
-              <button
-                type=" button"
-                class="btn btn-warning btn-block"
-                id="clear-button"
-              >
-                Clear Output
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-dark btn-block"
-                id="show-button"
-                data-toggle="modal"
-                href="#jsModal"
-              >
-                Show JavaScript
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-dark btn-block"
-                id="show-dashboard-button"
-                data-toggle="modal"
-                href="#jsModalRun"
-              >
-                Dashboard
-              </button>
-              <!-- <button type="button" class="btn btn-outline-dark btn-block" id="stop-button">Stop execution</button> -->
-              <!-- <button type="button" class="btn btn-outline-dark btn-block" id="step-button">Step JavaScript</button> -->
-              <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button">Reset execution</button> -->
-            </p>
           </div>
         </div>
       </div>
