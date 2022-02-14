@@ -12,16 +12,8 @@
   max-height: 80vh;
 }
 
-#buttonColumn {
-  max-height: 100%;
-}
-
-#run-button {
-  height: 10%;
-}
-
-#show-button {
-  margin-top: 50%;
+#show-dashboard-button {
+  margin-bottom: 1rem;
 }
 
 .columnHeader {
@@ -29,7 +21,7 @@
 }
 
 .columnContent {
-  height: 95%;
+  height: 50%;
 }
 
 #outputArea {
@@ -67,4 +59,8 @@
 #workspace-header {
   margin: 0.5rem;
   padding-top: 3rem;
+}
+
+footer {
+  background-color: white;
 }
