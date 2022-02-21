@@ -1,36 +1,75 @@
-#appSpace {
-  height: 80vh;
-  max-height: 80vh;
+main {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }
 
-#blocklyArea {
-  height: 80vh;
+#workspace-header {
+  padding-top: 4rem;
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-#outputColumn {
-  height: 80vh;
-  max-height: 80vh;
+#command-buttons {
+  display: flex;
+  flex-direction: row;
 }
 
-#show-dashboard-button {
-  margin-bottom: 1rem;
+#command-buttons > * {
+  margin: 5px;
+  width: max-content;
 }
 
-.columnHeader {
-  height: 5%;
+#workspace-content {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex: 1 1 auto;
 }
 
-.columnContent {
-  height: 50%;
+#blockly-area,
+#blockly-div {
+  width: 70% !important;
+  flex: 0 0 70% !important;
+  max-width: 70% !important;
 }
 
-#outputArea {
-  display: block;
+#output-column {
+  flex: 1;
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+  width: 30%;
+  margin-left: 0.6rem;
+  margin-right: 0.6rem;
   max-height: 100%;
 }
 
-#scroller {
-  max-height: 100%;
+#output-column > * {
+  padding-top: 0.5rem;
+}
+
+#output-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#output-header > * {
+  width: fit-content;
+  height: min-content;
+}
+
+#output-content {
+  background-color: whitesmoke;
+  display: flex;
+  height: 50vh;
+}
+
+#workspace-footer {
+  flex: 0 1 40px;
 }
 
 @media screen and (min-width: 676px) {
@@ -42,25 +81,4 @@
   .modal-dialog {
     max-width: 1000px; /* New width for default modal */
   }
-}
-#scroller * {
-  /* don't allow the children of the scrollable element to be selected as an anchor node */
-  overflow-anchor: none;
-}
-
-#anchor {
-  /* allow the final child to be selected as an anchor node */
-  overflow-anchor: auto;
-
-  /* anchor nodes are required to have non-zero area */
-  height: 1px;
-}
-
-#workspace-header {
-  margin: 0.5rem;
-  padding-top: 3rem;
-}
-
-footer {
-  background-color: white;
 }

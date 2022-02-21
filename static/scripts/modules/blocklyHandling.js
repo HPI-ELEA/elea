@@ -10,13 +10,12 @@ import "../threadblocks";
 
 // var jsonLog = null;
 var worker = null;
-var outputArea = document.getElementById("outputArea");
-var outputScroll = document.getElementById("scroller");
+var outputArea = document.getElementById("output-area");
 var runButton = document.getElementById("run-button");
 
 // var pauseAtNewBlock = true;
-var blocklyArea = document.getElementById("blocklyArea");
-var blocklyDiv = document.getElementById("blocklyDiv");
+var blocklyArea = document.getElementById("blockly-area");
+var blocklyDiv = document.getElementById("blockly-div");
 var workspace = Blockly.inject(blocklyDiv, {
   toolbox: document.getElementById("toolbox"),
   zoom: {
@@ -181,7 +180,7 @@ function handleMessageFromWorker(msg) {
         "[Thread#" + msg.sources.join(".") + "] " + msg.data + "\n";
     else outputArea.innerHTML += msg.data + "\n";
 
-    outputScroll.scroll(0, outputScroll.scrollHeight);
+    outputArea.scroll(0, outputArea.scrollHeight);
     return;
   }
 
