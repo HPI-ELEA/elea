@@ -27,6 +27,10 @@ normalBlocks.concat(threadBlocks).forEach((block) => {
   );
 });
 
+// remove loading icon and show content
+document.getElementById("spinner").style.display = "none";
+document.getElementById("content-container").style.display = "block";
+
 function documentation_entry_div(block) {
   let div =
     '<ul class="list-group" id="' +
