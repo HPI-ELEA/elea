@@ -854,4 +854,21 @@ export const blockDefinitions = [
     helpUrl: "",
     category: "variable",
   },
+  {
+    type: "wait",
+    message0: "wait for %1 seconds",
+    args0: [
+      {
+        type: "field_number",
+        name: "PERIOD",
+        check: "Number",
+      },
+    ],
+    previousStatement: null,
+    nextStatement: null,
+    colour: 0,
+    tooltip: "",
+    helpUrl: "",
+    category: "experimental",
+  },
 ];
