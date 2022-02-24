@@ -16,7 +16,7 @@
   stroke-width: 0;
 }
 
-.intro-list-item {
+.introduction-list-item {
   margin: 0.5rem;
   font-size: medium;
 }
@@ -27,6 +27,6 @@
   line-height: 1.67;
 }
 
-#into-category-list > li > a {
+#intoduction-category-list > li > a {
   color: #0c5460 !important;
 }

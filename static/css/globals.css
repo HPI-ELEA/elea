@@ -1,7 +1,3 @@
-img {
-  object-fit: contain;
-}
-
 textarea {
   font-size: 10px;
 }
@@ -15,14 +11,14 @@ body {
   position: relative;
 }
 
+nav {
+  height: 3.5rem;
+}
+
 main {
-  display: flex;
-  flex-direction: column;
   flex: 2;
-  align-items: center;
   align-self: center;
-  justify-content: flex-start;
-  width: 100vw;
+  width: 100%;
 }
 
 footer {
