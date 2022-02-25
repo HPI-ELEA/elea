@@ -46,6 +46,18 @@ $("#download_json").click(downloadLog);
 
 $("#output-column").height($("#blockly-div").height());
 
+function addPrintOutput() {
+  // Check existsence of output entry for printing statements
+  if ($("#output-print-area").length)
+    return document.getElementById("output-print-area");
+  return addNewOutputEntry(
+    '<pre id="output-print-area"></pre>',
+    "output-print-area",
+    "Output"
+  );
+}
+addPrintOutput();
+
 function clearOutput() {
   $("#output-column").empty();
 }
@@ -69,4 +81,4 @@ function addNewOutputEntry(outputContent, outputContentID, title) {
   return document.getElementById(outputContentID);
 }
 
-export { addNewOutputEntry };
+export { addPrintOutput, addNewOutputEntry };

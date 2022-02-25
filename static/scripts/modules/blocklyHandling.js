@@ -7,10 +7,10 @@ import "regenerator-runtime/runtime";
 import "../ea_blocks";
 import "../newblocks";
 import "../threadblocks";
+import { addPrintOutput } from "../workspace";
 
 // var jsonLog = null;
 var worker = null;
-var outputArea = document.getElementById("output-area");
 var runButton = document.getElementById("run-button");
 
 // var pauseAtNewBlock = true;
@@ -174,6 +174,7 @@ function runCode() {
 
 function handleMessageFromWorker(msg) {
   msg = msg.data;
+  let outputArea = addPrintOutput();
   if (msg.ctrl == "print") {
     if (msg.source)
       outputArea.innerHTML +=
