@@ -62,7 +62,7 @@ main {
   height: min-content;
 }
 
-#output-content {
+#output-print-area {
   background-color: whitesmoke;
   display: flex;
   height: 50vh;
