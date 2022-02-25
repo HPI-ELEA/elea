@@ -44,6 +44,29 @@ $("#copy_js").click(copyJSToClipboard);
 $("#show_js").click(highlightAll);
 $("#download_json").click(downloadLog);
 
+$("#output-column").height($("#blockly-div").height());
+
 function clearOutput() {
   $("#output-column").empty();
 }
+
+function addNewOutputEntry(outputContent, outputContentID, title) {
+  let numOutput = $("#output-column > *").length;
+  let divString = `
+  <div class="output-block" id="output-${numOutput}">
+    <div class="output-header">
+      <h3 class="output-heading" id="output-${numOutput}-heading">${title}</h3>
+      <button class="btn btn-outline-dark btn-block" id="output-${numOutput}-button">Hide/Show</button>
+    </div>
+    <div id="output-${numOutput}-content">
+      ${outputContent}
+    </div>
+  </div>`;
+  $("#output-column").append(divString);
+  $(`#output-${numOutput}-button`).click(() =>
+    $(`#output-${numOutput}-content`).slideToggle(300)
+  );
+  return document.getElementById(outputContentID);
+}
+
+export { addNewOutputEntry };

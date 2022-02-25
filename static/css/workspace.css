@@ -51,13 +51,13 @@ main {
   padding-top: 0.5rem;
 }
 
-#output-header {
+.output-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-#output-header > * {
+.output-header > * {
   width: fit-content;
   height: min-content;
 }
