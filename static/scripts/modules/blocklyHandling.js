@@ -239,10 +239,6 @@ function terminateWorker() {
   runButton.style.backgroundColor = "";
 }
 
-function clearOutput() {
-  outputArea.innerText = "";
-}
-
 // updates the code that appears in the popup whenever a change happens
 // this could probably just be done when the button is pressed, which would reduce console spam
 workspace.addChangeListener(function (event) {
@@ -258,11 +254,4 @@ function setUsingThreads() {
   USING_THREADS = true;
 }
 
-export {
-  setUsingThreads,
-  workspace,
-  runCode,
-  getCode,
-  terminateWorker,
-  clearOutput,
-};
+export { setUsingThreads, workspace, runCode, getCode, terminateWorker };

@@ -1,8 +1,4 @@
-import {
-  runCode,
-  terminateWorker,
-  clearOutput,
-} from "./modules/blocklyHandling";
+import { runCode, terminateWorker } from "./modules/blocklyHandling";
 import { loadExample } from "./modules/exampleHandling";
 import { selectedFileChanged, promptForXML } from "./modules/import";
 import {
@@ -47,3 +43,7 @@ $("#download_js").click(downloadWorkspaceAsJS);
 $("#copy_js").click(copyJSToClipboard);
 $("#show_js").click(highlightAll);
 $("#download_json").click(downloadLog);
+
+function clearOutput() {
+  $("#output-column").empty();
+}
