@@ -7,10 +7,10 @@ import "regenerator-runtime/runtime";
 import "../ea_blocks";
 import "../newblocks";
 import "../threadblocks";
+import { addPrintOutput } from "../workspace";
 
 // var jsonLog = null;
 var worker = null;
-var outputArea = document.getElementById("output-area");
 var runButton = document.getElementById("run-button");
 
 // var pauseAtNewBlock = true;
@@ -174,6 +174,7 @@ function runCode() {
 
 function handleMessageFromWorker(msg) {
   msg = msg.data;
+  let outputArea = addPrintOutput();
   if (msg.ctrl == "print") {
     if (msg.source)
       outputArea.innerHTML +=
@@ -239,10 +240,6 @@ function terminateWorker() {
   runButton.style.backgroundColor = "";
 }
 
-function clearOutput() {
-  outputArea.innerText = "";
-}
-
 // updates the code that appears in the popup whenever a change happens
 // this could probably just be done when the button is pressed, which would reduce console spam
 workspace.addChangeListener(function (event) {
@@ -258,11 +255,4 @@ function setUsingThreads() {
   USING_THREADS = true;
 }
 
-export {
-  setUsingThreads,
-  workspace,
-  runCode,
-  getCode,
-  terminateWorker,
-  clearOutput,
-};
+export { setUsingThreads, workspace, runCode, getCode, terminateWorker };

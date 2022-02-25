@@ -1,8 +1,4 @@
-import {
-  runCode,
-  terminateWorker,
-  clearOutput,
-} from "./modules/blocklyHandling";
+import { runCode, terminateWorker } from "./modules/blocklyHandling";
 import { loadExample } from "./modules/exampleHandling";
 import { selectedFileChanged, promptForXML } from "./modules/import";
 import {
@@ -47,3 +43,46 @@ $("#download_js").click(downloadWorkspaceAsJS);
 $("#copy_js").click(copyJSToClipboard);
 $("#show_js").click(highlightAll);
 $("#download_json").click(downloadLog);
+
+$("#output-column").height($("#blockly-div").height());
+
+function addPrintOutput() {
+  // Check existsence of output entry for printing statements
+  if ($("#output-print-area").length)
+    return document.getElementById("output-print-area");
+  return addNewOutputEntry(
+    '<pre id="output-print-area"></pre>',
+    "output-print-area",
+    "Output"
+  );
+}
+addPrintOutput();
+
+function clearOutput() {
+  $("#output-column").empty();
+}
+
+function addNewOutputEntry(outputContent, outputContentID, title) {
+  let numOutput = $("#output-column > *").length;
+  let divString = `
+  <div class="output-block" id="output-${numOutput}">
+    <div class="output-header">
+      <h3 class="output-heading" id="output-${numOutput}-heading">${title}</h3>
+      <button class="btn btn-outline-dark btn-block" id="output-${numOutput}-button">Hide</button>
+    </div>
+    <div id="output-${numOutput}-content">
+      ${outputContent}
+    </div>
+  </div>`;
+  $("#output-column").append(divString);
+  $(`#output-${numOutput}-button`).click(() => {
+    let newButtonValue = "Show";
+    if ($(`#output-${numOutput}-button`).text() == "Show")
+      newButtonValue = "Hide";
+    $(`#output-${numOutput}-button`).text(newButtonValue);
+    $(`#output-${numOutput}-content`).slideToggle(300);
+  });
+  return document.getElementById(outputContentID);
+}
+
+export { addPrintOutput, addNewOutputEntry };
