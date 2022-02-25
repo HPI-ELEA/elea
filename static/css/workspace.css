@@ -2,6 +2,7 @@ main {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+  overflow: hidden;
 }
 
 #workspace-header {
@@ -27,23 +28,22 @@ main {
   width: 100%;
   display: flex;
   flex: 1 1 auto;
+  justify-content: space-between;
 }
 
-#blockly-area,
-#blockly-div {
+#blockly-area {
   width: 70% !important;
   flex: 0 0 70% !important;
   max-width: 70% !important;
 }
 
 #output-column {
-  flex: 1;
   display: flex;
   overflow: auto;
   flex-direction: column;
   width: 30%;
-  margin-left: 0.6rem;
-  margin-right: 0.6rem;
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
   max-height: 100%;
 }
 
