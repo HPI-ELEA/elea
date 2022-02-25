@@ -68,16 +68,20 @@ function addNewOutputEntry(outputContent, outputContentID, title) {
   <div class="output-block" id="output-${numOutput}">
     <div class="output-header">
       <h3 class="output-heading" id="output-${numOutput}-heading">${title}</h3>
-      <button class="btn btn-outline-dark btn-block" id="output-${numOutput}-button">Hide/Show</button>
+      <button class="btn btn-outline-dark btn-block" id="output-${numOutput}-button">Hide</button>
     </div>
     <div id="output-${numOutput}-content">
       ${outputContent}
     </div>
   </div>`;
   $("#output-column").append(divString);
-  $(`#output-${numOutput}-button`).click(() =>
-    $(`#output-${numOutput}-content`).slideToggle(300)
-  );
+  $(`#output-${numOutput}-button`).click(() => {
+    let newButtonValue = "Show";
+    if ($(`#output-${numOutput}-button`).text() == "Show")
+      newButtonValue = "Hide";
+    $(`#output-${numOutput}-button`).text(newButtonValue);
+    $(`#output-${numOutput}-content`).slideToggle(300);
+  });
   return document.getElementById(outputContentID);
 }
 
