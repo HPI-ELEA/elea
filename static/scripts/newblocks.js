@@ -707,9 +707,7 @@ Blockly.JavaScript["wait"] = function (block) {
     "   } while (currentDate - date < wait_period);\n",
     "}",
   ]);
-  // Typically, to convert seconds into milliseconds, we would have to multiply by 1000.
-  // Owed to the slow runtime, we multiply by 10.
-  var code = functionName + "(" + wait_period + "0);\n";
+  var code = functionName + "(" + wait_period * 1000 + ");\n";
   return code;
 };
 
