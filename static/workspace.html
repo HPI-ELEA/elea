@@ -168,6 +168,11 @@
       </div>
     </nav>
     <main>
+      <div id="spinner">
+        <div class="spinner-border m-5" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
       <div id="jsModal" class="modal">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -232,7 +237,7 @@
           <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button">Reset execution</button> -->
         </div>
       </div>
-      <div id="workspace-content">
+      <div id="workspace-content" style="opacity: 0">
         <div id="blockly-area"></div>
         <div id="blockly-div" style="position: absolute"></div>
         <div id="output-column">

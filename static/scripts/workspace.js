@@ -47,3 +47,7 @@ $("#download_js").click(downloadWorkspaceAsJS);
 $("#copy_js").click(copyJSToClipboard);
 $("#show_js").click(highlightAll);
 $("#download_json").click(downloadLog);
+
+// remove loading icon and show content
+document.getElementById("spinner").style.display = "none";
+document.getElementById("workspace-content").style.opacity = "1.0";
