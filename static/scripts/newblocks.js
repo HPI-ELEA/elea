@@ -694,6 +694,23 @@ Blockly.JavaScript["variables_set_population"] = function (block) {
   return code;
 };
 
+Blockly.JavaScript["wait"] = function (block) {
+  var wait_period = block.getFieldValue("PERIOD");
+  var functionName = Blockly.JavaScript.provideFunction_("sleep", [
+    "function " +
+      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+      "(wait_period) {",
+    "   const date = Date.now();\n",
+    "   let currentDate = null;\n",
+    "   do {\n",
+    "     currentDate = Date.now();\n",
+    "   } while (currentDate - date < wait_period);\n",
+    "}",
+  ]);
+  var code = functionName + "(" + wait_period * 1000 + ");\n";
+  return code;
+};
+
 // TODO: add global shuffle function from https://stackoverflow.com/a/2450976 :
 /*
 function shuffle(array) {
