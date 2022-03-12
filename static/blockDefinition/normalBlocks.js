@@ -71,7 +71,7 @@ export const blockDefinitions = [
     output: "init_strategy",
     colour: 230,
     tooltip:
-      "An initialization strategy, which generates a population uniformly.",
+      "An initialization strategy, which generates a population with individuals whos values are set randomly.",
     helpUrl: "",
     category: "algorithm-parts",
   },
@@ -81,7 +81,7 @@ export const blockDefinitions = [
     output: "Individual",
     colour: 230,
     tooltip:
-      "An initialization strategy, which generates an individual uniformly.",
+      "An initialization strategy, which generates an individual whos values are set randomly.",
     helpUrl: "",
     category: "individuals",
   },
@@ -144,7 +144,7 @@ export const blockDefinitions = [
     output: "Array",
     colour: 230,
     tooltip:
-      "Use this function to init your population of individuals with a specific initialization strategy.",
+      "Use this function to initialize your population of individuals with a specific initialization strategy.",
     helpUrl: "",
     category: "algorithm-parts",
   },
@@ -360,16 +360,16 @@ export const blockDefinitions = [
   },
   {
     type: "ea_select_parent",
-    message0: "select individual  %1 from %2",
+    message0: "select individual based on %1 from %2",
     args0: [
       {
         type: "field_dropdown",
         name: "NAME",
         options: [
           ["fitnessproportionately", "FITNESSPROPORTIONATE"],
-          ["uniformly", "UNIFORM"],
+          ["chance", "CHANCE"],
         ],
-        comment: "Strategy to select an individual.",
+        comment: "Strategy to select an individual from a population.",
       },
       {
         type: "field_variable",
@@ -547,14 +547,14 @@ export const blockDefinitions = [
   },
   {
     type: "ea_addtopopulation",
-    message0: "select new pop+ by %1 from %2 as tiebreak use %3",
+    message0: "generate new population based on %1 from %2 as tiebreak use %3",
     args0: [
       {
         type: "field_dropdown",
         name: "SELECTION_STRATEGY",
         options: [
-          ["best", "BEST"],
-          ["random", "RANDOM"],
+          ["fitness", "FITNESS"],
+          ["chance", "CHANCE"],
         ],
       },
       {
@@ -575,7 +575,7 @@ export const blockDefinitions = [
     output: "Array",
     colour: 230,
     tooltip:
-      "Generates from a given population a new one by selecting some individuals with a selection strategy.",
+      "Generates a new population from a given one by selecting some individuals with a selection strategy.",
     helpUrl: "",
     category: "individuals",
   },
