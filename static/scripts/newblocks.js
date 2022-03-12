@@ -710,6 +710,9 @@ Blockly.JavaScript["wait"] = function (block) {
   var code = functionName + "(" + wait_period * 1000 + ");\n";
   return code;
 };
+Blockly.JavaScript["check_fitness"] = function (block) {
+  return "";
+};
 
 // TODO: add global shuffle function from https://stackoverflow.com/a/2450976 :
 /*
