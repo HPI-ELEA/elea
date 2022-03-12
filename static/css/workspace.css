@@ -82,3 +82,11 @@ main {
     max-width: 1000px; /* New width for default modal */
   }
 }
+
+#spinner {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: white;
+  z-index: 1;
+}

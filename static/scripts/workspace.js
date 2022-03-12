@@ -46,6 +46,10 @@ $("#download_json").click(downloadLog);
 
 $("#output-column").height($("#blockly-div").height());
 
+// remove loading icon and show content
+document.getElementById("spinner").style.display = "none";
+document.getElementById("workspace-content").style.opacity = "1.0";
+
 function addPrintOutput() {
   // Check existsence of output entry for printing statements
   if ($("#output-print-area").length)
