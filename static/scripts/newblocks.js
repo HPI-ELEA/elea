@@ -102,8 +102,8 @@ Blockly.JavaScript["jump_k"] = function (block) {
   );
   var functionName = Blockly.JavaScript.provideFunction_("jump_k", [
     "function " +
-      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-      "(individual, k) {",
+    Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+    "(individual, k) {",
     "  var sum = individual.reduce(function(a,b) {return a+b});",
     "  if (sum <= genome_length - k || sum == genome_length) {",
     "    return sum;",
@@ -123,8 +123,8 @@ Blockly.JavaScript["leading_ones"] = function (block) {
   );
   var functionName = Blockly.JavaScript.provideFunction_("leading_ones", [
     "function " +
-      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-      "(individual) {",
+    Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+    "(individual) {",
     "  var count = 0;",
     "  for (var j=0;individual[j] == 1 && j<individual.length; j++) {",
     "    count += 1;",
@@ -399,8 +399,8 @@ Blockly.JavaScript["max_diversity"] = function (block) {
   );
   var functionDiversity = Blockly.JavaScript.provideFunction_("diversity", [
     "function " +
-      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-      "(ind1, ind2) {",
+    Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+    "(ind1, ind2) {",
     "  var count = 0;",
     "  for (var j=0; j < ind1.length; j++) {",
     "    count += (ind1[j] ^ ind2[j]);",
@@ -412,15 +412,15 @@ Blockly.JavaScript["max_diversity"] = function (block) {
     "maxDiversity",
     [
       "function " +
-        Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-        "(population) {",
+      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+      "(population) {",
       "  var maxDiversity = 0;",
       "  if (population.length < 2) { return 0 }",
       "  for (var j=0; j < population.length-1; j++) {",
       "    for (var k=j+1; k < population.length; k++) {",
       "      maxDiversity = Math.max(maxDiversity, " +
-        functionDiversity +
-        "(population[j], population[k]));",
+      functionDiversity +
+      "(population[j], population[k]));",
       "    }",
       "  }",
       "  return maxDiversity;",
@@ -593,8 +593,8 @@ Blockly.JavaScript["ea_crossover_onepoint"] = function () {
     "crossoverOnepoint",
     [
       "function " +
-        Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-        "(p1, p2) {",
+      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+      "(p1, p2) {",
       "  var index = Math.floor(Math.random() * p1.length)",
       "  var child1 = p1.slice(0,index)",
       "  child1 = child1.concat(p2.slice(index, p2.length))",
@@ -612,8 +612,8 @@ Blockly.JavaScript["ea_crossover_twopoint"] = function () {
     "crossoverTwopoint",
     [
       "function " +
-        Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-        "(p1, p2) {",
+      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+      "(p1, p2) {",
       "  var childrenList = crossoverOnepoint(p1,p2);",
       "  return crossoverOnepoint(childrenList[0], childrenList[1]);",
       "}",
@@ -627,8 +627,8 @@ Blockly.JavaScript["ea_crossover_uniform"] = function () {
     "crossoverUniform",
     [
       "function " +
-        Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-        "(p1, p2) {",
+      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+      "(p1, p2) {",
       "  var child1 = p1;",
       "  var child2 = p2;",
       "  for (var i=0; i < p1.length; i++) {",
@@ -698,8 +698,8 @@ Blockly.JavaScript["wait"] = function (block) {
   var wait_period = block.getFieldValue("PERIOD");
   var functionName = Blockly.JavaScript.provideFunction_("sleep", [
     "function " +
-      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-      "(wait_period) {",
+    Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+    "(wait_period) {",
     "   const date = Date.now();\n",
     "   let currentDate = null;\n",
     "   do {\n",
@@ -710,8 +710,33 @@ Blockly.JavaScript["wait"] = function (block) {
   var code = functionName + "(" + wait_period * 1000 + ");\n";
   return code;
 };
+
 Blockly.JavaScript["check_fitness"] = function (block) {
-  return "";
+  var variable_population = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("POPULATION"),
+    Blockly.Variables.NAME_TYPE
+  );
+  var variable_minFitness = Blockly.JavaScript.valueToCode(
+    block,
+    "MIN_FITNESS",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var functionCheckFitness = Blockly.JavaScript.provideFunction_(
+    "populationHasNotRequiredFitness",
+    [
+      "function " +
+      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+      "(population, fitnessRequired) {",
+      "  var bestFitness = 0",
+      "  for (var i=0; i < population.length; i++) {",
+      "   if(fitness(population[i])>bestFitness){bestFitness=fitness(population[i])}",
+      "  }",
+      "  return bestFitness < fitnessRequired",
+      "}",
+    ]
+  );
+  var code = functionCheckFitness + "(" + variable_population + "," + variable_minFitness + ")";
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
 // TODO: add global shuffle function from https://stackoverflow.com/a/2450976 :

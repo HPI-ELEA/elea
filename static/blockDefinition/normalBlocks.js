@@ -884,12 +884,13 @@ export const blockDefinitions = [
         defaultType: "Array",
       },
       {
-        type: "field_number",
-        name: "min_fitness",
+        type: "input_value",
+        name: "MIN_FITNESS",
         check: "Number",
         comment: "minimum fitness of an individual",
       },
     ],
+    inputsInline: true,
     output: "Boolean",
     colour: 230,
     tooltip:
