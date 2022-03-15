@@ -43,7 +43,7 @@ Blockly.JavaScript["ea_init"] = function (block) {
     block,
     "init_statements"
   );
-
+  
   let code = "";
   code = "function* main() {\n\n";
   code += "try {\n";
@@ -366,13 +366,13 @@ Blockly.JavaScript["ea_addtopopulation"] = function (block) {
   var dropdown_tiebreak = block.getFieldValue("TIEBREAK"); // TODO ensure sort is stable and fits the NEWER tiebreak
   var length = "_C2_B5"; //Blockly.JavaScript.nameDB_.getName('µ');
   var code = "";
-  if (dropdown_selection_strategy == "BEST") {
+  if (dropdown_selection_strategy == "FITNESS") {
     code +=
       POPULATION +
       ".sort(function(a,b) { return fitness(b)-fitness(a)}).slice(0," +
       length +
       ")";
-  } else if (dropdown_selection_strategy == "RANDOM") {
+  } else if (dropdown_selection_strategy == "CHANCE") {
     code += "shuffle(parent_population).slice(0," + length + ")";
   }
   return [code, Blockly.JavaScript.ORDER_NONE];
@@ -438,7 +438,7 @@ Blockly.JavaScript["ea_select_parent"] = function (block) {
     block.getFieldValue("POPULATION"),
     Blockly.Variables.NAME_TYPE
   );
-  if (dropdown_name == "UNIFORM") {
+  if (dropdown_name == "CHANCE") {
     var code =
       variable_population +
       "[Math.floor(Math.random() * " +
