@@ -53,6 +53,10 @@ class MessageHandler {
     this.threadMap = new Map([[0, self]]);
   }
 
+  setParentPort(parent) {
+    this.threadMap.set(0, parent);
+  }
+
   // sends a message to the specified location
   // if the id is not valid then print a warning to the console
   sendMessage(msg) {
