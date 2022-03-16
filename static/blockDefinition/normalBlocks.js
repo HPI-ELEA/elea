@@ -872,4 +872,30 @@ export const blockDefinitions = [
     helpUrl: "",
     category: "experimental",
   },
+  {
+    type: "check_fitness",
+    message0: "no individual from %1 has fitness of at least %2",
+    args0: [
+      {
+        type: "field_variable",
+        name: "POPULATION",
+        variable: "%{BKY_VARIABLES_DEFAULT_NAME}",
+        variableTypes: ["Array"],
+        defaultType: "Array",
+      },
+      {
+        type: "input_value",
+        name: "MIN_FITNESS",
+        check: "Number",
+        comment: "minimum fitness of an individual",
+      },
+    ],
+    inputsInline: true,
+    output: "Boolean",
+    colour: 230,
+    tooltip:
+      "Returns true when no individual from the population has the requested fitness",
+    helpUrl: "",
+    category: "Logic",
+  },
 ];
