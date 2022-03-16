@@ -230,11 +230,11 @@ class JSWorker {
 class NodeWorker {
   constructor(workerData, handler, id) {
     this.newThread = new Worker(workerData, { eval: true });
-    this.newThread.onmessage = function (msg) {
+    this.newThread.on("message", function (msg) {
       msg.source = id;
       msg.sources.unshift(id);
       handler.handleIncomingMessage(msg);
-    };
+    });
   }
 }
 
