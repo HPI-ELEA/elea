@@ -217,7 +217,7 @@
                                 <field name="VAR" id="|5zDPSJN?$Di|I!M#17|" variabletype="Individual">parent</field>
                                 <value name="VALUE">
                                   <block type="ea_select_parent" id="5I_EH[l6p9?_|]?L/J*e">
-                                    <field name="NAME">UNIFORM</field>
+                                    <field name="NAME">CHANCE</field>
                                     <field name="POPULATION" id="#pcO:SShN$OQz:KS?`_i" variabletype="Array">parent_population</field>
                                   </block>
                                 </value>

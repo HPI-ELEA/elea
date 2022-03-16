@@ -146,7 +146,7 @@
                     <field name="VAR" id="^^~s_t7zfJYC%sS~Dfd`" variabletype="Individual">parent1</field>
                     <value name="VALUE">
                       <block type="ea_select_parent" id="5I_EH[l6p9?_|]?L/J*e">
-                        <field name="NAME">UNIFORM</field>
+                        <field name="NAME">CHANCE</field>
                         <field name="POPULATION" id="KIh$GbJN#je1yBt2Xv?P" variabletype="Array">parent_population</field>
                       </block>
                     </value>
@@ -155,7 +155,7 @@
                         <field name="VAR" id=".Vr}zU*?^VyGNfppY]FE" variabletype="Individual">parent2</field>
                         <value name="VALUE">
                           <block type="ea_select_parent" id="p`vHKU%$P%cPsR(N^JFl">
-                            <field name="NAME">UNIFORM</field>
+                            <field name="NAME">CHANCE</field>
                             <field name="POPULATION" id="KIh$GbJN#je1yBt2Xv?P" variabletype="Array">parent_population</field>
                           </block>
                         </value>
