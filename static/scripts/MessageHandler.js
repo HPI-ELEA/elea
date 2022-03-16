@@ -158,16 +158,11 @@ class MessageHandler {
   createThread(initialiser) {
     let handler = this;
     let id = this.idCounter++;
-    let newThread = new Worker(initialiser);
-
-    // ensure that messages from this thread specify the correct source
-    newThread.addEventListener("message", function (msg) {
-      msg.data.source = id;
-      msg.data.sources.unshift(id);
-
-      // we cannot use 'this' inside a callback function
-      handler.handleIncomingMessage(msg.data);
-    });
+    let newThread;
+    if (typeof process == "object")
+      // Program runs in NodeJS
+      newThread = new NodeWorker(initialiser, handler, id).newThread;
+    else newThread = new JSWorker(initialiser, handler, id).newThread;
 
     this.threadMap.set(id, newThread);
     this.messageBuffer.set(id, new Queue());
@@ -208,14 +203,36 @@ function consoleLog(...v) {
 }
 
 //eslint-disable-next-line no-unused-vars -- is used in code blockly compiles
-function consoleerror(e){
-  consolelog(e)
-  consolelog('Find more information in the console.')
-  console.error(e)
+function consoleerror(e) {
+  consolelog(e);
+  consolelog("Find more information in the console.");
+  console.error(e);
 }
 
 // creates the message handler object for the calling script to use
 var Handler = new MessageHandler();
+
+class JSWorker {
+  constructor(workerData, handler, id) {
+    this.newThread = new Worker(workerData);
+    this.newThread.onmessage = function (msg) {
+      msg.data.source = id;
+      msg.data.sources.unshift(id);
+      handler.handleIncomingMessage(msg.data);
+    };
+  }
+}
+
+class NodeWorker {
+  constructor(workerData, handler, id) {
+    this.newThread = new Worker(workerData, { eval: true });
+    this.newThread.onmessage = function (msg) {
+      msg.source = id;
+      msg.sources.unshift(id);
+      handler.handleIncomingMessage(msg);
+    };
+  }
+}
 
 // redirect messages from the parent to the message handler
 // labels the source as having an ID of 0 - the parent's ID
