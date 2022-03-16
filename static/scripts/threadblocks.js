@@ -73,17 +73,24 @@ function escape_string(str) {
   return str;
 }
 
+// Generates different import statements depending on the execution enviroment (JS vs NodeJS)
+function generate_worker_imports() {
+  return (
+    "if(typeof process === 'object'){\n" +
+    "\t_worker_code += `const {parentPort} = require('worker_threads')\\n`" +
+    "\t_worker_code += `const {Handler, consolelog, consoleerror, Message, RecvRequest} = require('./MessageHandler.js')\\n`\n" +
+    "\t_worker_code += `Handler.setParentPort(parentPort)\\n`" +
+    "}else{\n" +
+    "\t _worker_code += `importScripts(('` + globalThis.location + `').replace(/([^/]*$)/, '').replace('blob:', '') +'scripts/MessageHandler.js');\\n`\n" +
+    "}\n"
+  );
+}
+
 // this is a general function for generating the worker code for threads
 // this significantly shortens the other blocks, and makes adding other threading blocks easier
 function generate_worker_code(statements, return_val) {
   // defining the code to be used inside the web workers
   let worker_code = "";
-  worker_code +=
-    "importScripts(('" +
-    self.location +
-    "').replace(/([^/]*$)/, '')+'scripts/MessageHandler.js');\n";
-  worker_code += "\n";
-
   let definitions = Blockly.JavaScript.definitions_;
   let used_definitions =
     PREV_DEFINITIONS != null ? PREV_DEFINITIONS : definitions;
@@ -170,9 +177,9 @@ Blockly.JavaScript["run_thread"] = function (block) {
     return ["_worker_code", "_worker_obj", "_threads"];
   };
 
-  let code = "";
+  let code = "_worker_code = ``" + generate_worker_imports();
   code +=
-    "_worker_code = `" +
+    "_worker_code += `" +
     generate_worker_code(statements_simulation_steps, return_val) +
     "`;\n";
   code +=
@@ -272,9 +279,9 @@ Blockly.JavaScript["run_thread_limited"] = function (block) {
     return ["_worker_code", "_worker_obj", "_threads", "_thread_limit", "msg"];
   };
 
-  let code = "";
+  let code = "_worker_code = ``" + generate_worker_imports();
   code +=
-    "_worker_code = `" +
+    "_worker_code += `" +
     generate_worker_code(statements_simulation_steps, return_val) +
     "`;\n";
   code +=
