@@ -2,7 +2,6 @@ import { runCode, terminateWorker } from "./modules/blocklyHandling";
 import { loadExample } from "./modules/exampleHandling";
 import { selectedFileChanged, promptForXML } from "./modules/import";
 import {
-  copyJSToClipboard,
   copyXMLToClipboard,
   downloadWorkspace,
   downloadWorkspaceAsJS,
@@ -40,7 +39,6 @@ $("#promt_for_xml").click(promptForXML);
 $("#download_xml").click(downloadWorkspace);
 $("#copy_xml").click(copyXMLToClipboard);
 $("#download_js").click(downloadWorkspaceAsJS);
-$("#copy_js").click(copyJSToClipboard);
 $("#show_js").click(highlightAll);
 $("#download_json").click(downloadLog);
 
