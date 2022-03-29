@@ -112,7 +112,7 @@ class MessageHandler {
         message.source != this.PARENT_ID)
     ) {
       this.pendingRequest = null;
-      main.next(message); //eslint-disable-line no-undef -- is defined in block code
+      globalThis.main.next(message); //eslint-disable-line no-undef -- is defined in block code
       return;
     }
 
@@ -147,7 +147,7 @@ class MessageHandler {
     // we can't resume main until it properly yields, hence we add main to the task queue, and it will be run after
     setTimeout(
       function (msg) {
-        main.next(msg); //eslint-disable-line no-undef -- is defined in block code
+        globalThis.main.next(msg); //eslint-disable-line no-undef -- is defined in block code
       },
       0,
       msg
@@ -191,7 +191,7 @@ class MessageHandler {
   receiveId() {
     if (this.THREAD_ID == null || this.pendingRequest) return;
     setTimeout(function () {
-      main.next(); //eslint-disable-line no-undef -- is defined in block code
+      globalThis.main.next(); //eslint-disable-line no-undef -- is defined in block code
     }, 0);
   }
 }
