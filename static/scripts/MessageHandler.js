@@ -50,7 +50,7 @@ class MessageHandler {
 
     // initialise the thread database with the current worker object
     // which will allow for messages to be sent to the parent
-    this.threadMap = new Map([[0, self]]);
+    this.threadMap = new Map([[0, globalThis]]);
   }
 
   // sends a message to the specified location
@@ -93,9 +93,9 @@ class MessageHandler {
     }
 
     // if the message is a variable import request then send a message back to the source of the request
-    // with the value of the given variable, available through the global `self` object
+    // with the value of the given variable, available through the global `globalThis` object
     if (message.ctrl == "import") {
-      this.sendMessage(new Message(message.source, self[message.data]));
+      this.sendMessage(new Message(message.source, globalThis[message.data]));
       return;
     }
 
@@ -208,10 +208,10 @@ function consoleLog(...v) {
 }
 
 //eslint-disable-next-line no-unused-vars -- is used in code blockly compiles
-function consoleerror(e){
-  consolelog(e)
-  consolelog('Find more information in the console.')
-  console.error(e)
+function consoleerror(e) {
+  consolelog(e);
+  consolelog("Find more information in the console.");
+  console.error(e);
 }
 
 // creates the message handler object for the calling script to use
@@ -219,7 +219,7 @@ var Handler = new MessageHandler();
 
 // redirect messages from the parent to the message handler
 // labels the source as having an ID of 0 - the parent's ID
-self.onmessage = function (msg) {
+globalThis.onmessage = function (msg) {
   msg.data.source = Handler.PARENT_ID;
   Handler.handleIncomingMessage(msg.data);
 };

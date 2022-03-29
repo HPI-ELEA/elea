@@ -18,7 +18,7 @@ Blockly.JavaScript["thread_num"] = function () {
 
 // the available hardware threads on the device
 Blockly.JavaScript["thread_hardware_concurrency"] = function () {
-  var code = "self.navigator.hardwareConcurrency";
+  var code = "globalThis.navigator?.hardwareConcurrency || cpus().length || 1";
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
