@@ -7,7 +7,7 @@ import {
   downloadWorkspace,
   downloadWorkspaceAsJS,
 } from "./modules/export";
-import { downloadLog } from "./modules/logging";
+import { downloadLog } from "./modules/export";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
 
