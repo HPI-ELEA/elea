@@ -32,6 +32,10 @@
         "staticPath": "static/examples"
       },
       {
+        "staticOutDir": "export",
+        "staticPath": "static/export"
+      },
+      {
         "staticOutDir": "scripts",
         "staticPath": "static/scripts"
       }
