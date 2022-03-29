@@ -183,7 +183,11 @@ Blockly.JavaScript["run_thread"] = function (block) {
     generate_worker_code(statements_simulation_steps, return_val) +
     "`;\n";
   code +=
-    "_worker_obj = URL.createObjectURL( new Blob([_worker_code], {type: 'application/javascript'}) );\n";
+    "if(typeof process === 'object'){\n" +
+    "\t_worker_obj = _worker_code\n" +
+    "}else{\n" +
+    "\t_worker_obj = URL.createObjectURL( new Blob([_worker_code], {type: 'application/javascript'}) );\n" +
+    "}\n";
   code += "_threads = new Array();\n";
   code += output_array + " = new Array();\n";
   code +=
@@ -285,7 +289,11 @@ Blockly.JavaScript["run_thread_limited"] = function (block) {
     generate_worker_code(statements_simulation_steps, return_val) +
     "`;\n";
   code +=
-    "_worker_obj = URL.createObjectURL( new Blob([_worker_code], {type: 'application/javascript'}) );\n";
+    "if(typeof process === 'object'){\n" +
+    "\t_worker_obj = _worker_code\n" +
+    "}else{\n" +
+    "\t_worker_obj = URL.createObjectURL( new Blob([_worker_code], {type: 'application/javascript'}) );\n" +
+    "}\n";
   code += "_threads = new Array();\n";
   code += output_array + " = new Array();\n";
   code +=
