@@ -896,6 +896,6 @@ export const blockDefinitions = [
     tooltip:
       "Returns true when no individual from the population has the requested fitness",
     helpUrl: "",
-    category: "Logic",
+    category: "logic",
   },
 ];
