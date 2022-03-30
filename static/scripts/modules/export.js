@@ -33,7 +33,7 @@ async function downloadWorkspaceAsJS() {
   let message_handler = await prepare_messagerhandler();
   let readme = await read_file("./export/README.md");
   let main = await read_file("./export/main.mjs");
-  let logging = await read_file("./scripts/modules/logging.mjs");
+  let logging = await read_file("./scripts/modules/logging.js");
   if (
     ![algorithm, message_handler, readme, main, logging].every(
       (f) => f != false
