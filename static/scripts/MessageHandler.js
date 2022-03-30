@@ -50,7 +50,11 @@ class MessageHandler {
 
     // initialise the thread database with the current worker object
     // which will allow for messages to be sent to the parent
-    this.threadMap = new Map([[0, self]]);
+    this.threadMap = new Map([[0, globalThis]]);
+  }
+
+  setParentPort(parent) {
+    this.threadMap.set(0, parent);
   }
 
   // sends a message to the specified location
@@ -93,9 +97,9 @@ class MessageHandler {
     }
 
     // if the message is a variable import request then send a message back to the source of the request
-    // with the value of the given variable, available through the global `self` object
+    // with the value of the given variable, available through the global `globalThis` object
     if (message.ctrl == "import") {
-      this.sendMessage(new Message(message.source, self[message.data]));
+      this.sendMessage(new Message(message.source, globalThis[message.data]));
       return;
     }
 
@@ -112,7 +116,7 @@ class MessageHandler {
         message.source != this.PARENT_ID)
     ) {
       this.pendingRequest = null;
-      main.next(message); //eslint-disable-line no-undef -- is defined in block code
+      globalThis.main.next(message); //eslint-disable-line no-undef -- is defined in block code
       return;
     }
 
@@ -147,7 +151,7 @@ class MessageHandler {
     // we can't resume main until it properly yields, hence we add main to the task queue, and it will be run after
     setTimeout(
       function (msg) {
-        main.next(msg); //eslint-disable-line no-undef -- is defined in block code
+        globalThis.main.next(msg); //eslint-disable-line no-undef -- is defined in block code
       },
       0,
       msg
@@ -158,16 +162,11 @@ class MessageHandler {
   createThread(initialiser) {
     let handler = this;
     let id = this.idCounter++;
-    let newThread = new Worker(initialiser);
-
-    // ensure that messages from this thread specify the correct source
-    newThread.addEventListener("message", function (msg) {
-      msg.data.source = id;
-      msg.data.sources.unshift(id);
-
-      // we cannot use 'this' inside a callback function
-      handler.handleIncomingMessage(msg.data);
-    });
+    let newThread;
+    if (typeof process == "object")
+      // Program runs in NodeJS
+      newThread = new NodeWorker(initialiser, handler, id).newThread;
+    else newThread = new JSWorker(initialiser, handler, id).newThread;
 
     this.threadMap.set(id, newThread);
     this.messageBuffer.set(id, new Queue());
@@ -191,7 +190,7 @@ class MessageHandler {
   receiveId() {
     if (this.THREAD_ID == null || this.pendingRequest) return;
     setTimeout(function () {
-      main.next(); //eslint-disable-line no-undef -- is defined in block code
+      globalThis.main.next(); //eslint-disable-line no-undef -- is defined in block code
     }, 0);
   }
 }
@@ -208,18 +207,40 @@ function consoleLog(...v) {
 }
 
 //eslint-disable-next-line no-unused-vars -- is used in code blockly compiles
-function consoleerror(e){
-  consolelog(e)
-  consolelog('Find more information in the console.')
-  console.error(e)
+function consoleerror(e) {
+  consolelog(e);
+  consolelog("Find more information in the console.");
+  console.error(e);
 }
 
 // creates the message handler object for the calling script to use
 var Handler = new MessageHandler();
 
+class JSWorker {
+  constructor(workerData, handler, id) {
+    this.newThread = new Worker(workerData);
+    this.newThread.onmessage = function (msg) {
+      msg.data.source = id;
+      msg.data.sources.unshift(id);
+      handler.handleIncomingMessage(msg.data);
+    };
+  }
+}
+
+class NodeWorker {
+  constructor(workerData, handler, id) {
+    this.newThread = new Worker(workerData, { eval: true });
+    this.newThread.on("message", function (msg) {
+      msg.source = id;
+      msg.sources.unshift(id);
+      handler.handleIncomingMessage(msg);
+    });
+  }
+}
+
 // redirect messages from the parent to the message handler
 // labels the source as having an ID of 0 - the parent's ID
-self.onmessage = function (msg) {
+globalThis.onmessage = function (msg) {
   msg.data.source = Handler.PARENT_ID;
   Handler.handleIncomingMessage(msg.data);
 };
