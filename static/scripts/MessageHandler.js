@@ -206,6 +206,7 @@ function consoleLog(...v) {
   consolelog(v);
 }
 
+//eslint-disable-next-line no-unused-vars -- is used in code blockly compiles
 function plot(...v) {
   Handler.sendMessage(new Message(Handler.PARENT_ID, v, "plot"));
 }
