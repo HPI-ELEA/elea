@@ -87,4 +87,27 @@ function addNewOutputEntry(outputContent, outputContentID, title) {
   return document.getElementById(outputContentID);
 }
 
-export { addPrintOutput, addNewOutputEntry };
+function addNewPlotEntry (title) {
+  let numOutput = $("#output-column > *").length; 
+  let divString = `
+  <div class="output-block" id="output-${numOutput}">
+    <div class="output-header">
+      <h3 class="output-heading" id="output-${numOutput}-heading">${title}-plot</h3>
+      <button class="btn btn-outline-dark btn-block" id="output-${numOutput}-button">Hide</button>
+    </div>
+    <div id="output-${numOutput}-content">
+      <canvas id="plot-${numOutput}-canvas"></canvas>
+      </div> 
+  </div>`;
+  $("#output-column").append(divString);
+  $(`#output-${numOutput}-button`).click(() => {
+    let newButtonValue = "Show";
+    if ($(`#output-${numOutput}-button`).text() == "Show")
+      newButtonValue = "Hide";
+    $(`#output-${numOutput}-button`).text(newButtonValue);
+    $(`#output-${numOutput}-content`).slideToggle(300);
+  });
+  return numOutput; 
+}
+
+export { addPrintOutput, addNewOutputEntry , addNewPlotEntry};
