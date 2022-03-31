@@ -898,4 +898,30 @@ export const blockDefinitions = [
     helpUrl: "",
     category: "logic",
   },
+  {
+    type: "individual_hemming_distance",
+    message0: "diversity between %1 and %2",
+    args0: [
+      {
+        type: "field_variable",
+        name: "FIRST_INDIVIDUAL",
+        variable: "individual",
+        variableTypes: ["Individual"],
+        defaultType: "Individual",
+      },
+      {
+        type: "field_variable",
+        name: "SECOND_INDIVIDUAL",
+        variable: "individual",
+        variableTypes: ["Individual"],
+        defaultType: "Individual",
+      },
+    ],
+    inputsInline: true,
+    output: "Number",
+    colour: 180,
+    tooltip: "Calculate the hemming distance between two individuals.",
+    helpUrl: "",
+    category: "measures",
+  },
 ];
