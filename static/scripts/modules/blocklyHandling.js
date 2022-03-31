@@ -7,6 +7,7 @@ import "regenerator-runtime/runtime";
 import "../newblocks";
 import "../threadblocks";
 import { addPrintOutput } from "../workspace";
+import { updateValue, drawPlots } from "../PlotHandler";
 
 // var jsonLog = null;
 var worker = null;
@@ -189,10 +190,16 @@ function handleMessageFromWorker(msg) {
     return;
   }
 
+  if(msg.ctrl == "plot"){
+    updateValue(msg.data); 
+    return; 
+  }
+
   // this is sent by the worker when the main function returns
   if (msg.ctrl == "terminate") {
     console.log("terminate worker due to its request.");
     terminateWorker();
+    drawPlots();
     return;
   }
 }
