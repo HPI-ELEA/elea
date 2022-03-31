@@ -84,7 +84,7 @@ class PlotWorker {
                 },
             };
 
-            this.myChart = new Chart(
+            this.myChart = new Chart(//eslint-disable-line no-undef -- is defined in block code
                 this.chartArea,
                 config
             );
