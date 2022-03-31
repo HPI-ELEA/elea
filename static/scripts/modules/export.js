@@ -11,12 +11,6 @@ function copyXMLToClipboard() {
   resetHasUnsavedChangesHandling();
 }
 
-function copyJSToClipboard() {
-  var js = getCode();
-  copyToClipboard(js);
-  resetHasUnsavedChangesHandling();
-}
-
 function download(text, name, type) {
   var file = new Blob([text], { type: type });
   downloadFile(file, name);
@@ -188,7 +182,6 @@ export {
   downloadWorkspace,
   copyXMLToClipboard,
   downloadWorkspaceAsJS,
-  copyJSToClipboard,
   downloadFile,
   downloadLog,
 };
