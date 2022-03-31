@@ -49,6 +49,8 @@ main {
 
 #output-column > * {
   padding-top: 0.5rem;
+  border-top: 1px solid #bdb2b2; 
+  margin-bottom: 10px;
 }
 
 .output-header {
