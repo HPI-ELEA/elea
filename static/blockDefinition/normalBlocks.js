@@ -898,4 +898,44 @@ export const blockDefinitions = [
     helpUrl: "",
     category: "logic",
   },
+  {
+    type: "plotting",
+    message0: "Plot %1 Dataset: %2 in Plot: %3 as %4",
+    args0: [
+      {
+        type: "input_value",
+        name: "yValue",
+        check: "Number",
+        comment: "value of the new datapoint",
+      },
+      {
+        type: "input_value",
+        name: "datasetNumber",
+        check: "Number",
+        comment: "Determines to which dataset of the plot this data will be added.",
+      },
+      {
+        type: "field_input",
+        name: "plotName",
+        text: "fitness",
+        check: "String", 
+        comment: "Determines which plot this datapoint will be added to.",
+      },
+      {
+        type: "field_dropdown",
+        name: "plotType",
+        options: [
+          ["scatterplot", "SCATTERPLOT"],
+          ["linegraph", "LINEGRAPH"],
+        ],
+      },
+    ],
+    inputsInline: true,
+    previousStatement: null,
+    nextStatement: null,
+    colour: "#777",
+    helpUrl: "",
+    category: "logging",
+    tooltip: "Use this block to create plots with the data from your EA"
+  },
 ];

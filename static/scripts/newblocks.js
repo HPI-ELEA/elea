@@ -739,6 +739,28 @@ Blockly.JavaScript["check_fitness"] = function (block) {
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
+
+Blockly.JavaScript["plotting_one_value"] = function (block) {
+  var variable_ = Blockly.JavaScript.valueToCode(
+    block,
+    "yValue",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var code = "plot(";
+  code += variable_ + ",";
+  variable_ = Blockly.JavaScript.valueToCode(
+    block,
+    "datasetNumber",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  code += variable_ + ","; 
+  variable_ =  block.getFieldValue("plotName");
+  code += "'"+ variable_ + "',";
+  variable_  = block.getFieldValue("plotType"); 
+  code += "'"+ variable_ + "');\n"; 
+  return code;
+};
+
 // TODO: add global shuffle function from https://stackoverflow.com/a/2450976 :
 /*
 function shuffle(array) {
