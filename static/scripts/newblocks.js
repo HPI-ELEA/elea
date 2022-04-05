@@ -741,23 +741,24 @@ Blockly.JavaScript["check_fitness"] = function (block) {
 
 
 Blockly.JavaScript["plotting_one_value"] = function (block) {
-  var variable_ = Blockly.JavaScript.valueToCode(
+  var variable_yValue = Blockly.JavaScript.valueToCode(
     block,
     "yValue",
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  var code = "plot(";
-  code += variable_ + ",";
-  variable_ = Blockly.JavaScript.valueToCode(
+  variable_datasetNumber = Blockly.JavaScript.valueToCode(
     block,
     "datasetNumber",
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  code += variable_ + ","; 
-  variable_ =  block.getFieldValue("plotName");
-  code += "'"+ variable_ + "',";
-  variable_  = block.getFieldValue("plotType"); 
-  code += "'"+ variable_ + "');\n"; 
+  variable_plotName =  block.getFieldValue("plotName");
+  variable_plotType  = block.getFieldValue("plotType"); 
+
+  var code = "plot(";
+  code += variable_yValue + ","; 
+  code += variable_datasetNumber + ","; 
+  code += "'"+ variable_plotName + "',";
+  code += "'"+ variable_plotType + "');\n"; 
   return code;
 };
 
