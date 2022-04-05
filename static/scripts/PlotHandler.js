@@ -8,10 +8,10 @@ class PlotHandler {
     //because of the message handling this object is the first element of the data-array
     //forward the data to the correct PlotWorker or create one if necessary 
     updateValue(data) {
-        let plotName = data[0].plotName;
+        let plotName = data.plotName;
         let requestedPlot = this.plotMap.get(plotName);
         if (!requestedPlot) {
-            requestedPlot = new PlotWorker(plotName, data[0].plotType);
+            requestedPlot = new PlotWorker(plotName, data.plotType);
             this.plotMap.set(plotName, requestedPlot);
         }
         requestedPlot.updateValue(data);
@@ -42,7 +42,7 @@ class PlotWorker {
 
     //collect data during runtime 
     updateValue(data) {
-        let datasetName = data[0].datasetName;
+        let datasetName = data.datasetNumber;
         if (this.iteration > 0) {
             // new runs produce new datasets which can be distinguished by their ending 
             datasetName += "_" + this.iteration;
@@ -52,12 +52,12 @@ class PlotWorker {
             dataset = {
                 label: 'Dataset' + datasetName,
                 backgroundColor: random_rgba(),
-                data: [data[0].yValue],
+                data: [data.yValue],
             }
             this.plotData.set(datasetName, dataset);
             this.labels.push(1);
         } else {
-            dataset.data.push(data[0].yValue);
+            dataset.data.push(data.yValue);
             if (dataset.data.length > this.labels.length) {
                 this.labels.push(dataset.data.length);
             }
