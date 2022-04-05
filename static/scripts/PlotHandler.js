@@ -1,4 +1,4 @@
-import { addNewPlotEntry } from "./workspace";
+import { addNewOutputEntry } from "./workspace";
 
 class PlotHandler {
     constructor() {
@@ -31,13 +31,18 @@ class PlotWorker {
         this.plotName = name;
         this.plotData = new Map();
         this.plotType = plotType;
-        let canvasNumber = addNewPlotEntry(name);
-        let canvasID = 'plot-' + canvasNumber + '-canvas';
-        this.chartArea = document.getElementById(canvasID).getContext('2d');
         this.myChart = null;
         this.chartExists = false;
         this.labels = [];
         this.iteration = 0;
+        let divString = `<canvas id="plot-${name}"></canvas>`;
+        addNewOutputEntry(
+            divString,
+            name,
+            name
+        );
+        let canvasID = 'plot-' + name;
+        this.chartArea = document.getElementById(canvasID).getContext('2d');
     }
 
     //collect data during runtime 
