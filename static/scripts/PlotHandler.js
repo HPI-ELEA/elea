@@ -4,13 +4,14 @@ class PlotHandler {
     constructor() {
         this.plotMap = new Map();
     }
-    //the data forwarded contains the information: data(yValue,datasetName,plotName,plotType)
+    //the data forwarded contains a single object of type {yValue,datasetNumber,plotName,plotType}
+    //because of the message handling this object is the first element of the data-array
     //forward the data to the correct PlotWorker or create one if necessary 
     updateValue(data) {
-        let plotName = data[3];
+        let plotName = data[0].plotName;
         let requestedPlot = this.plotMap.get(plotName);
-        if (requestedPlot == undefined) {
-            requestedPlot = new PlotWorker(plotName, data[4]);
+        if (!requestedPlot) {
+            requestedPlot = new PlotWorker(plotName, data[0].plotType);
             this.plotMap.set(plotName, requestedPlot);
         }
         requestedPlot.updateValue(data);
@@ -41,22 +42,22 @@ class PlotWorker {
 
     //collect data during runtime 
     updateValue(data) {
-        let datasetName = data[2];
+        let datasetName = data[0].datasetName;
         if (this.iteration > 0) {
             // new runs produce new datasets which can be distinguished by their ending 
             datasetName += "_" + this.iteration;
         }
         let dataset = this.plotData.get(datasetName);
-        if (dataset == undefined) {
+        if (!dataset) {
             dataset = {
                 label: 'Dataset' + datasetName,
                 backgroundColor: random_rgba(),
-                data: [data[1]],
+                data: [data[0].yValue],
             }
             this.plotData.set(datasetName, dataset);
             this.labels.push(1);
         } else {
-            dataset.data.push(data[1]);
+            dataset.data.push(data[0].yValue);
             if (dataset.data.length > this.labels.length) {
                 this.labels.push(dataset.data.length);
             }
