@@ -739,6 +739,53 @@ Blockly.JavaScript["check_fitness"] = function (block) {
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
+Blockly.JavaScript["plotting_one_value"] = function (block) {
+  var variable_yValue = Blockly.JavaScript.valueToCode(
+    block,
+    "yValue",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var variable_datasetNumber = Blockly.JavaScript.valueToCode(
+    block,
+    "datasetNumber",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var variable_plotName =  block.getFieldValue("plotName");
+  var variable_plotType  = block.getFieldValue("plotType"); 
+
+  var code = "plot({yValue: ";
+  code += variable_yValue + ", datasetNumber: "; 
+  code += variable_datasetNumber + ", plotName: "; 
+  code += "'"+ variable_plotName + "', plotType: ";
+  code += "'"+ variable_plotType + "'});\n"; 
+  return code;
+};
+
+Blockly.JavaScript["individual_hemming_distance"] = function (block) {
+  var variable_individual_1 = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("FIRST_INDIVIDUAL"),
+    Blockly.Variables.NAME_TYPE
+  );
+  var variable_individual_2 = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("SECOND_INDIVIDUAL"),
+    Blockly.Variables.NAME_TYPE
+  );
+  var functionName = Blockly.JavaScript.provideFunction_("individualHemmingDistance", [
+    "function " +
+    Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+    "(individual_1, individual_2) {",
+    "  if(individual_1.length != individual_2.length){return 0;}",
+    "  var count = 0;",
+    "  for (var j=0; j<individual_1.length; j++) {",
+    "    if(individual_1[j] == individual_2[j]) {count ++;}",
+    "  }",
+    "  return count;",
+    "}",
+  ]);
+  var code = functionName + "(" + variable_individual_1 + ","+ variable_individual_2 + ")";
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 // TODO: add global shuffle function from https://stackoverflow.com/a/2450976 :
 /*
 function shuffle(array) {
