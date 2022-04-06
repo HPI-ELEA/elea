@@ -33,7 +33,7 @@ class PlotWorker {
         this.plotType = plotType;
         this.myChart = null;
         this.chartExists = false;
-        this.labels = [];
+        this.labels = [1];
         this.iteration = 0;
         let divString = `<canvas id="plot-${name}"></canvas>`;
         addNewOutputEntry(
@@ -60,7 +60,6 @@ class PlotWorker {
                 data: [data.yValue],
             }
             this.plotData.set(datasetName, dataset);
-            this.labels.push(1);
         } else {
             dataset.data.push(data.yValue);
             if (dataset.data.length > this.labels.length) {

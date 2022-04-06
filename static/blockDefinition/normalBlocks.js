@@ -899,7 +899,7 @@ export const blockDefinitions = [
     category: "logic",
   },
   {
-    type: "plotting",
+    type: "plotting_one_value",
     message0: "Plot %1 Dataset: %2 in Plot: %3 as %4",
     args0: [
       {
@@ -925,8 +925,8 @@ export const blockDefinitions = [
         type: "field_dropdown",
         name: "plotType",
         options: [
-          ["scatterplot", "SCATTERPLOT"],
-          ["linegraph", "LINEGRAPH"],
+          ["scatterplot", "scatter"],
+          ["linegraph", "line"],
         ],
       },
     ],
