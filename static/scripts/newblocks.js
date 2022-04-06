@@ -43,7 +43,7 @@ Blockly.JavaScript["ea_init"] = function (block) {
     block,
     "init_statements"
   );
-  
+
   let code = "";
   code = "function* mainFunction() {\n\n";
   code += "try {\n";
@@ -362,8 +362,6 @@ Blockly.JavaScript["ea_addtopopulation"] = function (block) {
     Blockly.JavaScript.ORDER_ATOMIC
   );
 
-  // eslint-disable-next-line no-unused-vars -- part of TODO
-  var dropdown_tiebreak = block.getFieldValue("TIEBREAK"); // TODO ensure sort is stable and fits the NEWER tiebreak
   var length = "_C2_B5"; //Blockly.JavaScript.nameDB_.getName('µ');
   var code = "";
   if (dropdown_selection_strategy == "FITNESS") {
@@ -373,7 +371,23 @@ Blockly.JavaScript["ea_addtopopulation"] = function (block) {
       length +
       ")";
   } else if (dropdown_selection_strategy == "CHANCE") {
-    code += "shuffle(parent_population).slice(0," + length + ")";
+    //global shuffle function from https://stackoverflow.com/a/2450976 
+    var functionName = Blockly.JavaScript.provideFunction_("shuffle", [
+      "function " +
+      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+      "(array) {",
+      " var currentIndex = array.length, temporaryValue, randomIndex;",
+      " while (0 !== currentIndex) {",
+      "   randomIndex = Math.floor(Math.random() * randomIndex);",
+      "   currentIndex -= 1;",
+      "   temporaryValue = array[currentIndex];",
+      "   array[currentIndex] = array[randomIndex];",
+      "   array[randomIndex] = temporaryValue;",
+      " }",
+      " return array;",
+      "}",
+    ])
+    code += functionName + POPULATION + ".slice(0," + length + ")";
   }
   return [code, Blockly.JavaScript.ORDER_NONE];
   // TODO: Change ORDER_NONE to the correct strength.
@@ -750,14 +764,14 @@ Blockly.JavaScript["plotting_one_value"] = function (block) {
     "datasetNumber",
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  var variable_plotName =  block.getFieldValue("plotName");
-  var variable_plotType  = block.getFieldValue("plotType"); 
+  var variable_plotName = block.getFieldValue("plotName");
+  var variable_plotType = block.getFieldValue("plotType");
 
   var code = "plot({yValue: ";
-  code += variable_yValue + ", datasetNumber: "; 
-  code += variable_datasetNumber + ", plotName: "; 
-  code += "'"+ variable_plotName + "', plotType: ";
-  code += "'"+ variable_plotType + "'});\n"; 
+  code += variable_yValue + ", datasetNumber: ";
+  code += variable_datasetNumber + ", plotName: ";
+  code += "'" + variable_plotName + "', plotType: ";
+  code += "'" + variable_plotType + "'});\n";
   return code;
 };
 
@@ -782,27 +796,7 @@ Blockly.JavaScript["individual_hemming_distance"] = function (block) {
     "  return count;",
     "}",
   ]);
-  var code = functionName + "(" + variable_individual_1 + ","+ variable_individual_2 + ")";
+  var code = functionName + "(" + variable_individual_1 + "," + variable_individual_2 + ")";
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-// TODO: add global shuffle function from https://stackoverflow.com/a/2450976 :
-/*
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}*/
