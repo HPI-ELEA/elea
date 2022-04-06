@@ -446,8 +446,38 @@ Blockly.JavaScript["ea_select_parent"] = function (block) {
       ".length)]";
     return [code, Blockly.JavaScript.ORDER_NONE];
   } else if (dropdown_name == "FITNESSPROPORTIONATE") {
-    console.warn("fitness proportionate selection not yet implemented");
-    return ["Array(genome_length).fill(0)", Blockly.JavaScript.ORDER_NONE];
+    var functionName = Blockly.JavaScript.provideFunction_("getIndividualFitnessproportionate", [
+      "function " + 
+      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + 
+      "(population) {",
+      " var overallFitness = 0, maxRandomNumber = Array(population.length), fitnesses = Array(population.length);",
+      " for (let i = 0; i < population.length; i++) {",
+      "   const individual = population[i];  ",
+      "   const individualFitness = fitness(individual);",
+      "   overallFitness += individualFitness;",
+      "   fitnesses[i] = individualFitness;",
+      " }",
+      " if (overallFitness == 0) {", 
+      "   return population[Math.floor(Math.random() * population.length)];", 
+      " }",
+      " var previousProbability = 0;",
+      " for (let i = 0; i < population.length; i++) {",
+      "   maxRandomNumber[i] = previousProbability + (fitnesses[i] / overallFitness);",
+      "   previousProbability = maxRandomNumber[i];",
+      " }",
+      " var r  = Math.random();",
+      " for (let i = 0; i < population.length; i++) {",
+      "   if(r < maxRandomNumber[i]) {",
+      "     return population[i];",
+      "   }",
+      " }",
+      " //Due to rounding there is a small possibility of not selecting any individual.",
+      " //In this case the process is repeated.",
+      " return getIndividualFitnessproportionate(population);",
+      "}",
+    ]); 
+    var code = functionName +"(" + variable_population + ")"; 
+    return [code, Blockly.JavaScript.ORDER_NONE];
   }
 };
 
