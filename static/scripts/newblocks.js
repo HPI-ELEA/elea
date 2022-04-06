@@ -43,7 +43,7 @@ Blockly.JavaScript["ea_init"] = function (block) {
     block,
     "init_statements"
   );
-  
+
   let code = "";
   code = "function* mainFunction() {\n\n";
   code += "try {\n";
@@ -438,17 +438,17 @@ Blockly.JavaScript["ea_select_parent"] = function (block) {
     block.getFieldValue("POPULATION"),
     Blockly.Variables.NAME_TYPE
   );
+  var code;
   if (dropdown_name == "CHANCE") {
-    var code =
-      variable_population +
+    code = variable_population +
       "[Math.floor(Math.random() * " +
       variable_population +
       ".length)]";
     return [code, Blockly.JavaScript.ORDER_NONE];
   } else if (dropdown_name == "FITNESSPROPORTIONATE") {
     var functionName = Blockly.JavaScript.provideFunction_("getIndividualFitnessproportionate", [
-      "function " + 
-      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + 
+      "function " +
+      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
       "(population) {",
       " var overallFitness = 0, maxRandomNumber = Array(population.length), fitnesses = Array(population.length);",
       " for (let i = 0; i < population.length; i++) {",
@@ -457,8 +457,8 @@ Blockly.JavaScript["ea_select_parent"] = function (block) {
       "   overallFitness += individualFitness;",
       "   fitnesses[i] = individualFitness;",
       " }",
-      " if (overallFitness == 0) {", 
-      "   return population[Math.floor(Math.random() * population.length)];", 
+      " if (overallFitness == 0) {",
+      "   return population[Math.floor(Math.random() * population.length)];",
       " }",
       " var previousProbability = 0;",
       " for (let i = 0; i < population.length; i++) {",
@@ -475,8 +475,8 @@ Blockly.JavaScript["ea_select_parent"] = function (block) {
       " //In this case the process is repeated.",
       " return getIndividualFitnessproportionate(population);",
       "}",
-    ]); 
-    var code = functionName +"(" + variable_population + ")"; 
+    ]);
+    code = functionName + "(" + variable_population + ")";
     return [code, Blockly.JavaScript.ORDER_NONE];
   }
 };
@@ -780,14 +780,14 @@ Blockly.JavaScript["plotting_one_value"] = function (block) {
     "datasetNumber",
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  var variable_plotName =  block.getFieldValue("plotName");
-  var variable_plotType  = block.getFieldValue("plotType"); 
+  var variable_plotName = block.getFieldValue("plotName");
+  var variable_plotType = block.getFieldValue("plotType");
 
   var code = "plot({yValue: ";
-  code += variable_yValue + ", datasetNumber: "; 
-  code += variable_datasetNumber + ", plotName: "; 
-  code += "'"+ variable_plotName + "', plotType: ";
-  code += "'"+ variable_plotType + "'});\n"; 
+  code += variable_yValue + ", datasetNumber: ";
+  code += variable_datasetNumber + ", plotName: ";
+  code += "'" + variable_plotName + "', plotType: ";
+  code += "'" + variable_plotType + "'});\n";
   return code;
 };
 
@@ -812,7 +812,7 @@ Blockly.JavaScript["individual_hemming_distance"] = function (block) {
     "  return count;",
     "}",
   ]);
-  var code = functionName + "(" + variable_individual_1 + ","+ variable_individual_2 + ")";
+  var code = functionName + "(" + variable_individual_1 + "," + variable_individual_2 + ")";
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
