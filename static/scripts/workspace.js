@@ -9,6 +9,7 @@ import {
 import { downloadLog } from "./modules/export";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
+import {clearPlots} from "./PlotHandler"; 
 
 $("#run-button").click(runCode);
 $("#kill-button").click(terminateWorker);
@@ -61,6 +62,7 @@ function addPrintOutput() {
 addPrintOutput();
 
 function clearOutput() {
+  clearPlots(); 
   $("#output-column").empty();
 }
 
