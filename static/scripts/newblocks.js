@@ -739,6 +739,28 @@ Blockly.JavaScript["check_fitness"] = function (block) {
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
+Blockly.JavaScript["plotting_one_value"] = function (block) {
+  var variable_yValue = Blockly.JavaScript.valueToCode(
+    block,
+    "yValue",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var variable_datasetNumber = Blockly.JavaScript.valueToCode(
+    block,
+    "datasetNumber",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var variable_plotName =  block.getFieldValue("plotName");
+  var variable_plotType  = block.getFieldValue("plotType"); 
+
+  var code = "plot({yValue: ";
+  code += variable_yValue + ", datasetNumber: "; 
+  code += variable_datasetNumber + ", plotName: "; 
+  code += "'"+ variable_plotName + "', plotType: ";
+  code += "'"+ variable_plotType + "'});\n"; 
+  return code;
+};
+
 Blockly.JavaScript["individual_hemming_distance"] = function (block) {
   var variable_individual_1 = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("FIRST_INDIVIDUAL"),
