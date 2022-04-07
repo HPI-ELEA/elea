@@ -473,7 +473,7 @@ Blockly.JavaScript["ea_select_parent"] = function (block) {
       " }",
       " //Due to rounding there is a small possibility of not selecting any individual.",
       " //In this case the process is repeated.",
-      " return getIndividualFitnessproportionate(population);",
+      " return " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "(population);",
       "}",
     ]);
     code = functionName + "(" + variable_population + ")";
