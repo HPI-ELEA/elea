@@ -90,7 +90,7 @@ Blockly.JavaScript["pop_init"] = function (block) {
 };
 
 Blockly.JavaScript["jump_k"] = function (block) {
-  console.warn("jump_k uses hardcoded variables");
+  //WARNING: jump_k uses hardcoded variables. 
   var k = Blockly.JavaScript.valueToCode(
     block,
     "K",
@@ -175,7 +175,7 @@ Blockly.JavaScript["individual_init_uniform"] = function () {
 };
 
 Blockly.JavaScript["init_constant"] = function (block) {
-  console.warn("init_constant uses hardcoded variables");
+  //WARNING: init_constant uses hardcoded variables.
   var dropdown_constant = block.getFieldValue("CONSTANT");
   if (dropdown_constant == "ZERO") {
     dropdown_constant = "0";
@@ -200,7 +200,7 @@ Blockly.JavaScript["init_constant"] = function (block) {
 };
 
 Blockly.JavaScript["individual_init_constant"] = function (block) {
-  console.warn("individual_init_constant uses hardcoded variables");
+  //WARNING: individual_init_constant uses hardcoded variables
   var dropdown_constant = block.getFieldValue("CONSTANT");
   if (dropdown_constant == "ZERO") {
     dropdown_constant = "0";
@@ -223,9 +223,6 @@ Blockly.JavaScript["individual_init_constant"] = function (block) {
 // all of the logging functionality of this block has been removed due to the modified messsage handling system used for
 // multi-threading. The logging system needs to be re-implemented and potentially redesigned
 Blockly.JavaScript["run_loop"] = function (block) {
-  console.warn(
-    "the run_loop_logging block has had logging disabled while multi-threading is being worked on"
-  );
   var continue_condition = Blockly.JavaScript.valueToCode(
     block,
     "continue_condition",
@@ -257,6 +254,7 @@ Blockly.JavaScript["run_loop"] = function (block) {
 
 // a breeding loop designed to send a log message every time the best fitness is improved
 Blockly.JavaScript["run_loop_logging"] = function (block) {
+  // WARNING: the run_loop_logging block has had logging disabled while multi-threading is being worked on
   var continue_condition = Blockly.JavaScript.valueToCode(
     block,
     "continue_condition",
@@ -354,9 +352,7 @@ Blockly.JavaScript["ea_run_breeding"] = function (block) {
 };
 
 Blockly.JavaScript["ea_addtopopulation"] = function (block) {
-  console.warn(
-    "ea_addtopopulation uses hardcoded variables and requires the fitness function"
-  );
+  // WARNING: ea_addtopopulation uses hardcoded variables and requires the fitness function
   var dropdown_selection_strategy = block.getFieldValue("SELECTION_STRATEGY");
   var POPULATION = Blockly.JavaScript.valueToCode(
     block,
@@ -396,7 +392,7 @@ Blockly.JavaScript["ea_addtopopulation"] = function (block) {
 };
 
 Blockly.JavaScript["ea_select_best"] = function (block) {
-  console.warn("ea_select_best requires the fitness function");
+  //WARNING: ea_select_best requires the fitness function.
   var POPULATION = Blockly.JavaScript.valueToCode(
     block,
     "POPULATION",
@@ -448,7 +444,7 @@ Blockly.JavaScript["max_diversity"] = function (block) {
 };
 
 Blockly.JavaScript["ea_select_parent"] = function (block) {
-  console.warn("ea_select_parent uses hardcoded variables");
+  // WARNING: ea_select_parent uses hardcoded variables.
   var dropdown_name = block.getFieldValue("NAME");
   var variable_population = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("POPULATION"),
@@ -578,7 +574,7 @@ Blockly.JavaScript["ea_mutate_prob"] = function (block) {
 };
 
 Blockly.JavaScript["ea_mutate_bit"] = function (block) {
-  console.warn("ea_mutate_bit uses hardcoded variables");
+  // WARNING: ea_mutate_bit uses hardcoded variables. 
   var variable_individual = Blockly.JavaScript.valueToCode(
     block,
     "individual",
