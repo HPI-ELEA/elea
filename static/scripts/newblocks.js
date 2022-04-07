@@ -43,7 +43,7 @@ Blockly.JavaScript["ea_init"] = function (block) {
     block,
     "init_statements"
   );
-  
+
   let code = "";
   code = "function* mainFunction() {\n\n";
   code += "try {\n";
@@ -240,16 +240,18 @@ Blockly.JavaScript["run_loop"] = function (block) {
     block,
     "loop_statement"
   );
-  // TODO: create or update global dev var counter and also reset in "prepare next run"
+  var loopVar = Blockly.JavaScript.nameDB_.getDistinctName(
+    "count",
+    Blockly.VARIABLE_CATEGORY_NAME
+  );
   var code =
-    "for (var i=0;(" +
+    "for (var " + loopVar + "=0;(" +
     continue_condition +
-    " || false) && i < " +
+    ") && " + loopVar + " < " +
     exit_number +
-    ";i++){\n";
+    "; " + loopVar + "++){\n";
   code += statements_simulation_steps;
   code += "}\n";
-  // TODO: increment global counter used for cost calculation
   return code;
 };
 
@@ -750,14 +752,14 @@ Blockly.JavaScript["plotting_one_value"] = function (block) {
     "datasetNumber",
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  var variable_plotName =  block.getFieldValue("plotName");
-  var variable_plotType  = block.getFieldValue("plotType"); 
+  var variable_plotName = block.getFieldValue("plotName");
+  var variable_plotType = block.getFieldValue("plotType");
 
   var code = "plot({yValue: ";
-  code += variable_yValue + ", datasetNumber: "; 
-  code += variable_datasetNumber + ", plotName: "; 
-  code += "'"+ variable_plotName + "', plotType: ";
-  code += "'"+ variable_plotType + "'});\n"; 
+  code += variable_yValue + ", datasetNumber: ";
+  code += variable_datasetNumber + ", plotName: ";
+  code += "'" + variable_plotName + "', plotType: ";
+  code += "'" + variable_plotType + "'});\n";
   return code;
 };
 
@@ -782,7 +784,7 @@ Blockly.JavaScript["individual_hamming_distance"] = function (block) {
     "  return count;",
     "}",
   ]);
-  var code = functionName + "(" + variable_individual_1 + ","+ variable_individual_2 + ")";
+  var code = functionName + "(" + variable_individual_1 + "," + variable_individual_2 + ")";
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
