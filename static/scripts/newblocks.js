@@ -700,14 +700,14 @@ Blockly.JavaScript["wait"] = function (block) {
     "function " +
     Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
     "(wait_period) {",
-    "   const date = Date.now();\n",
-    "   let currentDate = null;\n",
-    "   do {\n",
-    "     currentDate = Date.now();\n",
-    "   } while (currentDate - date < wait_period);\n",
+    "   const date = Date.now();",
+    "   let currentDate = null;",
+    "   do {",
+    "     currentDate = Date.now();",
+    "   } while (currentDate - date < wait_period);",
     "}",
   ]);
-  var code = functionName + "(" + wait_period * 1000 + ");\n";
+  var code = functionName + "(" + wait_period * 1000 + ");";
   return code;
 };
 
@@ -761,7 +761,7 @@ Blockly.JavaScript["plotting_one_value"] = function (block) {
   return code;
 };
 
-Blockly.JavaScript["individual_hemming_distance"] = function (block) {
+Blockly.JavaScript["individual_hamming_distance"] = function (block) {
   var variable_individual_1 = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("FIRST_INDIVIDUAL"),
     Blockly.Variables.NAME_TYPE
@@ -770,7 +770,7 @@ Blockly.JavaScript["individual_hemming_distance"] = function (block) {
     block.getFieldValue("SECOND_INDIVIDUAL"),
     Blockly.Variables.NAME_TYPE
   );
-  var functionName = Blockly.JavaScript.provideFunction_("individualHemmingDistance", [
+  var functionName = Blockly.JavaScript.provideFunction_("individualHammingDistance", [
     "function " +
     Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
     "(individual_1, individual_2) {",

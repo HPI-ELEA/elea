@@ -939,7 +939,7 @@ export const blockDefinitions = [
     tooltip: "Use this block to create plots with the data from your EA"
   },
   {
-    type: "individual_hemming_distance",
+    type: "individual_hamming_distance",
     message0: "diversity between %1 and %2",
     args0: [
       {
