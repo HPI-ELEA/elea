@@ -387,7 +387,7 @@ Blockly.JavaScript["ea_addtopopulation"] = function (block) {
       " return array;",
       "}",
     ])
-    code += functionName + POPULATION + ".slice(0," + length + ")";
+    code += functionName + "(" + POPULATION + ").slice(0," + length + ")";
   }
   return [code, Blockly.JavaScript.ORDER_NONE];
   // TODO: Change ORDER_NONE to the correct strength.
