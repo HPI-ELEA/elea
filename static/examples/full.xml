@@ -247,8 +247,7 @@
                                             <field name="VAR" id="#pcO:SShN$OQz:KS?`_i" variabletype="Array">parent_population</field>
                                             <value name="VALUE">
                                               <block type="ea_addtopopulation" id="Awa}Lx]w,qA;{[gv7K2/">
-                                                <field name="SELECTION_STRATEGY">BEST</field>
-                                                <field name="TIEBREAK">NEWER</field>
+                                                <field name="SELECTION_STRATEGY">FITNESS</field>
                                                 <value name="POPULATION">
                                                   <block type="lists_concat" id="$(Gfg^X6Mfk`?K0px%54">
                                                     <field name="POPULATION1" id="#pcO:SShN$OQz:KS?`_i" variabletype="Array">parent_population</field>
