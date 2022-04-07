@@ -547,7 +547,7 @@ export const blockDefinitions = [
   },
   {
     type: "ea_addtopopulation",
-    message0: "generate new population based on %1 from %2 as tiebreak use %3",
+    message0: "generate new population based on %1 from %2 ",
     args0: [
       {
         type: "field_dropdown",
@@ -561,14 +561,6 @@ export const blockDefinitions = [
         type: "input_value",
         name: "POPULATION",
         check: "Array",
-      },
-      {
-        type: "field_dropdown",
-        name: "TIEBREAK",
-        options: [
-          ["newer", "NEWER"],
-          ["random", "RANDOM"],
-        ],
       },
     ],
     inputsInline: false,
