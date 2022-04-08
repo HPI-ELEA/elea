@@ -54,9 +54,12 @@ class PlotWorker {
         }
         let dataset = this.plotData.get(datasetName);
         if (!dataset) {
+            let randomColor = random_rgba();
             dataset = {
+                type: data.plotType,
                 label: 'Dataset' + datasetName,
-                backgroundColor: random_rgba(),
+                backgroundColor: randomColor,
+                borderColor: randomColor,
                 data: [data.yValue],
             }
             this.plotData.set(datasetName, dataset);
@@ -82,8 +85,18 @@ class PlotWorker {
                 options: {
                     plugins: {
                         title: {
-                            display: true,
+                            display: false,
                             text: this.plotName
+                        },
+                        legend: {
+                            position: 'bottom', 
+                            maxHeight: 30,
+                            textDirection: 'ltr',
+                        }
+                    },
+                    scales: {
+                        yAxis: {
+                            min: 0,
                         }
                     },
                 },

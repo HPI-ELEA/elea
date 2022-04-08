@@ -74,6 +74,7 @@ main {
   flex: 0 1 40px;
 }
 
+
 @media screen and (min-width: 676px) {
   .modal-dialog {
     max-width: 600px; /* New width for default modal */

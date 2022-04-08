@@ -892,7 +892,7 @@ export const blockDefinitions = [
   },
   {
     type: "plotting_one_value",
-    message0: "Plot %1 Dataset: %2 in Plot: %3 as %4",
+    message0: "Add value %1 to Dataset: %2 in Plot: %3 as %4",
     args0: [
       {
         type: "input_value",
