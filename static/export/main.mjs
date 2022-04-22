@@ -1,4 +1,5 @@
 import {handleLogFromWorker} from "./logging.mjs";
+import { downloadCSV, updateValue } from "./CSVHandler.mjs";
 import { Worker }  from "worker_threads";
 var worker = new Worker("./algorithm.js");
 worker.on("message", handleMessageFromWorker);
@@ -17,6 +18,11 @@ function handleMessageFromWorker(msg){
         return;
     }
 
+    if(msg.ctrl == "csv") {
+        updateValue(msg.data);
+        return;
+    }
+
     // this is sent by the worker when the main function returns
     if (msg.ctrl == "terminate") {
         console.log("terminate worker due to its request.");
@@ -27,6 +33,7 @@ function handleMessageFromWorker(msg){
 
 function handleErrorFromWorker(err){
     terminateWorker()
+    downloadCSV();
     throw new Error(err.stack)
 }
 
