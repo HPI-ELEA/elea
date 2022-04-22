@@ -9,7 +9,8 @@ import {
 import { downloadLog } from "./modules/export";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
-import {clearPlots} from "./PlotHandler"; 
+import { clearPlots } from "./PlotHandler";
+import { downloadCSV } from "./CSVHandler";
 
 $("#run-button").click(runCode);
 $("#kill-button").click(terminateWorker);
@@ -42,6 +43,7 @@ $("#copy_xml").click(copyXMLToClipboard);
 $("#download_js").click(downloadWorkspaceAsJS);
 $("#show_js").click(highlightAll);
 $("#download_json").click(downloadLog);
+$("#download_csv").click(downloadCSV);
 
 $("#output-column").height($("#blockly-div").height());
 
@@ -62,7 +64,7 @@ function addPrintOutput() {
 addPrintOutput();
 
 function clearOutput() {
-  clearPlots(); 
+  clearPlots();
   $("#output-column").empty();
 }
 
