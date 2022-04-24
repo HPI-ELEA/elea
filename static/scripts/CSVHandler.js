@@ -56,37 +56,44 @@ class CSVWorker {
   downloadCSV() {
     this.iteration++;
 
-    let csvContent = "";
-    if (globalThis.window) csvContent += "data:text/csv;charset=utf-8,";
-    csvContent += this.labels.join(";");
-    csvContent += "\n";
+    let meta = "";
+    if (globalThis.window) {
+      // you have to declare meta tag only in brwoser environment
+      meta = "data:text/csv;charset=utf-8,";
+    }
+    let heading = this.labels.join(";") + "\n";
 
+    // max number of datapoints in all datasets
     let maxColumnLength = Math.max(
       ...this.labels.map((l) => this.csvData.get(l).data.length)
     );
-    let columns = [];
+    let rows = [];
     for (let i = 0; i < maxColumnLength; ++i) {
-      let row = [];
+      let column = [];
       for (const lab of this.labels) {
+        // create a single row with one datapoint from each dataset
+        // if a dataset is empty, add an empty string
         let data = this.csvData.get(lab).data;
-        if (data.length > i) row.push(data[i]);
-        else row.push("");
+        if (data.length > i) column.push(data[i]);
+        else column.push("");
       }
-      columns.push(row.join(";"));
+      rows.push(column.join(";"));
     }
-    csvContent += columns.join("\n");
+    let csvContent = meta + heading + rows.join("\n");
     downloadFile(csvContent, this.filename + ".csv");
   }
 }
 
 function downloadFile(content, filename) {
   if (!globalThis.window) {
+    // Nodejs environment
     //eslint-disable-next-line no-undef -- is imported in nodejs env
     fs.writeFile(filename, content, "utf8", function (e) {
       if (e) return console.error(e);
       console.log("Generated " + filename);
     });
   } else {
+    // Browser environment
     let encodedUri = encodeURI(content);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);
