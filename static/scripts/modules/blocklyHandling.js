@@ -7,7 +7,8 @@ import "regenerator-runtime/runtime";
 import "../newblocks";
 import "../threadblocks";
 import { addPrintOutput } from "../workspace";
-import { updateValue, drawPlots } from "../PlotHandler";
+import { updateValue as updateValuePlot, drawPlots } from "../PlotHandler";
+import { updateValue as updateValueCSV } from "../CSVHandler";
 
 // var jsonLog = null;
 var worker = null;
@@ -173,7 +174,12 @@ function handleMessageFromWorker(msg) {
   }
 
   if (msg.ctrl == "plot") {
-    updateValue(msg.data);
+    updateValuePlot(msg.data);
+    return;
+  }
+
+  if (msg.ctrl == "csv") {
+    updateValueCSV(msg.data);
     return;
   }
 
