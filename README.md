@@ -1,4 +1,5 @@
 # elea
+[![Netlify Status](https://api.netlify.com/api/v1/badges/97afa409-81fc-468e-abfc-5d06578b1dd6/deploy-status)](https://app.netlify.com/sites/hpi-elea/deploys) ![github actions](https://github.com/hpi-elea/elea/actions/workflows/lint.yml/badge.svg)
 
 This is a little tool designed to prototype evolutionary algorithms, get an intuition for runtimes or for teaching EAs to students.
 
@@ -28,3 +29,5 @@ Steps:
 
 Additional things to consider:
 Variables and functions could collide with user defined objects. Blockly can handle this for you, if you let it. You need to ask for valid names etc. In its current state, the documentation is barely understandable and does not prominently mention all necessary functions, I find the predefined open source blocks much more helpful: https://github.com/google/blockly/blob/master/generators/javascript/math.js
+
+![blockly](https://developers.google.cn/blockly/images/logos/logo_knockout.png)
