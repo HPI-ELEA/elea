@@ -130,24 +130,6 @@ function runCode() {
   dateSetup +=
     '    return + this.getFullYear() + (((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) + ((this.getDate() < 10)?"0":"") + this.getDate() + ((this.getHours() < 10)?"0":"") + this.getHours() + ((this.getMinutes() < 10)?"0":"") + this.getMinutes() + ((this.getSeconds() < 10)?"0":"") + this.getSeconds() + (((this.getMilliseconds()) < 100)?"0":"") + (((this.getMilliseconds()) < 10)?"0":"") + this.getMilliseconds();\n';
   dateSetup += "}\n";
-  // var logSetup = 'var jsonLog = [];\n'; // log of one run
-  // logSetup +=    'var jsonLogItem = {};\n'; // smallest unit, one round in while loop
-  // logSetup +=    'var jsonLogName = "";\n'; // current log name, will be set to current datetime
-  // logSetup +=    'var jsonLogs = [];\n'; // list of all runs/logs
-  // var logSave = 'if (jsonLogs != []) {\n';
-  // logSave +=    '  self.postMessage({log:jsonLogs});\n';
-  // logSave +=    '}\n';
-  //var termination =
-  //  'Handler.sendMessage(new Message(Handler.PARENT_ID, 0, "terminate"));\n';
-  // var messageHandler = 'self.addEventListener("message", function(e) {\n';
-  // messageHandler +=    '  console.log("worker received message: ", e.data)\n';
-  // messageHandler +=    '  if (e.data == "stop") {\n';
-  // messageHandler += logSave;
-  // messageHandler +=    '    self.close();\n';
-  // messageHandler +=    '  } else {\n';
-  // messageHandler +=    '    console.warn("unused Message in worker: ", e.data)\n';
-  // messageHandler +=    '  }\n';
-  // messageHandler +=    '}, false);\n';
 
   // import the message handler header
   let imports = "";

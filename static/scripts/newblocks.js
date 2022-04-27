@@ -628,17 +628,6 @@ Blockly.JavaScript["ea_debug"] = function (block) {
   return code;
 };
 
-Blockly.JavaScript["ea_log"] = function () {
-  console.warn(
-    "the ea_log block has been disabled while multi-threading is worked on"
-  );
-  // var variable = Blockly.JavaScript.valueToCode(block, 'logging_variable', Blockly.JavaScript.ORDER_ATOMIC);
-  // var logging_tag = Blockly.JavaScript.valueToCode(block, 'logging_tag', Blockly.JavaScript.ORDER_ATOMIC);
-  // var code = 'jsonLogItem[' + logging_tag + '] = ' + variable + ';\n';
-  // return code;
-  return "";
-};
-
 Blockly.JavaScript["ea_crossover_onepoint"] = function () {
   var functionCrossover = Blockly.JavaScript.provideFunction_(
     "crossoverOnepoint",
