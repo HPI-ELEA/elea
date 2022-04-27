@@ -807,6 +807,26 @@ Blockly.JavaScript["plotting_one_value"] = function (block) {
   return code;
 };
 
+Blockly.JavaScript["save_in_csv"] = function (block) {
+  var variable_value = Blockly.JavaScript.valueToCode(
+    block,
+    "value",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var variable_datasetName = Blockly.JavaScript.valueToCode(
+    block,
+    "datasetname",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var variable_plotName = block.getFieldValue("filename");
+
+  var code = "save_in_csv({value: ";
+  code += variable_value + ", datasetname: ";
+  code += variable_datasetName + ", filename: ";
+  code += "'" + variable_plotName + "'});\n";
+  return code;
+};
+
 Blockly.JavaScript["individual_hamming_distance"] = function (block) {
   var variable_individual_1 = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("FIRST_INDIVIDUAL"),
