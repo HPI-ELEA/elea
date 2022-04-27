@@ -25,11 +25,12 @@ function downloadWorkspace() {
 async function downloadWorkspaceAsJS() {
   let algorithm = await prepare_algorithm();
   let message_handler = await prepare_messagerhandler();
+  let csv_handler = await prepare_csvhandler();
   let readme = await read_file("./export/README.md");
   let main = await read_file("./export/main.mjs");
   let logging = await read_file("./scripts/modules/logging.js");
   if (
-    ![algorithm, message_handler, readme, main, logging].every(
+    ![algorithm, message_handler, csv_handler, readme, main, logging].every(
       (f) => f != false
     )
   ) {
@@ -39,6 +40,7 @@ async function downloadWorkspaceAsJS() {
   let zip = new JSZip();
   zip.file("algorithm.js", algorithm);
   zip.file("MessageHandler.js", message_handler);
+  zip.file("CSVHandler.mjs", csv_handler);
   zip.file("README.md", readme);
   zip.file("main.mjs", main);
   zip.file("logging.mjs", logging);
@@ -63,6 +65,7 @@ async function prepare_messagerhandler() {
     ` MessageHandler,\n` +
     ` consolelog,\n` +
     ` consoleerror,\n` +
+    ` save_in_csv,\n` +
     ` Handler,\n` +
     ` RecvRequest,\n` +
     `};`;
@@ -72,7 +75,7 @@ async function prepare_messagerhandler() {
 function prepare_algorithm() {
   let setup =
     `const {parentPort, Worker} = require("worker_threads");\n` +
-    `const {Handler, consolelog, consoleerror, Message, RecvRequest} = require("./MessageHandler.js");\n` +
+    `const {Handler, consolelog, save_in_csv, consoleerror, Message, RecvRequest} = require("./MessageHandler.js");\n` +
     `const {cpus} = require("os");\n` +
     `Handler.setParentPort(parentPort);\n`;
 
@@ -89,6 +92,14 @@ function prepare_algorithm() {
   js = js.join("\n");
   let tmp = setup + var_declaration + "\n" + js;
   return tmp;
+}
+
+async function prepare_csvhandler() {
+  let file;
+  if (!(file = await read_file("./scripts/CSVHandler.js"))) return false;
+  let code = `import fs from "fs";\n`;
+  code += file;
+  return code;
 }
 
 async function read_file(path) {

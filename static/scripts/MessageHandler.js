@@ -91,7 +91,7 @@ class MessageHandler {
     }
 
     // if the message is a log or a print statement then forward the message further up the chain
-    if (message.ctrl == "log" || message.ctrl == "print" || message.ctrl == "plot") {
+    if (message.ctrl in ["log", "print", "plot", "csv"]) {
       this.sendMessage(message);
       return;
     }
@@ -209,6 +209,11 @@ function consoleLog(...v) {
 //eslint-disable-next-line no-unused-vars -- is used in code blockly compiles
 function plot(v) {
   Handler.sendMessage(new Message(Handler.PARENT_ID, v, "plot"));
+}
+
+//eslint-disable-next-line no-unused-vars -- is used in code blockly compiles
+function save_in_csv(v) {
+  Handler.sendMessage(new Message(Handler.PARENT_ID, v, "csv"));
 }
 
 //eslint-disable-next-line no-unused-vars -- is used in code blockly compiles

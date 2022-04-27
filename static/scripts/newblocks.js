@@ -628,17 +628,6 @@ Blockly.JavaScript["ea_debug"] = function (block) {
   return code;
 };
 
-Blockly.JavaScript["ea_log"] = function () {
-  console.warn(
-    "the ea_log block has been disabled while multi-threading is worked on"
-  );
-  // var variable = Blockly.JavaScript.valueToCode(block, 'logging_variable', Blockly.JavaScript.ORDER_ATOMIC);
-  // var logging_tag = Blockly.JavaScript.valueToCode(block, 'logging_tag', Blockly.JavaScript.ORDER_ATOMIC);
-  // var code = 'jsonLogItem[' + logging_tag + '] = ' + variable + ';\n';
-  // return code;
-  return "";
-};
-
 Blockly.JavaScript["ea_crossover_onepoint"] = function () {
   var functionCrossover = Blockly.JavaScript.provideFunction_(
     "crossoverOnepoint",
@@ -815,6 +804,26 @@ Blockly.JavaScript["plotting_one_value"] = function (block) {
   code += variable_datasetNumber + ", plotName: ";
   code += "'" + variable_plotName + "', plotType: ";
   code += "'" + variable_plotType + "'});\n";
+  return code;
+};
+
+Blockly.JavaScript["save_in_csv"] = function (block) {
+  var variable_value = Blockly.JavaScript.valueToCode(
+    block,
+    "value",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var variable_datasetName = Blockly.JavaScript.valueToCode(
+    block,
+    "datasetname",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var variable_plotName = block.getFieldValue("filename");
+
+  var code = "save_in_csv({value: ";
+  code += variable_value + ", datasetname: ";
+  code += variable_datasetName + ", filename: ";
+  code += "'" + variable_plotName + "'});\n";
   return code;
 };
 
