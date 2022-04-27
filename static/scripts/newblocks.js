@@ -90,7 +90,7 @@ Blockly.JavaScript["pop_init"] = function (block) {
 };
 
 Blockly.JavaScript["jump_k"] = function (block) {
-  //WARNING: jump_k uses hardcoded variables. 
+  //WARNING: jump_k uses hardcoded variables.
   var k = Blockly.JavaScript.valueToCode(
     block,
     "K",
@@ -102,8 +102,8 @@ Blockly.JavaScript["jump_k"] = function (block) {
   );
   var functionName = Blockly.JavaScript.provideFunction_("jump_k", [
     "function " +
-    Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-    "(individual, k) {",
+      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+      "(individual, k) {",
     "  var sum = individual.reduce(function(a,b) {return a+b});",
     "  if (sum <= genome_length - k || sum == genome_length) {",
     "    return sum;",
@@ -123,8 +123,8 @@ Blockly.JavaScript["leading_ones"] = function (block) {
   );
   var functionName = Blockly.JavaScript.provideFunction_("leading_ones", [
     "function " +
-    Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-    "(individual) {",
+      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+      "(individual) {",
     "  var count = 0;",
     "  for (var j=0;individual[j] == 1 && j<individual.length; j++) {",
     "    count += 1;",
@@ -242,11 +242,17 @@ Blockly.JavaScript["run_loop"] = function (block) {
     Blockly.VARIABLE_CATEGORY_NAME
   );
   var code =
-    "for (var " + loopVar + "=0;(" +
+    "for (var " +
+    loopVar +
+    "=0;(" +
     continue_condition +
-    ") && " + loopVar + " < " +
+    ") && " +
+    loopVar +
+    " < " +
     exit_number +
-    "; " + loopVar + "++){\n";
+    "; " +
+    loopVar +
+    "++){\n";
   code += statements_simulation_steps;
   code += "}\n";
   return code;
@@ -369,11 +375,9 @@ Blockly.JavaScript["ea_addtopopulation"] = function (block) {
       length +
       ")";
   } else if (dropdown_selection_strategy == "CHANCE") {
-    //global shuffle function from https://stackoverflow.com/a/2450976 
+    //global shuffle function from https://stackoverflow.com/a/2450976
     var functionName = Blockly.JavaScript.provideFunction_("shuffle", [
-      "function " +
-      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-      "(array) {",
+      "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "(array) {",
       " var currentIndex = array.length, temporaryValue, randomIndex;",
       " while (0 !== currentIndex) {",
       "   randomIndex = Math.floor(Math.random() * randomIndex);",
@@ -384,7 +388,7 @@ Blockly.JavaScript["ea_addtopopulation"] = function (block) {
       " }",
       " return array;",
       "}",
-    ])
+    ]);
     code += functionName + "(" + POPULATION + ").slice(0," + length + ")";
   }
   return [code, Blockly.JavaScript.ORDER_NONE];
@@ -398,8 +402,7 @@ Blockly.JavaScript["ea_select_best"] = function (block) {
     "POPULATION",
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  var code =
-    POPULATION + ".sort(function(a,b) { return fitness(b)-fitness(a)})[0]";
+  var code = POPULATION + ".reduce((a,b) => (fitness(a) > fitness(b))? a: b)";
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
@@ -411,8 +414,8 @@ Blockly.JavaScript["max_diversity"] = function (block) {
   );
   var functionDiversity = Blockly.JavaScript.provideFunction_("diversity", [
     "function " +
-    Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-    "(ind1, ind2) {",
+      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+      "(ind1, ind2) {",
     "  var count = 0;",
     "  for (var j=0; j < ind1.length; j++) {",
     "    count += (ind1[j] ^ ind2[j]);",
@@ -424,15 +427,15 @@ Blockly.JavaScript["max_diversity"] = function (block) {
     "maxDiversity",
     [
       "function " +
-      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-      "(population) {",
+        Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+        "(population) {",
       "  var maxDiversity = 0;",
       "  if (population.length < 2) { return 0 }",
       "  for (var j=0; j < population.length-1; j++) {",
       "    for (var k=j+1; k < population.length; k++) {",
       "      maxDiversity = Math.max(maxDiversity, " +
-      functionDiversity +
-      "(population[j], population[k]));",
+        functionDiversity +
+        "(population[j], population[k]));",
       "    }",
       "  }",
       "  return maxDiversity;",
@@ -452,42 +455,48 @@ Blockly.JavaScript["ea_select_parent"] = function (block) {
   );
   var code;
   if (dropdown_name == "CHANCE") {
-    code = variable_population +
+    code =
+      variable_population +
       "[Math.floor(Math.random() * " +
       variable_population +
       ".length)]";
     return [code, Blockly.JavaScript.ORDER_NONE];
   } else if (dropdown_name == "FITNESSPROPORTIONATE") {
-    var functionName = Blockly.JavaScript.provideFunction_("getIndividualFitnessproportionate", [
-      "function " +
-      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-      "(population) {",
-      " var overallFitness = 0, maxRandomNumber = Array(population.length), fitnesses = Array(population.length);",
-      " for (let i = 0; i < population.length; i++) {",
-      "   const individual = population[i];  ",
-      "   const individualFitness = fitness(individual);",
-      "   overallFitness += individualFitness;",
-      "   fitnesses[i] = individualFitness;",
-      " }",
-      " if (overallFitness == 0) {",
-      "   return population[Math.floor(Math.random() * population.length)];",
-      " }",
-      " var previousProbability = 0;",
-      " for (let i = 0; i < population.length; i++) {",
-      "   maxRandomNumber[i] = previousProbability + (fitnesses[i] / overallFitness);",
-      "   previousProbability = maxRandomNumber[i];",
-      " }",
-      " var r  = Math.random();",
-      " for (let i = 0; i < population.length; i++) {",
-      "   if(r < maxRandomNumber[i]) {",
-      "     return population[i];",
-      "   }",
-      " }",
-      " //Due to rounding there is a small possibility of not selecting any individual.",
-      " //In this case the process is repeated.",
-      " return " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "(population);",
-      "}",
-    ]);
+    var functionName = Blockly.JavaScript.provideFunction_(
+      "getIndividualFitnessproportionate",
+      [
+        "function " +
+          Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+          "(population) {",
+        " var overallFitness = 0, maxRandomNumber = Array(population.length), fitnesses = Array(population.length);",
+        " for (let i = 0; i < population.length; i++) {",
+        "   const individual = population[i];  ",
+        "   const individualFitness = fitness(individual);",
+        "   overallFitness += individualFitness;",
+        "   fitnesses[i] = individualFitness;",
+        " }",
+        " if (overallFitness == 0) {",
+        "   return population[Math.floor(Math.random() * population.length)];",
+        " }",
+        " var previousProbability = 0;",
+        " for (let i = 0; i < population.length; i++) {",
+        "   maxRandomNumber[i] = previousProbability + (fitnesses[i] / overallFitness);",
+        "   previousProbability = maxRandomNumber[i];",
+        " }",
+        " var r  = Math.random();",
+        " for (let i = 0; i < population.length; i++) {",
+        "   if(r < maxRandomNumber[i]) {",
+        "     return population[i];",
+        "   }",
+        " }",
+        " //Due to rounding there is a small possibility of not selecting any individual.",
+        " //In this case the process is repeated.",
+        " return " +
+          Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+          "(population);",
+        "}",
+      ]
+    );
     code = functionName + "(" + variable_population + ")";
     return [code, Blockly.JavaScript.ORDER_NONE];
   }
@@ -574,7 +583,7 @@ Blockly.JavaScript["ea_mutate_prob"] = function (block) {
 };
 
 Blockly.JavaScript["ea_mutate_bit"] = function (block) {
-  // WARNING: ea_mutate_bit uses hardcoded variables. 
+  // WARNING: ea_mutate_bit uses hardcoded variables.
   var variable_individual = Blockly.JavaScript.valueToCode(
     block,
     "individual",
@@ -635,8 +644,8 @@ Blockly.JavaScript["ea_crossover_onepoint"] = function () {
     "crossoverOnepoint",
     [
       "function " +
-      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-      "(p1, p2) {",
+        Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+        "(p1, p2) {",
       "  var index = Math.floor(Math.random() * p1.length)",
       "  var child1 = p1.slice(0,index)",
       "  child1 = child1.concat(p2.slice(index, p2.length))",
@@ -654,8 +663,8 @@ Blockly.JavaScript["ea_crossover_twopoint"] = function () {
     "crossoverTwopoint",
     [
       "function " +
-      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-      "(p1, p2) {",
+        Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+        "(p1, p2) {",
       "  var childrenList = crossoverOnepoint(p1,p2);",
       "  return crossoverOnepoint(childrenList[0], childrenList[1]);",
       "}",
@@ -669,8 +678,8 @@ Blockly.JavaScript["ea_crossover_uniform"] = function () {
     "crossoverUniform",
     [
       "function " +
-      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-      "(p1, p2) {",
+        Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+        "(p1, p2) {",
       "  var child1 = p1;",
       "  var child2 = p2;",
       "  for (var i=0; i < p1.length; i++) {",
@@ -740,8 +749,8 @@ Blockly.JavaScript["wait"] = function (block) {
   var wait_period = block.getFieldValue("PERIOD");
   var functionName = Blockly.JavaScript.provideFunction_("sleep", [
     "function " +
-    Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-    "(wait_period) {",
+      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+      "(wait_period) {",
     "   const date = Date.now();",
     "   let currentDate = null;",
     "   do {",
@@ -767,8 +776,8 @@ Blockly.JavaScript["check_fitness"] = function (block) {
     "populationHasNotRequiredFitness",
     [
       "function " +
-      Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-      "(population, fitnessRequired) {",
+        Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+        "(population, fitnessRequired) {",
       "  var bestFitness = 0",
       "  for (var i=0; i < population.length; i++) {",
       "   if(fitness(population[i])>bestFitness){bestFitness=fitness(population[i])}",
@@ -777,7 +786,13 @@ Blockly.JavaScript["check_fitness"] = function (block) {
       "}",
     ]
   );
-  var code = functionCheckFitness + "(" + variable_population + "," + variable_minFitness + ")";
+  var code =
+    functionCheckFitness +
+    "(" +
+    variable_population +
+    "," +
+    variable_minFitness +
+    ")";
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
@@ -812,19 +827,27 @@ Blockly.JavaScript["individual_hamming_distance"] = function (block) {
     block.getFieldValue("SECOND_INDIVIDUAL"),
     Blockly.Variables.NAME_TYPE
   );
-  var functionName = Blockly.JavaScript.provideFunction_("individualHammingDistance", [
-    "function " +
-    Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
-    "(individual_1, individual_2) {",
-    "  if(individual_1.length != individual_2.length){return 0;}",
-    "  var count = 0;",
-    "  for (var j=0; j<individual_1.length; j++) {",
-    "    if(individual_1[j] == individual_2[j]) {count ++;}",
-    "  }",
-    "  return count;",
-    "}",
-  ]);
-  var code = functionName + "(" + variable_individual_1 + "," + variable_individual_2 + ")";
+  var functionName = Blockly.JavaScript.provideFunction_(
+    "individualHammingDistance",
+    [
+      "function " +
+        Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
+        "(individual_1, individual_2) {",
+      "  if(individual_1.length != individual_2.length){return 0;}",
+      "  var count = 0;",
+      "  for (var j=0; j<individual_1.length; j++) {",
+      "    if(individual_1[j] == individual_2[j]) {count ++;}",
+      "  }",
+      "  return count;",
+      "}",
+    ]
+  );
+  var code =
+    functionName +
+    "(" +
+    variable_individual_1 +
+    "," +
+    variable_individual_2 +
+    ")";
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
-
