@@ -664,28 +664,6 @@ export const blockDefinitions = [
     category: "logging",
   },
   {
-    type: "ea_log",
-    message0: "log %1 with tag %2",
-    args0: [
-      {
-        type: "input_value",
-        name: "logging_variable",
-      },
-      {
-        type: "input_value",
-        name: "logging_tag",
-        check: "String",
-      },
-    ],
-    inputsInline: true,
-    previousStatement: null,
-    nextStatement: null,
-    colour: "#777",
-    tooltip: "",
-    helpUrl: "",
-  },
-
-  {
     type: "comment",
     message0: '// " %1 "',
     args0: [
@@ -904,13 +882,14 @@ export const blockDefinitions = [
         type: "input_value",
         name: "datasetNumber",
         check: "Number",
-        comment: "Determines to which dataset of the plot this data will be added.",
+        comment:
+          "Determines to which dataset of the plot this data will be added.",
       },
       {
         type: "field_input",
         name: "plotName",
         text: "fitness",
-        check: "String", 
+        check: "String",
         comment: "Determines which plot this datapoint will be added to.",
       },
       {
@@ -928,7 +907,7 @@ export const blockDefinitions = [
     colour: "#777",
     helpUrl: "",
     category: "logging",
-    tooltip: "Use this block to create plots with the data from your EA"
+    tooltip: "Use this block to create plots with the data from your EA",
   },
   {
     type: "individual_hamming_distance",
