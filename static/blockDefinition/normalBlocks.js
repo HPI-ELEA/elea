@@ -198,22 +198,25 @@ export const blockDefinitions = [
   {
     type: "run_loop_logging",
     message0:
-      "While %1 Budget %2 Algorithm ID %3 %4 Function ID %5 %6 %7 %8 Log: %9 fitness %10 dimension %11 run %12",
+      "While %1 Budget %2 Algorithm ID %3 %4 Function ID %5 %6 %7 %8 Log: %9 fitness %10 dimension %11 run %12 for the IOHanalyzer",
     args0: [
       {
         type: "input_value",
         name: "continue_condition",
         check: "Boolean",
+        comment: "Condition for the loop",
       },
       {
         type: "input_value",
         name: "exit_number",
         check: "Number",
+        comment: "Maximum number of iterations",
       },
       {
         type: "field_input",
         name: "algId",
         text: "elea",
+        comment: "ID of the algorithm for IOHanalyzer",
       },
       {
         type: "input_dummy",
@@ -224,6 +227,8 @@ export const blockDefinitions = [
         value: 1,
         min: 1,
         precision: 1,
+        comment:
+          "ID of the used fitness function in the algorithm for the IOHanalyzer.",
       },
       {
         type: "input_dummy",
@@ -242,23 +247,27 @@ export const blockDefinitions = [
         type: "input_value",
         name: "fitness",
         check: "Number",
+        comment: "Current fitness function.",
       },
       {
         type: "input_value",
         name: "dim",
         check: "Number",
+        comment: "Number of the dimension (mostly 1).",
       },
       {
         type: "input_value",
         name: "run",
         check: "Number",
+        comment: "ID of the run.",
       },
     ],
     inputsInline: false,
     previousStatement: null,
     nextStatement: null,
     colour: 230,
-    tooltip: "An experimental breeding loop with logging",
+    tooltip:
+      "An experimental breeding loop with integrated logging for IOHprofiler. After you executed the program, download the data for the IOHanalyzer, go to page of the <a href='https://iohanalyzer.liacs.nl/'>IOHanalyzer</a> and analyze your data.",
     helpUrl: "",
     category: "algorithm-parts",
   },
