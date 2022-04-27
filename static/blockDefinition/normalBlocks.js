@@ -664,28 +664,6 @@ export const blockDefinitions = [
     category: "logging",
   },
   {
-    type: "ea_log",
-    message0: "log %1 with tag %2",
-    args0: [
-      {
-        type: "input_value",
-        name: "logging_variable",
-      },
-      {
-        type: "input_value",
-        name: "logging_tag",
-        check: "String",
-      },
-    ],
-    inputsInline: true,
-    previousStatement: null,
-    nextStatement: null,
-    colour: "#777",
-    tooltip: "",
-    helpUrl: "",
-  },
-
-  {
     type: "comment",
     message0: '// " %1 "',
     args0: [

@@ -402,8 +402,7 @@ Blockly.JavaScript["ea_select_best"] = function (block) {
     "POPULATION",
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  var code =
-    POPULATION + ".sort(function(a,b) { return fitness(b)-fitness(a)})[0]";
+  var code = POPULATION + ".reduce((a,b) => (fitness(a) > fitness(b))? a: b)";
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
@@ -627,17 +626,6 @@ Blockly.JavaScript["ea_debug"] = function (block) {
   code += "  print_var = " + variable_ + '.join("\\n");\n';
   code += "consolelog(print_var);\n";
   return code;
-};
-
-Blockly.JavaScript["ea_log"] = function () {
-  console.warn(
-    "the ea_log block has been disabled while multi-threading is worked on"
-  );
-  // var variable = Blockly.JavaScript.valueToCode(block, 'logging_variable', Blockly.JavaScript.ORDER_ATOMIC);
-  // var logging_tag = Blockly.JavaScript.valueToCode(block, 'logging_tag', Blockly.JavaScript.ORDER_ATOMIC);
-  // var code = 'jsonLogItem[' + logging_tag + '] = ' + variable + ';\n';
-  // return code;
-  return "";
 };
 
 Blockly.JavaScript["ea_crossover_onepoint"] = function () {
