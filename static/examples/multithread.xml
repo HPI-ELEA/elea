@@ -4,7 +4,7 @@
     <variable id="*b+Q}ingpG7]CAE,M{GD">fib</variable>
     <variable id="Y%7;kKJwF1UkHI{DSg}B">i</variable>
   </variables>
-  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="435" y="49">
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="435" y="49" deletable="false">
     <statement name="init_statements">
       <block type="ea_debug" id="bPacL4PJ]5kT._h=}*9K">
         <value name="logging_variable">

@@ -13,7 +13,7 @@
     <variable type="Individual" id="]3vGA_2znq/0l?#sZ~44">parent</variable>
     <variable type="Individual" id="HQzB2Dh:AnHS2Splu_vY">offspring</variable>
   </variables>
-  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="165" y="-17">
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="165" y="-17" deletable="false">
     <statement name="init_statements">
       <block type="run_thread" id="v3_MRZXz1chSWMiQ0Y2X">
         <field name="output_array" id="jpSMP=UtW)m]Fg0W0FxU">result</field>

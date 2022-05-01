@@ -13,7 +13,7 @@
     <variable type="Individual" id="|5zDPSJN?$Di|I!M#17|">parent</variable>
     <variable type="Individual" id="DL-dyiHx%dpP^R1wV9n#">offspring</variable>
   </variables>
-  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="165" y="4">
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="165" y="4" deletable="false">
     <statement name="init_statements">
       <block type="controls_for" id="}XR@KNXf}G(1Dm;n:tdN">
         <field name="VAR" id="$zt),?8|})G,(/E.43Jj">count</field>

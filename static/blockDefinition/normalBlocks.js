@@ -16,7 +16,7 @@ export const blockDefinitions = [
       },
     ],
     colour: 230,
-    tooltip: "This block runs if you click 'Run Javascript'.",
+    tooltip: "This block runs if you click 'Run'.",
     helpUrl: "",
     category: "algorithm-parts",
   },
