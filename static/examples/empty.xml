@@ -1,3 +1,3 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="startBlocks" style="display: none">
-    <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38"></block>
+    <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38" deletable="false"></block>
 </xml>

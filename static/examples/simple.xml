@@ -11,7 +11,7 @@
     <variable type="Individual" id="*hQa)e/ODpP;0mfHAvfO">offspring1</variable>
     <variable type="Individual" id=":^Fp=6cFPi#KWNQDa#;u">offspring2</variable>
   </variables>
-  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38">
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38" deletable="false">
     <statement name="init_statements">
       <block type="variables_set" id="N8=or.WL#9!rDUnQrGuL">
         <field name="VAR" id="_`RU](?6R2Mdm}^monre">genome_length</field>

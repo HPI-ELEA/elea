@@ -5,7 +5,7 @@
     <variable id="b!@f8OP^Ceri}:0Ul5Bc">fib</variable>
     <variable id="99$amqG0$ExBHhp3:,@l">result</variable>
   </variables>
-  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="59" y="86">
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="59" y="86" deletable="false">
     <statement name="init_statements">
       <block type="comment" id="LOwOwZ$D:tC_z0l6cSaM">
         <field name="text">Demonstrate how different multithread methods &amp;#10;influence the runtime of the algorithm by &amp;#10;performing the same calculation in different &amp;#10;numbers of threads</field>

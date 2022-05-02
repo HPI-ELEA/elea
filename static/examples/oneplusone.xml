@@ -7,7 +7,7 @@
     <variable id="0dkovK!SuoHH%uP1/Uc}">chi</variable>
     <variable type="Individual" id="/tnRua%7/_s9G4(pG,{t">offspring</variable>
   </variables>
-  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="191" y="42">
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="191" y="42" deletable="false">
     <statement name="init_statements">
       <block type="variables_set" id="XSr6{9T}`^/@y8^EVzaL">
         <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
