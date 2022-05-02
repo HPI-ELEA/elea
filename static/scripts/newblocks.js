@@ -142,8 +142,8 @@ Blockly.JavaScript["init_uniform"] = function () {
     [
       "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
       "  var fullArray = Array(_C2_B5).fill(0);", // TODO: replace fill for ES5
-      "  var tempArray = Array(genome_length).fill(0);",
       "  for (var j=0; j < _C2_B5;j++) {",
+      "    var tempArray = Array(genome_length).fill(0);",
       "    for (var k=0; k< genome_length; k++) {",
       "      tempArray[k] = Math.round(Math.random());",
       "    }",
