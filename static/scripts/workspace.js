@@ -16,7 +16,7 @@ $("#run-button").click(runCode);
 $("#kill-button").click(terminateWorker);
 $("#clear-button").click(clearOutput);
 $("#show-button").click(highlightAll);
-$("#show-dashboard-button").click(() => {});
+$("#show-dashboard-button").click(() => { });
 // $('#stop-button').click(stopWorker)
 // $('#step-button').click(stepCode)
 // $('#reset-button').click(generateCodeAndLoadIntoInterpreter)
@@ -64,8 +64,10 @@ function addPrintOutput() {
 addPrintOutput();
 
 function clearOutput() {
-  clearPlots();
-  $("#output-column").empty();
+  if (confirm("Everything in the Output-Column will be deleted. \n Continue?")) {
+    clearPlots();
+    $("#output-column").empty();
+  }
 }
 
 function addNewOutputEntry(outputContent, outputContentID, title) {
