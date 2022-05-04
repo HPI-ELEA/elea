@@ -791,17 +791,13 @@ Blockly.JavaScript["plotting_one_value"] = function (block) {
     "yValue",
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  var variable_datasetNumber = Blockly.JavaScript.valueToCode(
-    block,
-    "datasetNumber",
-    Blockly.JavaScript.ORDER_ATOMIC
-  );
+  var variable_datasetName = block.getFieldValue("datasetName");
   var variable_plotName = block.getFieldValue("plotName");
   var variable_plotType = block.getFieldValue("plotType");
 
   var code = "plot({yValue: ";
-  code += variable_yValue + ", datasetNumber: ";
-  code += variable_datasetNumber + ", plotName: ";
+  code += variable_yValue + ", datasetName: ";
+  code += "'" + variable_datasetName + "', plotName: ";
   code += "'" + variable_plotName + "', plotType: ";
   code += "'" + variable_plotType + "'});\n";
   return code;
@@ -813,16 +809,12 @@ Blockly.JavaScript["save_in_csv"] = function (block) {
     "value",
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  var variable_datasetName = Blockly.JavaScript.valueToCode(
-    block,
-    "datasetname",
-    Blockly.JavaScript.ORDER_ATOMIC
-  );
+  var variable_datasetName = block.getFieldValue("datasetname");
   var variable_plotName = block.getFieldValue("filename");
 
   var code = "save_in_csv({value: ";
   code += variable_value + ", datasetname: ";
-  code += variable_datasetName + ", filename: ";
+  code += "'" + variable_datasetName + "', filename: ";
   code += "'" + variable_plotName + "'});\n";
   return code;
 };
