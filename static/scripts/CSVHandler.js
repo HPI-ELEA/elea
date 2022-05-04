@@ -1,3 +1,5 @@
+import JSZip from "./jszip.js";
+
 class CSVHandler {
   constructor() {
     this.csvMap = new Map();
@@ -16,8 +18,10 @@ class CSVHandler {
     requestedCSV.updateValue(data);
   }
 
-  downloadCSV() {
-    this.csvMap.forEach((value) => value.downloadCSV());
+  async downloadCSV() {
+    let zip = JSZip();
+    this.csvMap.forEach((value) => value.downloadCSV(zip));
+    await downloadZIP(zip, "elea.zip");
   }
 
   clearCSV() {
@@ -53,14 +57,9 @@ class CSVWorker {
     }
   }
 
-  downloadCSV() {
+  downloadCSV(zip) {
     this.iteration++;
 
-    let meta = "";
-    if (globalThis.window) {
-      // you have to declare meta tag only in brwoser environment
-      meta = "data:text/csv;charset=utf-8,";
-    }
     let heading = this.labels.join(";") + "\n";
 
     // max number of datapoints in all datasets
@@ -79,27 +78,29 @@ class CSVWorker {
       }
       rows.push(column.join(";"));
     }
-    let csvContent = meta + heading + rows.join("\n");
-    downloadFile(csvContent, this.filename + ".csv");
+    let csvContent = heading + rows.join("\n");
+    zip.file(this.filename + ".csv", csvContent);
   }
 }
 
-function downloadFile(content, filename) {
+async function downloadZIP(zip) {
   if (!globalThis.window) {
     // Nodejs environment
-    //eslint-disable-next-line no-undef -- is imported in nodejs env
-    fs.writeFile(filename, content, "utf8", function (e) {
-      if (e) return console.error(e);
-      console.log("Generated " + filename);
+    zip.generateAsync({ type: "nodebuffer" }).then(function (content) {
+      //eslint-disable-next-line no-undef -- is imported in nodejs env
+      fs.writeFile("hello.zip", content, function (e) {
+        if (e) return console.error(e);
+      });
     });
   } else {
     // Browser environment
-    let encodedUri = encodeURI(content);
-    var link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", filename);
-    document.body.appendChild(link);
+    let file = await zip.generateAsync({ type: "blob" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(file);
+    link.download = "elea-csv.zip";
+    document.body.append(link);
     link.click();
+    link.remove();
   }
 }
 
