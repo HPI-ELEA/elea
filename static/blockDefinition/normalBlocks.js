@@ -890,7 +890,7 @@ export const blockDefinitions = [
       {
         type: "input_value",
         name: "datasetNumber",
-        check: "Number",
+        check: ["String", "Number"],
         comment:
           "Determines to which dataset of the plot this data will be added.",
       },
@@ -932,7 +932,7 @@ export const blockDefinitions = [
       {
         type: "input_value",
         name: "datasetname",
-        check: "String",
+        check: ["String", "Number"],
         comment:
           "Determines to which column of the CSV-file this value will be added. A dataset contains a number of datapoints.",
       },
