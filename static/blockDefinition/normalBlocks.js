@@ -979,4 +979,51 @@ export const blockDefinitions = [
     helpUrl: "",
     category: "measures",
   },
+  {
+    type: "plotting_two_values",
+    message0: "Plot x:%1 y: %2 in Dataset: %3 in Plot: %4 as %5",
+    args0: [
+      {
+        type: "input_value",
+        name: "xValue",
+        check: "Number",
+        comment: "x-value of the new datapoint",
+      },
+      {
+        type: "input_value",
+        name: "yValue",
+        check: "Number",
+        comment: "y-value of the new datapoint",
+      },
+      {
+        type: "input_value",
+        name: "datasetNumber",
+        check: ["String", "Number"],
+        comment:
+          "Determines to which dataset of the plot this data will be added.",
+      },
+      {
+        type: "field_input",
+        name: "plotName",
+        text: "fitness",
+        check: "String",
+        comment: "Determines which plot this datapoint will be added to.",
+      },
+      {
+        type: "field_dropdown",
+        name: "plotType",
+        options: [
+          ["scatterplot", "scatter"],
+          ["linegraph", "line"],
+        ],
+      },
+    ],
+    inputsInline: true,
+    previousStatement: null,
+    nextStatement: null,
+    colour: "#777",
+    helpUrl: "",
+    category: "logging",
+    tooltip: "Use this block to create plots with the data from your EA",
+  },
 ];
