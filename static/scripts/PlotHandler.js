@@ -10,7 +10,7 @@ class PlotHandler {
         let plotName = data.plotName;
         let requestedPlot = this.plotMap.get(plotName);
         if (!requestedPlot) {
-            requestedPlot = new PlotWorker(plotName, data.plotType);
+            requestedPlot = new PlotWorker(plotName);
             this.plotMap.set(plotName, requestedPlot);
         }
         requestedPlot.updateValue(data);
@@ -26,7 +26,7 @@ class PlotHandler {
 }
 
 class PlotWorker {
-    constructor(name, plotType) {
+    constructor(name) {
         this.plotName = name;
         this.plotData = new Map();
         this.myChart = null;
