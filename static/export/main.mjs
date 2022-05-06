@@ -40,6 +40,7 @@ function handleErrorFromWorker(err){
 function terminateWorker(){
     if (worker != null) {
         worker.terminate();
+        downloadCSV();
         console.warn("Terminated running worker");
     }
 }
