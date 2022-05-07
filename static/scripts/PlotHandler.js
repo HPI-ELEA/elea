@@ -1,4 +1,6 @@
+import jquery from "jquery";
 import { addNewOutputEntry } from "./workspace";
+import $ from "jquery";
 
 class PlotHandler {
     constructor() {
@@ -32,14 +34,20 @@ class PlotWorker {
         this.myChart = null;
         this.chartExists = false;
         this.iteration = 0;
-        let divString = `<canvas id="plot-${name}"></canvas>`;
+        let divString = `<canvas id="plot-${name}"></canvas>
+        <button class="btn btn-outline-dark btn-block" 
+        id="boxplot-${name}-button"> Generate Boxplot </button>`;
         addNewOutputEntry(
             divString,
             name,
             name
         );
+        $(`#boxplot-${name}-button`).click(() => {
+            this.generateBoxplot();
+        });
         let canvasID = 'plot-' + name;
         this.chartArea = document.getElementById(canvasID).getContext('2d');
+        this.boxplotWorker = null;
     }
 
     //collect data during runtime 
@@ -55,12 +63,12 @@ class PlotWorker {
             if (data.xValue == null) {
                 data.xValue = 0;
             }
-            let randomColor = random_rgba(); 
+            let randomColor = random_rgba();
             dataset = {
                 label: 'Dataset' + datasetName,
                 type: data.plotType,
                 backgroundColor: randomColor,
-                borderColor: randomColor, 
+                borderColor: randomColor,
                 data: [{ x: data.xValue, y: data.yValue }],
             }
             this.plotData.set(datasetName, dataset);
@@ -114,7 +122,94 @@ class PlotWorker {
         }
         return;
     }
+
+    generateBoxplot() {
+        console.log("Generating Boxplot");
+        this.boxplotWorker = new BoxplotWorker(this.plotName);
+        this.boxplotWorker.convertData(this.plotData);
+        return;
+    }
 }
+
+class BoxplotWorker {
+    constructor(name) {
+        this.plotData = new Map();
+        this.myChart = null;
+        this.chartExists = false;
+        let divString = `<canvas id="boxplot-${name}"></canvas>`;
+        addNewOutputEntry(
+            divString,
+            name + "-boxplot",
+            name + "-boxplot"
+        );
+        let canvasID = 'boxplot-' + name;
+        this.chartArea = document.getElementById(canvasID).getContext('2d');
+    }
+
+    convertData(data) {
+        //Transforming the chartData to the format required by boxplot. 
+        console.log(data);
+        data.forEach(dataset => {
+            dataset.data.forEach(datapoint => {
+                let xPlace = this.plotData.get(datapoint.x); 
+                if(!xPlace){
+                    //haven't had a datapoint here yet
+                    this.plotData.set(datapoint.x, [datapoint.y]); 
+                }else{
+                    // add yValue to the list: 
+                    xPlace.push(datapoint.y); 
+                }
+            }
+            );
+        });
+        console.log("finished converting with: "); 
+        console.log(this.plotData); 
+        this.drawChart(); 
+    }
+
+    drawChart(){
+        let chartData = Array.from(this.plotData.values()); 
+        let N = this.plotData.size; 
+        let labels = Array.from(Array(N).keys());
+        console.log(N); 
+        const boxplotData = {
+            // define label tree
+            labels: labels,
+            datasets: [{
+              label: 'Dataset 1',
+              backgroundColor: 'rgba(255,0,0,0.5)',
+              borderColor: 'red',
+              borderWidth: 1,
+              outlierColor: '#999999',
+              padding: 10,
+              itemRadius: 0,
+              data: chartData,
+            },]
+          };
+          
+          this.myChart = new Chart(this.chartArea, {
+              type: 'boxplot',
+              data: boxplotData,
+              options: {
+                responsive: true,
+                legend: {
+                  position: 'top',
+                },
+                title: {
+                  display: true,
+                  text: 'Chart.js Box Plot Chart'
+                }
+              }
+            });
+            console.log("Chart created"); 
+        return; 
+    }
+}
+function randomValues(count, min, max) {
+    const delta = max - min;
+    return Array.from({length: count}).map(() => Math.random() * delta + min);
+  }
+  
 
 var plotHandler = new PlotHandler();
 
