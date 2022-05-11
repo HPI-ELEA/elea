@@ -246,7 +246,105 @@
       id="toolbox"
       style="display: none"
     >
-      <category name="Measures" colour="180">
+      <category name="Population" colour="330">
+        <button
+          text="Create population"
+          callbackKey="createPopulationButton"
+        ></button>
+        <block type="variables_get_population"></block>
+        <block type="variables_set_population"></block>
+
+        <label text="Initialization"></label>
+        <block type="init_uniform"></block>
+        <block type="init_constant"></block>
+        <block type="pop_init"></block>
+        <block type="lists_create_with">
+          <mutation items="0"></mutation>
+        </block>
+        <block type="lists_create_with"></block>
+        <block type="lists_repeat">
+          <value name="NUM">
+            <shadow type="math_number">
+              <field name="NUM">5</field>
+            </shadow>
+          </value>
+        </block>
+
+        <label text="Queries"></label>
+        <block type="lists_length"></block>
+        <block type="lists_isEmpty"></block>
+        <block type="lists_indexOf">
+          <value name="VALUE">
+            <block type="variables_get_population">
+              <field name="VAR">populationVariable</field>
+            </block>
+          </value>
+        </block>
+        <block type="lists_getIndex">
+          <value name="VALUE">
+            <block type="variables_get_population">
+              <field name="VAR">populationVariable</field>
+            </block>
+          </value>
+        </block>
+        <block type="lists_getSublist">
+          <value name="LIST">
+            <block type="variables_get_population">
+              <field name="VAR">populationVariable</field>
+            </block>
+          </value>
+        </block>
+        <block type="ea_select_parent"></block>
+        <block type="ea_select_best"></block>
+        <block type="check_fitness"></block>
+
+        <label text="Manipulation"></label>
+        <block type="ea_addtopopulation"></block>
+        <block type="lists_sort"></block>
+        <block type="lists_concat"></block>
+        <block type="lists_append"></block>
+        <block type="lists_setIndex">
+          <value name="LIST">
+            <block type="variables_get_population">
+              <field name="VAR">populationVariable</field>
+            </block>
+          </value>
+        </block>
+      </category>
+
+      <category name="Individuals" colour="120">
+        <button
+          text="Create individual"
+          callbackKey="createIndividualButton"
+        ></button>
+        <block type="variables_get_individual"></block>
+        <block type="variables_set_individual"></block>
+
+        <label text="Initialization"></label>
+        <block type="lists_split">
+          <value name="DELIM">
+            <shadow type="text">
+              <field name="TEXT">,</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="individual_init_uniform"></block>
+        <block type="individual_init_constant"></block>
+
+        <label text="Queries"></label>
+
+        <label text="Manipulation"></label>
+        <block type="ea_copy"></block>
+        <block type="ea_crossover"></block>
+        <block type="ea_crossover_onepoint"></block>
+        <block type="ea_crossover_twopoint"></block>
+        <block type="ea_crossover_uniform"></block>
+        <block type="ea_mutate"></block>
+        <block type="ea_mutate_prob"></block>
+        <block type="ea_mutate_bit"></block>
+      </category>
+
+      <category name="Fitness measure" colour="180">
         <block type="max_diversity"></block>
         <block type="math_on_list">
           <field name="OP">SUM</field>
@@ -261,156 +359,24 @@
         <block type="leading_ones"></block>
         <block type="individual_hamming_distance"></block>
       </category>
-      <category name="Algorithm parts" colour="230">
-        <block type="init_uniform"></block>
-        <block type="init_constant"></block>
-        <block type="pop_init"></block>
-        <block type="ea_select_parent"></block>
-        <block type="ea_select_best"></block>
-        <block type="ea_addtopopulation"></block>
-        <block type="ea_run_breeding"></block>
-        <block type="run_loop"></block>
-        <block type="run_loop_logging">
-          <value name="exit_number">
-            <shadow type="math_number">
-              <field name="NUM">1000</field>
-            </shadow>
-          </value>
-          <value name="fitness">
-            <shadow type="math_number">
-              <field name="NUM">0</field>
-            </shadow>
-          </value>
-          <value name="dim">
-            <shadow type="math_number">
-              <field name="NUM">1</field>
-            </shadow>
-          </value>
-          <value name="run">
-            <shadow type="math_number">
-              <field name="NUM">1</field>
-            </shadow>
-          </value>
-        </block>
-      </category>
-      <category name="Individuals" colour="120">
-        <block type="individual_init_uniform"></block>
-        <block type="individual_init_constant"></block>
-        <block type="ea_copy"></block>
-        <block type="ea_crossover"></block>
-        <block type="ea_crossover_onepoint"></block>
-        <block type="ea_crossover_twopoint"></block>
-        <block type="ea_crossover_uniform"></block>
-        <block type="ea_mutate"></block>
-        <block type="ea_mutate_prob"></block>
-        <block type="ea_mutate_bit"></block>
-      </category>
-      <category name="Logging" colour="#777">
-        <block type="ea_debug">
-          <value name="logging_variable">
-            <shadow type="text">
-              <field name="TEXT"></field>
-            </shadow>
-          </value>
-        </block>
-        <block type="text"></block>
-        <block type="comment"></block>
-        <block type="plotting_one_value">
-          <value name="yValue">
-            <shadow type="math_number">
-              <field name="NUM">10</field>
-            </shadow>
-          </value>
-          <value name="datasetNumber">
-            <shadow type="math_number">
-              <field name="NUM">1</field>
-            </shadow>
-          </value>
-          <value name="plotName">
-            <shadow type="math_number">
-              <field name="NUM">fitness</field>
-            </shadow>
-          </value>
-        </block>
-        <block type="save_in_csv"></block>
-      </category>
+
       <sep></sep>
-      <category name="Variables" colour="330">
+
+      <category name="Primitive datatypes" colour="230">
         <button
           text="Create variable"
           callbackKey="createVariableButton"
         ></button>
         <block type="variables_get"></block>
         <block type="variables_set"></block>
-        <button
-          text="Create individual"
-          callbackKey="createIndividualButton"
-        ></button>
-        <block type="variables_get_individual"></block>
-        <block type="variables_set_individual"></block>
-        <button
-          text="Create population"
-          callbackKey="createPopulationButton"
-        ></button>
-        <block type="variables_get_population"></block>
-        <block type="variables_set_population"></block>
+        <block type="math_number"></block>
+        <block type="text"></block>
+
+        <block type="math_arithmetic"></block>
+        <block type="math_random_int"></block>
       </category>
-      <category name="Functions" colour="290" custom="PROCEDURE"></category>
-      <category name="List" colour="290">
-        <block type="lists_create_with">
-          <mutation items="0"></mutation>
-        </block>
-        <block type="lists_create_with"></block>
-        <block type="lists_repeat">
-          <value name="NUM">
-            <shadow type="math_number">
-              <field name="NUM">5</field>
-            </shadow>
-          </value>
-        </block>
-        <block type="lists_length"></block>
-        <block type="lists_isEmpty"></block>
-        <block type="lists_indexOf">
-          <value name="VALUE">
-            <block type="variables_get">
-              <field name="VAR">{listVariable}</field>
-            </block>
-          </value>
-        </block>
-        <block type="lists_getIndex">
-          <value name="VALUE">
-            <block type="variables_get">
-              <field name="VAR">{listVariable}</field>
-            </block>
-          </value>
-        </block>
-        <block type="lists_setIndex">
-          <value name="LIST">
-            <block type="variables_get">
-              <field name="VAR">{listVariable}</field>
-            </block>
-          </value>
-        </block>
-        <block type="lists_getSublist">
-          <value name="LIST">
-            <block type="variables_get">
-              <field name="VAR">{listVariable}</field>
-            </block>
-          </value>
-        </block>
-        <block type="lists_split">
-          <value name="DELIM">
-            <shadow type="text">
-              <field name="TEXT">,</field>
-            </shadow>
-          </value>
-        </block>
-        <block type="lists_sort"></block>
-        <block type="lists_concat"></block>
-        <block type="lists_append"></block>
-      </category>
-      <category name="Logic" colour="290">
-        <block type="check_fitness"></block>
+
+      <category name="Logic" colour="230">
         <block type="controls_if"></block>
         <block type="logic_compare"></block>
         <block type="logic_operation"></block>
@@ -419,14 +385,8 @@
         <block type="logic_null"></block>
         <block type="logic_ternary"></block>
       </category>
-      <category name="Math" colour="230">
-        <block type="math_number"></block>
-        <block type="math_arithmetic"></block>
-        <block type="math_on_list"></block>
-        <block type="math_random_int"></block>
-        <block type="math_constrain"></block>
-      </category>
-      <category name="Loops" colour="120">
+
+      <category name="Loops" colour="230">
         <block type="controls_repeat_ext">
           <value name="TIMES">
             <shadow type="math_number">
@@ -452,10 +412,67 @@
             </shadow>
           </value>
         </block>
-        <block type="controls_forEach"></block>
+        <block type="controls_forEach" colour="230"></block>
         <block type="controls_flow_statements"></block>
+        <block type="ea_run_breeding"></block>
+        <block type="run_loop"></block>
+        <block type="run_loop_logging">
+          <value name="exit_number">
+            <shadow type="math_number">
+              <field name="NUM">1000</field>
+            </shadow>
+          </value>
+          <value name="fitness">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+          <value name="dim">
+            <shadow type="math_number">
+              <field name="NUM">1</field>
+            </shadow>
+          </value>
+          <value name="run">
+            <shadow type="math_number">
+              <field name="NUM">1</field>
+            </shadow>
+          </value>
+        </block>
       </category>
+
+      <category name="Functions" colour="290" custom="PROCEDURE"></category>
+
       <sep></sep>
+
+      <category name="Logging" colour="#777">
+        <block type="ea_debug">
+          <value name="logging_variable">
+            <shadow type="text">
+              <field name="TEXT"></field>
+            </shadow>
+          </value>
+        </block>
+        <block type="plotting_one_value">
+          <value name="yValue">
+            <shadow type="math_number">
+              <field name="NUM">10</field>
+            </shadow>
+          </value>
+          <value name="datasetNumber">
+            <shadow type="math_number">
+              <field name="NUM">1</field>
+            </shadow>
+          </value>
+          <value name="plotName">
+            <shadow type="math_number">
+              <field name="NUM">fitness</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="save_in_csv"></block>
+        <block type="comment"></block>
+      </category>
+
       <category name="Multi-Threading" colour="#338899">
         <block type="run_thread">
           <value name="thread_count">
@@ -490,6 +507,16 @@
         <block type="thread_import_variable"></block>
         <block type="thread_num"></block>
         <block type="thread_hardware_concurrency"></block>
+      </category>
+
+      <category name="Time management" colour="0">
+        <block type="wait"></block>
+        <block type="experimental_timer"></block>
+      </category>
+
+      <category name="experimental" colour="#111111">
+        <block type="experimental_raw_code"></block>
+        <block type="experimental_raw_value"></block>
         <block type="fibonacci">
           <value name="fib_number">
             <shadow type="math_number">
@@ -497,12 +524,6 @@
             </shadow>
           </value>
         </block>
-      </category>
-      <category name="experimental" colour="#111111">
-        <block type="experimental_timer"></block>
-        <block type="experimental_raw_code"></block>
-        <block type="experimental_raw_value"></block>
-        <block type="wait"></block>
       </category>
     </xml>
 
