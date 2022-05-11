@@ -148,7 +148,6 @@ class BoxplotWorker {
 
     convertData(data) {
         //Transforming the chartData to the format required by boxplot. 
-        console.log(data);
         data.forEach(dataset => {
             dataset.data.forEach(datapoint => {
                 let xPlace = this.plotData.get(datapoint.x); 
@@ -162,8 +161,6 @@ class BoxplotWorker {
             }
             );
         });
-        console.log("finished converting with: "); 
-        console.log(this.plotData); 
         this.drawChart(); 
     }
 
@@ -171,7 +168,6 @@ class BoxplotWorker {
         let chartData = Array.from(this.plotData.values()); 
         let N = this.plotData.size; 
         let labels = Array.from(Array(N).keys());
-        console.log(N); 
         const boxplotData = {
             // define label tree
             labels: labels,
