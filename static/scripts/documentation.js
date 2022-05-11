@@ -18,7 +18,7 @@ normalBlocks.concat(threadBlocks).forEach((block) => {
     $(
       '<div class="display-5 alert alert-info" id="cat-moreblocks"><h2><strong>More blocks</strong></h2><p>Blocks without categorization. That means, you can\'t use them.</p></div>\
         <hr id="cat-moreblocks-separator">'
-    ).insertAfter("#cat-experimental-separator");
+    ).insertAfter("#cat-experimental_blocks-separator");
   }
   $(entry).insertBefore("#cat-" + category + "-separator");
   set_block_image(

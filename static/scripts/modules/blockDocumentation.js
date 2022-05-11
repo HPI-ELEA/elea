@@ -1,4 +1,5 @@
 import * as Blockly from "blockly";
+import { theme } from "./blockTheme";
 
 function get_block_name(json_object) {
   let block_name = "";
@@ -23,7 +24,7 @@ function get_tooltip(json_object) {
 }
 
 function get_category(json_object) {
-  return json_object.category || "moreblocks";
+  return json_object.style || "moreblocks";
 }
 
 function get_output_type(json_object) {
@@ -58,6 +59,7 @@ function set_block_image(json_object, div_element) {
     readOnly: true,
     scrollbars: false,
     zoom: false,
+    theme: theme,
   });
 
   Blockly.Blocks[json_object.type] = {
