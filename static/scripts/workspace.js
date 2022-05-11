@@ -65,7 +65,9 @@ addPrintOutput();
 
 function clearOutput() {
   if (
-    confirm("Everything in the Output-Column will be deleted. \n Continue?")
+    confirm(
+      "Everything in the Output-Column and the content of the CSV-files will be deleted. \n Continue?"
+    )
   ) {
     clearCSV();
     clearPlots();
