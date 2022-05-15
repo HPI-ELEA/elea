@@ -799,7 +799,7 @@ Blockly.JavaScript["plotting_one_value"] = function (block) {
   var variable_plotName = block.getFieldValue("plotName");
   var variable_plotType = block.getFieldValue("plotType");
 
-  var code = "plot({xValue: null, yValue: ";
+  var code = "plot({yValue: ";
   code += variable_yValue + ", datasetNumber: ";
   code += variable_datasetNumber + ", plotName: ";
   code += "'" + variable_plotName + "', plotType: ";

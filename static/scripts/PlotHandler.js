@@ -85,7 +85,11 @@ class PlotWorker {
                 type: 'scatter',
                 data: testplotData,
                 options: {
-                    indexAxis: 'x',
+                    scales: {
+                        x: {
+                            beginAtZero: false, 
+                        },
+                    },
                     plugins: {
                         title: {
                             display: true,
