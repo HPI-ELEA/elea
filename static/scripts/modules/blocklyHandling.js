@@ -8,7 +8,7 @@ import "../newblocks";
 import "../threadblocks";
 import { addPrintOutput } from "../workspace";
 import { updateValue as updateValuePlot, drawPlots } from "../PlotHandler";
-import { updateValue as updateValueCSV } from "../CSVHandler";
+import { updateValue as updateValueCSV, printDoneMessage } from "../CSVHandler";
 
 // var jsonLog = null;
 var worker = null;
@@ -217,6 +217,7 @@ function handleMessageFromWorker(msg) {
   if (msg.ctrl == "terminate") {
     console.log("terminate worker due to its request.");
     terminateWorker();
+    printDoneMessage();
     drawPlots();
     return;
   }
