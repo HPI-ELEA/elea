@@ -95,7 +95,7 @@ class PlotWorker {
                 options: {
                     scales: {
                         x: {
-                            beginAtZero: false, 
+                            beginAtZero: false,
                         },
                     },
                     plugins: {
@@ -121,7 +121,9 @@ class PlotWorker {
 
     generateBoxplot() {
         console.log("Generating Boxplot");
-        this.boxplotWorker = new BoxplotWorker(this.plotName);
+        if (!this.boxplotWorker) {
+            this.boxplotWorker = new BoxplotWorker(this.plotName);
+        }
         this.boxplotWorker.convertData(this.plotData);
         return;
     }
@@ -143,65 +145,71 @@ class BoxplotWorker {
     }
 
     convertData(data) {
+        this.plotData = new Map(); 
         //Transforming the chartData to the format required by boxplot. 
         data.forEach(dataset => {
             dataset.data.forEach(datapoint => {
-                let xPlace = this.plotData.get(datapoint.x); 
-                if(!xPlace){
+                let xPlace = this.plotData.get(datapoint.x);
+                if (!xPlace) {
                     //haven't had a datapoint here yet
-                    this.plotData.set(datapoint.x, [datapoint.y]); 
-                }else{
+                    this.plotData.set(datapoint.x, [datapoint.y]);
+                } else {
                     // add yValue to the list: 
-                    xPlace.push(datapoint.y); 
+                    xPlace.push(datapoint.y);
                 }
             }
             );
         });
-        this.drawChart(); 
+        this.drawChart();
     }
 
-    drawChart(){
-        let chartData = Array.from(this.plotData.values()); 
-        let N = this.plotData.size; 
+    drawChart() {
+        let chartData = Array.from(this.plotData.values());
+        let N = this.plotData.size;
         let labels = Array.from(Array(N).keys());
-        const boxplotData = {
-            // define label tree
-            labels: labels,
-            datasets: [{
-              label: 'Dataset 1',
-              backgroundColor: 'rgba(255,0,0,0.5)',
-              borderColor: 'red',
-              borderWidth: 1,
-              outlierColor: '#999999',
-              padding: 10,
-              itemRadius: 0,
-              data: chartData,
-            },]
-          };
-          
-          this.myChart = new Chart(this.chartArea, {
-              type: 'boxplot',
-              data: boxplotData,
-              options: {
-                responsive: true,
-                legend: {
-                  position: 'top',
-                },
-                title: {
-                  display: true,
-                  text: 'Chart.js Box Plot Chart'
+
+        if (!this.chartExists) {
+            const boxplotData = {
+                // define label tree
+                labels: labels,
+                datasets: [{
+                    label: 'Dataset 1',
+                    backgroundColor: 'rgba(255,0,0,0.5)',
+                    borderColor: 'red',
+                    borderWidth: 1,
+                    outlierColor: '#999999',
+                    padding: 10,
+                    itemRadius: 0,
+                    data: chartData,
+                },]
+            };
+
+            this.myChart = new Chart(this.chartArea, {
+                type: 'boxplot',
+                data: boxplotData,
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                    }
                 }
-              }
             });
-            console.log("Chart created"); 
-        return; 
+            this.chartExists = true; 
+        }else{
+            this.myChart.update(); 
+        }
+        console.log("Chart created");
+        return;
     }
 }
 function randomValues(count, min, max) {
     const delta = max - min;
-    return Array.from({length: count}).map(() => Math.random() * delta + min);
-  }
-  
+    return Array.from({ length: count }).map(() => Math.random() * delta + min);
+}
+
 
 var plotHandler = new PlotHandler();
 
