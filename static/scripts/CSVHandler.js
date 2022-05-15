@@ -49,6 +49,7 @@ class CSVHandler {
     this.csvMap.forEach((_, key) =>
       this.print("CSV file " + key + " generated\n")
     );
+    this.print("You can download the files at 'Save/Restore Algorithm'");
   }
 }
 
