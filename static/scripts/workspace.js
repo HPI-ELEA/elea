@@ -56,7 +56,7 @@ function addPrintOutput() {
   if ($("#output-print-area").length)
     return document.getElementById("output-print-area");
   return addNewOutputEntry(
-    '<pre id="output-print-area"></pre>',
+    '<pre id="output-print-area" class="print-area"></pre>',
     "output-print-area",
     "Output"
   );
