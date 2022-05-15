@@ -874,6 +874,7 @@ export const blockDefinitions = [
         options: [
           ["scatterplot", "scatter"],
           ["linegraph", "line"],
+          ["barchart", "bar"],
         ],
       },
     ],
@@ -979,6 +980,7 @@ export const blockDefinitions = [
         options: [
           ["scatterplot", "scatter"],
           ["linegraph", "line"],
+          ["barchart", "bar"],
         ],
       },
     ],
