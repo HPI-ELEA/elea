@@ -49,7 +49,7 @@ main {
 
 #output-column > * {
   padding-top: 0.5rem;
-  border-top: 1px solid #bdb2b2; 
+  border-top: 1px solid #bdb2b2;
   margin-bottom: 10px;
 }
 
@@ -64,7 +64,7 @@ main {
   height: min-content;
 }
 
-#output-print-area {
+.print-area {
   background-color: whitesmoke;
   display: flex;
   height: 50vh;

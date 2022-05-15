@@ -93,13 +93,9 @@ class PlotWorker {
                 type: 'scatter',
                 data: testplotData,
                 options: {
-                    indexAxis: 'x',
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                        },
                         x: {
-                            beginAtZero: true,
+                            beginAtZero: false, 
                         },
                     },
                     plugins: {

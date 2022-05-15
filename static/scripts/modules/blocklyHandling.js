@@ -8,11 +8,23 @@ import "../newblocks";
 import "../threadblocks";
 import { addPrintOutput } from "../workspace";
 import { updateValue as updateValuePlot, drawPlots } from "../PlotHandler";
-import { updateValue as updateValueCSV } from "../CSVHandler";
+import { updateValue as updateValueCSV, printDoneMessage } from "../CSVHandler";
+import { theme } from "./blockTheme";
 
 // var jsonLog = null;
 var worker = null;
 var runButton = document.getElementById("run-button");
+
+function restyle(block, style) {
+  var oldInit = block.init;
+  block.init = function () {
+    oldInit.call(this);
+    this.setStyle(style);
+  };
+}
+
+restyle(Blockly.Blocks["math_on_list"], "fitness_blocks");
+restyle(Blockly.Blocks["lists_split"], "indiv_blocks");
 
 // var pauseAtNewBlock = true;
 var blocklyArea = document.getElementById("blockly-area");
@@ -29,6 +41,7 @@ var workspace = Blockly.inject(blocklyDiv, {
     pinch: true,
   },
   trashcan: true,
+  theme: theme,
 });
 Blockly.Xml.domToWorkspace(document.getElementById("startBlocks"), workspace);
 var onresize = function () {
@@ -187,6 +200,7 @@ function handleMessageFromWorker(msg) {
   if (msg.ctrl == "terminate") {
     console.log("terminate worker due to its request.");
     terminateWorker();
+    printDoneMessage();
     drawPlots();
     return;
   }
