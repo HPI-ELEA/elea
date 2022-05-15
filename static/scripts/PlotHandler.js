@@ -4,14 +4,13 @@ class PlotHandler {
     constructor() {
         this.plotMap = new Map();
     }
-    //the data forwarded contains a single object of type {yValue,datasetNumber,plotName,plotType}
-    //because of the message handling this object is the first element of the data-array
+    //the data forwarded contains a single object of type {xValue,yValue,datasetNumber,plotName,plotType}
     //forward the data to the correct PlotWorker or create one if necessary 
     updateValue(data) {
         let plotName = data.plotName;
         let requestedPlot = this.plotMap.get(plotName);
         if (!requestedPlot) {
-            requestedPlot = new PlotWorker(plotName, data.plotType);
+            requestedPlot = new PlotWorker(plotName);
             this.plotMap.set(plotName, requestedPlot);
         }
         requestedPlot.updateValue(data);
@@ -27,13 +26,11 @@ class PlotHandler {
 }
 
 class PlotWorker {
-    constructor(name, plotType) {
+    constructor(name) {
         this.plotName = name;
         this.plotData = new Map();
-        this.plotType = plotType;
         this.myChart = null;
         this.chartExists = false;
-        this.labels = [1];
         this.iteration = 0;
         let divString = `<canvas id="plot-${name}"></canvas>`;
         addNewOutputEntry(
@@ -54,17 +51,25 @@ class PlotWorker {
         }
         let dataset = this.plotData.get(datasetName);
         if (!dataset) {
+            //generate new dataset
+            if (!data.xValue) {
+                data.xValue = 0;
+            }
+            let randomColor = random_rgba(); 
             dataset = {
                 label: 'Dataset' + datasetName,
-                backgroundColor: random_rgba(),
-                data: [data.yValue],
+                type: data.plotType,
+                backgroundColor: randomColor,
+                borderColor: randomColor, 
+                data: [{ x: data.xValue, y: data.yValue }],
             }
             this.plotData.set(datasetName, dataset);
         } else {
-            dataset.data.push(data.yValue);
-            if (dataset.data.length > this.labels.length) {
-                this.labels.push(dataset.data.length);
+            //add datapoint to existing dataset
+            if (!data.xValue) {
+                data.xValue = dataset.data.length;
             }
+            dataset.data.push({ x: data.xValue, y: data.yValue });
         }
     }
 
@@ -73,13 +78,18 @@ class PlotWorker {
         if (!this.chartExists) {
 
             let testplotData = {
-                labels: this.labels,
                 datasets: Array.from(this.plotData.values()),
             };
             const config = {
-                type: this.plotType,
+                //every plot starts as a scatterplot to place the datapoints on the canvas. The actual representation is later specified in each dataset. 
+                type: 'scatter',
                 data: testplotData,
                 options: {
+                    scales: {
+                        x: {
+                            beginAtZero: false, 
+                        },
+                    },
                     plugins: {
                         title: {
                             display: true,
