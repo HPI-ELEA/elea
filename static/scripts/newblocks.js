@@ -799,7 +799,7 @@ Blockly.JavaScript["plotting_one_value"] = function (block) {
   var variable_plotName = block.getFieldValue("plotName");
   var variable_plotType = block.getFieldValue("plotType");
 
-  var code = "plot({yValue: ";
+  var code = "plot({xValue: null, yValue: ";
   code += variable_yValue + ", datasetNumber: ";
   code += variable_datasetNumber + ", plotName: ";
   code += "'" + variable_plotName + "', plotType: ";
@@ -859,4 +859,31 @@ Blockly.JavaScript["individual_hamming_distance"] = function (block) {
     variable_individual_2 +
     ")";
   return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript["plotting_two_values"] = function (block) {
+  var variable_xValue = Blockly.JavaScript.valueToCode(
+    block,
+    "xValue",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var variable_yValue = Blockly.JavaScript.valueToCode(
+    block,
+    "yValue",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var variable_datasetNumber = Blockly.JavaScript.valueToCode(
+    block,
+    "datasetNumber",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var variable_plotName = block.getFieldValue("plotName");
+  var variable_plotType = block.getFieldValue("plotType");
+
+  var code = "plot({xValue: " + variable_xValue + ", yValue: ";
+  code += variable_yValue + ", datasetNumber: ";
+  code += variable_datasetNumber + ", plotName: ";
+  code += "'" + variable_plotName + "', plotType: ";
+  code += "'" + variable_plotType + "'});\n";
+  return code;
 };
