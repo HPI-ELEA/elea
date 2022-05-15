@@ -857,7 +857,7 @@ export const blockDefinitions = [
       {
         type: "input_value",
         name: "datasetNumber",
-        check: "Number",
+        check: ["String", "Number"],
         comment:
           "Determines to which dataset of the plot this data will be added.",
       },
@@ -892,21 +892,23 @@ export const blockDefinitions = [
         type: "input_value",
         name: "value",
         check: "Number",
-        comment: "value of the new datapoint",
+        comment:
+          "value of the new datapoint. A datapoint is part of a dataset.",
       },
       {
         type: "input_value",
         name: "datasetname",
-        check: "String",
+        check: ["String", "Number"],
         comment:
-          "Determines to which column of the CSV-file this data will be added.",
+          "Determines to which column of the CSV-file this value will be added. A dataset contains a number of datapoints.",
       },
       {
         type: "field_input",
         name: "filename",
         text: "fitness",
         check: "String",
-        comment: "Determines which CSV-file this datapoint will be added to.",
+        comment:
+          "Determines which CSV-file this datapoint will be added to. A CSV-file contains a number of datasets represented as columns.",
       },
     ],
     inputsInline: true,

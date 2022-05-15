@@ -10,13 +10,13 @@ import { downloadLog } from "./modules/export";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
 import { clearPlots } from "./PlotHandler";
-import { downloadCSV } from "./CSVHandler";
+import { clearCSV, downloadCSV } from "./CSVHandler";
 
 $("#run-button").click(runCode);
 $("#kill-button").click(terminateWorker);
 $("#clear-button").click(clearOutput);
 $("#show-button").click(highlightAll);
-$("#show-dashboard-button").click(() => { });
+$("#show-dashboard-button").click(() => {});
 // $('#stop-button').click(stopWorker)
 // $('#step-button').click(stepCode)
 // $('#reset-button').click(generateCodeAndLoadIntoInterpreter)
@@ -64,7 +64,12 @@ function addPrintOutput() {
 addPrintOutput();
 
 function clearOutput() {
-  if (confirm("Everything in the Output-Column will be deleted. \n Continue?")) {
+  if (
+    confirm(
+      "Everything in the Output-Column and the content of the CSV-files will be deleted. \n Continue?"
+    )
+  ) {
+    clearCSV();
     clearPlots();
     $("#output-column").empty();
   }
