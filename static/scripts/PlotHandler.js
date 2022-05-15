@@ -52,7 +52,7 @@ class PlotWorker {
         let dataset = this.plotData.get(datasetName);
         if (!dataset) {
             //generate new dataset
-            if (data.xValue == null) {
+            if (!data.xValue) {
                 data.xValue = 0;
             }
             let randomColor = random_rgba(); 
@@ -66,7 +66,7 @@ class PlotWorker {
             this.plotData.set(datasetName, dataset);
         } else {
             //add datapoint to existing dataset
-            if (data.xValue == null) {
+            if (!data.xValue) {
                 data.xValue = dataset.data.length;
             }
             dataset.data.push({ x: data.xValue, y: data.yValue });
@@ -85,13 +85,9 @@ class PlotWorker {
                 type: 'scatter',
                 data: testplotData,
                 options: {
-                    indexAxis: 'x',
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                        },
                         x: {
-                            beginAtZero: true,
+                            beginAtZero: false, 
                         },
                     },
                     plugins: {

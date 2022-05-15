@@ -18,7 +18,6 @@ export const blockDefinitions = [
     style: "procedure_blocks",
     tooltip: "This block runs if you click 'Run'.",
     helpUrl: "",
-    category: "algorithm-parts",
   },
   {
     type: "init_meta",
@@ -73,7 +72,6 @@ export const blockDefinitions = [
     tooltip:
       "An initialization strategy, which generates a population with individuals whos values are set randomly.",
     helpUrl: "",
-    category: "algorithm-parts",
   },
   {
     type: "individual_init_uniform",
@@ -83,7 +81,6 @@ export const blockDefinitions = [
     tooltip:
       "An initialization strategy, which generates an individual whos values are set randomly.",
     helpUrl: "",
-    category: "individuals",
   },
   {
     type: "init_constant",
@@ -103,7 +100,6 @@ export const blockDefinitions = [
     tooltip:
       "An initialization strategy, which generates a population with constant individuals.",
     helpUrl: "",
-    category: "algorithm-parts",
   },
   {
     type: "individual_init_constant",
@@ -123,7 +119,6 @@ export const blockDefinitions = [
     tooltip:
       "An initialization strategy, which generates an individual with constants.",
     helpUrl: "",
-    category: "individuals",
   },
   {
     type: "pop_init",
@@ -146,7 +141,6 @@ export const blockDefinitions = [
     tooltip:
       "Use this function to initialize your population of individuals with a specific initialization strategy.",
     helpUrl: "",
-    category: "algorithm-parts",
   },
   {
     type: "init_lambda",
@@ -193,7 +187,6 @@ export const blockDefinitions = [
     tooltip:
       "Repeats instructions as often as a condition applies and the number of iterations isn't exceeded.",
     helpUrl: "",
-    category: "algorithm-parts",
   },
   {
     type: "run_loop_logging",
@@ -269,7 +262,6 @@ export const blockDefinitions = [
     tooltip:
       "An experimental breeding loop with integrated logging for IOHprofiler. After you executed the program, download the data for the IOHanalyzer, go to page of the <a href='https://iohanalyzer.liacs.nl/'>IOHanalyzer</a> and analyze your data.",
     helpUrl: "",
-    category: "algorithm-parts",
   },
   {
     type: "jump_k",
@@ -293,7 +285,6 @@ export const blockDefinitions = [
     style: "fitness_blocks",
     tooltip: "Calculate jump-k value on individual.",
     helpUrl: "",
-    category: "measures",
   },
 
   {
@@ -313,7 +304,6 @@ export const blockDefinitions = [
     style: "fitness_blocks",
     tooltip: "Calculate leading ones value on an individual.",
     helpUrl: "",
-    category: "measures",
   },
 
   {
@@ -340,7 +330,6 @@ export const blockDefinitions = [
     style: "pop_blocks",
     tooltip: "Adds an individual to an population.",
     helpUrl: "",
-    category: "list",
   },
   {
     type: "lists_concat",
@@ -365,7 +354,6 @@ export const blockDefinitions = [
     style: "pop_blocks",
     tooltip: "Returns the of entirely of two two populations.",
     helpUrl: "",
-    category: "list",
   },
   {
     type: "ea_select_parent",
@@ -409,7 +397,6 @@ export const blockDefinitions = [
     style: "indiv_blocks",
     tooltip: "Returns a copy of an individual.",
     helpUrl: "",
-    category: "individuals",
   },
   {
     type: "ea_run_breeding",
@@ -437,7 +424,6 @@ export const blockDefinitions = [
     style: "loop_blocks",
     tooltip: "",
     helpUrl: "",
-    category: "algorithm-parts",
   },
   {
     type: "ea_crossover",
@@ -496,7 +482,6 @@ export const blockDefinitions = [
     tooltip:
       "Generates from two individuals two new one with an crossover strategy.",
     helpUrl: "",
-    category: "individuals",
   },
   {
     type: "ea_mutate",
@@ -513,7 +498,6 @@ export const blockDefinitions = [
     style: "indiv_blocks",
     tooltip: "Mutate an individual randomly.",
     helpUrl: "",
-    category: "individuals",
   },
   {
     type: "ea_mutate_prob",
@@ -535,7 +519,6 @@ export const blockDefinitions = [
     style: "indiv_blocks",
     tooltip: "",
     helpUrl: "",
-    category: "individuals",
   },
   {
     type: "ea_mutate_bit",
@@ -552,7 +535,6 @@ export const blockDefinitions = [
     style: "indiv_blocks",
     tooltip: "",
     helpUrl: "",
-    category: "individuals",
   },
   {
     type: "ea_addtopopulation",
@@ -578,7 +560,6 @@ export const blockDefinitions = [
     tooltip:
       "Generates a new population from a given one by selecting some individuals with a selection strategy.",
     helpUrl: "",
-    category: "individuals",
   },
   {
     type: "ea_select_best",
@@ -596,7 +577,6 @@ export const blockDefinitions = [
     tooltip:
       "Selects the best individuals from an population using the user-definied 'fitness'-function.",
     helpUrl: "",
-    category: "individuals",
   },
   {
     type: "max_diversity",
@@ -613,7 +593,6 @@ export const blockDefinitions = [
     style: "fitness_blocks",
     tooltip: "Calculates the maximum pairwise diversity of an population.",
     helpUrl: "",
-    category: "measures",
   },
   {
     type: "ea_crossover_onepoint",
@@ -623,7 +602,6 @@ export const blockDefinitions = [
     tooltip:
       "A crossover strategy in which two individuals are cut and joined at a point.",
     helpUrl: "",
-    category: "individuals",
   },
   {
     type: "ea_crossover_twopoint",
@@ -633,7 +611,6 @@ export const blockDefinitions = [
     tooltip:
       "A crossover strategy in which two individuals are cut and joined at two points",
     helpUrl: "",
-    category: "individuals",
   },
   {
     type: "ea_crossover_uniform",
@@ -642,7 +619,6 @@ export const blockDefinitions = [
     style: "indiv_blocks",
     tooltip: "A crossover strategy in which each bit is exchanged uniformly.",
     helpUrl: "",
-    category: "individuals",
   },
 
   {
@@ -670,7 +646,6 @@ export const blockDefinitions = [
     style: "logging_blocks",
     tooltip: "",
     helpUrl: "",
-    category: "logging",
   },
   {
     type: "comment",
@@ -689,7 +664,6 @@ export const blockDefinitions = [
     style: "logging_blocks",
     tooltip: "",
     helpUrl: "",
-    category: "logging",
   },
 
   {
@@ -715,7 +689,6 @@ export const blockDefinitions = [
     previousStatement: true,
     nextStatement: true,
     style: "timer_blocks",
-    category: "experimental",
   },
 
   {
@@ -765,7 +738,6 @@ export const blockDefinitions = [
     style: "indiv_blocks",
     tooltip: "",
     helpUrl: "",
-    category: "variable",
   },
   {
     type: "variables_set_individual",
@@ -789,7 +761,6 @@ export const blockDefinitions = [
     style: "indiv_blocks",
     tooltip: "",
     helpUrl: "",
-    category: "variable",
   },
   {
     type: "variables_get_population",
@@ -807,7 +778,6 @@ export const blockDefinitions = [
     style: "pop_blocks",
     tooltip: "",
     helpUrl: "",
-    category: "variable",
   },
   {
     type: "variables_set_population",
@@ -831,7 +801,6 @@ export const blockDefinitions = [
     style: "pop_blocks",
     tooltip: "",
     helpUrl: "",
-    category: "variable",
   },
   {
     type: "wait",
@@ -849,7 +818,6 @@ export const blockDefinitions = [
     style: "timer_blocks",
     tooltip: "Stops the execution for a period of time.",
     helpUrl: "",
-    category: "experimental",
   },
   {
     type: "check_fitness",
@@ -875,7 +843,6 @@ export const blockDefinitions = [
     tooltip:
       "Returns true when no individual from the population has the requested fitness",
     helpUrl: "",
-    category: "logic",
   },
   {
     type: "plotting_one_value",
@@ -915,7 +882,6 @@ export const blockDefinitions = [
     nextStatement: null,
     style: "logging_blocks",
     helpUrl: "",
-    category: "logging",
     tooltip: "Use this block to create plots with the data from your EA",
   },
   {
@@ -950,7 +916,6 @@ export const blockDefinitions = [
     nextStatement: null,
     style: "logging_blocks",
     helpUrl: "",
-    category: "logging",
     tooltip: "Use this block to create CSV-Files with the data from your EA",
   },
   {
@@ -977,7 +942,6 @@ export const blockDefinitions = [
     style: "fitness_blocks",
     tooltip: "Calculate the hemming distance between two individuals.",
     helpUrl: "",
-    category: "measures",
   },
   {
     type: "plotting_two_values",
