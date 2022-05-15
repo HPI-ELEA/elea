@@ -1,3 +1,4 @@
+import { addNewOutputEntry } from "./workspace";
 import JSZip from "./jszip.js";
 
 class CSVHandler {
@@ -8,6 +9,21 @@ class CSVHandler {
   //because of the message handling this object is the first element of the data-array
   //forward the data to the correct CSVWorker or create one if necessary
   updateValue(data) {
+    if (!this.print) {
+      if (!globalThis.window) {
+        //node env
+        this.print = (msg) => console.log(msg);
+      } else {
+        // Browser env
+        let output = addNewOutputEntry(
+          '<pre id="csv-print-area" class="print-area"></pre>',
+          "csv-print-area",
+          "CSV Log"
+        );
+        this.print = (msg) => (output.innerHTML += msg + "\n");
+      }
+    }
+
     let filename = data.filename;
     let requestedCSV = this.csvMap.get(filename);
     if (!requestedCSV) {
@@ -26,6 +42,14 @@ class CSVHandler {
 
   clearCSV() {
     this.csvMap = new Map();
+  }
+
+  printDoneMessage() {
+    if (!this.print) return;
+    this.csvMap.forEach((_, key) =>
+      this.print("CSV file " + key + " generated\n")
+    );
+    this.print("You can download the files at 'Save/Restore Algorithm'");
   }
 }
 
@@ -118,4 +142,8 @@ function clearCSV() {
   csvHandler.clearCSV();
 }
 
-export { updateValue, downloadCSV, clearCSV };
+function printDoneMessage() {
+  csvHandler.printDoneMessage();
+}
+
+export { updateValue, downloadCSV, clearCSV, printDoneMessage };
