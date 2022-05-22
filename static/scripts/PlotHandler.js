@@ -120,7 +120,6 @@ class PlotWorker {
     }
 
     generateBoxplot() {
-        console.log("Generating Boxplot");
         if (!this.boxplotWorker) {
             this.boxplotWorker = new BoxplotWorker(this.plotName);
         }
@@ -170,7 +169,6 @@ class BoxplotWorker {
 
         if (!this.chartExists) {
             const boxplotData = {
-                // define label tree
                 labels: labels,
                 datasets: [{
                     label: 'Dataset 1',
@@ -199,15 +197,11 @@ class BoxplotWorker {
             });
             this.chartExists = true; 
         }else{
+            this.myChart.data.datasets[0].data = chartData; 
             this.myChart.update(); 
         }
-        console.log("Chart created");
         return;
     }
-}
-function randomValues(count, min, max) {
-    const delta = max - min;
-    return Array.from({ length: count }).map(() => Math.random() * delta + min);
 }
 
 
