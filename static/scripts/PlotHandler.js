@@ -170,8 +170,7 @@ class BoxplotWorker {
         ],
       };
 
-      this.myChart = new Chart(this.chartArea, {
-        //eslint-disable-line no-undef -- is defined in block code
+      this.myChart = new Chart(this.chartArea, {        //eslint-disable-line no-undef -- is defined in block code
         type: "boxplot",
         data: boxplotData,
         options: {
