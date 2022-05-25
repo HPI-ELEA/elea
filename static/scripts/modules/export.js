@@ -30,6 +30,7 @@ async function downloadWorkspaceAsJS() {
   let main = await read_file("./export/main.mjs");
   let logging = await read_file("./scripts/modules/logging.js");
   let jszip = await read_file("./scripts/jszip.js");
+  let fileutils = await read_file("./scripts/modules/fileUtils.js");
   if (
     ![algorithm, message_handler, csv_handler, readme, main, logging].every(
       (f) => f != false
@@ -46,6 +47,8 @@ async function downloadWorkspaceAsJS() {
   zip.file("main.mjs", main);
   zip.file("logging.mjs", logging);
   zip.file("jszip.js", jszip);
+  zip.folder("modules");
+  zip.file("modules/fileUtils.js", fileutils);
   let zip_file = await zip.generateAsync({ type: "blob" });
   downloadFile(zip_file, "elea.zip");
 }
