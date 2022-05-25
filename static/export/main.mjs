@@ -1,4 +1,4 @@
-import {handleLogFromWorker} from "./logging.mjs";
+import { handleLogFromWorker, downloadLog } from "./modules/logging.mjs";
 import { downloadCSV, updateValue } from "./CSVHandler.mjs";
 import { Worker }  from "worker_threads";
 var worker = new Worker("./algorithm.js");
@@ -41,6 +41,7 @@ function terminateWorker(){
     if (worker != null) {
         worker.terminate();
         downloadCSV();
+        downloadLog();
         console.warn("Terminated running worker");
     }
 }
