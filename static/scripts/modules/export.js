@@ -2,7 +2,7 @@ import * as Blockly from "blockly";
 import { resetHasUnsavedChangesHandling } from "./unsavedChangesHandling";
 import { workspace, getCode } from "./blocklyHandling";
 import { logDB } from "./logging";
-import { downloadFile, copyToClipboard } from "./fileUtils";
+import { downloadFile, copyToClipboard, readFile } from "./fileUtils";
 import JSZip from "../jszip";
 
 function copyXMLToClipboard() {
@@ -26,10 +26,10 @@ async function downloadWorkspaceAsJS() {
   let algorithm = await prepare_algorithm();
   let message_handler = await prepare_messagerhandler();
   let csv_handler = await prepare_csvhandler();
-  let readme = await read_file("./export/README.md");
-  let main = await read_file("./export/main.mjs");
-  let logging = await read_file("./scripts/modules/logging.js");
-  let jszip = await read_file("./scripts/jszip.js");
+  let readme = await readFile("./export/README.md");
+  let main = await readFile("./export/main.mjs");
+  let logging = await readFile("./scripts/modules/logging.js");
+  let jszip = await readFile("./scripts/jszip.js");
   if (
     ![algorithm, message_handler, csv_handler, readme, main, logging].every(
       (f) => f != false
@@ -52,7 +52,7 @@ async function downloadWorkspaceAsJS() {
 
 async function prepare_messagerhandler() {
   let file;
-  if (!(file = await read_file("./scripts/MessageHandler.js"))) return false;
+  if (!(file = await readFile("./scripts/MessageHandler.js"))) return false;
   let code =
     `const { Worker, parentPort } = require("worker_threads");\n` +
     file +
@@ -98,16 +98,10 @@ function prepare_algorithm() {
 
 async function prepare_csvhandler() {
   let file;
-  if (!(file = await read_file("./scripts/CSVHandler.js"))) return false;
+  if (!(file = await readFile("./scripts/CSVHandler.js"))) return false;
   let code = `import fs from "fs";\n`;
   code += file;
   return code;
-}
-
-async function read_file(path) {
-  let response = await fetch(path);
-  if (!response.ok) return false;
-  return await response.text();
 }
 
 // parse the logs for a specific algorithm, and create the meta and data files in the zip
