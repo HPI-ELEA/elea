@@ -11,15 +11,19 @@ import {
 import $ from "jquery";
 
 normalBlocks.concat(threadBlocks).forEach((block) => {
+  // For each definied block add a generate a documentation entry
+  // to the specified category
   let entry = documentation_entry_div(block);
   let category = get_category(block);
   if (category == "moreblocks" && $("#cat-moreblocks").length == 0) {
-    // more blocks category doesn't exists
+    // more blocks category doesn't exists, then add it
     $(
       '<div class="display-5 alert alert-info" id="cat-moreblocks"><h2><strong>More blocks</strong></h2><p>Blocks without categorization. That means, you can\'t use them.</p></div>\
         <hr id="cat-moreblocks-separator">'
     ).insertAfter("#cat-experimental_blocks-separator");
   }
+  // Appending to the category means
+  // inserting the entry before the seperator to the next category
   $(entry).insertBefore("#cat-" + category + "-separator");
   set_block_image(
     block,
@@ -32,6 +36,7 @@ document.getElementById("spinner").style.display = "none";
 document.getElementById("content-container").style.display = "block";
 
 function documentation_entry_div(block) {
+  // A documentation entry contains the name, input-, output-information and image
   let div =
     '<ul class="list-group" id="' +
     block.type +
@@ -59,8 +64,9 @@ function add_list_item(list, item, config = "") {
   return list;
 }
 
+// Generates header containing the name
 function block_header_div(block_name, block_type) {
-  /* TODO Click to copy
+  /* TODO Click to copy the URL
   let hostname = "(new Url(document.location)).hostname"
   let url = '"' + hostname + "/documentation#block-" + block_type + '"'
   let link = 
@@ -81,6 +87,7 @@ function block_comment_div(block_tooltip) {
   return header + comment;
 }
 
+// Generates the list with input arguments
 function block_inputs_div(block_inputs) {
   if (block_inputs.length == 0) return "";
   let header = '<h3 class="h5">Inputs</h3>';
@@ -90,6 +97,7 @@ function block_inputs_div(block_inputs) {
   return header + list;
 }
 
+// Generates an entry of the input argument list
 function block_single_input_div(block_input) {
   if (!block_input) return "";
   let description = "<li>";
