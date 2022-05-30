@@ -1,15 +1,18 @@
 import * as Blockly from "blockly";
 import { theme } from "./blockTheme";
 
+// Selects the name of a block for the documentation.
 function get_block_name(json_object) {
   let block_name = "";
   json_object.message0.split(" ").forEach((substr) => {
     if (!substr.match(/%\d+/g)) {
+      // If the substring isn't "%x", just add it to the block name
       block_name += substr + " ";
     } else if (
       json_object.args0 &&
       json_object.args0[parseInt(substr.substring(1)) - 1].type != "input_dummy"
     ) {
+      // If the substring is an argument, add the the name of the argument to the block name
       let input_name =
         json_object.args0[parseInt(substr.substring(1)) - 1].name;
       block_name +=
@@ -31,6 +34,8 @@ function get_output_type(json_object) {
   return get_type(json_object.output) || false;
 }
 
+// Returns a list including information about the arguments.
+// Each entry contains name, type and a comment of an argument
 function get_input(json_object) {
   let args0 = json_object.args0 || [];
   let inputs = [];
@@ -51,6 +56,8 @@ function get_input(json_object) {
   return inputs;
 }
 
+// Generate a div with an image of the block
+// by constructing a small workspace an adding the block
 function set_block_image(json_object, div_element) {
   var workspace = Blockly.inject(div_element, {
     comments: false,
@@ -77,6 +84,7 @@ function set_block_image(json_object, div_element) {
   Blockly.svgResize(workspace);
 }
 
+// Replace internal representations of datastructures by users one
 function get_type(type_string) {
   if (type_string == "Array") return "Population";
   return type_string;
