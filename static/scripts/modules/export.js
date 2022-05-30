@@ -23,6 +23,7 @@ function downloadWorkspace() {
 }
 
 async function downloadWorkspaceAsJS() {
+  // Read needed files for the project and prepare the files if necessary
   let algorithm = await prepare_algorithm();
   let message_handler = await prepare_messagerhandler();
   let csv_handler = await prepare_csvhandler();
@@ -30,6 +31,8 @@ async function downloadWorkspaceAsJS() {
   let main = await read_file("./export/main.mjs");
   let logging = await read_file("./scripts/modules/logging.js");
   let jszip = await read_file("./scripts/jszip.js");
+
+  // Check if everything worked out
   if (
     ![algorithm, message_handler, csv_handler, readme, main, logging].every(
       (f) => f != false
@@ -38,6 +41,7 @@ async function downloadWorkspaceAsJS() {
     alert("Something went wrong, please try again.");
     return;
   }
+  // Zip and download the files
   let zip = new JSZip();
   zip.file("algorithm.js", algorithm);
   zip.file("MessageHandler.js", message_handler);
@@ -51,6 +55,9 @@ async function downloadWorkspaceAsJS() {
 }
 
 async function prepare_messagerhandler() {
+  // Add import statements for thread API
+  // Add message handling of the current thread
+  // Add export statement of the module
   let file;
   if (!(file = await read_file("./scripts/MessageHandler.js"))) return false;
   let code =
@@ -75,6 +82,8 @@ async function prepare_messagerhandler() {
 }
 
 function prepare_algorithm() {
+  // Add import statements for thread handling and needed functions from the MessageHandler
+  // Setting the parent port to forward messages to the main thread
   let setup =
     `const {parentPort, Worker} = require("worker_threads");\n` +
     `const {Handler, consolelog, save_in_csv, consoleerror, Message, RecvRequest} = require("./MessageHandler.js");\n` +
@@ -82,6 +91,8 @@ function prepare_algorithm() {
     `Handler.setParentPort(parentPort);\n`;
 
   let js = getCode();
+  // remove "var" and add globalThis to the big variable declaration
+  // at the beginning of the file
   let var_declaration = js
     .split("\n")
     .shift()
@@ -97,6 +108,7 @@ function prepare_algorithm() {
 }
 
 async function prepare_csvhandler() {
+  // Import fs for the node env
   let file;
   if (!(file = await read_file("./scripts/CSVHandler.js"))) return false;
   let code = `import fs from "fs";\n`;
