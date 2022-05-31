@@ -112,7 +112,7 @@ async function downloadZIP(zip) {
     // Nodejs environment
     zip.generateAsync({ type: "nodebuffer" }).then(function (content) {
       //eslint-disable-next-line no-undef -- is imported in nodejs env
-      fs.writeFile("hello.zip", content, function (e) {
+      fs.writeFile("elea-csv.zip", content, function (e) {
         if (e) return console.error(e);
       });
     });
