@@ -25,12 +25,12 @@ function downloadWorkspace() {
 async function downloadWorkspaceAsJS() {
   let algorithm = await prepare_algorithm();
   let message_handler = await prepare_messagerhandler();
-  let csv_handler = await prepare_csvhandler();
+  let csv_handler = await read_file("./scripts/CSVHandler.js");
   let readme = await read_file("./export/README.md");
   let main = await read_file("./export/main.mjs");
   let logging = await read_file("./scripts/modules/logging.js");
   let jszip = await read_file("./scripts/jszip.js");
-  let fileutils = await read_file("./scripts/modules/fileUtils.js");
+  let fileutils = await prepare_fileUtils();
   if (
     ![algorithm, message_handler, csv_handler, readme, main, logging].every(
       (f) => f != false
@@ -99,9 +99,9 @@ function prepare_algorithm() {
   return tmp;
 }
 
-async function prepare_csvhandler() {
+async function prepare_fileUtils() {
   let file;
-  if (!(file = await read_file("./scripts/CSVHandler.js"))) return false;
+  if (!(file = await read_file("./scripts/modules/fileUtils.js"))) return false;
   let code = `import fs from "fs";\n`;
   code += file;
   return code;
