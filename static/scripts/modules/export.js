@@ -2,7 +2,7 @@ import * as Blockly from "blockly";
 import { resetHasUnsavedChangesHandling } from "./unsavedChangesHandling";
 import { workspace, getCode } from "./blocklyHandling";
 import { logDB } from "./logging";
-import { downloadFile, copyToClipboard } from "./fileUtils";
+import { saveFileBrowser as saveFile, copyToClipboard } from "./fileUtils";
 import JSZip from "../jszip";
 
 function copyXMLToClipboard() {
@@ -13,7 +13,7 @@ function copyXMLToClipboard() {
 
 function download(text, name, type) {
   var file = new Blob([text], { type: type });
-  downloadFile(file, name);
+  saveFile(file, name);
   resetHasUnsavedChangesHandling();
 }
 
@@ -50,7 +50,7 @@ async function downloadWorkspaceAsJS() {
   zip.folder("modules");
   zip.file("modules/fileUtils.js", fileutils);
   let zip_file = await zip.generateAsync({ type: "blob" });
-  downloadFile(zip_file, "elea.zip");
+  saveFile(zip_file, "elea.zip");
 }
 
 async function prepare_messagerhandler() {
@@ -191,13 +191,12 @@ async function downloadLog() {
   }
 
   let file = await zip.generateAsync({ type: "blob" });
-  downloadFile(file, "log.zip");
+  saveFile(file, "log.zip");
 }
 
 export {
   downloadWorkspace,
   copyXMLToClipboard,
   downloadWorkspaceAsJS,
-  downloadFile,
   downloadLog,
 };
