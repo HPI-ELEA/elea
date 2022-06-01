@@ -12,6 +12,12 @@ function downloadFile(blob, fileName) {
   setTimeout(() => URL.revokeObjectURL(link.href), 7000);
 }
 
+async function readFile(path) {
+  let response = await fetch(path);
+  if (!response.ok) return false;
+  return await response.text();
+}
+
 function copyToClipboard(str) {
   const el = document.createElement("textarea");
   el.value = str;
@@ -21,4 +27,4 @@ function copyToClipboard(str) {
   document.body.removeChild(el);
 }
 
-export { downloadFile, copyToClipboard };
+export { downloadFile, copyToClipboard, readFile };
