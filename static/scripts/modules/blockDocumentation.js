@@ -34,7 +34,7 @@ function get_output_type(json_object) {
   return get_type(json_object.output) || false;
 }
 
-// Returns a list including information about the arguments.
+// Returns a list containing information about the arguments.
 // Each entry contains name, type and a comment of an argument
 function get_input(json_object) {
   let args0 = json_object.args0 || [];
@@ -57,7 +57,7 @@ function get_input(json_object) {
 }
 
 // Generate a div with an image of the block
-// by constructing a small workspace an adding the block
+// by constructing a small workspace and adding the block
 function set_block_image(json_object, div_element) {
   var workspace = Blockly.inject(div_element, {
     comments: false,

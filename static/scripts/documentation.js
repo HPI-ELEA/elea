@@ -11,7 +11,7 @@ import {
 import $ from "jquery";
 
 normalBlocks.concat(threadBlocks).forEach((block) => {
-  // For each definied block add a generate a documentation entry
+  // For each definied block generate and add a documentation entry
   // to the specified category
   let entry = documentation_entry_div(block);
   let category = get_category(block);

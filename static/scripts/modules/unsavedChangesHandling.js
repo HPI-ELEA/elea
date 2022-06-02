@@ -33,7 +33,7 @@ function unsavedChangesListener(event) {
 }
 
 // If the user loads a new workspace or leaves the page,
-// this function asks the user if he or she wants to discard
+// this function asks the user if they want to discard
 // unsaved changes
 function beforeUnloadListener(e) {
   e.preventDefault();
@@ -54,7 +54,7 @@ function resetHasUnsavedChangesHandling(finishedLoading = false) {
   }
 }
 
-// changes that happens when the workspace was loaded shouldn't
+// changes that happen when the workspace was loaded shouldn't
 // be recognized as changes by the user. That's why the detection
 // for unsaved changes will be suspended until the workspace was loaded.
 // This function initiates the listener for unsaved changes
