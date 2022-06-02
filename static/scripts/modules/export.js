@@ -27,11 +27,11 @@ async function downloadWorkspaceAsJS() {
   let algorithm = await prepare_algorithm();
   let message_handler = await prepare_messagerhandler();
   let csv_handler = await prepare_csvhandler();
-  let readme = await read_file("./export/README.md");
-  let main = await read_file("./export/main.mjs");
-  let logging = await read_file("./scripts/modules/logging.js");
-  let jszip = await read_file("./scripts/jszip.js");
-  let fileutils = await read_file("./scripts/modules/fileUtils.js");
+  let readme = await readFile("./export/README.md");
+  let main = await readFile("./export/main.mjs");
+  let logging = await readFile("./scripts/modules/logging.js");
+  let jszip = await readFile("./scripts/jszip.js");
+  let fileutils = await readFile("./scripts/modules/fileUtils.js");
   // Check if everything worked out
   if (
     ![algorithm, message_handler, csv_handler, readme, main, logging].every(
