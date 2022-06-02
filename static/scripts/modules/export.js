@@ -25,11 +25,11 @@ function downloadWorkspace() {
 async function downloadWorkspaceAsJS() {
   let algorithm = await prepare_algorithm();
   let message_handler = await prepare_messagerhandler();
-  let csv_handler = await read_file("./scripts/CSVHandler.js");
-  let readme = await read_file("./export/README.md");
-  let main = await read_file("./export/main.mjs");
-  let logging = await read_file("./scripts/modules/logging.js");
-  let jszip = await read_file("./scripts/jszip.js");
+  let csv_handler = await readFile("./scripts/CSVHandler.js");
+  let readme = await readFile("./export/README.md");
+  let main = await readFile("./export/main.mjs");
+  let logging = await readFile("./scripts/modules/logging.js");
+  let jszip = await readFile("./scripts/jszip.js");
   let fileutils = await prepare_fileUtils();
 
   if (
@@ -102,7 +102,7 @@ function prepare_algorithm() {
 
 async function prepare_fileUtils() {
   let file;
-  if (!(file = await read_file("./scripts/modules/fileUtils.js"))) return false;
+  if (!(file = await readFile("./scripts/modules/fileUtils.js"))) return false;
   let code = `import fs from "fs";\n`;
   code += file;
   return code;

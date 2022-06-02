@@ -23,7 +23,6 @@ async function readFile(path) {
   let response = await fetch(path);
   if (!response.ok) return false;
   return await response.text();
-
 }
 
 function copyToClipboard(str) {
@@ -35,4 +34,4 @@ function copyToClipboard(str) {
   document.body.removeChild(el);
 }
 
-export { downloadFile, saveFileNode, copyToClipboard };
+export { downloadFile, saveFileNode, copyToClipboard, readFile };
