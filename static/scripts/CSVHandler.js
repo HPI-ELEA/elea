@@ -1,5 +1,6 @@
 import { addNewOutputEntry } from "./workspace";
 import JSZip from "./jszip.js";
+import { downloadFile } from "./modules/fileUtils";
 
 class CSVHandler {
   constructor() {
@@ -112,19 +113,14 @@ async function downloadZIP(zip) {
     // Nodejs environment
     zip.generateAsync({ type: "nodebuffer" }).then(function (content) {
       //eslint-disable-next-line no-undef -- is imported in nodejs env
-      fs.writeFile("hello.zip", content, function (e) {
+      fs.writeFile("elea-csv.zip", content, function (e) {
         if (e) return console.error(e);
       });
     });
   } else {
     // Browser environment
     let file = await zip.generateAsync({ type: "blob" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(file);
-    link.download = "elea-csv.zip";
-    document.body.append(link);
-    link.click();
-    link.remove();
+    downloadFile(file, "elea-csv.zip");
   }
 }
 
