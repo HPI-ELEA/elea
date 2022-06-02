@@ -19,6 +19,13 @@ function saveFileNode(nodebuffer, fileName) {
   });
 }
 
+async function readFile(path) {
+  let response = await fetch(path);
+  if (!response.ok) return false;
+  return await response.text();
+
+}
+
 function copyToClipboard(str) {
   const el = document.createElement("textarea");
   el.value = str;

@@ -2,7 +2,7 @@ import * as Blockly from "blockly";
 import { resetHasUnsavedChangesHandling } from "./unsavedChangesHandling";
 import { workspace, getCode } from "./blocklyHandling";
 import { logDB } from "./logging";
-import { downloadFile, copyToClipboard } from "./fileUtils";
+import { downloadFile, copyToClipboard, readFile } from "./fileUtils";
 import JSZip from "../jszip";
 
 function copyXMLToClipboard() {
@@ -31,6 +31,7 @@ async function downloadWorkspaceAsJS() {
   let logging = await read_file("./scripts/modules/logging.js");
   let jszip = await read_file("./scripts/jszip.js");
   let fileutils = await prepare_fileUtils();
+
   if (
     ![algorithm, message_handler, csv_handler, readme, main, logging].every(
       (f) => f != false
@@ -55,7 +56,7 @@ async function downloadWorkspaceAsJS() {
 
 async function prepare_messagerhandler() {
   let file;
-  if (!(file = await read_file("./scripts/MessageHandler.js"))) return false;
+  if (!(file = await readFile("./scripts/MessageHandler.js"))) return false;
   let code =
     `const { Worker, parentPort } = require("worker_threads");\n` +
     file +
@@ -105,12 +106,6 @@ async function prepare_fileUtils() {
   let code = `import fs from "fs";\n`;
   code += file;
   return code;
-}
-
-async function read_file(path) {
-  let response = await fetch(path);
-  if (!response.ok) return false;
-  return await response.text();
 }
 
 // parse the logs for a specific algorithm, and create the meta and data files in the zip
