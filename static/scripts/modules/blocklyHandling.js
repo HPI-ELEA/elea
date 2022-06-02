@@ -15,6 +15,7 @@ import { theme } from "./blockTheme";
 var worker = null;
 var runButton = document.getElementById("run-button");
 
+// restyle a block to use another style
 function restyle(block, style) {
   var oldInit = block.init;
   block.init = function () {

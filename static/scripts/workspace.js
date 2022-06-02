@@ -45,12 +45,14 @@ $("#show_js").click(highlightAll);
 $("#download_json").click(downloadLog);
 $("#download_csv").click(downloadCSV);
 
+// Align the output column to the height of the workspace
 $("#output-column").height($("#blockly-div").height());
 
 // remove loading icon and show content
 document.getElementById("spinner").style.display = "none";
 document.getElementById("workspace-content").style.opacity = "1.0";
 
+// Add a output entry to show printing statements
 function addPrintOutput() {
   // Check existsence of output entry for printing statements
   if ($("#output-print-area").length)
@@ -75,6 +77,11 @@ function clearOutput() {
   }
 }
 
+// Generates a new output entry containing
+// - a shown outputContent as HTML-String
+// - the id of the div with the outputContent in the future HTML file
+// - the title of the output entry
+// returns the html element inside of the output entry
 function addNewOutputEntry(outputContent, outputContentID, title) {
   let numOutput = $("#output-column > *").length;
   let divString = `
@@ -88,6 +95,7 @@ function addNewOutputEntry(outputContent, outputContentID, title) {
     </div>
   </div>`;
   $("#output-column").append(divString);
+  // Add a button to toggle between showing and hiding the output entry
   $(`#output-${numOutput}-button`).click(() => {
     let newButtonValue = "Show";
     if ($(`#output-${numOutput}-button`).text() == "Show")
