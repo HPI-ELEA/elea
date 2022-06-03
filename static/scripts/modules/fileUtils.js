@@ -1,5 +1,5 @@
 // this function was taken from: https://stackoverflow.com/a/52829183
-function downloadFile(blob, fileName) {
+function saveFileBrowser(blob, fileName) {
   const link = document.createElement("a");
   // create a blobURI pointing to our Blob
   link.href = URL.createObjectURL(blob);
@@ -10,6 +10,13 @@ function downloadFile(blob, fileName) {
   link.remove();
   // in case the Blob uses a lot of memory
   setTimeout(() => URL.revokeObjectURL(link.href), 7000);
+}
+
+function saveFileNode(nodebuffer, fileName) {
+  //eslint-disable-next-line no-undef -- is imported in nodejs env
+  fs.writeFile(fileName, nodebuffer, function (e) {
+    if (e) return console.error(e);
+  });
 }
 
 async function readFile(path) {
@@ -27,4 +34,4 @@ function copyToClipboard(str) {
   document.body.removeChild(el);
 }
 
-export { downloadFile, copyToClipboard, readFile };
+export { saveFileBrowser, saveFileNode, copyToClipboard, readFile };

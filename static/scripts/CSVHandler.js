@@ -1,6 +1,6 @@
 import { addNewOutputEntry } from "./workspace";
 import JSZip from "./jszip.js";
-import { downloadFile } from "./modules/fileUtils";
+import { saveFileBrowser, saveFileNode } from "./modules/fileUtils";
 
 class CSVHandler {
   constructor() {
@@ -51,6 +51,10 @@ class CSVHandler {
       this.print("CSV file " + key + " generated\n")
     );
     this.print("You can download the files at 'Save/Restore Algorithm'");
+  }
+
+  hasCSVEntries() {
+    return this.csvMap.size != 0;
   }
 }
 
@@ -112,15 +116,12 @@ async function downloadZIP(zip) {
   if (!globalThis.window) {
     // Nodejs environment
     zip.generateAsync({ type: "nodebuffer" }).then(function (content) {
-      //eslint-disable-next-line no-undef -- is imported in nodejs env
-      fs.writeFile("elea-csv.zip", content, function (e) {
-        if (e) return console.error(e);
-      });
+      saveFileNode(content, "elea-csv.zip");
     });
   } else {
     // Browser environment
     let file = await zip.generateAsync({ type: "blob" });
-    downloadFile(file, "elea-csv.zip");
+    saveFileBrowser(file, "elea-csv.zip");
   }
 }
 
@@ -142,4 +143,8 @@ function printDoneMessage() {
   csvHandler.printDoneMessage();
 }
 
-export { updateValue, downloadCSV, clearCSV, printDoneMessage };
+function hasCSVEntries() {
+  return csvHandler.hasCSVEntries();
+}
+
+export { updateValue, downloadCSV, clearCSV, printDoneMessage, hasCSVEntries };
