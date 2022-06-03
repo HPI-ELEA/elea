@@ -32,7 +32,7 @@ async function downloadWorkspaceAsJS() {
   let csv_handler = prepare_csvhandler();
   let readme = await readFile("./export/README.md");
   let main = await readFile("./export/main.mjs");
-  let logging = await readFile("./scripts/modules/logging.js");
+  let logging = await prepare_logging();
   let jszip = await readFile("./scripts/jszip.js");
   let fileutils = await prepare_fileUtils();
   // Check if everything worked out
@@ -113,16 +113,14 @@ function prepare_algorithm() {
 }
 
 async function prepare_csvhandler() {
-  let file, lines, code, importFileUtils;
+  let file, lines, code;
   if (!(file = await readFile("./scripts/CSVHandler.js"))) return false;
-
-  lines = file.split("\n");
   // remove importstatement of workspace.js
+  lines = file.split("\n");
   lines.shift();
-  // rename fileUtils.js to fileUtils.mjs
-  importFileUtils = lines.shift();
-  importFileUtils = importFileUtils.replace(".js", ".mjs");
-  code = importFileUtils + "\n" + lines.join("\n");
+  code = lines.join("\n");
+  // rename fileUtils to fileUtils.mjs
+  code = code.replace("/fileUtils", "/fileUtils.mjs");
   return code;
 }
 
@@ -132,6 +130,14 @@ async function prepare_fileUtils() {
   if (!(file = await readFile("./scripts/modules/fileUtils.js"))) return false;
   let code = `import fs from "fs";\n`;
   code += file;
+  return code;
+}
+
+async function prepare_logging() {
+  let file, code;
+  if (!(file = await readFile("./scripts/modules/logging.js"))) return false;
+  // rename fileUtils to fileUtils.mjs
+  code = file.replace("/fileUtils", "/fileUtils.mjs");
   return code;
 }
 

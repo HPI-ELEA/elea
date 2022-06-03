@@ -1,5 +1,5 @@
 import { addNewOutputEntry } from "./workspace";
-import { saveFileBrowser, saveFileNode } from "./modules/fileUtils.js";
+import { saveFileBrowser, saveFileNode } from "./modules/fileUtils";
 import JSZip from "./jszip.js";
 
 class CSVHandler {
