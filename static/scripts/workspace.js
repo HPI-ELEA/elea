@@ -10,7 +10,7 @@ import { downloadLog } from "./modules/export";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
 import { clearPlots } from "./PlotHandler";
-import { clearCSV, downloadCSV } from "./CSVHandler";
+import { clearCSV, downloadCSV, hasCSVEntries } from "./CSVHandler";
 
 $("#run-button").click(runCode);
 $("#kill-button").click(terminateWorker);
@@ -43,7 +43,7 @@ $("#copy_xml").click(copyXMLToClipboard);
 $("#download_js").click(downloadWorkspaceAsJS);
 $("#show_js").click(highlightAll);
 $("#download_json").click(downloadLog);
-$("#download_csv").click(downloadCSV);
+$("#download_csv").click(tryDownloadCSV);
 
 // Align the output column to the height of the workspace
 $("#output-column").height($("#blockly-div").height());
@@ -104,6 +104,14 @@ function addNewOutputEntry(outputContent, outputContentID, title) {
     $(`#output-${numOutput}-content`).slideToggle(300);
   });
   return document.getElementById(outputContentID);
+}
+
+function tryDownloadCSV() {
+  if (hasCSVEntries()) downloadCSV();
+  else
+    alert(
+      "The CSV file is empty. Use the CSV-Block in logging to save data in it."
+    );
 }
 
 export { addPrintOutput, addNewOutputEntry };

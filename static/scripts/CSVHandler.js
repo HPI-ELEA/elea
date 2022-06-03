@@ -52,6 +52,10 @@ class CSVHandler {
     );
     this.print("You can download the files at 'Save/Restore Algorithm'");
   }
+
+  hasCSVEntries() {
+    return this.csvMap.size != 0;
+  }
 }
 
 class CSVWorker {
@@ -139,4 +143,8 @@ function printDoneMessage() {
   csvHandler.printDoneMessage();
 }
 
-export { updateValue, downloadCSV, clearCSV, printDoneMessage };
+function hasCSVEntries() {
+  return csvHandler.hasCSVEntries();
+}
+
+export { updateValue, downloadCSV, clearCSV, printDoneMessage, hasCSVEntries };
