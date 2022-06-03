@@ -1,5 +1,5 @@
 // this function was taken from: https://stackoverflow.com/a/52829183
-function downloadFile(blob, fileName) {
+function saveFileBrowser(blob, fileName) {
   const link = document.createElement("a");
   // create a blobURI pointing to our Blob
   link.href = URL.createObjectURL(blob);
@@ -34,4 +34,4 @@ function copyToClipboard(str) {
   document.body.removeChild(el);
 }
 
-export { downloadFile, saveFileNode, copyToClipboard, readFile };
+export { saveFileBrowser, saveFileNode, copyToClipboard, readFile };

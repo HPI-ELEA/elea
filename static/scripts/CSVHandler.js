@@ -1,6 +1,6 @@
 import { addNewOutputEntry } from "./workspace";
 import JSZip from "./jszip.js";
-import { downloadFile, saveFileNode } from "./modules/fileUtils";
+import { saveFileBrowser, saveFileNode } from "./modules/fileUtils";
 
 class CSVHandler {
   constructor() {
@@ -121,7 +121,7 @@ async function downloadZIP(zip) {
   } else {
     // Browser environment
     let file = await zip.generateAsync({ type: "blob" });
-    downloadFile(file, "elea-csv.zip");
+    saveFileBrowser(file, "elea-csv.zip");
   }
 }
 
