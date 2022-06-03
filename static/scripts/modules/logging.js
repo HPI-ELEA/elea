@@ -1,4 +1,4 @@
-import { saveFileBrowser as saveFile } from "./fileUtils";
+import { saveFileBrowser, saveFileNode } from "./fileUtils";
 import JSZip from "../jszip.js";
 
 var logDB = {};
@@ -113,13 +113,11 @@ async function downloadLog() {
   if (!globalThis.window) {
     zip.generateAsync({ type: "nodebuffer" }).then(function (content) {
       //eslint-disable-next-line no-undef -- is imported in nodejs env
-      fs.writeFile(FILE_NAME, content, function (e) {
-        if (e) return console.error(e);
-      });
+      saveFileNode(content, FILE_NAME);
     });
   } else {
     let file = await zip.generateAsync({ type: "blob" });
-    saveFile(file, FILE_NAME);
+    saveFileBrowser(file, FILE_NAME);
   }
 }
 
