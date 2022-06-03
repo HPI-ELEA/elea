@@ -6,6 +6,9 @@ import {
 } from "./unsavedChangesHandling";
 import { PARAMETERS, update_url } from "./exampleHandling";
 
+// Check if you can replace the workspace
+// If true, replace the workspace with an xml string
+// and update the query in the URL
 function replaceWorkspaceQuestion(xml) {
   if (!replaceWorkspaceWithXml(xml)) return;
   document.getElementById("workspace-title").innerHTML = "Untitled";
@@ -13,6 +16,7 @@ function replaceWorkspaceQuestion(xml) {
   update_url();
 }
 
+// Check if the workspace has unsaved changes and replace the workspace
 function replaceWorkspaceWithXml(xml) {
   if (HAS_UNSAVED_CHANGES) {
     if (!window.confirm("Are you sure you want to exit without saving?"))
@@ -31,16 +35,20 @@ function promptForXML() {
   replaceWorkspaceQuestion(xml);
 }
 
+// Get file, read XML and load workspace and update the workspace title
 function selectedFileChanged() {
   console.log("fileChanged");
+  // Get files
   var input = document.getElementById("upload_xml_input");
   if (input.files.length === 0) {
     console.log("No file selected.");
     return;
   }
 
+  // Read XML
   const reader = new FileReader();
   reader.onload = function fileReadCompleted() {
+    // Replace workspace
     replaceWorkspaceQuestion(reader.result);
     console.log("algorithm updated");
     document.getElementById("workspace-title").innerHTML = input.files[0].name;
