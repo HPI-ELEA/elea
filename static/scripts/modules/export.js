@@ -1,8 +1,11 @@
 import * as Blockly from "blockly";
 import { resetHasUnsavedChangesHandling } from "./unsavedChangesHandling";
 import { workspace, getCode } from "./blocklyHandling";
-import { logDB } from "./logging";
-import { saveFileBrowser as saveFile, copyToClipboard, readFile } from "./fileUtils";
+import {
+  saveFileBrowser as saveFile,
+  copyToClipboard,
+  readFile,
+} from "./fileUtils";
 import JSZip from "../jszip";
 
 function copyXMLToClipboard() {
@@ -118,10 +121,4 @@ async function prepare_fileUtils() {
   return code;
 }
 
-
-export {
-  downloadWorkspace,
-  copyXMLToClipboard,
-  downloadWorkspaceAsJS,
-  downloadLog,
-};
+export { downloadWorkspace, copyXMLToClipboard, downloadWorkspaceAsJS };

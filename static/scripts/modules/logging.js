@@ -1,4 +1,4 @@
-import { downloadFile } from "./fileUtils";
+import { saveFileBrowser as saveFile } from "./fileUtils";
 import JSZip from "../jszip.js";
 
 var logDB = {};
@@ -119,7 +119,7 @@ async function downloadLog() {
     });
   } else {
     let file = await zip.generateAsync({ type: "blob" });
-    downloadFile(file, FILE_NAME);
+    saveFile(file, FILE_NAME);
   }
 }
 
