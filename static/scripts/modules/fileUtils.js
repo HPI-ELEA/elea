@@ -12,6 +12,19 @@ function saveFileBrowser(blob, fileName) {
   setTimeout(() => URL.revokeObjectURL(link.href), 7000);
 }
 
+function saveFileNode(nodebuffer, fileName) {
+  //eslint-disable-next-line no-undef -- is imported in nodejs env
+  fs.writeFile(fileName, nodebuffer, function (e) {
+    if (e) return console.error(e);
+  });
+}
+
+async function readFile(path) {
+  let response = await fetch(path);
+  if (!response.ok) return false;
+  return await response.text();
+}
+
 function copyToClipboard(str) {
   const el = document.createElement("textarea");
   el.value = str;
@@ -21,4 +34,4 @@ function copyToClipboard(str) {
   document.body.removeChild(el);
 }
 
-export { saveFileBrowser, copyToClipboard };
+export { saveFileBrowser, saveFileNode, copyToClipboard, readFile };

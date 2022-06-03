@@ -946,7 +946,7 @@ export const blockDefinitions = [
   },
   {
     type: "plotting_two_values",
-    message0: "Plot x:%1 y: %2 in Dataset: %3 in Plot: %4 as %5",
+    message0: "Plot x: %1 y: %2 in Dataset: %3 in Plot: %4 as %5",
     args0: [
       {
         type: "input_value",
