@@ -26,12 +26,12 @@ async function downloadWorkspaceAsJS() {
   // Read needed files for the project and prepare the files if necessary
   let algorithm = await prepare_algorithm();
   let message_handler = await prepare_messagerhandler();
-  let csv_handler = await prepare_csvhandler();
+  let csv_handler = await readFile("./scripts/CSVHandler.js");
   let readme = await readFile("./export/README.md");
   let main = await readFile("./export/main.mjs");
   let logging = await readFile("./scripts/modules/logging.js");
   let jszip = await readFile("./scripts/jszip.js");
-  let fileutils = await readFile("./scripts/modules/fileUtils.js");
+  let fileutils = await prepare_fileUtils();
   // Check if everything worked out
   if (
     ![algorithm, message_handler, csv_handler, readme, main, logging].every(
@@ -109,10 +109,10 @@ function prepare_algorithm() {
   return tmp;
 }
 
-async function prepare_csvhandler() {
+async function prepare_fileUtils() {
   // Import fs for the node env
   let file;
-  if (!(file = await readFile("./scripts/CSVHandler.js"))) return false;
+  if (!(file = await readFile("./scripts/modules/fileUtils.js"))) return false;
   let code = `import fs from "fs";\n`;
   code += file;
   return code;
