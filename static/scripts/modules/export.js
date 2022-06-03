@@ -51,7 +51,7 @@ async function downloadWorkspaceAsJS() {
   zip.file("logging.mjs", logging);
   zip.file("jszip.js", jszip);
   zip.folder("modules");
-  zip.file("modules/fileUtils.js", fileutils);
+  zip.file("modules/fileUtils.mjs", fileutils);
   let zip_file = await zip.generateAsync({ type: "blob" });
   downloadFile(zip_file, "elea.zip");
 }
@@ -110,10 +110,18 @@ function prepare_algorithm() {
 }
 
 async function prepare_csvhandler() {
-  // Import fs for the node env
-  let file;
+  let file, lines, code, importFileUtils;
   if (!(file = await readFile("./scripts/CSVHandler.js"))) return false;
-  let code = `import fs from "fs";\n`;
+
+  lines = file.split("\n");
+  // remove importstatement of workspace.js
+  lines.shift();
+  // rename fileUtils.js to fileUtils.mjs
+  importFileUtils = lines.shift();
+  importFileUtils = importFileUtils.replace(".js", ".mjs");
+  file = importFileUtils + lines.join("\n");
+  // Import fs for the node env
+  code = `import fs from "fs";\n`;
   code += file;
   return code;
 }
