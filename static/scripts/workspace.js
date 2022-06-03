@@ -6,7 +6,7 @@ import {
   downloadWorkspace,
   downloadWorkspaceAsJS,
 } from "./modules/export";
-import { downloadLog } from "./modules/export";
+import { downloadLog } from "./modules/logging";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
 import { clearPlots } from "./PlotHandler";
