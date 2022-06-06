@@ -29,10 +29,10 @@ async function downloadWorkspaceAsJS() {
   // Read needed files for the project and prepare the files if necessary
   let algorithm = await prepare_algorithm();
   let message_handler = await prepare_messagerhandler();
-  let csv_handler = await readFile("./scripts/CSVHandler.js");
+  let csv_handler = prepare_csvhandler();
   let readme = await readFile("./export/README.md");
   let main = await readFile("./export/main.mjs");
-  let logging = await readFile("./scripts/modules/logging.js");
+  let logging = await prepare_logging();
   let jszip = await readFile("./scripts/jszip.js");
   let fileutils = await prepare_fileUtils();
   // Check if everything worked out
@@ -54,7 +54,7 @@ async function downloadWorkspaceAsJS() {
   zip.file("modules/logging.mjs", logging);
   zip.file("jszip.js", jszip);
   zip.folder("modules");
-  zip.file("modules/fileUtils.js", fileutils);
+  zip.file("modules/fileUtils.mjs", fileutils);
   let zip_file = await zip.generateAsync({ type: "blob" });
   saveFile(zip_file, "elea.zip");
 }
@@ -112,12 +112,32 @@ function prepare_algorithm() {
   return tmp;
 }
 
+async function prepare_csvhandler() {
+  let file, lines, code;
+  if (!(file = await readFile("./scripts/CSVHandler.js"))) return false;
+  // remove importstatement of workspace.js
+  lines = file.split("\n");
+  lines.shift();
+  code = lines.join("\n");
+  // rename fileUtils to fileUtils.mjs
+  code = code.replace("/fileUtils", "/fileUtils.mjs");
+  return code;
+}
+
 async function prepare_fileUtils() {
   // Import fs for the node env
   let file;
   if (!(file = await readFile("./scripts/modules/fileUtils.js"))) return false;
   let code = `import fs from "fs";\n`;
   code += file;
+  return code;
+}
+
+async function prepare_logging() {
+  let file, code;
+  if (!(file = await readFile("./scripts/modules/logging.js"))) return false;
+  // rename fileUtils to fileUtils.mjs
+  code = file.replace("/fileUtils", "/fileUtils.mjs");
   return code;
 }
 
