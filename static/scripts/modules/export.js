@@ -35,11 +35,18 @@ async function downloadWorkspaceAsJS() {
   let logging = await prepare_logging();
   let jszip = await readFile("./scripts/jszip.js");
   let fileutils = await prepare_fileUtils();
+  let plot_handler = await prepare_plotting();
   // Check if everything worked out
   if (
-    ![algorithm, message_handler, csv_handler, readme, main, logging].every(
-      (f) => f != false
-    )
+    ![
+      algorithm,
+      message_handler,
+      csv_handler,
+      readme,
+      main,
+      logging,
+      plot_handler,
+    ].every((f) => f != false)
   ) {
     alert("Something went wrong, please try again.");
     return;
@@ -53,6 +60,7 @@ async function downloadWorkspaceAsJS() {
   zip.file("main.mjs", main);
   zip.file("modules/logging.mjs", logging);
   zip.file("jszip.js", jszip);
+  zip.file("PlotHandler.mjs", plot_handler);
   zip.folder("modules");
   zip.file("modules/fileUtils.mjs", fileutils);
   let zip_file = await zip.generateAsync({ type: "blob" });
@@ -80,6 +88,7 @@ async function prepare_messagerhandler() {
     ` consolelog,\n` +
     ` consoleerror,\n` +
     ` save_in_csv,\n` +
+    ` plot,\n` +
     ` Handler,\n` +
     ` RecvRequest,\n` +
     `};`;
@@ -91,7 +100,7 @@ function prepare_algorithm() {
   // Setting the parent port to forward messages to the main thread
   let setup =
     `const {parentPort, Worker} = require("worker_threads");\n` +
-    `const {Handler, consolelog, save_in_csv, consoleerror, Message, RecvRequest} = require("./MessageHandler.js");\n` +
+    `const {Handler, consolelog, save_in_csv, plot, consoleerror, Message, RecvRequest} = require("./MessageHandler.js");\n` +
     `const {cpus} = require("os");\n` +
     `Handler.setParentPort(parentPort);\n`;
 
@@ -138,6 +147,16 @@ async function prepare_logging() {
   if (!(file = await readFile("./scripts/modules/logging.js"))) return false;
   // rename fileUtils to fileUtils.mjs
   code = file.replace("/fileUtils", "/fileUtils.mjs");
+  return code;
+}
+
+async function prepare_plotting() {
+  let file, code;
+  if (!(file = await readFile("./scripts/PlotHandler.js"))) return false;
+  // I will create a link to some helpfull starting points on how to plot with Python/R
+  code =
+    "//Plotting is currently only supported on the website. Use the CSV-generation to create CSV-files.";
+  code += file;
   return code;
 }
 

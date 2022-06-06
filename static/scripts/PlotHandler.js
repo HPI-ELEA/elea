@@ -17,7 +17,14 @@ class PlotHandler {
   }
 
   drawPlots() {
-    this.plotMap.forEach((value) => value.drawPlot());
+    if (!globalThis.window) {
+      console.log("plotting is currently only available on the website.");
+      console.log(
+        "Use the CSV-Generation to create your own CSV files which can then be plotted with R"
+      );
+    } else {
+      this.plotMap.forEach((value) => value.drawPlot());
+    }
   }
 
   clearPlots() {
@@ -32,10 +39,12 @@ class PlotWorker {
     this.myChart = null;
     this.chartExists = false;
     this.iteration = 0;
-    let divString = `<canvas id="plot-${name}"></canvas>`;
-    addNewOutputEntry(divString, name, name);
-    let canvasID = "plot-" + name;
-    this.chartArea = document.getElementById(canvasID).getContext("2d");
+    if (globalThis.window) {
+      let divString = `<canvas id="plot-${name}"></canvas>`;
+      addNewOutputEntry(divString, name, name);
+      let canvasID = "plot-" + name;
+      this.chartArea = document.getElementById(canvasID).getContext("2d");
+    }
   }
 
   //collect data during runtime
