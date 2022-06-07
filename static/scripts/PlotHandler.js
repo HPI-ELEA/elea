@@ -126,8 +126,7 @@ function clearPlots() {
 //use a random color for every dataset and make sure its bright enough
 function random_rgba() {
   var o = Math.round,
-    r = Math.random,
-    s = 255;
+    r = Math.random;
   return (
     "rgba(" +
     o(r() * 200 + 55) +
