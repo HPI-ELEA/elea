@@ -58,7 +58,7 @@ class IOHAnalyzerHandler {
   }
 
   hasEntries() {
-    return Object.keys(this.logDB).length == 0;
+    return Object.keys(this.logDB).length != 0;
   }
 }
 
