@@ -6,7 +6,7 @@ import {
   downloadWorkspace,
   downloadWorkspaceAsJS,
 } from "./modules/export";
-import { downloadLog } from "./modules/logging";
+import { downloadLog, hasLogEntries } from "./modules/IOHAnalyzerHandler";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
 import { clearPlots } from "./PlotHandler";
@@ -42,7 +42,7 @@ $("#download_xml").click(downloadWorkspace);
 $("#copy_xml").click(copyXMLToClipboard);
 $("#download_js").click(downloadWorkspaceAsJS);
 $("#show_js").click(highlightAll);
-$("#download_json").click(downloadLog);
+$("#download_json").click(tryDownloadLog);
 $("#download_csv").click(tryDownloadCSV);
 
 // Align the output column to the height of the workspace
@@ -112,6 +112,11 @@ function tryDownloadCSV() {
     alert(
       "The CSV file is empty. Use the CSV-Block in logging to save data in it."
     );
+}
+
+function tryDownloadLog() {
+  if (hasLogEntries()) downloadLog();
+  else alert("The IOHAnalyzer file is empty.");
 }
 
 export { addPrintOutput, addNewOutputEntry };
