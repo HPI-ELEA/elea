@@ -60,7 +60,7 @@ class PlotWorker {
       if (data.xValue == null) {
         data.xValue = 0;
       }
-      let randomColor = random_rgba();
+      let randomColor = randomRGBA();
       dataset = {
         label: "Dataset" + datasetName,
         type: data.plotType,
@@ -133,7 +133,7 @@ function clearPlots() {
 }
 
 //use a random color for every dataset and make sure its bright enough
-function random_rgba() {
+function randomRGBA() {
   var o = Math.round,
     r = Math.random;
   return (

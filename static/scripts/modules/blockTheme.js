@@ -1,5 +1,6 @@
 import * as Blockly from "blockly";
 
+/*eslint-disable camelcase -- arguments provided by Blockly */
 var theme = Blockly.Theme.defineTheme("eleaTheme", {
   base: Blockly.Themes.Classic,
   blockStyles: {

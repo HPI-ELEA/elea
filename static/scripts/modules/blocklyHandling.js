@@ -106,6 +106,7 @@ function getCode() {
   let code = Blockly.JavaScript.workspaceToCode(workspace);
   if (USING_THREADS) code = Blockly.JavaScript.workspaceToCode(workspace);
   USING_THREADS = false;
+  /*eslint-disable-next-line camelcase -- arguments provided by beautify */
   code = beautify(code, { indent_size: 2, space_in_empty_paren: true });
   return code;
 }

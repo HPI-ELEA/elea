@@ -27,25 +27,25 @@ function downloadWorkspace() {
 
 async function downloadWorkspaceAsJS() {
   // Read needed files for the project and prepare the files if necessary
-  let algorithm = await prepare_algorithm();
-  let message_handler = await prepare_messagerhandler();
-  let csv_handler = prepare_csvhandler();
+  let algorithm = await prepareAlgorithm();
+  let messageHandler = await prepareMessageHandler();
+  let csvHandler = prepareCSVHandler();
   let readme = await readFile("./export/README.md");
   let main = await readFile("./export/main.mjs");
-  let logging = await prepare_logging();
+  let logging = await prepareLogging();
   let jszip = await readFile("./scripts/jszip.js");
-  let fileutils = await prepare_fileUtils();
-  let plot_handler = await prepare_plotting();
+  let fileutils = await prepareFileUtils();
+  let plotHandler = await preparePlotting();
   // Check if everything worked out
   if (
     ![
       algorithm,
-      message_handler,
-      csv_handler,
+      messageHandler,
+      csvHandler,
       readme,
       main,
       logging,
-      plot_handler,
+      plotHandler,
     ].every((f) => f != false)
   ) {
     alert("Something went wrong, please try again.");
@@ -54,20 +54,20 @@ async function downloadWorkspaceAsJS() {
   // Zip and download the files
   let zip = new JSZip();
   zip.file("algorithm.js", algorithm);
-  zip.file("MessageHandler.js", message_handler);
-  zip.file("CSVHandler.mjs", csv_handler);
+  zip.file("MessageHandler.js", messageHandler);
+  zip.file("CSVHandler.mjs", csvHandler);
   zip.file("README.md", readme);
   zip.file("main.mjs", main);
   zip.file("modules/logging.mjs", logging);
   zip.file("jszip.js", jszip);
-  zip.file("PlotHandler.mjs", plot_handler);
+  zip.file("PlotHandler.mjs", plotHandler);
   zip.folder("modules");
   zip.file("modules/fileUtils.mjs", fileutils);
-  let zip_file = await zip.generateAsync({ type: "blob" });
-  saveFile(zip_file, "elea.zip");
+  let zipFile = await zip.generateAsync({ type: "blob" });
+  saveFile(zipFile, "elea.zip");
 }
 
-async function prepare_messagerhandler() {
+async function prepareMessageHandler() {
   // Add import statements for thread API
   // Add message handling of the current thread
   // Add export statement of the module
@@ -87,7 +87,7 @@ async function prepare_messagerhandler() {
     ` MessageHandler,\n` +
     ` consolelog,\n` +
     ` consoleerror,\n` +
-    ` save_in_csv,\n` +
+    ` saveInCSV,\n` +
     ` plot,\n` +
     ` Handler,\n` +
     ` RecvRequest,\n` +
@@ -95,19 +95,19 @@ async function prepare_messagerhandler() {
   return code;
 }
 
-function prepare_algorithm() {
+function prepareAlgorithm() {
   // Add import statements for thread handling and needed functions from the MessageHandler
   // Setting the parent port to forward messages to the main thread
   let setup =
     `const {parentPort, Worker} = require("worker_threads");\n` +
-    `const {Handler, consolelog, save_in_csv, plot, consoleerror, Message, RecvRequest} = require("./MessageHandler.js");\n` +
+    `const {Handler, consolelog, saveInCSV, plot, consoleerror, Message, RecvRequest} = require("./MessageHandler.js");\n` +
     `const {cpus} = require("os");\n` +
     `Handler.setParentPort(parentPort);\n`;
 
   let js = getCode();
   // remove "var" and add globalThis to the big variable declaration
   // at the beginning of the file
-  let var_declaration = js
+  let varDeclaration = js
     .split("\n")
     .shift()
     .replace("var", "")
@@ -117,11 +117,11 @@ function prepare_algorithm() {
   js = js.split("\n");
   js.shift();
   js = js.join("\n");
-  let tmp = setup + var_declaration + "\n" + js;
+  let tmp = setup + varDeclaration + "\n" + js;
   return tmp;
 }
 
-async function prepare_csvhandler() {
+async function prepareCSVHandler() {
   let file, lines, code;
   if (!(file = await readFile("./scripts/CSVHandler.js"))) return false;
   // remove importstatement of workspace.js
@@ -133,7 +133,7 @@ async function prepare_csvhandler() {
   return code;
 }
 
-async function prepare_fileUtils() {
+async function prepareFileUtils() {
   // Import fs for the node env
   let file;
   if (!(file = await readFile("./scripts/modules/fileUtils.js"))) return false;
@@ -142,7 +142,7 @@ async function prepare_fileUtils() {
   return code;
 }
 
-async function prepare_logging() {
+async function prepareLogging() {
   let file, code;
   if (!(file = await readFile("./scripts/modules/logging.js"))) return false;
   // rename fileUtils to fileUtils.mjs
@@ -150,7 +150,7 @@ async function prepare_logging() {
   return code;
 }
 
-async function prepare_plotting() {
+async function preparePlotting() {
   let file, code;
   if (!(file = await readFile("./scripts/PlotHandler.js"))) return false;
   // I will create a link to some helpfull starting points on how to plot with Python/R

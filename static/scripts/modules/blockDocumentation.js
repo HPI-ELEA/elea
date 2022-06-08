@@ -2,42 +2,41 @@ import * as Blockly from "blockly";
 import { theme } from "./blockTheme";
 
 // Selects the name of a block for the documentation.
-function get_block_name(json_object) {
-  let block_name = "";
-  json_object.message0.split(" ").forEach((substr) => {
+function getBlockName(jsonObject) {
+  let blockName = "";
+  jsonObject.message0.split(" ").forEach((substr) => {
     if (!substr.match(/%\d+/g)) {
       // If the substring isn't "%x", just add it to the block name
-      block_name += substr + " ";
+      blockName += substr + " ";
     } else if (
-      json_object.args0 &&
-      json_object.args0[parseInt(substr.substring(1)) - 1].type != "input_dummy"
+      jsonObject.args0 &&
+      jsonObject.args0[parseInt(substr.substring(1)) - 1].type != "input_dummy"
     ) {
       // If the substring is an argument, add the the name of the argument to the block name
-      let input_name =
-        json_object.args0[parseInt(substr.substring(1)) - 1].name;
-      block_name +=
-        "<small><strong>" + input_name.toUpperCase() + "</strong></small> ";
+      let inputName = jsonObject.args0[parseInt(substr.substring(1)) - 1].name;
+      blockName +=
+        "<small><strong>" + inputName.toUpperCase() + "</strong></small> ";
     }
   });
-  return block_name;
+  return blockName;
 }
 
-function get_tooltip(json_object) {
-  return json_object.tooltip || false;
+function getTooltip(jsonObject) {
+  return jsonObject.tooltip || false;
 }
 
-function get_category(json_object) {
-  return json_object.style || "moreblocks";
+function getCategory(jsonObject) {
+  return jsonObject.style || "moreblocks";
 }
 
-function get_output_type(json_object) {
-  return get_type(json_object.output) || false;
+function getOutputType(jsonObject) {
+  return getType(jsonObject.output) || false;
 }
 
 // Returns a list containing information about the arguments.
 // Each entry contains name, type and a comment of an argument
-function get_input(json_object) {
-  let args0 = json_object.args0 || [];
+function getInput(jsonObject) {
+  let args0 = jsonObject.args0 || [];
   let inputs = [];
   args0.forEach((input) => {
     if (input.type != "input_dummy") {
@@ -48,7 +47,7 @@ function get_input(json_object) {
 
       inputs.push({
         name: input.name.toUpperCase(),
-        type: get_type(type),
+        type: getType(type),
         comment: input.comment || false,
       });
     }
@@ -58,8 +57,8 @@ function get_input(json_object) {
 
 // Generate a div with an image of the block
 // by constructing a small workspace and adding the block
-function set_block_image(json_object, div_element) {
-  var workspace = Blockly.inject(div_element, {
+function setBlockImage(jsonObject, divElement) {
+  var workspace = Blockly.inject(divElement, {
     comments: false,
     toolbox: false,
     trashcan: false,
@@ -69,32 +68,32 @@ function set_block_image(json_object, div_element) {
     theme: theme,
   });
 
-  Blockly.Blocks[json_object.type] = {
+  Blockly.Blocks[jsonObject.type] = {
     init: function () {
-      this.jsonInit(json_object);
+      this.jsonInit(jsonObject);
     },
   };
-  var block = workspace.newBlock(json_object.type);
+  var block = workspace.newBlock(jsonObject.type);
   block.initSvg();
   block.render();
 
   var metrics = workspace.getMetrics();
-  div_element.style.height = metrics.contentHeight + "px";
-  div_element.style.width = metrics.contentWidth + "px";
+  divElement.style.height = metrics.contentHeight + "px";
+  divElement.style.width = metrics.contentWidth + "px";
   Blockly.svgResize(workspace);
 }
 
 // Replace internal representations of datastructures by users one
-function get_type(type_string) {
-  if (type_string == "Array") return "Population";
-  return type_string;
+function getType(typeString) {
+  if (typeString == "Array") return "Population";
+  return typeString;
 }
 
 export {
-  get_block_name,
-  get_tooltip,
-  get_category,
-  get_input,
-  get_output_type,
-  set_block_image,
+  getBlockName,
+  getTooltip,
+  getCategory,
+  getInput,
+  getOutputType,
+  setBlockImage,
 };

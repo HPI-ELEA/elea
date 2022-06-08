@@ -212,7 +212,7 @@ function plot(v) {
 }
 
 //eslint-disable-next-line no-unused-vars -- is used in code blockly compiles
-function save_in_csv(v) {
+function saveInCSV(v) {
   Handler.sendMessage(new Message(Handler.PARENT_ID, v, "csv"));
 }
 
