@@ -1,7 +1,7 @@
 var PARAMETERS;
 import { replaceWorkspaceWithXml } from "./import";
 // updates the parameters map with the latest value from the url
-function update_parameters() {
+function updateParameters() {
   PARAMETERS = new URLSearchParams(window.location.search);
 }
 
@@ -23,7 +23,7 @@ async function loadExample(example, causedByUrl) {
   // then we don't want to update the url/parameters again, that makes forward/backwards seeking break
   if (!causedByUrl) {
     PARAMETERS.set("example", example);
-    update_url();
+    updateUrl();
   }
 
   let workspaceTitle = "Untitled";
@@ -32,7 +32,7 @@ async function loadExample(example, causedByUrl) {
 }
 
 // loads the example as defined by the url parameters
-function load_example_from_url() {
+function loadExampleFromUrl() {
   let example = PARAMETERS.get("example");
   if (example) {
     loadExample(example, true);
@@ -43,22 +43,22 @@ function load_example_from_url() {
 let LATEST_SEARCH = window.location.search;
 
 // updates the url with the values in the PARAMETERS object
-function update_url() {
+function updateUrl() {
   window.history.pushState(null, null, "?" + PARAMETERS.toString());
   LATEST_SEARCH = window.location.search;
 }
 
 // this function is triggered by using the history arrows
-// history items are added by the update_url function above
+// history items are added by the updateUrl function above
 // this ensures that navigating with the history arrows updates the examples in the page
 window.onpopstate = function () {
   if (window.location.search == LATEST_SEARCH) return;
   LATEST_SEARCH = window.location.search;
-  update_parameters();
-  load_example_from_url();
+  updateParameters();
+  loadExampleFromUrl();
 };
 
-update_parameters();
-load_example_from_url();
+updateParameters();
+loadExampleFromUrl();
 
-export { loadExample, update_url, PARAMETERS };
+export { loadExample, updateUrl, PARAMETERS };

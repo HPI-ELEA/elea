@@ -6,8 +6,10 @@ var PREV_DEFINITIONS = null;
 Blockly.defineBlocksWithJsonArray(blockDefinitions);
 
 let THREAD_BLOCKS = {
+  /* eslint-disable-next-line camelcase -- arguments are provided by threading framework */
   run_thread: true,
-  run_thread_limited: true,
+  /* eslint-disable-next-line camelcase -- arguments are provided by threading framework */
+  run_threadLimited: true,
 };
 
 // this value is sent to the workers after the thread is created
@@ -24,20 +26,20 @@ Blockly.JavaScript["thread_hardware_concurrency"] = function () {
 
 // imports a variable from the parent thread into the child thread
 Blockly.JavaScript["thread_import_variable"] = function (block) {
-  let prev_block = block.getPreviousBlock();
-  let surround_block = block.getSurroundParent();
+  let prevBlock = block.getPreviousBlock();
+  let surroundBlock = block.getSurroundParent();
 
   // unplug the block if it's not inside a thread block
-  if (surround_block != null && !THREAD_BLOCKS[surround_block.type]) {
+  if (surroundBlock != null && !THREAD_BLOCKS[surroundBlock.type]) {
     block.disabled = true;
     block.setWarningText("import block can only be used inside a thread block");
     block.updateDisabled();
   }
   // unplug the block if it isn't at the top of the thread block
   else if (
-    prev_block != null &&
-    prev_block.type != "thread_import_variable" &&
-    !THREAD_BLOCKS[prev_block.type]
+    prevBlock != null &&
+    prevBlock.type != "thread_import_variable" &&
+    !THREAD_BLOCKS[prevBlock.type]
   ) {
     block.disabled = true;
     block.setWarningText(
@@ -48,7 +50,7 @@ Blockly.JavaScript["thread_import_variable"] = function (block) {
     block.setWarningText(null);
   }
 
-  let input_var = Blockly.JavaScript.nameDB_.getName(
+  let inputVar = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("input"),
     Blockly.Variables.NAME_TYPE
   );
@@ -57,24 +59,24 @@ Blockly.JavaScript["thread_import_variable"] = function (block) {
   var code = "";
   code +=
     "Handler.sendMessage(new Message(Handler.PARENT_ID, '" +
-    input_var +
+    inputVar +
     "', 'import'));\n";
   code +=
-    input_var +
+    inputVar +
     " = ( yield(Handler.recvRequest(new RecvRequest(Handler.PARENT_ID))) ).data;\n";
   return code;
 };
 
 // escapes special characters so that the string encapsulation does not
 // break - the strings must not break encapsulation when inserted into '`' quotes.
-function escape_string(str) {
+function escapseString(str) {
   str = str.replace(/\\/g, "\\\\");
   str = str.replace(/`/g, "\\`");
   return str;
 }
 
 // Generates different import statements depending on the execution enviroment (JS vs NodeJS)
-function generate_worker_imports() {
+function generateWorkerImports() {
   return (
     "if(typeof process === 'object'){\n" +
     "\t_worker_code += `const {parentPort} = require('worker_threads')\\n`" +
@@ -88,14 +90,14 @@ function generate_worker_imports() {
 
 // this is a general function for generating the worker code for threads
 // this significantly shortens the other blocks, and makes adding other threading blocks easier
-function generate_worker_code(statements, return_val) {
+function generateWorkerCode(statements, returnVal) {
   // defining the code to be used inside the web workers
-  let worker_code = "";
+  let workerCode = "";
   let definitions = Blockly.JavaScript.definitions_;
-  let used_definitions =
+  let usedDefinition =
     PREV_DEFINITIONS != null ? PREV_DEFINITIONS : definitions;
-  for (const key in used_definitions) {
-    worker_code += escape_string(used_definitions[key]) + "\n\n";
+  for (const key in usedDefinition) {
+    workerCode += escapseString(usedDefinition[key]) + "\n\n";
   }
 
   // We need to keep track of the definitions object because it will continue to be filled in as
@@ -104,35 +106,35 @@ function generate_worker_code(statements, return_val) {
   // this necessitates that the code be generated twice for every operation
   PREV_DEFINITIONS = definitions;
 
-  worker_code += "function* mainFunction() {\n";
-  worker_code += "try {\n";
+  workerCode += "function* mainFunction() {\n";
+  workerCode += "try {\n";
 
   // execute the internal statements and return the value
-  worker_code += "`+`" + escape_string(statements) + "`+`;\n";
-  worker_code +=
+  workerCode += "`+`" + escapseString(statements) + "`+`;\n";
+  workerCode +=
     "  Handler.sendMessage(new Message(Handler.PARENT_ID, " +
-    return_val +
+    returnVal +
     "));\n";
-  worker_code += "} catch (e) {\n";
-  worker_code += "    consoleerror(e);\n";
-  worker_code += "}\n";
-  worker_code += "}\n";
+  workerCode += "} catch (e) {\n";
+  workerCode += "    consoleerror(e);\n";
+  workerCode += "}\n";
+  workerCode += "}\n";
   // the message handler will automatically run main.next() when the THREAD_ID is received
-  worker_code += "globalThis.main = mainFunction();\n";
+  workerCode += "globalThis.main = mainFunction();\n";
 
-  return worker_code;
+  return workerCode;
 }
 
 // runs a series of statements in x threads, then waits for them all to return a result
 Blockly.JavaScript["run_thread"] = function (block) {
   // disable the block if the thread is inside of a function block
-  let surround_block = block;
-  while (surround_block.getSurroundParent() != null) {
-    surround_block = surround_block.getSurroundParent();
+  let surroundBlock = block;
+  while (surroundBlock.getSurroundParent() != null) {
+    surroundBlock = surroundBlock.getSurroundParent();
 
     if (
-      surround_block.type == "procedures_defnoreturn" ||
-      surround_block.type == "procedures_defreturn"
+      surroundBlock.type == "procedures_defnoreturn" ||
+      surroundBlock.type == "procedures_defreturn"
     ) {
       block.disabled = true;
       block.setWarningText(
@@ -148,21 +150,21 @@ Blockly.JavaScript["run_thread"] = function (block) {
   // This flag tells Elea to run the generate code twice so that this block can get function definitions
   setUsingThreads();
 
-  let thread_count = Blockly.JavaScript.valueToCode(
+  let threadCount = Blockly.JavaScript.valueToCode(
     block,
     "thread_count",
     Blockly.JavaScript.ORDER_NONE
   );
-  let output_array = Blockly.JavaScript.nameDB_.getName(
+  let outputArray = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("output_array"),
     Blockly.Variables.NAME_TYPE
   );
-  let return_val = Blockly.JavaScript.valueToCode(
+  let returnVal = Blockly.JavaScript.valueToCode(
     block,
     "return_value",
     Blockly.JavaScript.ORDER_NONE
   );
-  let statements_simulation_steps = Blockly.JavaScript.statementToCode(
+  let statementsSimulationSteps = Blockly.JavaScript.statementToCode(
     block,
     "thread_statements"
   );
@@ -177,10 +179,10 @@ Blockly.JavaScript["run_thread"] = function (block) {
     return ["_worker_code", "_worker_obj", "_threads"];
   };
 
-  let code = "_worker_code = ``" + generate_worker_imports();
+  let code = "_worker_code = ``" + generateWorkerImports();
   code +=
     "_worker_code += `" +
-    generate_worker_code(statements_simulation_steps, return_val) +
+    generateWorkerCode(statementsSimulationSteps, returnVal) +
     "`;\n";
   code +=
     "if(typeof process === 'object'){\n" +
@@ -189,14 +191,14 @@ Blockly.JavaScript["run_thread"] = function (block) {
     "\t_worker_obj = URL.createObjectURL( new Blob([_worker_code], {type: 'application/javascript'}) );\n" +
     "}\n";
   code += "_threads = new Array();\n";
-  code += output_array + " = new Array();\n";
+  code += outputArray + " = new Array();\n";
   code +=
     "for (let " +
     loopVar +
     " = 0; " +
     loopVar +
     " < " +
-    thread_count +
+    threadCount +
     "; " +
     loopVar +
     "++) {\n";
@@ -208,13 +210,13 @@ Blockly.JavaScript["run_thread"] = function (block) {
     " = 0; " +
     loopVar +
     " < " +
-    thread_count +
+    threadCount +
     "; " +
     loopVar +
     "++) {;\n";
   code +=
     "  " +
-    output_array +
+    outputArray +
     ".push( (yield( Handler.recvRequest(new RecvRequest(_threads[" +
     loopVar +
     "])) )).data );\n";
@@ -227,13 +229,13 @@ Blockly.JavaScript["run_thread"] = function (block) {
 // same as the thread block above, but only runs a set number of threads at any one time
 Blockly.JavaScript["run_thread_limited"] = function (block) {
   // disable the block if the thread is inside of a function block
-  let surround_block = block;
-  while (surround_block.getSurroundParent() != null) {
-    surround_block = surround_block.getSurroundParent();
+  let surroundBlock = block;
+  while (surroundBlock.getSurroundParent() != null) {
+    surroundBlock = surroundBlock.getSurroundParent();
 
     if (
-      surround_block.type == "procedures_defnoreturn" ||
-      surround_block.type == "procedures_defreturn"
+      surroundBlock.type == "procedures_defnoreturn" ||
+      surroundBlock.type == "procedures_defreturn"
     ) {
       block.disabled = true;
       block.setWarningText(
@@ -249,26 +251,26 @@ Blockly.JavaScript["run_thread_limited"] = function (block) {
   // This flag tells Elea to run the generate code twice so that this block can get function definitions
   setUsingThreads();
 
-  let thread_count = Blockly.JavaScript.valueToCode(
+  let threadCount = Blockly.JavaScript.valueToCode(
     block,
     "thread_count",
     Blockly.JavaScript.ORDER_NONE
   );
-  let thread_limit = Blockly.JavaScript.valueToCode(
+  let threadLimit = Blockly.JavaScript.valueToCode(
     block,
     "thread_limit",
     Blockly.JavaScript.ORDER_NONE
   );
-  let output_array = Blockly.JavaScript.nameDB_.getName(
+  let outputArray = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("output_array"),
     Blockly.Variables.NAME_TYPE
   );
-  let return_val = Blockly.JavaScript.valueToCode(
+  let returnVal = Blockly.JavaScript.valueToCode(
     block,
     "return_value",
     Blockly.JavaScript.ORDER_NONE
   );
-  let statements_simulation_steps = Blockly.JavaScript.statementToCode(
+  let statementsSimulationSteps = Blockly.JavaScript.statementToCode(
     block,
     "thread_statements"
   );
@@ -283,10 +285,10 @@ Blockly.JavaScript["run_thread_limited"] = function (block) {
     return ["_worker_code", "_worker_obj", "_threads", "_thread_limit", "msg"];
   };
 
-  let code = "_worker_code = ``" + generate_worker_imports();
+  let code = "_worker_code = ``" + generateWorkerImports();
   code +=
     "_worker_code += `" +
-    generate_worker_code(statements_simulation_steps, return_val) +
+    generateWorkerCode(statementsSimulationSteps, returnVal) +
     "`;\n";
   code +=
     "if(typeof process === 'object'){\n" +
@@ -295,9 +297,9 @@ Blockly.JavaScript["run_thread_limited"] = function (block) {
     "\t_worker_obj = URL.createObjectURL( new Blob([_worker_code], {type: 'application/javascript'}) );\n" +
     "}\n";
   code += "_threads = new Array();\n";
-  code += output_array + " = new Array();\n";
+  code += outputArray + " = new Array();\n";
   code +=
-    "_thread_limit = Math.min(" + thread_limit + ", " + thread_count + ");\n";
+    "_thread_limit = Math.min(" + threadLimit + ", " + threadCount + ");\n";
   code +=
     "for (let " +
     loopVar +
@@ -314,13 +316,13 @@ Blockly.JavaScript["run_thread_limited"] = function (block) {
     " = _thread_limit; " +
     loopVar +
     " < " +
-    thread_count +
+    threadCount +
     "; " +
     loopVar +
     "++) {\n";
   code +=
     "  let msg = yield(Handler.recvRequest( new RecvRequest(Handler.ANY_CHILD_SOURCE) ));\n";
-  code += "  " + output_array + "[msg.source-1] = msg.data;\n";
+  code += "  " + outputArray + "[msg.source-1] = msg.data;\n";
   code += "\n";
   code += "  _threads.push( Handler.createThread(_worker_obj) );\n";
   code += "}\n";
@@ -335,7 +337,7 @@ Blockly.JavaScript["run_thread_limited"] = function (block) {
     "++) {\n";
   code +=
     "  let msg = yield(Handler.recvRequest( new RecvRequest(Handler.ANY_CHILD_SOURCE) ));\n";
-  code += "  " + output_array + "[msg.source-1] = msg.data;\n";
+  code += "  " + outputArray + "[msg.source-1] = msg.data;\n";
   code += " }\n";
   code +=
     "for (let " +
@@ -343,7 +345,7 @@ Blockly.JavaScript["run_thread_limited"] = function (block) {
     " = 0; " +
     loopVar +
     " < " +
-    thread_count +
+    threadCount +
     "; " +
     loopVar +
     "++) {;\n";
@@ -355,7 +357,7 @@ Blockly.JavaScript["run_thread_limited"] = function (block) {
 
 // this is a testing function to easily test performance of using multiple threads
 Blockly.JavaScript["fibonacci"] = function (block) {
-  let fib_number = Blockly.JavaScript.valueToCode(
+  let fibNumber = Blockly.JavaScript.valueToCode(
     block,
     "fib_number",
     Blockly.JavaScript.ORDER_NONE
@@ -367,6 +369,6 @@ Blockly.JavaScript["fibonacci"] = function (block) {
     "}",
   ]);
   let code = "";
-  code += functionName + "(" + fib_number + ", " + functionName + ")";
+  code += functionName + "(" + fibNumber + ", " + functionName + ")";
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };

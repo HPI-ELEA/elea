@@ -1,20 +1,20 @@
 import { blockDefinitions as normalBlocks } from "../blockDefinition/normalBlocks";
 import { blockDefinitions as threadBlocks } from "../blockDefinition/threadBlocks";
 import {
-  get_block_name,
-  get_category,
-  get_input,
-  get_output_type,
-  get_tooltip,
-  set_block_image,
+  getBlockName,
+  getCategory,
+  getInput,
+  getOutputType,
+  getTooltip,
+  setBlockImage,
 } from "./modules/blockDocumentation";
 import $ from "jquery";
 
 normalBlocks.concat(threadBlocks).forEach((block) => {
   // For each definied block generate and add a documentation entry
   // to the specified category
-  let entry = documentation_entry_div(block);
-  let category = get_category(block);
+  let entry = documentationEntryDiv(block);
+  let category = getCategory(block);
   if (category == "moreblocks" && $("#cat-moreblocks").length == 0) {
     // more blocks category doesn't exists, then add it
     $(
@@ -25,30 +25,27 @@ normalBlocks.concat(threadBlocks).forEach((block) => {
   // Appending to the category means
   // inserting the entry before the seperator to the next category
   $(entry).insertBefore("#cat-" + category + "-separator");
-  set_block_image(
-    block,
-    document.getElementById("block-" + block.type + "-svg")
-  );
+  setBlockImage(block, document.getElementById("block-" + block.type + "-svg"));
 });
 
 // remove loading icon and show content
 document.getElementById("spinner").style.display = "none";
 document.getElementById("content-container").style.display = "block";
 
-function documentation_entry_div(block) {
+function documentationEntryDiv(block) {
   // A documentation entry contains the name, input-, output-information and image
   let div =
     '<ul class="list-group" id="' +
     block.type +
     '" style="margin-bottom: 2rem">';
-  div = add_list_item(
+  div = addListItem(
     div,
-    block_header_div(get_block_name(block), block.type),
+    blockHeaderDiv(getBlockName(block), block.type),
     "list-group-item-secondary"
   );
-  div = add_list_item(div, block_comment_div(get_tooltip(block)));
-  div = add_list_item(div, block_inputs_div(get_input(block)));
-  div = add_list_item(div, block_output_div(get_output_type(block)));
+  div = addListItem(div, blockCommentDiv(getTooltip(block)));
+  div = addListItem(div, blockInputsDiv(getInput(block)));
+  div = addListItem(div, blockOutputDiv(getOutputType(block)));
   div += "</ul>";
   div +=
     '<div class="block-svg"><div id="block-' +
@@ -58,62 +55,62 @@ function documentation_entry_div(block) {
   return div;
 }
 
-function add_list_item(list, item, config = "") {
+function addListItem(list, item, config = "") {
   if (item == "") return list;
   list += '<li class="list-group-item ' + config + '">' + item + "</li>";
   return list;
 }
 
 // Generates header containing the name
-function block_header_div(block_name, block_type) {
+function blockHeaderDiv(blockName, blockType) {
   /* TODO Click to copy the URL
   let hostname = "(new Url(document.location)).hostname"
-  let url = '"' + hostname + "/documentation#block-" + block_type + '"'
+  let url = '"' + hostname + "/documentation#block-" + blockType + '"'
   let link = 
     '<svg onclick="()=>navigator.clipboard.writeText(' + url +')" xmlns="http://www.w3.org/2000/svg" width="30" height="30  " fill="currentColor" class="bi bi-link" viewBox="0 0 16 16">\
     <path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z"/>\
     <path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z"/>\
     </svg>'
-  return '<h3 class="h4" id="' + block_type + '">' + block_name + link + '</h3>';
+  return '<h3 class="h4" id="' + blockType + '">' + blockName + link + '</h3>';
   */
 
-  return '<h3 class="h4" id="' + block_type + '">' + block_name + "</h3>";
+  return '<h3 class="h4" id="' + blockType + '">' + blockName + "</h3>";
 }
 
-function block_comment_div(block_tooltip) {
-  if (!block_tooltip) return "";
+function blockCommentDiv(blockTooltip) {
+  if (!blockTooltip) return "";
   let header = '<h3 class="h5">Tooltip</h3>';
-  let comment = "<p>" + (block_tooltip || "") + "</p>";
+  let comment = "<p>" + (blockTooltip || "") + "</p>";
   return header + comment;
 }
 
 // Generates the list with input arguments
-function block_inputs_div(block_inputs) {
-  if (block_inputs.length == 0) return "";
+function blockInputsDiv(blockInputs) {
+  if (blockInputs.length == 0) return "";
   let header = '<h3 class="h5">Inputs</h3>';
   let list = "<ul>";
-  block_inputs.forEach((input) => (list += block_single_input_div(input)));
+  blockInputs.forEach((input) => (list += blockSingleInputDiv(input)));
   list += "</ul>";
   return header + list;
 }
 
 // Generates an entry of the input argument list
-function block_single_input_div(block_input) {
-  if (!block_input) return "";
+function blockSingleInputDiv(blockInput) {
+  if (!blockInput) return "";
   let description = "<li>";
   description +=
     "<p><i>" +
-    block_input.name +
+    blockInput.name +
     "</i> (type: " +
-    (block_input.type || "<i>no type</i>") +
+    (blockInput.type || "<i>no type</i>") +
     ")<br/>";
-  description += (block_input.comment || "") + "</p>";
+  description += (blockInput.comment || "") + "</p>";
   return description + "</li>";
 }
 
-function block_output_div(block_output) {
-  if (!block_output) return "";
+function blockOutputDiv(blockOutput) {
+  if (!blockOutput) return "";
   let header = '<h3 class="h5">Output</h3>';
-  let type = "<p>" + block_output + "</p>";
+  let type = "<p>" + blockOutput + "</p>";
   return header + type;
 }

@@ -4,7 +4,7 @@ import {
   HAS_UNSAVED_CHANGES,
   setupUnsavedChangesHandling,
 } from "./unsavedChangesHandling";
-import { PARAMETERS, update_url } from "./exampleHandling";
+import { PARAMETERS, updateUrl } from "./exampleHandling";
 
 // Check if you can replace the workspace
 // If true, replace the workspace with an xml string
@@ -13,7 +13,7 @@ function replaceWorkspaceQuestion(xml) {
   if (!replaceWorkspaceWithXml(xml)) return;
   document.getElementById("workspace-title").innerHTML = "Untitled";
   PARAMETERS.delete("example");
-  update_url();
+  updateUrl();
 }
 
 // Check if the workspace has unsaved changes and replace the workspace
