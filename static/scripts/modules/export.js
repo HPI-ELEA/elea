@@ -58,7 +58,7 @@ async function downloadWorkspaceAsJS() {
   zip.file("CSVHandler.mjs", csv_handler);
   zip.file("README.md", readme);
   zip.file("main.mjs", main);
-  zip.file("modules/logging.mjs", logging);
+  zip.file("modules/IOHAnalyzerHandler.mjs", logging);
   zip.file("jszip.js", jszip);
   zip.file("PlotHandler.mjs", plot_handler);
   zip.folder("modules");
@@ -144,7 +144,8 @@ async function prepare_fileUtils() {
 
 async function prepare_logging() {
   let file, code;
-  if (!(file = await readFile("./scripts/modules/logging.js"))) return false;
+  if (!(file = await readFile("./scripts/modules/IOHAnalyzerHandler.js")))
+    return false;
   // rename fileUtils to fileUtils.mjs
   code = file.replace("/fileUtils", "/fileUtils.mjs");
   return code;
