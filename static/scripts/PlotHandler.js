@@ -123,21 +123,19 @@ function clearPlots() {
   plotHandler.clearPlots();
 }
 
-//use a random color for every dataset for now
-// after the PR for the new color scheme is completed, the plots colors will be based on that
+//use a random color for every dataset and make sure its bright enough
 function random_rgba() {
   var o = Math.round,
-    r = Math.random,
-    s = 255;
+    r = Math.random;
   return (
     "rgba(" +
-    o(r() * s) +
+    o(r() * 200 + 55) +
     "," +
-    o(r() * s) +
+    o(r() * 200 + 55) +
     "," +
-    o(r() * s) +
+    o(r() * 200 + 55) +
     "," +
-    r().toFixed(1) +
+    1 +
     ")"
   );
 }
