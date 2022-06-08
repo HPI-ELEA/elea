@@ -1,5 +1,6 @@
 import { handleLogFromWorker, downloadLog } from "./modules/logging.mjs";
 import { downloadCSV, updateValue, hasCSVEntries } from "./CSVHandler.mjs";
+import { updateValue as updatePlotValue, drawPlots } from "./PlotHandler.mjs";
 import { Worker }  from "worker_threads";
 var worker = new Worker("./algorithm.js");
 worker.on("message", handleMessageFromWorker);
@@ -23,6 +24,11 @@ function handleMessageFromWorker(msg){
         return;
     }
 
+    if(msg.ctrl == "plot") {
+        updatePlotValue(msg.data);
+        return; 
+    }
+
     // this is sent by the worker when the main function returns
     if (msg.ctrl == "terminate") {
         console.log("terminate worker due to its request.");
@@ -43,6 +49,7 @@ function terminateWorker(){
         if(hasCSVEntries())
             downloadCSV();
         downloadLog();
+        drawPlots(); 
         console.warn("Terminated running worker");
     }
 }
