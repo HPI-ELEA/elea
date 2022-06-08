@@ -2,7 +2,7 @@ var USING_THREADS = false;
 
 import * as Blockly from "blockly";
 import beautify from "js-beautify";
-import { clearLog, handleLogFromWorker } from "./logging";
+import { clearLog, handleLogFromWorker } from "./IOHAnalyzerHandler";
 import "regenerator-runtime/runtime";
 import "../newblocks";
 import "../threadblocks";
