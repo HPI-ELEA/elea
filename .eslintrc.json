@@ -9,5 +9,8 @@
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
+    },
+    "rules": {
+        "camelcase": [2, {"properties": "always"}]
     }
 }
