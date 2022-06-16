@@ -12,7 +12,10 @@ import "../normalBlockBehaviour";
 import "../threadBlockBehaviour";
 import { addPrintOutput } from "../workspace";
 import { updateValue as updateValuePlot, drawPlots } from "../PlotHandler";
-import { updateValue as updateValueCSV, printDoneMessage } from "../CSVHandler";
+import {
+  updateValue as updateValueCSV,
+  printDoneMessageCSV,
+} from "../CSVHandler";
 import { theme } from "./blockTheme";
 
 // var jsonLog = null;
@@ -206,7 +209,7 @@ function handleMessageFromWorker(msg) {
   if (msg.ctrl == "terminate") {
     console.log("terminate worker due to its request.");
     terminateWorker();
-    printDoneMessage();
+    printDoneMessageCSV();
     printDoneMessageLog();
     drawPlots();
     return;

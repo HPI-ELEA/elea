@@ -139,7 +139,7 @@ function clearCSV() {
   csvHandler.clearCSV();
 }
 
-function printDoneMessage() {
+function printDoneMessageCSV() {
   csvHandler.printDoneMessage();
 }
 
@@ -147,4 +147,10 @@ function hasCSVEntries() {
   return csvHandler.hasCSVEntries();
 }
 
-export { updateValue, downloadCSV, clearCSV, printDoneMessage, hasCSVEntries };
+export {
+  updateValue,
+  downloadCSV,
+  clearCSV,
+  printDoneMessageCSV,
+  hasCSVEntries,
+};
