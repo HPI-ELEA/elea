@@ -8,7 +8,7 @@ class PlotHandler {
   //forward the data to the correct PlotWorker or create one if necessary
   updateValue(data) {
     let plotName = data.plotName;
-    let requestedPlot = this.plotMap.get(plotName);
+    let requestedPlot = this.plotMap.get(plotName, this);
     if (!requestedPlot) {
       requestedPlot = new PlotWorker(plotName);
       this.plotMap.set(plotName, requestedPlot);
@@ -30,11 +30,16 @@ class PlotHandler {
   clearPlots() {
     this.plotMap = new Map();
   }
+
+  removePlot(plotName) {
+    this.plotMap.delete(plotName);
+  }
 }
 
 class PlotWorker {
-  constructor(name) {
+  constructor(name, plotHandler) {
     this.plotName = name;
+    this.plotHandler = plotHandler;
     this.plotData = new Map();
     this.myChart = null;
     this.chartExists = false;
