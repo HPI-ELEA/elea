@@ -106,6 +106,53 @@ function addNewOutputEntry(outputContent, outputContentID, title) {
   return document.getElementById(outputContentID);
 }
 
+// Generates a new output entry containing
+// - a shown outputContent as HTML-String
+// - the id of the div with the outputContent in the future HTML file
+// - the title of the output entry
+// - an operation thats executed, when the user deletes the entry
+// returns the html element inside of the output entry
+//eslint-disable-next-line no-unused-vars -- will be used in future PR
+function addNewDeletableOutputEntry(
+  outputContent,
+  outputContentID,
+  title,
+  deleteOperation
+) {
+  let numOutput = $("#output-column > *").length;
+  let divString = `
+  <div class="output-block" id="output-${numOutput}">
+    <div class="output-header">
+      <h3 class="output-heading" id="output-${numOutput}-heading">${title}</h3>
+      <div class="output-header-buttons">
+        <button class="btn btn-outline-dark" id="output-${numOutput}-hide-button">Hide</button>
+        <button class="btn btn-outline-danger" id="output-${numOutput}-delete-button">Delete</button>
+      </div>
+    </div>
+    <div id="output-${numOutput}-content">
+      ${outputContent}
+    </div>
+  </div>`;
+  $("#output-column").append(divString);
+
+  // Add a button to toggle between showing and hiding the output entry
+  $(`#output-${numOutput}-hide-button`).click(() => {
+    let newButtonValue = "Show";
+    if ($(`#output-${numOutput}-hide-button`).text() == "Show")
+      newButtonValue = "Hide";
+    $(`#output-${numOutput}-hide-button`).text(newButtonValue);
+    $(`#output-${numOutput}-content`).slideToggle(300);
+  });
+
+  // Add a button to delete the entry
+  $(`#output-${numOutput}-delete-button`).click(() => {
+    deleteOperation();
+    $(`#output-${numOutput}-content`).remove();
+    $(`#output-${numOutput}`).hide();
+  });
+  return document.getElementById(outputContentID);
+}
+
 function tryDownloadCSV() {
   if (hasCSVEntries()) downloadCSV();
   else
