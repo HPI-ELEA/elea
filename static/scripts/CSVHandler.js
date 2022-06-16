@@ -1,4 +1,4 @@
-import { addNewOutputEntry } from "./workspace";
+import { addNewDeletableOutputEntry } from "./workspace";
 import { saveFileBrowser, saveFileNode } from "./modules/fileUtils";
 import JSZip from "./jszip.js";
 
@@ -16,10 +16,11 @@ class CSVHandler {
         this.print = (msg) => console.log(msg);
       } else {
         // Browser env
-        let output = addNewOutputEntry(
+        let output = addNewDeletableOutputEntry(
           '<pre id="csv-print-area" class="print-area"></pre>',
           "csv-print-area",
-          "CSV Log"
+          "CSV Log",
+          clearCSV
         );
         this.print = (msg) => (output.innerHTML += msg + "\n");
       }
@@ -139,7 +140,7 @@ function clearCSV() {
   csvHandler.clearCSV();
 }
 
-function printDoneMessage() {
+function printDoneMessageCSV() {
   csvHandler.printDoneMessage();
 }
 
@@ -147,4 +148,10 @@ function hasCSVEntries() {
   return csvHandler.hasCSVEntries();
 }
 
-export { updateValue, downloadCSV, clearCSV, printDoneMessage, hasCSVEntries };
+export {
+  updateValue,
+  downloadCSV,
+  clearCSV,
+  printDoneMessageCSV,
+  hasCSVEntries,
+};

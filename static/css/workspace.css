@@ -64,6 +64,16 @@ main {
   height: min-content;
 }
 
+.output-header-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.output-header-buttons > * {
+  margin: 5px;
+  width: max-content;
+}
+
 .print-area {
   background-color: whitesmoke;
   display: flex;
