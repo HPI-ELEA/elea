@@ -6,7 +6,11 @@ import {
   downloadWorkspace,
   downloadWorkspaceAsJS,
 } from "./modules/export";
-import { downloadLog, hasLogEntries } from "./modules/IOHAnalyzerHandler";
+import {
+  downloadLog,
+  hasLogEntries,
+  clearLog,
+} from "./modules/IOHAnalyzerHandler";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
 import { clearPlots } from "./PlotHandler";
@@ -73,6 +77,7 @@ function clearOutput() {
   ) {
     clearCSV();
     clearPlots();
+    clearLog();
     $("#output-column").empty();
   }
 }

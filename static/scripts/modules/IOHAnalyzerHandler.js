@@ -55,10 +55,17 @@ class IOHAnalyzerHandler {
 
   clear() {
     this.logDB = {};
+    this.print = null;
   }
 
   hasEntries() {
     return Object.keys(this.logDB).length != 0;
+  }
+
+  printDoneMessage() {
+    if (!this.print) return;
+    this.print("IOHAnalyzer file generated\n");
+    this.print("You can download the files at 'Save/Restore Algorithm'");
   }
 }
 
@@ -142,8 +149,18 @@ function clearLog() {
   iohHandler.clear();
 }
 
+function printDoneMessageLog() {
+  iohHandler.printDoneMessage();
+}
+
 function hasLogEntries() {
   return iohHandler.hasEntries();
 }
 
-export { clearLog, handleLogFromWorker, downloadLog, hasLogEntries };
+export {
+  clearLog,
+  handleLogFromWorker,
+  downloadLog,
+  hasLogEntries,
+  printDoneMessageLog,
+};
