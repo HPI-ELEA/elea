@@ -20,7 +20,7 @@ class CSVHandler {
           '<pre id="csv-print-area" class="print-area"></pre>',
           "csv-print-area",
           "CSV Log",
-          clearCSV
+          clear
         );
         this.print = (msg) => (output.innerHTML += msg + "\n");
       }
@@ -42,7 +42,7 @@ class CSVHandler {
     await downloadZIP(zip, "elea.zip");
   }
 
-  clearCSV() {
+  clear() {
     this.csvMap = new Map();
   }
 
@@ -54,7 +54,7 @@ class CSVHandler {
     this.print("You can download the files at 'Save/Restore Algorithm'");
   }
 
-  hasCSVEntries() {
+  hasEntries() {
     return this.csvMap.size != 0;
   }
 }
@@ -132,26 +132,20 @@ function updateValue(data) {
   csvHandler.updateValue(data);
 }
 
-function downloadCSV() {
+function download() {
   csvHandler.downloadCSV();
 }
 
-function clearCSV() {
-  csvHandler.clearCSV();
+function clear() {
+  csvHandler.clear();
 }
 
-function printDoneMessageCSV() {
+function printDoneMessage() {
   csvHandler.printDoneMessage();
 }
 
-function hasCSVEntries() {
-  return csvHandler.hasCSVEntries();
+function hasEntries() {
+  return csvHandler.hasEntries();
 }
 
-export {
-  updateValue,
-  downloadCSV,
-  clearCSV,
-  printDoneMessageCSV,
-  hasCSVEntries,
-};
+export { updateValue, download, clear, printDoneMessage, hasEntries };

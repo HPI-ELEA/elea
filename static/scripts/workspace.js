@@ -7,14 +7,18 @@ import {
   downloadWorkspaceAsJS,
 } from "./modules/export";
 import {
-  clearLog,
-  downloadLog,
-  hasLogEntries,
+  clear as clearIOH,
+  download as downloadIOH,
+  hasEntries as hasEntriesIOH,
 } from "./modules/IOHAnalyzerHandler";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
 import { clearPlots } from "./PlotHandler";
-import { clearCSV, downloadCSV, hasCSVEntries } from "./CSVHandler";
+import {
+  clear as clearCSV,
+  download as downloadCSV,
+  hasEntries as hasEntriesCSV,
+} from "./CSVHandler";
 
 $("#run-button").click(runCode);
 $("#kill-button").click(terminateWorker);
@@ -46,7 +50,7 @@ $("#download_xml").click(downloadWorkspace);
 $("#copy_xml").click(copyXMLToClipboard);
 $("#download_js").click(downloadWorkspaceAsJS);
 $("#show_js").click(highlightAll);
-$("#download_json").click(tryDownloadLog);
+$("#download_json").click(tryDownloadIOH);
 $("#download_csv").click(tryDownloadCSV);
 
 // Align the output column to the height of the workspace
@@ -77,7 +81,7 @@ function clearOutput() {
   ) {
     clearCSV();
     clearPlots();
-    clearLog();
+    clearIOH();
     $("#output-column").empty();
   }
 }
@@ -158,15 +162,15 @@ function addNewDeletableOutputEntry(
 }
 
 function tryDownloadCSV() {
-  if (hasCSVEntries()) downloadCSV();
+  if (hasEntriesCSV()) downloadCSV();
   else
     alert(
       "The CSV file is empty. Use the CSV-Block in logging to save data in it."
     );
 }
 
-function tryDownloadLog() {
-  if (hasLogEntries()) downloadLog();
+function tryDownloadIOH() {
+  if (hasEntriesIOH()) downloadIOH();
   else alert("The IOHAnalyzer file is empty.");
 }
 
