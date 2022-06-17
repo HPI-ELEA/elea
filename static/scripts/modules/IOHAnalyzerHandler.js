@@ -18,7 +18,7 @@ class IOHAnalyzerHandler {
           '<pre id="csv-print-area" class="print-area"></pre>',
           "csv-print-area",
           "IOHAnalyzer Log",
-          clearLog
+          clear
         );
         this.print = (msg) => (output.innerHTML += msg + "\n");
       }
@@ -152,30 +152,24 @@ function zipAlgorithm(zip, db, algorithm) {
 
 var iohHandler = new IOHAnalyzerHandler();
 
-function handleLogFromWorker(data) {
+function updateValue(data) {
   iohHandler.updateValue(data);
 }
 
-function downloadLog() {
+function download() {
   iohHandler.download();
 }
 
-function clearLog() {
+function clear() {
   iohHandler.clear();
 }
 
-function printDoneMessageIOH() {
+function printDoneMessage() {
   iohHandler.printDoneMessage();
 }
 
-function hasLogEntries() {
+function hasEntries() {
   return iohHandler.hasEntries();
 }
 
-export {
-  clearLog,
-  handleLogFromWorker,
-  printDoneMessageIOH,
-  downloadLog,
-  hasLogEntries,
-};
+export { clear, updateValue, printDoneMessage, download, hasEntries };
