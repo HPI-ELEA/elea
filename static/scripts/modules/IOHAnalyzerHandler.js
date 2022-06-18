@@ -15,8 +15,8 @@ class IOHAnalyzerHandler {
       } else {
         // Browser env
         let output = addNewDeletableOutputEntry(
-          '<pre id="csv-print-area" class="print-area"></pre>',
-          "csv-print-area",
+          '<pre id="ioh-print-area" class="print-area"></pre>',
+          "ioh-print-area",
           "IOHAnalyzer Log",
           clear
         );

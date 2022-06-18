@@ -4,9 +4,9 @@ import * as Blockly from "blockly";
 import beautify from "js-beautify";
 import "regenerator-runtime/runtime";
 import {
-  clearLog,
-  handleLogFromWorker,
-  printDoneMessageIOH,
+  clear as clearIOH,
+  updateValue as updateValueIOH,
+  printDoneMessage as printDoneMessageIOH,
 } from "./IOHAnalyzerHandler";
 import "../normalBlockBehaviour";
 import "../threadBlockBehaviour";
@@ -14,7 +14,7 @@ import { addPrintOutput } from "../workspace";
 import { updateValue as updateValuePlot, drawPlots } from "../PlotHandler";
 import {
   updateValue as updateValueCSV,
-  printDoneMessageCSV,
+  printDoneMessage as printDoneMessageCSV,
 } from "../CSVHandler";
 import { theme } from "./blockTheme";
 
@@ -132,7 +132,7 @@ switch (msg.data.aTopic) {\
 }";
 
 function runCode() {
-  clearLog();
+  clearIOH();
   terminateWorker();
   Blockly.JavaScript.STATEMENT_PREFIX = "";
   //Blockly.JavaScript.addReservedWords('highlightBlock');
@@ -191,7 +191,7 @@ function handleMessageFromWorker(msg) {
   }
 
   if (msg.ctrl == "log") {
-    handleLogFromWorker(msg.data);
+    updateValueIOH(msg.data);
     return;
   }
 
