@@ -2,6 +2,7 @@ import { handleLogFromWorker, downloadLog } from "./modules/logging.mjs";
 import { downloadCSV, updateValue, hasCSVEntries } from "./CSVHandler.mjs";
 import { updateValue as updatePlotValue, drawPlots } from "./PlotHandler.mjs";
 import { Worker }  from "worker_threads";
+import { hasLogEntries } from "../scripts/modules/IOHAnalyzerHandler.js";
 var worker = new Worker("./algorithm.js");
 worker.on("message", handleMessageFromWorker);
 worker.on("error", handleErrorFromWorker);
@@ -48,7 +49,8 @@ function terminateWorker(){
         worker.terminate();
         if(hasCSVEntries())
             downloadCSV();
-        downloadLog();
+        if(hasLogEntries())
+            downloadLog();
         drawPlots(); 
         console.warn("Terminated running worker");
     }
