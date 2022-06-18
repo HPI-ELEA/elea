@@ -6,7 +6,11 @@ import {
   downloadWorkspace,
   downloadWorkspaceAsJS,
 } from "./modules/export";
-import { downloadLog, hasLogEntries } from "./modules/IOHAnalyzerHandler";
+import {
+  clearLog,
+  downloadLog,
+  hasLogEntries,
+} from "./modules/IOHAnalyzerHandler";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
 import { clearPlots } from "./PlotHandler";
@@ -68,10 +72,11 @@ addPrintOutput();
 function clearOutput() {
   if (
     confirm(
-      "Everything in the Output-Column and the content of the CSV-files will be deleted. \n Continue?"
+      "Everything in the Output-Column and the content of the CSV- and IOHAnalyzer-files will be deleted. \n Continue?"
     )
   ) {
     clearCSV();
+    clearLog();
     clearPlots();
     $("#output-column").empty();
   }
