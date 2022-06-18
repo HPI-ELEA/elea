@@ -40,7 +40,10 @@ function handleMessageFromWorker(msg){
 
 function handleErrorFromWorker(err){
     terminateWorker()
-    downloadCSV();
+    if(hasCSVEntries())
+            downloadCSV();
+    if(hasLogEntries())
+        downloadLog();
     throw new Error(err.stack)
 }
 
