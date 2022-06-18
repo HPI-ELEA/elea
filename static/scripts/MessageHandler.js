@@ -91,7 +91,7 @@ class MessageHandler {
     }
 
     // if the message is a log or a print statement then forward the message further up the chain
-    if (message.ctrl in ["log", "print", "plot", "csv"]) {
+    if (["log", "print", "plot", "csv"].some((m) => m == message.ctrl)) {
       this.sendMessage(message);
       return;
     }
