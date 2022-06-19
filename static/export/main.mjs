@@ -1,4 +1,4 @@
-import { handleLogFromWorker, downloadLog } from "./modules/logging.mjs";
+import { handleLogFromWorker, downloadLog } from "./modules/IOHAnalyzerHandler.mjs";
 import { downloadCSV, updateValue, hasCSVEntries } from "./CSVHandler.mjs";
 import { updateValue as updatePlotValue, drawPlots } from "./PlotHandler.mjs";
 import { Worker }  from "worker_threads";
