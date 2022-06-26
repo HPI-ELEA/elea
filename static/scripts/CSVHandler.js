@@ -147,4 +147,11 @@ function hasCSVEntries() {
   return csvHandler.hasCSVEntries();
 }
 
-export { updateValue, downloadCSV, clearCSV, printDoneMessage, hasCSVEntries };
+export {
+  updateValue,
+  downloadCSV,
+  clearCSV,
+  printDoneMessage,
+  hasCSVEntries,
+  downloadZIP,
+};

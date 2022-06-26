@@ -1,4 +1,6 @@
 import { addNewOutputEntry } from "./workspace";
+import JSZip from "./jszip.js";
+import { downloadZIP } from "./CSVHandler.js";
 
 class PlotHandler {
   constructor() {
@@ -30,6 +32,16 @@ class PlotHandler {
   clearPlots() {
     this.plotMap = new Map();
   }
+
+  async downloadPlotDataAsCSV() {
+    let zip = JSZip();
+    this.plotMap.forEach((value) => value.getPlotDataAsCSV(zip));
+    await downloadZIP(zip, "elea_plots.zip");
+  }
+
+  hasPlotEntries() {
+    return this.plotMap.size != 0;
+  }
 }
 
 class PlotWorker {
@@ -39,6 +51,7 @@ class PlotWorker {
     this.myChart = null;
     this.chartExists = false;
     this.iteration = 0;
+    this.isSingleInput = true;
     if (globalThis.window) {
       let divString = `<canvas id="plot-${name}"></canvas>`;
       addNewOutputEntry(divString, name, name);
@@ -49,6 +62,9 @@ class PlotWorker {
 
   //collect data during runtime
   updateValue(data) {
+    if (data.xValue != null) {
+      this.isSingleInput = false;
+    }
     let datasetName = data.datasetNumber;
     if (this.iteration > 0) {
       // new runs produce new datasets which can be distinguished by their ending
@@ -116,9 +132,87 @@ class PlotWorker {
     }
     return;
   }
+
+  getPlotDataAsCSV(zip) {
+    let csvContent = "";
+    if (this.isSingleInput) {
+      csvContent += singlePlotCalculator.tranformToCSV(this.plotData);
+    } else {
+      csvContent += doublePlotCalculator.tranformToCSV(this.plotData);
+    }
+    zip.file(this.plotName + ".csv", csvContent);
+  }
+}
+
+class singleInputPlotCalculator {
+  constructor() {}
+
+  tranformToCSV(plotData) {
+    let labels = [];
+    plotData.forEach((dataset) => {
+      labels.push(dataset.label);
+    });
+    let heading = labels.join(";") + "\n";
+    let maxColumnLength = 0;
+    plotData.forEach((dataset) => {
+      if (dataset.data.length > maxColumnLength) {
+        maxColumnLength = dataset.data.length;
+      }
+    });
+    let rows = [];
+    for (let i = 0; i < maxColumnLength; ++i) {
+      let column = [];
+      plotData.forEach((dataset) => {
+        let data = dataset.data;
+        if (data.length > i) column.push(data[i].y);
+        else column.push("");
+      });
+      rows.push(column.join(";"));
+    }
+    let csvContent = heading + rows.join("\n");
+    return csvContent;
+  }
+}
+
+class doubleInputPlotCalculator {
+  constructor() {}
+  tranformToCSV(plotData) {
+    // not sure if this is a good way to do this
+    let labels = [];
+    plotData.forEach((dataset) => {
+      labels.push(dataset.label + "_x");
+      labels.push(dataset.label + "_y");
+    });
+    let heading = labels.join(";") + "\n";
+    let maxColumnLength = 0;
+    plotData.forEach((dataset) => {
+      if (dataset.data.length > maxColumnLength) {
+        maxColumnLength = dataset.data.length;
+      }
+    });
+    let rows = [];
+    for (let i = 0; i < maxColumnLength; ++i) {
+      let column = [];
+      plotData.forEach((dataset) => {
+        let data = dataset.data;
+        if (data.length > i) {
+          column.push(data[i].x);
+          column.push(data[i].y);
+        } else {
+          column.push("");
+          column.push("");
+        }
+      });
+      rows.push(column.join(";"));
+    }
+    let csvContent = heading + rows.join("\n");
+    return csvContent;
+  }
 }
 
 var plotHandler = new PlotHandler();
+var singlePlotCalculator = new singleInputPlotCalculator();
+var doublePlotCalculator = new doubleInputPlotCalculator();
 
 function updateValue(data) {
   plotHandler.updateValue(data);
@@ -130,6 +224,14 @@ function drawPlots() {
 
 function clearPlots() {
   plotHandler.clearPlots();
+}
+
+function downloadPlotsAsCSV() {
+  plotHandler.downloadPlotDataAsCSV();
+}
+
+function hasPlotEntries() {
+  return plotHandler.hasPlotEntries();
 }
 
 //use a random color for every dataset and make sure its bright enough
@@ -149,4 +251,10 @@ function randomRGBA() {
   );
 }
 
-export { updateValue, drawPlots, clearPlots };
+export {
+  updateValue,
+  drawPlots,
+  clearPlots,
+  hasPlotEntries,
+  downloadPlotsAsCSV,
+};

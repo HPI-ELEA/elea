@@ -9,7 +9,7 @@ import {
 import { downloadLog, hasLogEntries } from "./modules/IOHAnalyzerHandler";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
-import { clearPlots } from "./PlotHandler";
+import { clearPlots, downloadPlotsAsCSV, hasPlotEntries } from "./PlotHandler";
 import { clearCSV, downloadCSV, hasCSVEntries } from "./CSVHandler";
 
 $("#run-button").click(runCode);
@@ -44,6 +44,7 @@ $("#download_js").click(downloadWorkspaceAsJS);
 $("#show_js").click(highlightAll);
 $("#download_json").click(tryDownloadLog);
 $("#download_csv").click(tryDownloadCSV);
+$("#download_plots_as_csv").click(tryDownloadPlotsAsCSV);
 
 // Align the output column to the height of the workspace
 $("#output-column").height($("#blockly-div").height());
@@ -114,9 +115,20 @@ function tryDownloadCSV() {
     );
 }
 
+function tryDownloadPlotsAsCSV() {
+  if (hasPlotEntries()) downloadPlotsAsCSV();
+  else
+    alert(
+      "There are no plots that can be downloaded. Use the plotting blocks to create one."
+    );
+}
+
 function tryDownloadLog() {
-  if (hasLogEntries()) downloadLog();
-  else alert("The IOHAnalyzer file is empty.");
+  if (hasLogEntries()) {
+    downloadLog();
+  } else {
+    alert("The IOHAnalyzer file is empty.");
+  }
 }
 
 export { addPrintOutput, addNewOutputEntry };
