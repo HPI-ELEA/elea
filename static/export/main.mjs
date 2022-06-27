@@ -2,7 +2,7 @@ import { handleLogFromWorker, downloadLog } from "./modules/logging.mjs";
 import { downloadCSV, updateValue, hasCSVEntries } from "./CSVHandler.mjs";
 import { updateValue as updatePlotValue, drawPlots } from "./PlotHandler.mjs";
 import { Worker }  from "worker_threads";
-import { hasLogEntries } from "../scripts/modules/IOHAnalyzerHandler.js";
+import { hasLogEntries } from "../scripts/modules/IOHAnalyzerHandler.mjs";
 var worker = new Worker("./algorithm.js");
 worker.on("message", handleMessageFromWorker);
 worker.on("error", handleErrorFromWorker);
