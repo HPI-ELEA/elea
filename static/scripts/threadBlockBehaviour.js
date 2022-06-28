@@ -58,12 +58,10 @@ Blockly.JavaScript["thread_import_variable"] = function (block) {
   // makes a request from the parent to import a variable
   var code = "";
   code +=
-    "Handler.sendMessage(new Message(Handler.PARENT_ID, '" +
     inputVar +
-    "', 'import'));\n";
-  code +=
+    " = await Handler.importVariable('" +
     inputVar +
-    " = ( yield(Handler.recvRequest(new RecvRequest(Handler.PARENT_ID))) ).data;\n";
+    "');\n";
   return code;
 };
 
@@ -106,8 +104,8 @@ function generateWorkerCode(statements, returnVal) {
   // this necessitates that the code be generated twice for every operation
   PREV_DEFINITIONS = definitions;
 
-  workerCode += "function* mainFunction() {\n";
-  workerCode += "try {\n";
+  workerCode += "async function mainFunction() {\n";
+  workerCode += "  await Handler.resolveID();\n"
 
   // execute the internal statements and return the value
   workerCode += "`+`" + escapseString(statements) + "`+`;\n";
@@ -115,12 +113,10 @@ function generateWorkerCode(statements, returnVal) {
     "  Handler.sendMessage(new Message(Handler.PARENT_ID, " +
     returnVal +
     "));\n";
-  workerCode += "} catch (e) {\n";
-  workerCode += "    consoleerror(e);\n";
-  workerCode += "}\n";
   workerCode += "}\n";
   // the message handler will automatically run main.next() when the THREAD_ID is received
-  workerCode += "globalThis.main = mainFunction();\n";
+  workerCode += "mainFunction()\n";
+  workerCode += ".catch( error => consoleerror(error) );\n";
 
   return workerCode;
 }
@@ -217,9 +213,9 @@ Blockly.JavaScript["run_thread"] = function (block) {
   code +=
     "  " +
     outputArray +
-    ".push( (yield( Handler.recvRequest(new RecvRequest(_threads[" +
+    ".push((await Handler.receiveMessage(_threads[" +
     loopVar +
-    "])) )).data );\n";
+    "])).data );\n";
   code += "  Handler.removeThread(_threads[" + loopVar + "]);\n";
   code += "}\n";
   code += "Handler.resetThreadIds();\n";
@@ -321,7 +317,7 @@ Blockly.JavaScript["run_thread_limited"] = function (block) {
     loopVar +
     "++) {\n";
   code +=
-    "  let msg = yield(Handler.recvRequest( new RecvRequest(Handler.ANY_CHILD_SOURCE) ));\n";
+    "  let msg = await Handler.receiveMessage( Handler.ANY_CHILD_SOURCE );\n";
   code += "  " + outputArray + "[msg.source-1] = msg.data;\n";
   code += "\n";
   code += "  _threads.push( Handler.createThread(_worker_obj) );\n";
@@ -336,7 +332,7 @@ Blockly.JavaScript["run_thread_limited"] = function (block) {
     loopVar +
     "++) {\n";
   code +=
-    "  let msg = yield(Handler.recvRequest( new RecvRequest(Handler.ANY_CHILD_SOURCE) ));\n";
+    "  let msg = await Handler.receiveMessage( Handler.ANY_CHILD_SOURCE );\n";
   code += "  " + outputArray + "[msg.source-1] = msg.data;\n";
   code += " }\n";
   code +=
