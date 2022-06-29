@@ -43,6 +43,7 @@ class CSVHandler {
 
   clear() {
     this.csvMap = new Map();
+    this.print = null;
   }
 
   printDoneMessage() {
