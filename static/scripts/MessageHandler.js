@@ -84,11 +84,6 @@ class MessageHandler {
       return;
     }
 
-    if (message.ctrl == "id") {
-      this.THREAD_ID = message.data;
-      this.receiveId();
-      return;
-    }
 
     // if the message is a log or a print statement then forward the message further up the chain
     if (["log", "print", "plot", "csv"].some((m) => m == message.ctrl)) {
@@ -115,8 +110,9 @@ class MessageHandler {
       (this.pendingRequest.source == this.ANY_CHILD_SOURCE &&
         message.source != this.PARENT_ID)
     ) {
+      let request = this.pendingRequest;
       this.pendingRequest = null;
-      globalThis.main.next(message); //eslint-disable-line no-undef -- is defined in block code
+      request.resolve(message);
       return;
     }
 
@@ -125,37 +121,51 @@ class MessageHandler {
   }
 
   recvRequest(request) {
-    let msg = undefined;
+    let handler = this;
+    return new Promise(function(resolve) {
+      let msg = undefined;
 
-    // grab the message if it is already buffered
-    // if the receiver is set to ANY then grab the first item in the buffer not from the parent
-    if (request.source == this.ANY_CHILD_SOURCE) {
-      for (const key in this.messageBuffer) {
-        if (key == this.PARENT_ID) continue;
-        if (this.messageBuffer[key].length != 0) {
-          msg = this.messageBuffer[key].pop();
+      // grab the message if it is already buffered
+      // if the receiver is set to ANY then grab the first item in the buffer not from the parent
+      if (request.source == handler.ANY_CHILD_SOURCE) {
+        for (const key in handler.messageBuffer) {
+          if (key == handler.PARENT_ID) continue;
+          if (handler.messageBuffer[key].length != 0) {
+            msg = handler.messageBuffer[key].pop();
+          }
         }
+      } else {
+        msg = handler.messageBuffer.get(request.source).pop();
       }
-    } else {
-      msg = this.messageBuffer.get(request.source).pop();
-    }
+  
+      // if there is no message in the queue for the requested source
+      if (msg == undefined) {
+        handler.pendingRequest = request;
+        request.resolve = resolve;
+        return;
+      } else {
+        resolve(msg);
+      }
+    });
+  }
 
-    // if there is no message in the queue for the requested source
-    if (msg == undefined) {
-      this.pendingRequest = request;
-      return;
-    }
+  // asynchronous function that receives a message from the given source
+  async receiveMessage(source) {
+    if (source == null || source == undefined) source = this.ANY_CHILD_SOURCE;
+    return await this.recvRequest(new RecvRequest(source));
+  }
 
-    // this will re-add the main function to the task queue to be run immediately
-    // we can't call main directly because this request function will typically be called by main before it yields
-    // we can't resume main until it properly yields, hence we add main to the task queue, and it will be run after
-    setTimeout(
-      function (msg) {
-        globalThis.main.next(msg); //eslint-disable-line no-undef -- is defined in block code
-      },
-      0,
-      msg
-    );
+  // asynchronous function that imports a variable from the parent
+  async importVariable(name) {
+    this.sendMessage(new Message(this.PARENT_ID, name, "import"));
+    return (await this.receiveMessage(this.PARENT_ID)).data;
+  }
+
+  // blocks until the thread ID has been received
+  async resolveID() {
+    if (this.THREAD_ID != null) return;
+    this.THREAD_ID = (await this.receiveMessage(this.PARENT_ID)).data;
+    return;
   }
 
   // create a new worker thread with unique id and create the relevant values in the maps
@@ -187,12 +197,6 @@ class MessageHandler {
     this.idCounter = 1;
   }
 
-  receiveId() {
-    if (this.THREAD_ID == null || this.pendingRequest) return;
-    setTimeout(function () {
-      globalThis.main.next(); //eslint-disable-line no-undef -- is defined in block code
-    }, 0);
-  }
 }
 
 // the variable argument syntax is supported in everything except IE as of 2021-08-27:
