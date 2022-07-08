@@ -59,6 +59,16 @@ main {
   justify-content: space-between;
 }
 
+.output-header-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.output-header-buttons > * {
+  margin: 5px;
+  width: max-content;
+}
+
 .output-header > * {
   width: fit-content;
   height: min-content;
