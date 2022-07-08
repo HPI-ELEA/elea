@@ -3,7 +3,11 @@ var USING_THREADS = false;
 import * as Blockly from "blockly";
 import beautify from "js-beautify";
 import "regenerator-runtime/runtime";
-import { clearIOH, updateValueIOH } from "./IOHAnalyzerHandler";
+import {
+  clearIOH,
+  updateValueIOH,
+  printDoneMessageIOH,
+} from "./IOHAnalyzerHandler";
 import "../normalBlockBehaviour";
 import "../threadBlockBehaviour";
 import { addPrintOutput } from "../workspace";
@@ -202,6 +206,7 @@ function handleMessageFromWorker(msg) {
   if (msg.ctrl == "terminate") {
     console.log("terminate worker due to its request.");
     terminateWorker();
+    printDoneMessageIOH();
     printDoneMessageCSV();
     drawPlots();
     return;

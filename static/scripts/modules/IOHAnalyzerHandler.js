@@ -1,3 +1,4 @@
+import { addNewOutputEntry } from "../workspace";
 import { saveFileBrowser, saveFileNode } from "./fileUtils";
 import JSZip from "../jszip.js";
 
@@ -7,6 +8,21 @@ class IOHAnalyzerHandler {
   }
 
   updateValue(log) {
+    if (!this.print) {
+      if (!globalThis.window) {
+        //node env
+        this.print = (msg) => console.log(msg);
+      } else {
+        // Browser env
+        let output = addNewOutputEntry(
+          '<pre id="ioh-print-area" class="print-area"></pre>',
+          "ioh-print-area",
+          "IOHAnalyzer Log"
+        );
+        this.print = (msg) => (output.innerHTML += msg + "\n");
+      }
+    }
+
     if (!this.logDB[log.algorithm]) this.logDB[log.algorithm] = {};
 
     if (!this.logDB[log.algorithm][log.function])
@@ -55,6 +71,13 @@ class IOHAnalyzerHandler {
 
   clear() {
     this.logDB = {};
+    this.print = null;
+  }
+
+  printDoneMessage() {
+    if (!this.print) return;
+    this.print("IOHAnalyzer file generated\n");
+    this.print("You can download the files at 'Save/Restore Algorithm'");
   }
 
   hasEntries() {
@@ -138,6 +161,10 @@ function downloadIOH() {
   iohHandler.download();
 }
 
+function printDoneMessageIOH() {
+  iohHandler.printDoneMessage();
+}
+
 function clearIOH() {
   iohHandler.clear();
 }
@@ -146,4 +173,10 @@ function hasEntriesIOH() {
   return iohHandler.hasEntries();
 }
 
-export { clearIOH, updateValueIOH, downloadIOH, hasEntriesIOH };
+export {
+  clearIOH,
+  updateValueIOH,
+  downloadIOH,
+  hasEntriesIOH,
+  printDoneMessageIOH,
+};
