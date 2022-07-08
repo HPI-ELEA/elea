@@ -32,7 +32,7 @@ async function downloadWorkspaceAsJS() {
   let csvHandler = prepareCSVHandler();
   let readme = await readFile("./export/README.md");
   let main = await readFile("./export/main.mjs");
-  let logging = await prepareLogging();
+  let logging = await prepareIOHAnalyzerHandler();
   let jszip = await readFile("./scripts/jszip.js");
   let fileutils = await prepareFileUtils();
   let plotHandler = await preparePlotting();
@@ -122,12 +122,10 @@ function prepareAlgorithm() {
 }
 
 async function prepareCSVHandler() {
-  let file, lines, code;
+  let file, code;
   if (!(file = await readFile("./scripts/CSVHandler.js"))) return false;
   // remove importstatement of workspace.js
-  lines = file.split("\n");
-  lines.shift();
-  code = lines.join("\n");
+  code = removeFirstLine(file);
   // rename fileUtils to fileUtils.mjs
   code = code.replace("/fileUtils", "/fileUtils.mjs");
   return code;
@@ -142,10 +140,11 @@ async function prepareFileUtils() {
   return code;
 }
 
-async function prepareLogging() {
+async function prepareIOHAnalyzerHandler() {
   let file, code;
   if (!(file = await readFile("./scripts/modules/IOHAnalyzerHandler.js")))
     return false;
+  file = removeFirstLine(file);
   // rename fileUtils to fileUtils.mjs
   code = file.replace("/fileUtils", "/fileUtils.mjs");
   return code;
@@ -159,6 +158,12 @@ async function preparePlotting() {
     "//Plotting is currently only supported on the website. Use the CSV-generation to create CSV-files.";
   code += file;
   return code;
+}
+
+function removeFirstLine(file) {
+  let lines = file.split("\n");
+  lines.shift();
+  return lines.join("\n");
 }
 
 export { downloadWorkspace, copyXMLToClipboard, downloadWorkspaceAsJS };

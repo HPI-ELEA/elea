@@ -12,7 +12,7 @@ class PlotHandler {
     let plotName = data.plotName;
     let requestedPlot = this.plotMap.get(plotName);
     if (!requestedPlot) {
-      requestedPlot = new PlotWorker(plotName);
+      requestedPlot = new PlotWorker(plotName, this);
       this.plotMap.set(plotName, requestedPlot);
     }
     requestedPlot.updateValue(data);
@@ -42,11 +42,16 @@ class PlotHandler {
   hasPlotEntries() {
     return this.plotMap.size != 0;
   }
+  
+  removePlot(plotName) {
+    this.plotMap.delete(plotName);
+  }
 }
 
 class PlotWorker {
-  constructor(name) {
+  constructor(name, plotHandler) {
     this.plotName = name;
+    this.plotHandler = plotHandler;
     this.plotData = new Map();
     this.myChart = null;
     this.chartExists = false;

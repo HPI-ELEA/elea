@@ -35,14 +35,15 @@ class CSVHandler {
     requestedCSV.updateValue(data);
   }
 
-  async downloadCSV() {
+  async download() {
     let zip = JSZip();
     this.csvMap.forEach((value) => value.downloadCSV(zip));
     await downloadZIP(zip, "elea.zip");
   }
 
-  clearCSV() {
+  clear() {
     this.csvMap = new Map();
+    this.print = null;
   }
 
   printDoneMessage() {
@@ -53,7 +54,7 @@ class CSVHandler {
     this.print("You can download the files at 'Save/Restore Algorithm'");
   }
 
-  hasCSVEntries() {
+  hasEntries() {
     return this.csvMap.size != 0;
   }
 }
@@ -114,24 +115,30 @@ class CSVWorker {
 
 var csvHandler = new CSVHandler();
 
-function updateValue(data) {
+function updateValueCSV(data) {
   csvHandler.updateValue(data);
 }
 
 function downloadCSV() {
-  csvHandler.downloadCSV();
+  csvHandler.download();
 }
 
 function clearCSV() {
-  csvHandler.clearCSV();
+  csvHandler.clear();
 }
 
-function printDoneMessage() {
+function printDoneMessageCSV() {
   csvHandler.printDoneMessage();
 }
 
-function hasCSVEntries() {
-  return csvHandler.hasCSVEntries();
+function hasEntriesCSV() {
+  return csvHandler.hasEntries();
 }
 
-export { updateValue, downloadCSV, clearCSV, printDoneMessage, hasCSVEntries };
+export {
+  updateValueCSV,
+  downloadCSV,
+  clearCSV,
+  printDoneMessageCSV,
+  hasEntriesCSV,
+};
