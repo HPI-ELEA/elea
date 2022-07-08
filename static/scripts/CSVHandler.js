@@ -1,5 +1,5 @@
 import { addNewOutputEntry } from "./workspace";
-import { saveFileBrowser, saveFileNode } from "./modules/fileUtils";
+import { downloadZIP } from "./modules/fileUtils";
 import JSZip from "./jszip.js";
 
 class CSVHandler {
@@ -112,19 +112,6 @@ class CSVWorker {
   }
 }
 
-async function downloadZIP(zip) {
-  if (!globalThis.window) {
-    // Nodejs environment
-    zip.generateAsync({ type: "nodebuffer" }).then(function (content) {
-      saveFileNode(content, "elea-csv.zip");
-    });
-  } else {
-    // Browser environment
-    let file = await zip.generateAsync({ type: "blob" });
-    saveFileBrowser(file, "elea-csv.zip");
-  }
-}
-
 var csvHandler = new CSVHandler();
 
 function updateValue(data) {
@@ -147,11 +134,4 @@ function hasCSVEntries() {
   return csvHandler.hasCSVEntries();
 }
 
-export {
-  updateValue,
-  downloadCSV,
-  clearCSV,
-  printDoneMessage,
-  hasCSVEntries,
-  downloadZIP,
-};
+export { updateValue, downloadCSV, clearCSV, printDoneMessage, hasCSVEntries };

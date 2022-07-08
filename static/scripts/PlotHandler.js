@@ -1,6 +1,6 @@
 import { addNewOutputEntry } from "./workspace";
 import JSZip from "./jszip.js";
-import { downloadZIP } from "./CSVHandler.js";
+import { downloadZIP } from "./modules/fileUtils";
 
 class PlotHandler {
   constructor() {
@@ -136,83 +136,68 @@ class PlotWorker {
   getPlotDataAsCSV(zip) {
     let csvContent = "";
     if (this.isSingleInput) {
-      csvContent += singlePlotCalculator.tranformToCSV(this.plotData);
+      csvContent += tranformSingleInputToCSV(this.plotData);
     } else {
-      csvContent += doublePlotCalculator.tranformToCSV(this.plotData);
+      csvContent += tranformDoubleInputToCSV(this.plotData);
     }
     zip.file(this.plotName + ".csv", csvContent);
   }
 }
 
-class singleInputPlotCalculator {
-  constructor() {}
-
-  tranformToCSV(plotData) {
-    let labels = [];
-    plotData.forEach((dataset) => {
-      labels.push(dataset.label);
+function tranformSingleInputToCSV(plotData) {
+  let datasets = Array.from(plotData.values());
+  let labels = [];
+  labels = datasets.map((dataset) => dataset.label);
+  let heading = labels.join(";") + "\n";
+  let maxColumnLength = Math.max(
+    ...datasets.map((dataset) => dataset.data.length)
+  );
+  let rows = [];
+  for (let i = 0; i < maxColumnLength; ++i) {
+    let column = [];
+    datasets.map((dataset) => {
+      let data = dataset.data;
+      if (data.length > i) column.push(data[i].y);
+      else column.push("");
     });
-    let heading = labels.join(";") + "\n";
-    let maxColumnLength = 0;
-    plotData.forEach((dataset) => {
-      if (dataset.data.length > maxColumnLength) {
-        maxColumnLength = dataset.data.length;
-      }
-    });
-    let rows = [];
-    for (let i = 0; i < maxColumnLength; ++i) {
-      let column = [];
-      plotData.forEach((dataset) => {
-        let data = dataset.data;
-        if (data.length > i) column.push(data[i].y);
-        else column.push("");
-      });
-      rows.push(column.join(";"));
-    }
-    let csvContent = heading + rows.join("\n");
-    return csvContent;
+    rows.push(column.join(";"));
   }
+  let csvContent = heading + rows.join("\n");
+  return csvContent;
 }
 
-class doubleInputPlotCalculator {
-  constructor() {}
-  tranformToCSV(plotData) {
-    // not sure if this is a good way to do this
-    let labels = [];
+function tranformDoubleInputToCSV(plotData) {
+  // CSVformat: dataset1_x;dataset1_y;dataset2_x;dataset2_y;...;datasetn_x;datasetn_y
+  let datasets = Array.from(plotData.values());
+  let labels = [];
+  plotData.forEach((dataset) => {
+    labels.push(dataset.label + "_x");
+    labels.push(dataset.label + "_y");
+  });
+  let heading = labels.join(";") + "\n";
+  let maxColumnLength = Math.max(
+    ...datasets.map((dataset) => dataset.data.length)
+  );
+  let rows = [];
+  for (let i = 0; i < maxColumnLength; ++i) {
+    let column = [];
     plotData.forEach((dataset) => {
-      labels.push(dataset.label + "_x");
-      labels.push(dataset.label + "_y");
-    });
-    let heading = labels.join(";") + "\n";
-    let maxColumnLength = 0;
-    plotData.forEach((dataset) => {
-      if (dataset.data.length > maxColumnLength) {
-        maxColumnLength = dataset.data.length;
+      let data = dataset.data;
+      if (data.length > i) {
+        column.push(data[i].x);
+        column.push(data[i].y);
+      } else {
+        column.push("");
+        column.push("");
       }
     });
-    let rows = [];
-    for (let i = 0; i < maxColumnLength; ++i) {
-      let column = [];
-      plotData.forEach((dataset) => {
-        let data = dataset.data;
-        if (data.length > i) {
-          column.push(data[i].x);
-          column.push(data[i].y);
-        } else {
-          column.push("");
-          column.push("");
-        }
-      });
-      rows.push(column.join(";"));
-    }
-    let csvContent = heading + rows.join("\n");
-    return csvContent;
+    rows.push(column.join(";"));
   }
+  let csvContent = heading + rows.join("\n");
+  return csvContent;
 }
 
 var plotHandler = new PlotHandler();
-var singlePlotCalculator = new singleInputPlotCalculator();
-var doublePlotCalculator = new doubleInputPlotCalculator();
 
 function updateValue(data) {
   plotHandler.updateValue(data);
