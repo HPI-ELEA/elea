@@ -153,11 +153,11 @@ function zipAlgorithm(zip, db, algorithm) {
 
 var iohHandler = new IOHAnalyzerHandler();
 
-function handleLogFromWorker(data) {
+function updateValueIOH(data) {
   iohHandler.updateValue(data);
 }
 
-function downloadLog() {
+function downloadIOH() {
   iohHandler.download();
 }
 
@@ -165,18 +165,18 @@ function printDoneMessageIOH() {
   iohHandler.printDoneMessage();
 }
 
-function clearLog() {
+function clearIOH() {
   iohHandler.clear();
 }
 
-function hasLogEntries() {
+function hasEntriesIOH() {
   return iohHandler.hasEntries();
 }
 
 export {
-  clearLog,
-  handleLogFromWorker,
-  downloadLog,
-  hasLogEntries,
+  clearIOH,
+  updateValueIOH,
+  downloadIOH,
+  hasEntriesIOH,
   printDoneMessageIOH,
 };

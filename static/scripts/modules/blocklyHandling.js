@@ -4,15 +4,15 @@ import * as Blockly from "blockly";
 import beautify from "js-beautify";
 import "regenerator-runtime/runtime";
 import {
-  clearLog,
-  handleLogFromWorker,
+  clearIOH,
+  updateValueIOH,
   printDoneMessageIOH,
 } from "./IOHAnalyzerHandler";
 import "../normalBlockBehaviour";
 import "../threadBlockBehaviour";
 import { addPrintOutput } from "../workspace";
 import { updateValue as updateValuePlot, drawPlots } from "../PlotHandler";
-import { updateValue as updateValueCSV, printDoneMessage } from "../CSVHandler";
+import { updateValueCSV, printDoneMessageCSV } from "../CSVHandler";
 import { theme } from "./blockTheme";
 
 // var jsonLog = null;
@@ -129,7 +129,7 @@ switch (msg.data.aTopic) {\
 }";
 
 function runCode() {
-  clearLog();
+  clearIOH();
   terminateWorker();
   Blockly.JavaScript.STATEMENT_PREFIX = "";
   //Blockly.JavaScript.addReservedWords('highlightBlock');
@@ -188,7 +188,7 @@ function handleMessageFromWorker(msg) {
   }
 
   if (msg.ctrl == "log") {
-    handleLogFromWorker(msg.data);
+    updateValueIOH(msg.data);
     return;
   }
 
@@ -208,6 +208,7 @@ function handleMessageFromWorker(msg) {
     terminateWorker();
     printDoneMessage();
     printDoneMessageIOH();
+    printDoneMessageCSV();
     drawPlots();
     return;
   }
