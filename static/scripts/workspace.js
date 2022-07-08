@@ -11,7 +11,7 @@ import { clearLog } from "./modules/IOHAnalyzerHandler";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
 import { clearPlots, downloadPlotsAsCSV, hasPlotEntries } from "./PlotHandler";
-import { clearCSV, downloadCSV, hasCSVEntries } from "./CSVHandler";
+import { clearCSV, downloadCSV, hasEntriesCSV } from "./CSVHandler";
 
 $("#run-button").click(runCode);
 $("#kill-button").click(terminateWorker);
