@@ -7,11 +7,7 @@ import {
   downloadWorkspaceAsJS,
 } from "./modules/export";
 import { downloadIOH, hasEntriesIOH } from "./modules/IOHAnalyzerHandler";
-import {
-  clearLog,
-  downloadLog,
-  hasLogEntries,
-} from "./modules/IOHAnalyzerHandler";
+import { clearLog } from "./modules/IOHAnalyzerHandler";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
 import { clearPlots } from "./PlotHandler";
