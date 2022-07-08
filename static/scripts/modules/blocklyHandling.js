@@ -206,7 +206,6 @@ function handleMessageFromWorker(msg) {
   if (msg.ctrl == "terminate") {
     console.log("terminate worker due to its request.");
     terminateWorker();
-    printDoneMessage();
     printDoneMessageIOH();
     printDoneMessageCSV();
     drawPlots();
