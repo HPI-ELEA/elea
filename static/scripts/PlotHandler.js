@@ -1,4 +1,4 @@
-import { addNewOutputEntry } from "./workspace";
+import { addNewDeletableOutputEntry } from "./workspace";
 
 class PlotHandler {
   constructor() {
@@ -46,7 +46,9 @@ class PlotWorker {
     this.iteration = 0;
     if (globalThis.window) {
       let divString = `<canvas id="plot-${name}"></canvas>`;
-      addNewOutputEntry(divString, name, name);
+      addNewDeletableOutputEntry(divString, name, name, () =>
+        this.plotHandler.removePlot(this.plotName)
+      );
       let canvasID = "plot-" + name;
       this.chartArea = document.getElementById(canvasID).getContext("2d");
     }
