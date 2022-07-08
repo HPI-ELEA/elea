@@ -7,7 +7,7 @@ import {
   downloadWorkspaceAsJS,
 } from "./modules/export";
 import { downloadIOH, hasEntriesIOH } from "./modules/IOHAnalyzerHandler";
-import { clearLog } from "./modules/IOHAnalyzerHandler";
+import { clearIOH } from "./modules/IOHAnalyzerHandler";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
 import { clearPlots } from "./PlotHandler";
@@ -73,7 +73,7 @@ function clearOutput() {
     )
   ) {
     clearCSV();
-    clearLog();
+    clearIOH();
     clearPlots();
     $("#output-column").empty();
   }
