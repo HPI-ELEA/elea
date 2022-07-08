@@ -6,15 +6,12 @@ import {
   downloadWorkspace,
   downloadWorkspaceAsJS,
 } from "./modules/export";
-import {
-  clearLog,
-  downloadLog,
-  hasLogEntries,
-} from "./modules/IOHAnalyzerHandler";
+import { downloadIOH, hasEntriesIOH } from "./modules/IOHAnalyzerHandler";
+import { clearLog } from "./modules/IOHAnalyzerHandler";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
 import { clearPlots } from "./PlotHandler";
-import { clearCSV, downloadCSV, hasCSVEntries } from "./CSVHandler";
+import { clearCSV, downloadCSV, hasEntriesCSV } from "./CSVHandler";
 
 $("#run-button").click(runCode);
 $("#kill-button").click(terminateWorker);
@@ -159,7 +156,7 @@ function addNewDeletableOutputEntry(
 }
 
 function tryDownloadCSV() {
-  if (hasCSVEntries()) downloadCSV();
+  if (hasEntriesCSV()) downloadCSV();
   else
     alert(
       "The CSV file is empty. Use the CSV-Block in logging to save data in it."
@@ -167,7 +164,7 @@ function tryDownloadCSV() {
 }
 
 function tryDownloadLog() {
-  if (hasLogEntries()) downloadLog();
+  if (hasEntriesIOH()) downloadIOH();
   else alert("The IOHAnalyzer file is empty.");
 }
 
