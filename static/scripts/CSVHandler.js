@@ -1,5 +1,5 @@
-import { addNewOutputEntry } from "./workspace";
 import { downloadZIP } from "./modules/fileUtils";
+import { addNewDeletableOutputEntry } from "./workspace";
 import JSZip from "./jszip.js";
 
 class CSVHandler {
@@ -16,10 +16,11 @@ class CSVHandler {
         this.print = (msg) => console.log(msg);
       } else {
         // Browser env
-        let output = addNewOutputEntry(
+        let output = addNewDeletableOutputEntry(
           '<pre id="csv-print-area" class="print-area"></pre>',
           "csv-print-area",
-          "CSV Log"
+          "CSV Log",
+          clearCSV
         );
         this.print = (msg) => (output.innerHTML += msg + "\n");
       }

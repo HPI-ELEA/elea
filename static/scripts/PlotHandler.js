@@ -1,6 +1,6 @@
-import { addNewOutputEntry } from "./workspace";
 import JSZip from "./jszip.js";
 import { downloadZIP } from "./modules/fileUtils";
+import { addNewDeletableOutputEntry } from "./workspace";
 
 class PlotHandler {
   constructor() {
@@ -59,7 +59,9 @@ class PlotWorker {
     this.isSingleInput = true;
     if (globalThis.window) {
       let divString = `<canvas id="plot-${name}"></canvas>`;
-      addNewOutputEntry(divString, name, name);
+      addNewDeletableOutputEntry(divString, name, name, () =>
+        this.plotHandler.removePlot(this.plotName)
+      );
       let canvasID = "plot-" + name;
       this.chartArea = document.getElementById(canvasID).getContext("2d");
     }

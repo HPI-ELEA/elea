@@ -1,4 +1,4 @@
-import { addNewOutputEntry } from "../workspace";
+import { addNewDeletableOutputEntry } from "../workspace";
 import { saveFileBrowser, saveFileNode } from "./fileUtils";
 import JSZip from "../jszip.js";
 
@@ -14,10 +14,11 @@ class IOHAnalyzerHandler {
         this.print = (msg) => console.log(msg);
       } else {
         // Browser env
-        let output = addNewOutputEntry(
+        let output = addNewDeletableOutputEntry(
           '<pre id="ioh-print-area" class="print-area"></pre>',
           "ioh-print-area",
-          "IOHAnalyzer Log"
+          "IOHAnalyzer Log",
+          clearIOH
         );
         this.print = (msg) => (output.innerHTML += msg + "\n");
       }

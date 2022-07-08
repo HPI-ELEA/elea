@@ -7,7 +7,7 @@ import {
   downloadWorkspaceAsJS,
 } from "./modules/export";
 import { downloadIOH, hasEntriesIOH } from "./modules/IOHAnalyzerHandler";
-import { clearLog } from "./modules/IOHAnalyzerHandler";
+import { clearIOH } from "./modules/IOHAnalyzerHandler";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
 import { clearPlots, downloadPlotsAsCSV, hasPlotEntries } from "./PlotHandler";
@@ -59,7 +59,7 @@ function addPrintOutput() {
   // Check existsence of output entry for printing statements
   if ($("#output-print-area").length)
     return document.getElementById("output-print-area");
-  return addNewOutputEntry(
+  return addNewDeletableOutputEntry(
     '<pre id="output-print-area" class="print-area"></pre>',
     "output-print-area",
     "Output"
@@ -74,39 +74,10 @@ function clearOutput() {
     )
   ) {
     clearCSV();
-    clearLog();
+    clearIOH();
     clearPlots();
     $("#output-column").empty();
   }
-}
-
-// Generates a new output entry containing
-// - a shown outputContent as HTML-String
-// - the id of the div with the outputContent in the future HTML file
-// - the title of the output entry
-// returns the html element inside of the output entry
-function addNewOutputEntry(outputContent, outputContentID, title) {
-  let numOutput = $("#output-column > *").length;
-  let divString = `
-  <div class="output-block" id="output-${numOutput}">
-    <div class="output-header">
-      <h3 class="output-heading" id="output-${numOutput}-heading">${title}</h3>
-      <button class="btn btn-outline-dark btn-block" id="output-${numOutput}-button">Hide</button>
-    </div>
-    <div id="output-${numOutput}-content">
-      ${outputContent}
-    </div>
-  </div>`;
-  $("#output-column").append(divString);
-  // Add a button to toggle between showing and hiding the output entry
-  $(`#output-${numOutput}-button`).click(() => {
-    let newButtonValue = "Show";
-    if ($(`#output-${numOutput}-button`).text() == "Show")
-      newButtonValue = "Hide";
-    $(`#output-${numOutput}-button`).text(newButtonValue);
-    $(`#output-${numOutput}-content`).slideToggle(300);
-  });
-  return document.getElementById(outputContentID);
 }
 
 // Generates a new output entry containing
@@ -120,7 +91,7 @@ function addNewDeletableOutputEntry(
   outputContent,
   outputContentID,
   title,
-  deleteOperation
+  deleteOperation = () => {}
 ) {
   let numOutput = $("#output-column > *").length;
   let divString = `
@@ -177,4 +148,4 @@ function tryDownloadLog() {
   else alert("The IOHAnalyzer file is empty.");
 }
 
-export { addPrintOutput, addNewOutputEntry };
+export { addPrintOutput, addNewDeletableOutputEntry };
