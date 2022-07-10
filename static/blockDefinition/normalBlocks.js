@@ -422,7 +422,7 @@ export const blockDefinitions = [
     previousStatement: null,
     nextStatement: null,
     style: "loop_blocks",
-    tooltip: "",
+    tooltip: "runs breeding instructions for given number of iterations",
     helpUrl: "",
   },
   {
@@ -517,7 +517,7 @@ export const blockDefinitions = [
     inputsInline: true,
     output: "Individual",
     style: "indiv_blocks",
-    tooltip: "",
+    tooltip: "mutate individual bitwise using given probability",
     helpUrl: "",
   },
   {
@@ -533,7 +533,7 @@ export const blockDefinitions = [
     inputsInline: true,
     output: "Individual",
     style: "indiv_blocks",
-    tooltip: "",
+    tooltip: "mutate random single bit of given individual",
     helpUrl: "",
   },
   {
@@ -644,7 +644,7 @@ export const blockDefinitions = [
     previousStatement: null,
     nextStatement: null,
     style: "logging_blocks",
-    tooltip: "",
+    tooltip: "print given value to output",
     helpUrl: "",
   },
   {
@@ -662,7 +662,7 @@ export const blockDefinitions = [
     previousStatement: true,
     nextStatement: true,
     style: "logging_blocks",
-    tooltip: "",
+    tooltip: "adds input text as comment",
     helpUrl: "",
   },
 
@@ -736,7 +736,7 @@ export const blockDefinitions = [
     ],
     output: "Individual",
     style: "indiv_blocks",
-    tooltip: "",
+    tooltip: "references value of given item",
     helpUrl: "",
   },
   {
@@ -759,7 +759,7 @@ export const blockDefinitions = [
     previousStatement: null,
     nextStatement: null,
     style: "indiv_blocks",
-    tooltip: "",
+    tooltip: "sets value of given individual according to following block",
     helpUrl: "",
   },
   {
@@ -776,7 +776,7 @@ export const blockDefinitions = [
     ],
     output: "Array",
     style: "pop_blocks",
-    tooltip: "",
+    tooltip: "references given population",
     helpUrl: "",
   },
   {
@@ -799,7 +799,7 @@ export const blockDefinitions = [
     previousStatement: null,
     nextStatement: null,
     style: "pop_blocks",
-    tooltip: "",
+    tooltip: "overwrites population values according to following block",
     helpUrl: "",
   },
   {
