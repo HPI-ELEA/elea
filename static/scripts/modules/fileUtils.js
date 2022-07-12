@@ -34,4 +34,23 @@ function copyToClipboard(str) {
   document.body.removeChild(el);
 }
 
-export { saveFileBrowser, saveFileNode, copyToClipboard, readFile };
+async function downloadZIP(zip, filename) {
+  if (!globalThis.window) {
+    // Nodejs environment
+    zip.generateAsync({ type: "nodebuffer" }).then(function (content) {
+      saveFileNode(content, filename);
+    });
+  } else {
+    // Browser environment
+    let file = await zip.generateAsync({ type: "blob" });
+    saveFileBrowser(file, filename);
+  }
+}
+
+export {
+  saveFileBrowser,
+  saveFileNode,
+  copyToClipboard,
+  readFile,
+  downloadZIP,
+};

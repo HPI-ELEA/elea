@@ -1,5 +1,5 @@
+import { downloadZIP } from "./modules/fileUtils";
 import { addNewDeletableOutputEntry } from "./workspace";
-import { saveFileBrowser, saveFileNode } from "./modules/fileUtils";
 import JSZip from "./jszip.js";
 
 class CSVHandler {
@@ -111,19 +111,6 @@ class CSVWorker {
     }
     let csvContent = heading + rows.join("\n");
     zip.file(this.filename + ".csv", csvContent);
-  }
-}
-
-async function downloadZIP(zip) {
-  if (!globalThis.window) {
-    // Nodejs environment
-    zip.generateAsync({ type: "nodebuffer" }).then(function (content) {
-      saveFileNode(content, "elea-csv.zip");
-    });
-  } else {
-    // Browser environment
-    let file = await zip.generateAsync({ type: "blob" });
-    saveFileBrowser(file, "elea-csv.zip");
   }
 }
 
