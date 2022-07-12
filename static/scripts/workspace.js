@@ -35,6 +35,7 @@ $("#example-full-multithread").click(() => loadExample("full_multithread"));
 $("#example-multithread-performance").click(() =>
   loadExample("multithread-performance")
 );
+$("#example-simple-plotting").click(() => loadExample("simple_plotting"));
 
 $("#upload_xml").click(() => $("#upload_xml_input").click());
 $("#upload_xml_input").change(selectedFileChanged);
