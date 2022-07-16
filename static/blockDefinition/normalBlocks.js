@@ -19,7 +19,7 @@ export const blockDefinitions = [
     tooltip: "This block runs if you click 'Run'.",
     helpUrl: "",
   },
-  {
+  {//legacy
     type: "init_meta",
     message0: "Initialize global vars and metainfo %1 will be run once %2 %3",
     args0: [
@@ -38,7 +38,7 @@ export const blockDefinitions = [
     tooltip: "",
     helpUrl: "",
   },
-  {
+  {//legacy
     type: "init_run",
     message0:
       "Run algorithm once. %1 Called once per n %2 Init/change metavariables before %3 initialising your population %4 %5",
@@ -117,7 +117,7 @@ export const blockDefinitions = [
     output: "Individual",
     style: "indiv_blocks",
     tooltip:
-      "An initialization strategy, which generates an individual with constants.",
+      "An initialization strategy, which generates an individual with given constants.",
     helpUrl: "",
   },
   {
@@ -132,7 +132,7 @@ export const blockDefinitions = [
         name: "INIT_STRATEGY",
         check: "init_strategy",
         comment:
-          "A strategy that specifies how a population is generated. Use for example 'init_constant' or 'init_uniform'.",
+          "A strategy that specifies how a population is generated. Use 'init_constant' or 'init_uniform' for example.",
       },
     ],
     inputsInline: true,
@@ -142,7 +142,7 @@ export const blockDefinitions = [
       "Use this function to initialize your population of individuals with a specific initialization strategy.",
     helpUrl: "",
   },
-  {
+  {//legacy
     type: "init_lambda",
     message0: "Init lambda to  %1",
     args0: [
@@ -260,7 +260,7 @@ export const blockDefinitions = [
     nextStatement: null,
     style: "loop_blocks",
     tooltip:
-      "An experimental breeding loop with integrated logging for IOHprofiler. After you executed the program, download the data for the IOHanalyzer, go to page of the <a href='https://iohanalyzer.liacs.nl/'>IOHanalyzer</a> and analyze your data.",
+      "An experimental breeding loop with integrated logging for IOHprofiler. After you execute the program, download the data for the IOHanalyzer, go to page of the <a href='https://iohanalyzer.liacs.nl/'>IOHanalyzer</a> and analyze your data.",
     helpUrl: "",
   },
   {
@@ -328,7 +328,7 @@ export const blockDefinitions = [
     previousStatement: null,
     nextStatement: null,
     style: "pop_blocks",
-    tooltip: "Adds an individual to an population.",
+    tooltip: "Adds an individual to a population.",
     helpUrl: "",
   },
   {
@@ -352,7 +352,7 @@ export const blockDefinitions = [
     ],
     output: "Array",
     style: "pop_blocks",
-    tooltip: "Returns the of entirely of two two populations.",
+    tooltip: "Returns the entirety of the two populations.",
     helpUrl: "",
   },
   {
@@ -379,7 +379,7 @@ export const blockDefinitions = [
     output: "Individual",
     style: "pop_blocks",
     tooltip:
-      "Selects an individuals from a population with an an selection strategy.",
+      "Selects an individual from a population based on given selection strategy.",
     helpUrl: "",
     category: "algorithm-parts",
   },
@@ -422,7 +422,7 @@ export const blockDefinitions = [
     previousStatement: null,
     nextStatement: null,
     style: "loop_blocks",
-    tooltip: "runs breeding instructions for given number of iterations",
+    tooltip: "Runs breeding instructions for given number of iterations.",
     helpUrl: "",
   },
   {
@@ -480,7 +480,7 @@ export const blockDefinitions = [
     nextStatement: null,
     style: "indiv_blocks",
     tooltip:
-      "Generates from two individuals two new one with an crossover strategy.",
+      "Generates two offspring individuals from parent individuals based on given crossover instructions.",
     helpUrl: "",
   },
   {
@@ -517,7 +517,7 @@ export const blockDefinitions = [
     inputsInline: true,
     output: "Individual",
     style: "indiv_blocks",
-    tooltip: "mutate individual bitwise using given probability",
+    tooltip: "Mutate given individual bitwise using given probability.",
     helpUrl: "",
   },
   {
@@ -533,7 +533,7 @@ export const blockDefinitions = [
     inputsInline: true,
     output: "Individual",
     style: "indiv_blocks",
-    tooltip: "mutate random single bit of given individual",
+    tooltip: "Mutate random single bit of given individual.",
     helpUrl: "",
   },
   {
@@ -558,7 +558,7 @@ export const blockDefinitions = [
     output: "Array",
     style: "pop_blocks",
     tooltip:
-      "Generates a new population from a given one by selecting some individuals with a selection strategy.",
+      "Generates a new population from a given one by selecting individuals based on given selection strategy.",
     helpUrl: "",
   },
   {
@@ -575,7 +575,7 @@ export const blockDefinitions = [
     output: "Individual",
     style: "pop_blocks",
     tooltip:
-      "Selects the best individuals from an population using the user-definied 'fitness'-function.",
+      "Selects the best individuals from a population using the given 'fitness'-function.",
     helpUrl: "",
   },
   {
@@ -591,7 +591,7 @@ export const blockDefinitions = [
     inputsInline: false,
     output: "Number",
     style: "fitness_blocks",
-    tooltip: "Calculates the maximum pairwise diversity of an population.",
+    tooltip: "Calculates the maximum pairwise diversity of a population.",
     helpUrl: "",
   },
   {
@@ -609,7 +609,7 @@ export const blockDefinitions = [
     output: "crossover_strategy",
     style: "indiv_blocks",
     tooltip:
-      "A crossover strategy in which two individuals are cut and joined at two points",
+      "A crossover strategy where two individuals are cut and joined at two points",
     helpUrl: "",
   },
   {
@@ -617,11 +617,11 @@ export const blockDefinitions = [
     message0: "uniform",
     output: "crossover_strategy",
     style: "indiv_blocks",
-    tooltip: "A crossover strategy in which each bit is exchanged uniformly.",
+    tooltip: "A crossover strategy where each bit is exchanged uniformly.",
     helpUrl: "",
   },
 
-  {
+  {//legacy
     type: "ea_debug_all",
     message0: "debug print to output",
     previousStatement: null,
@@ -644,7 +644,7 @@ export const blockDefinitions = [
     previousStatement: null,
     nextStatement: null,
     style: "logging_blocks",
-    tooltip: "print given value to output",
+    tooltip: "Print given value to output.",
     helpUrl: "",
   },
   {
@@ -662,7 +662,7 @@ export const blockDefinitions = [
     previousStatement: true,
     nextStatement: true,
     style: "logging_blocks",
-    tooltip: "adds input text as comment",
+    tooltip: "Adds input text as comment.",
     helpUrl: "",
   },
 
@@ -704,7 +704,7 @@ export const blockDefinitions = [
     previousStatement: true,
     nextStatement: true,
     style: "experimental_blocks",
-    tooltip: "enter raw line of code to execute",
+    tooltip: "Enter raw line of code to execute.",
   },
 
   {
@@ -719,7 +719,7 @@ export const blockDefinitions = [
     inputsInLine: true,
     output: null,
     style: "experimental_blocks",
-    tooltip: "enter raw code value to use",
+    tooltip: "Enter raw code value to use.",
     category: "experimental",
   },
   {
@@ -736,7 +736,7 @@ export const blockDefinitions = [
     ],
     output: "Individual",
     style: "indiv_blocks",
-    tooltip: "references value of given item",
+    tooltip: "References value of given item.",
     helpUrl: "",
   },
   {
@@ -759,7 +759,7 @@ export const blockDefinitions = [
     previousStatement: null,
     nextStatement: null,
     style: "indiv_blocks",
-    tooltip: "sets value of given individual according to following block",
+    tooltip: "Sets value of given individual according to following block.",
     helpUrl: "",
   },
   {
@@ -776,7 +776,7 @@ export const blockDefinitions = [
     ],
     output: "Array",
     style: "pop_blocks",
-    tooltip: "references given population",
+    tooltip: "References given population.",
     helpUrl: "",
   },
   {
@@ -799,7 +799,7 @@ export const blockDefinitions = [
     previousStatement: null,
     nextStatement: null,
     style: "pop_blocks",
-    tooltip: "overwrites population values according to following block",
+    tooltip: "Overwrites population values according to following block.",
     helpUrl: "",
   },
   {
@@ -816,7 +816,7 @@ export const blockDefinitions = [
     previousStatement: null,
     nextStatement: null,
     style: "timer_blocks",
-    tooltip: "Stops the execution for a period of time.",
+    tooltip: "Stops the execution for given period of time.",
     helpUrl: "",
   },
   {
@@ -841,7 +841,7 @@ export const blockDefinitions = [
     output: "Boolean",
     style: "pop_blocks",
     tooltip:
-      "Returns true when no individual from the population has the requested fitness",
+      "Returns true when no individual from given population has the requested fitness.",
     helpUrl: "",
   },
   {
@@ -883,7 +883,7 @@ export const blockDefinitions = [
     nextStatement: null,
     style: "logging_blocks",
     helpUrl: "",
-    tooltip: "Use this block to create plots with the data from your EA",
+    tooltip: "Use this block to create plots with given data from your EA.",
   },
   {
     type: "save_in_csv",
@@ -917,7 +917,7 @@ export const blockDefinitions = [
     nextStatement: null,
     style: "logging_blocks",
     helpUrl: "",
-    tooltip: "Use this block to create CSV-Files with the data from your EA",
+    tooltip: "Use this block to create CSV-Files with the data from your EA.",
   },
   {
     type: "individual_hamming_distance",
@@ -990,6 +990,6 @@ export const blockDefinitions = [
     colour: "#777",
     helpUrl: "",
     category: "logging",
-    tooltip: "Use this block to create plots with the data from your EA",
+    tooltip: "Use this block to create plots with given x and y data from your EA.",
   },
 ];
