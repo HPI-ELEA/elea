@@ -38,7 +38,7 @@ export const blockDefinitions = [
     tooltip: "",
     helpUrl: "",
   },
-  {//legacy
+  {
     type: "init_run",
     message0:
       "Run algorithm once. %1 Called once per n %2 Init/change metavariables before %3 initialising your population %4 %5",
