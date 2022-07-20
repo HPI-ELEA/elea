@@ -23,139 +23,171 @@
   </head>
 
   <body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="index.html">
-        <img
-          src="favicon.svg"
-          alt="elea-logo"
-          width="30rem"
-          height="30rem"
-          class="d-inline-block align-top"
-        />
-        Build Your Own EA
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link active" href="#" id="example-demo">
-              Demo
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" target="_blank" href="faq.html">FAQ</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" target="_blank" href="documentation.html">
-              Documentation
-            </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarExampleDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <img
+            src="favicon.svg"
+            alt="elea-logo"
+            width="30rem"
+            height="30rem"
+            class="d-inline-block align-top"
+          />
+          Build Your Own EA
+        </a>
+        <button 
+            class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="offcanvas" 
+            data-bs-target="#navbarOffcanvasLg" 
+            aria-controls="navbarOffcanvasLg"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
             >
-              Examples
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
-              <a class="dropdown-item" id="example-empty">
-                Empty starting point
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" id="example-full">Full example</a>
-              <a class="dropdown-item" id="example-simple">Simple example</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" id="example-oneplusone">1+1</a>
-              <a class="dropdown-item" id="example-onepluslambda" href="#">
-                1+λ
-              </a>
-              <a class="dropdown-item" id="example-onelambda">1,λ</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" id="example-multithread">
-                Multi-Threading Example
-              </a>
-              <a class="dropdown-item" id="example-full-multithread">
-                Full Example with Multi-Threading
-              </a>
-              <a class="dropdown-item" id="example-multithread-performance">
-                Multi-Threading Performance Test
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" id="example-simple-plotting">
-                Simple Plotting example
-              </a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarSaveDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Save/Restore Algorithm
-            </a>
-            <input type="file" id="upload_xml_input" style="display: none" />
-            <div class="dropdown-menu" aria-labelledby="navbarSaveDropdown">
-              <a class="dropdown-item" id="upload_xml" href="#">
-                Upload XML file
-              </a>
-              <a class="dropdown-item" id="promt_for_xml" href="#">
-                Paste XML string
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" id="download_xml" href="#">
-                Download XML file
-              </a>
-              <a class="dropdown-item" id="copy_xml" href="#">
-                Copy XML string
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" id="download_js" href="#">
-                Download JS project
-              </a>
-              <a
-                class="dropdown-item"
-                data-toggle="modal"
-                id="show_js"
-                href="#jsModal"
-              >
-                Show JS
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" id="download_json" href="#jsModal">
-                Download data for IOHanalyzer
-              </a>
-              <a class="dropdown-item" id="download_csv" href="#">
-                Download CSV
-              </a>
-              <a class="dropdown-item" id="download_plots_as_csv" href="#">
-                Download Plots as CSV
-              </a>
-            </div>
-          </li>
-        </ul>
-      </div>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="navbarOffcanvasLg" aria-labelledby="navbarOffcanvasLgLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Build Your Own EA</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="workspace.html?example=full">
+                  Demo
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="faq.html">FAQ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="documentation.html">Documentation</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarExampleDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Examples
+                </a>
+                <ul
+                  class="dropdown-menu"
+                  aria-labelledby="navbarExampleDropdown"
+                >
+                  <li><a class="dropdown-item" href="workspace.html?example=empty">
+                    Empty starting point
+                  </a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="workspace.html?example=full">
+                    Full example
+                  </a></li>
+                  <li><a class="dropdown-item" href="workspace.html?example=simple">
+                    Simple example
+                  </a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a
+                    class="dropdown-item"
+                    href="workspace.html?example=oneplusone"
+                  >
+                    1+1
+                  </a></li>
+                  <li><a
+                    class="dropdown-item"
+                    href="workspace.html?example=onepluslambda"
+                  >
+                    1+λ
+                  </a></li>
+                  <li><a
+                    class="dropdown-item"
+                    href="workspace.html?example=onelambda"
+                  >
+                    1,λ
+                  </a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a
+                    class="dropdown-item"
+                    href="workspace.html?example=multithread"
+                  >
+                    Multi-Threading Example
+                  </a></li>
+                  <li><a
+                    class="dropdown-item"
+                    href="workspace.html?example=full_multithread"
+                  >
+                    Full example with Multi-Threading
+                  </a></li>
+                  <li><a
+                    class="dropdown-item"
+                    href="workspace.html?example=multithread-performance"
+                  >
+                    Multi-Threading Performance Test
+                  </a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarSaveDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Save/Restore Algorithm
+                </a>
+                <input type="file" id="upload_xml_input" style="display: none" />
+                <ul class="dropdown-menu" aria-labelledby="navbarSaveDropdown">
+                  <li><a class="dropdown-item" id="upload_xml" href="#">
+                    Upload XML file
+                  </a></li>
+                  <li><a class="dropdown-item" id="promt_for_xml" href="#">
+                    Paste XML string
+                  </a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" id="download_xml" href="#">
+                    Download XML file
+                  </a></li>
+                  <li><a class="dropdown-item" id="copy_xml" href="#">
+                    Copy XML string
+                  </a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" id="download_js" href="#">
+                    Download JS project
+                  </a></li>
+                  <li><a
+                    class="dropdown-item"
+                    data-bs-toggle="modal"
+                    id="show_js"
+                    data-bs-target="#jsModal"
+                  >
+                    Show JS
+                  </a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" id="download_json" href="#jsModal">
+                    Download data for IOHanalyzer
+                  </a></li>
+                  <li><a class="dropdown-item" id="download_csv" href="#">
+                    Download CSV
+                  </a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
     </nav>
     <main>
       <div id="spinner">
