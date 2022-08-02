@@ -17,8 +17,10 @@ class Queue {
 // an object used to request a message receive
 //eslint-disable-next-line no-unused-vars -- is used in code blockly compiles
 class RecvRequest {
-  constructor(source) {
+  constructor(source, ctrl, resolve) {
     this.source = source;
+    this.ctrl = ctrl,
+    this.resolve = resolve;
   }
 }
 
@@ -73,6 +75,13 @@ class MessageHandler {
     destThread.postMessage(msg);
   }
 
+  // resolves and removes the pending request
+  resolvePendingRequest(msg) {
+    let request = this.pendingRequest;
+    this.pendingRequest = null;
+    request.resolve(msg);
+  }
+
   handleIncomingMessage(message) {
     // if the message came from a child and isn't addressed to the parent (this thread) then forward
     // this should never be used by any of the current elea blocks, it was in case threads ever wished to speak to eachother
@@ -84,6 +93,14 @@ class MessageHandler {
       return;
     }
 
+    // set the current thread ID and resume if we are waiting on
+    if (message.ctrl == "id") {
+      Handler.THREAD_ID = message.data;
+      if (this.pendingRequest && this.pendingRequest.ctrl == "id") {
+        this.resolvePendingRequest(message);
+      }
+      return;
+    }
 
     // if the message is a log or a print statement then forward the message further up the chain
     if (["log", "print", "plot", "csv"].some((m) => m == message.ctrl)) {
@@ -110,9 +127,7 @@ class MessageHandler {
       (this.pendingRequest.source == this.ANY_CHILD_SOURCE &&
         message.source != this.PARENT_ID)
     ) {
-      let request = this.pendingRequest;
-      this.pendingRequest = null;
-      request.resolve(message);
+      this.resolvePendingRequest(message);
       return;
     }
 
@@ -120,10 +135,14 @@ class MessageHandler {
     this.messageBuffer.get(message.source).push(message);
   }
 
-  recvRequest(request) {
+  // asynchronous function that receives a message from the given source
+  receiveMessage(source, ctrl) {
     let handler = this;
+    if (source == null || source == undefined) source = this.ANY_CHILD_SOURCE;
+
     return new Promise(function(resolve) {
       let msg = undefined;
+      let request = new RecvRequest(source, ctrl, resolve);
 
       // grab the message if it is already buffered
       // if the receiver is set to ANY then grab the first item in the buffer not from the parent
@@ -141,18 +160,11 @@ class MessageHandler {
       // if there is no message in the queue for the requested source
       if (msg == undefined) {
         handler.pendingRequest = request;
-        request.resolve = resolve;
         return;
       } else {
         resolve(msg);
       }
     });
-  }
-
-  // asynchronous function that receives a message from the given source
-  async receiveMessage(source) {
-    if (source == null || source == undefined) source = this.ANY_CHILD_SOURCE;
-    return await this.recvRequest(new RecvRequest(source));
   }
 
   // asynchronous function that imports a variable from the parent
@@ -164,7 +176,7 @@ class MessageHandler {
   // blocks until the thread ID has been received
   async resolveID() {
     if (this.THREAD_ID != null) return;
-    this.THREAD_ID = (await this.receiveMessage(this.PARENT_ID)).data;
+    await this.receiveMessage(this.PARENT_ID, "id");
     return;
   }
 
