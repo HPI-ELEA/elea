@@ -10,7 +10,7 @@ import { downloadIOH, hasEntriesIOH } from "./modules/IOHAnalyzerHandler";
 import { clearIOH } from "./modules/IOHAnalyzerHandler";
 import { highlightAll } from "prismjs";
 import $ from "jquery";
-import { clearPlots } from "./PlotHandler";
+import { clearPlots, downloadPlotsAsCSV, hasPlotEntries } from "./PlotHandler";
 import { clearCSV, downloadCSV, hasEntriesCSV } from "./CSVHandler";
 
 $("#run-button").click(runCode);
@@ -35,6 +35,7 @@ $("#example-full-multithread").click(() => loadExample("full_multithread"));
 $("#example-multithread-performance").click(() =>
   loadExample("multithread-performance")
 );
+$("#example-simple-plotting").click(() => loadExample("simple_plotting"));
 
 $("#upload_xml").click(() => $("#upload_xml_input").click());
 $("#upload_xml_input").change(selectedFileChanged);
@@ -45,6 +46,7 @@ $("#download_js").click(downloadWorkspaceAsJS);
 $("#show_js").click(highlightAll);
 $("#download_json").click(tryDownloadLog);
 $("#download_csv").click(tryDownloadCSV);
+$("#download_plots_as_csv").click(tryDownloadPlotsAsCSV);
 
 // Align the output column to the height of the workspace
 $("#output-column").height($("#blockly-div").height());
@@ -131,6 +133,14 @@ function tryDownloadCSV() {
   else
     alert(
       "The CSV file is empty. Use the CSV-Block in logging to save data in it."
+    );
+}
+
+function tryDownloadPlotsAsCSV() {
+  if (hasPlotEntries()) downloadPlotsAsCSV();
+  else
+    alert(
+      "There are no plots that can be downloaded. Use the plotting blocks to create one."
     );
 }
 

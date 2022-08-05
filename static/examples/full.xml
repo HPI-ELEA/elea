@@ -13,7 +13,7 @@
     <variable type="Individual" id="|5zDPSJN?$Di|I!M#17|">parent</variable>
     <variable type="Individual" id="DL-dyiHx%dpP^R1wV9n#">offspring</variable>
   </variables>
-  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="165" y="4" deletable="false">
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" deletable="false" x="165" y="4">
     <statement name="init_statements">
       <block type="controls_for" id="}XR@KNXf}G(1Dm;n:tdN">
         <field name="VAR" id="$zt),?8|})G,(/E.43Jj">count</field>
@@ -161,26 +161,10 @@
                         <field name="algId">elea</field>
                         <field name="fnId">1</field>
                         <value name="continue_condition">
-                          <block type="logic_compare" id="tV%BK#PsA5}%-B5Nde*`">
-                            <field name="OP">LT</field>
-                            <value name="A">
-                              <block type="procedures_callreturn" id="tv!P_vfA~*^phH`YogA4">
-                                <mutation name="fitness">
-                                  <arg name="individual"></arg>
-                                </mutation>
-                                <value name="ARG0">
-                                  <block type="ea_select_best" id="RFfEgql1S8J5$IsA%Utg">
-                                    <value name="POPULATION">
-                                      <block type="variables_get_population" id="`Pr]*=oC#^;pzNT-$W8M">
-                                        <field name="VAR" id="#pcO:SShN$OQz:KS?`_i" variabletype="Array">parent_population</field>
-                                      </block>
-                                    </value>
-                                  </block>
-                                </value>
-                              </block>
-                            </value>
-                            <value name="B">
-                              <block type="variables_get" id="X=kZQm;k36$^}[lkWsYI">
+                          <block type="check_fitness" id="(aAhsZ`^;`/X*:hjwHOu">
+                            <field name="POPULATION" id="#pcO:SShN$OQz:KS?`_i" variabletype="Array">parent_population</field>
+                            <value name="MIN_FITNESS">
+                              <block type="variables_get" id="[B,;)UNL=XH{H)GQEV/,">
                                 <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
                               </block>
                             </value>

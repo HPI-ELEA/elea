@@ -1,3 +1,5 @@
+import JSZip from "./jszip.js";
+import { downloadZIP } from "./modules/fileUtils";
 import { addNewDeletableOutputEntry } from "./workspace";
 
 class PlotHandler {
@@ -31,6 +33,16 @@ class PlotHandler {
     this.plotMap = new Map();
   }
 
+  async downloadPlotDataAsCSV() {
+    let zip = JSZip();
+    this.plotMap.forEach((value) => value.getPlotDataAsCSV(zip));
+    await downloadZIP(zip, "elea_plots.zip");
+  }
+
+  hasPlotEntries() {
+    return this.plotMap.size != 0;
+  }
+  
   removePlot(plotName) {
     this.plotMap.delete(plotName);
   }
@@ -44,6 +56,7 @@ class PlotWorker {
     this.myChart = null;
     this.chartExists = false;
     this.iteration = 0;
+    this.isSingleInput = true;
     if (globalThis.window) {
       let divString = `<canvas id="plot-${name}"></canvas>`;
       addNewDeletableOutputEntry(divString, name, name, () =>
@@ -56,6 +69,9 @@ class PlotWorker {
 
   //collect data during runtime
   updateValue(data) {
+    if (data.xValue != null) {
+      this.isSingleInput = false;
+    }
     let datasetName = data.datasetNumber;
     if (this.iteration > 0) {
       // new runs produce new datasets which can be distinguished by their ending
@@ -123,6 +139,69 @@ class PlotWorker {
     }
     return;
   }
+
+  getPlotDataAsCSV(zip) {
+    let csvContent = "";
+    if (this.isSingleInput) {
+      csvContent += tranformSingleInputToCSV(this.plotData);
+    } else {
+      csvContent += tranformDoubleInputToCSV(this.plotData);
+    }
+    zip.file(this.plotName + ".csv", csvContent);
+  }
+}
+
+function tranformSingleInputToCSV(plotData) {
+  let datasets = Array.from(plotData.values());
+  let labels = [];
+  labels = datasets.map((dataset) => dataset.label);
+  let heading = labels.join(";") + "\n";
+  let maxColumnLength = Math.max(
+    ...datasets.map((dataset) => dataset.data.length)
+  );
+  let rows = [];
+  for (let i = 0; i < maxColumnLength; ++i) {
+    let column = [];
+    datasets.map((dataset) => {
+      let data = dataset.data;
+      if (data.length > i) column.push(data[i].y);
+      else column.push("");
+    });
+    rows.push(column.join(";"));
+  }
+  let csvContent = heading + rows.join("\n");
+  return csvContent;
+}
+
+function tranformDoubleInputToCSV(plotData) {
+  // CSVformat: dataset1_x;dataset1_y;dataset2_x;dataset2_y;...;datasetn_x;datasetn_y
+  let datasets = Array.from(plotData.values());
+  let labels = [];
+  plotData.forEach((dataset) => {
+    labels.push(dataset.label + "_x");
+    labels.push(dataset.label + "_y");
+  });
+  let heading = labels.join(";") + "\n";
+  let maxColumnLength = Math.max(
+    ...datasets.map((dataset) => dataset.data.length)
+  );
+  let rows = [];
+  for (let i = 0; i < maxColumnLength; ++i) {
+    let column = [];
+    plotData.forEach((dataset) => {
+      let data = dataset.data;
+      if (data.length > i) {
+        column.push(data[i].x);
+        column.push(data[i].y);
+      } else {
+        column.push("");
+        column.push("");
+      }
+    });
+    rows.push(column.join(";"));
+  }
+  let csvContent = heading + rows.join("\n");
+  return csvContent;
 }
 
 var plotHandler = new PlotHandler();
@@ -137,6 +216,14 @@ function drawPlots() {
 
 function clearPlots() {
   plotHandler.clearPlots();
+}
+
+function downloadPlotsAsCSV() {
+  plotHandler.downloadPlotDataAsCSV();
+}
+
+function hasPlotEntries() {
+  return plotHandler.hasPlotEntries();
 }
 
 //use a random color for every dataset and make sure its bright enough
@@ -156,4 +243,10 @@ function randomRGBA() {
   );
 }
 
-export { updateValue, drawPlots, clearPlots };
+export {
+  updateValue,
+  drawPlots,
+  clearPlots,
+  hasPlotEntries,
+  downloadPlotsAsCSV,
+};
