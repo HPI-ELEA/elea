@@ -992,4 +992,54 @@ export const blockDefinitions = [
     category: "logging",
     tooltip: "Use this block to create plots with given x and y data from your EA.",
   },
+  {
+    type: "iteration_counter_loop",
+    message0: "%1 %2 %3 do %4 %5 save iteration count in %6 %7",
+    args0: [
+      {
+        type: "field_dropdown",
+        name: "loop_mode",
+        options: [
+          [
+            "while",
+            "while"
+          ],
+          [
+            "until",
+            "until"
+          ]
+        ]
+      },
+      {
+        type: "input_dummy"
+      },
+      {
+        type: "input_value",
+        name: "loop_condition",
+        check: "Boolean",
+        align: "CENTRE"
+      },
+      {
+        type: "input_dummy"
+      },
+      {
+        type: "input_statement",
+        name: "loop_statement"
+      },
+      {
+        type: "input_dummy"
+      },
+      {
+        type: "field_variable",
+        name: "counter_variable",
+        variable: "counter"
+      }
+    ],
+    inputsInline: true,
+    previousStatement: null,
+    nextStatement: null,
+    style: "loop_blocks",
+    tooltip: "Loop that counts iterations needed",
+    helpUrl: ""
+  },
 ];
