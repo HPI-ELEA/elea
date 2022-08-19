@@ -883,16 +883,16 @@ Blockly.JavaScript['iteration_counter_loop'] = function(block) {
   var statements = Blockly.JavaScript.statementToCode(block, 'loop_statement');
   var variableCounter = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('counter_variable'), Blockly.Variables.NAME_TYPE);
   
-  var code;
+  var code = '';
   if (variableLoopMode == "while"){
     code += "var " + variableCounter + " = 0;\n";
-    code += variableLoopMode + "(" + variableCondition +"){\n";
+    code += "while(" + variableCondition +"){\n";
     code += statements + variableCounter + "++;\n";
     code += "}\n"
   return code;
   } else {
     code += "var " + variableCounter + " = 0;\n";
-    code += variableLoopMode + "(!" + variableCondition +"){\n";
+    code += "while(!" + variableCondition +"){\n";
     code += statements + variableCounter + "++;\n";
     code += "}\n"
   return code;
