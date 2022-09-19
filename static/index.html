@@ -21,107 +21,129 @@
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="index.html">
-        <img
-          src="favicon.svg"
-          alt="elea-logo"
-          width="30rem"
-          height="30rem"
-          class="d-inline-block align-top"
-        />
-        Build Your Own EA
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="workspace.html?example=full">
-              Demo
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="faq.html">FAQ</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="documentation.html">Documentation</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarExampleDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <img
+            src="favicon.svg"
+            alt="elea-logo"
+            width="30rem"
+            height="30rem"
+            class="d-inline-block align-top"
+          />
+          Build Your Own EA
+        </a>
+        <button 
+            class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="offcanvas" 
+            data-bs-target="#navbarOffcanvasLg" 
+            aria-controls="navbarOffcanvasLg"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
             >
-              Examples
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
-              <a class="dropdown-item" href="workspace.html?example=empty">
-                Empty starting point
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="workspace.html?example=full">
-                Full example
-              </a>
-              <a class="dropdown-item" href="workspace.html?example=simple">
-                Simple example
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="workspace.html?example=oneplusone">
-                1+1
-              </a>
-              <a
-                class="dropdown-item"
-                href="workspace.html?example=onepluslambda"
-              >
-                1+λ
-              </a>
-              <a class="dropdown-item" href="workspace.html?example=onelambda">
-                1,λ
-              </a>
-              <div class="dropdown-divider"></div>
-              <a
-                class="dropdown-item"
-                href="workspace.html?example=multithread"
-              >
-                Multi-Threading Example
-              </a>
-              <a
-                class="dropdown-item"
-                href="workspace.html?example=full_multithread"
-              >
-                Full example with Multi-Threading
-              </a>
-              <a
-                class="dropdown-item"
-                href="workspace.html?example=multithread-performance"
-              >
-                Muti-Threading Performance Test
-              </a>
-            </div>
-          </li>
-        </ul>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="navbarOffcanvasLg" aria-labelledby="navbarOffcanvasLgLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Build Your Own EA</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="workspace.html?example=full">
+                  Demo
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="faq.html">FAQ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="documentation.html">Documentation</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarExampleDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Examples
+                </a>
+                <ul
+                  class="dropdown-menu"
+                  aria-labelledby="navbarExampleDropdown"
+                >
+                  <li><a class="dropdown-item" href="workspace.html?example=empty">
+                    Empty starting point
+                  </a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="workspace.html?example=full">
+                    Full example
+                  </a></li>
+                  <li><a class="dropdown-item" href="workspace.html?example=simple">
+                    Simple example
+                  </a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a
+                    class="dropdown-item"
+                    href="workspace.html?example=oneplusone"
+                  >
+                    1+1
+                  </a></li>
+                  <li><a
+                    class="dropdown-item"
+                    href="workspace.html?example=onepluslambda"
+                  >
+                    1+λ
+                  </a></li>
+                  <li><a
+                    class="dropdown-item"
+                    href="workspace.html?example=onelambda"
+                  >
+                    1,λ
+                  </a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a
+                    class="dropdown-item"
+                    href="workspace.html?example=multithread"
+                  >
+                    Multi-Threading Example
+                  </a></li>
+                  <li><a
+                    class="dropdown-item"
+                    href="workspace.html?example=full_multithread"
+                  >
+                    Full example with Multi-Threading
+                  </a></li>
+                  <li><a
+                    class="dropdown-item"
+                    href="workspace.html?example=multithread-performance"
+                  >
+                    Multi-Threading Performance Test
+                  </a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </nav>
     <main role="main">
       <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <div
-          class="container d-flex flex-row align-items-center justify-content-between flex-wrap-reverse"
+      <div class="container-fluid bg-dark text-white p-5" id="jumbotron">
+          <div
+            class="container d-flex flex-row align-items-center justify-content-between flex-wrap-reverse"
         >
           <div>
             <h1 class="display-3">

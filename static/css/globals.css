@@ -40,3 +40,7 @@ p > a {
   justify-content: center;
   align-items: center;
 }
+
+#jumbotron {
+  margin-bottom: 10px;
+}

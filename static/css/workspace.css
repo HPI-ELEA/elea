@@ -6,7 +6,6 @@ main {
 }
 
 #workspace-header {
-  padding-top: 4rem;
   flex: 0 1 auto;
   display: flex;
   flex-direction: row;
