@@ -38,7 +38,7 @@ var workspace = Blockly.inject(blocklyDiv, {
   toolbox: document.getElementById("toolbox"),
   zoom: {
     controls: true,
-    wheel: true,
+    wheel: false,
     startScale: 1.0,
     maxScale: 2.5,
     minScale: 0.4,
@@ -47,6 +47,9 @@ var workspace = Blockly.inject(blocklyDiv, {
   },
   trashcan: true,
   theme: theme,
+  move: {
+    wheel: true,
+  },
 });
 Blockly.Xml.domToWorkspace(document.getElementById("startBlocks"), workspace);
 var onresize = function () {
