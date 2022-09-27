@@ -1,3 +1,16 @@
 #img-blockly {
-  width: 50%;
+  width: 100%;
+}
+#workspace-button {
+  margin-bottom: 15px;
+}
+[class*= "col"] {
+  border: 2px solid white;
+}
+#blockly-col {
+  border-right: 0px;
+}
+
+#blockly-img-col {
+  border-left: 0px;
 }
