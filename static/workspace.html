@@ -342,15 +342,12 @@
             </block>
           </value>
         </block>
-        <block type="ea_select_parent"></block>
-        <block type="ea_select_best"></block>
         <block type="check_fitness"></block>
 
         <label text="Manipulation"></label>
         <block type="ea_addtopopulation"></block>
         <block type="lists_sort"></block>
         <block type="lists_concat"></block>
-        <block type="lists_append"></block>
         <block type="lists_setIndex">
           <value name="LIST">
             <block type="variables_get_population">
@@ -380,6 +377,9 @@
         <block type="individual_init_constant"></block>
 
         <label text="Queries"></label>
+        <block type="lists_append"></block>
+        <block type="ea_select_best"></block>
+        <block type="ea_select_parent"></block>
 
         <label text="Manipulation"></label>
         <block type="ea_copy"></block>
