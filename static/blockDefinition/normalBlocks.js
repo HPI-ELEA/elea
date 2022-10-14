@@ -327,7 +327,7 @@ export const blockDefinitions = [
     ],
     previousStatement: null,
     nextStatement: null,
-    style: "pop_blocks",
+    style: "indiv_blocks",
     tooltip: "Adds an individual to a population.",
     helpUrl: "",
   },
@@ -377,7 +377,7 @@ export const blockDefinitions = [
       },
     ],
     output: "Individual",
-    style: "pop_blocks",
+    style: "indiv_blocks",
     tooltip:
       "Selects an individual from a population based on given selection strategy.",
     helpUrl: "",
@@ -573,7 +573,7 @@ export const blockDefinitions = [
     ],
     inputsInline: false,
     output: "Individual",
-    style: "pop_blocks",
+    style: "indiv_blocks",
     tooltip:
       "Selects the best individuals from a population using the given 'fitness'-function.",
     helpUrl: "",
