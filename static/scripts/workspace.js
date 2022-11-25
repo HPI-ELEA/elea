@@ -55,6 +55,35 @@ $("#output-column").height($("#blockly-div").height());
 document.getElementById("spinner").style.display = "none";
 document.getElementById("workspace-content").style.opacity = "1.0";
 
+//tutorial:
+const tutorialModal = new bootstrap.Modal('#tutorialModal');
+
+//show tutorial on page load
+window.addEventListener('load', event => {
+  tutorialModal.toggle(tutorialModal);
+})
+//hide button controls on first and last slide
+/*
+const tutorialCarousel = new bootstrap.Carousel('#tutorialCarousel');
+const prevButton = document.getElementById('prevButton');
+const nextButton = document.getElementById('nextButton');
+document.addEventListener('slid.bs.carousel', event => {
+    if(document.getElementById('firstSlide').classList.contains('active')) {
+        prevButton.style.display = "none";
+    } else if(document.getElementById('tutorialInner').lastChild) {
+        tutorialCarousel.children('carousel-control-next').show();
+        tutorialCarousel.children('carousel-control-prev').hide();
+    } else {
+        tutorialCarousel.children('carousel-control').show();
+    }
+})
+*/
+//reset tutorial on close
+/*
+document.getElementById('tutorialModalClose').addEventListener('click', event => {
+  tutorialCarousel.dispose()
+})
+*/
 // Add a output entry to show printing statements
 function addPrintOutput() {
   // Check existsence of output entry for printing statements
