@@ -56,10 +56,10 @@ document.getElementById("spinner").style.display = "none";
 document.getElementById("workspace-content").style.opacity = "1.0";
 
 //tutorial:
-const tutorialModal = new bootstrap.Modal('#tutorialModal');
+const tutorialModal = new Bootstrap.Modal('#tutorialModal');
 
 //show tutorial on page load
-window.addEventListener('load', event => {
+window.addEventListener('load', (event) => {
   tutorialModal.toggle(tutorialModal);
 })
 //hide button controls on first and last slide
