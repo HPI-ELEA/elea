@@ -12,6 +12,9 @@ import { highlightAll } from "prismjs";
 import $ from "jquery";
 import { clearPlots, downloadPlotsAsCSV, hasPlotEntries } from "./PlotHandler";
 import { clearCSV, downloadCSV, hasEntriesCSV } from "./CSVHandler";
+import Cookies from "js-cookie";
+import * as bootstrap from "bootstrap";
+window.bootstrap = bootstrap;
 
 $("#run-button").click(runCode);
 $("#kill-button").click(terminateWorker);
@@ -57,33 +60,59 @@ document.getElementById("workspace-content").style.opacity = "1.0";
 
 //tutorial:
 const tutorialModal = new bootstrap.Modal('#tutorialModal');
-
-//show tutorial on page load
-window.addEventListener('load', event => {
-  tutorialModal.toggle(tutorialModal);
-})
-//hide button controls on first and last slide
-/*
 const tutorialCarousel = new bootstrap.Carousel('#tutorialCarousel');
+const cookieBanner = new bootstrap.Modal('#cookieBanner');
+const tutorialClose = document.getElementById('tutorialModalClose');
+
+//cookie consent and tutorial opt-out
+
+if(!Cookies.get('cookieConsent')){
+  window.addEventListener('load', event =>{
+    cookieBanner.show(cookieBanner);
+  })
+  document.getElementById('cookieConsent').addEventListener('click', event => {
+    Cookies.set('cookieConsent','true', { sameSite: 'None'}, {expires: 180});
+    tutorialModal.show(tutorialModal);
+  })
+}
+/* TODO
+function checkOptOut(){
+  console.log('hello');
+  const optOutCheck = document.querySelector('#tutorialOptOut');
+
+  if(optOutCheck.checked == true && Cookies.get('cookieConsent') == 'true'){
+    Cookies.set('tutorialOptOut','false', { sameSite: 'None'}, { expires: 180});
+  } else {
+    Cookies.set('tutorialOptOut','true', { sameSite: 'None'}, { expires: 180 });
+  }
+}
+*/
+if (Cookies.get('tutorialOptOut') == 'false'){
+  window.addEventListener('load', event => {
+    tutorialModal.show(tutorialModal);
+  })
+}
+
+//hide button controls on first and last slide
 const prevButton = document.getElementById('prevButton');
 const nextButton = document.getElementById('nextButton');
+prevButton.style.display = "none";
 document.addEventListener('slid.bs.carousel', event => {
     if(document.getElementById('firstSlide').classList.contains('active')) {
         prevButton.style.display = "none";
-    } else if(document.getElementById('tutorialInner').lastChild) {
-        tutorialCarousel.children('carousel-control-next').show();
-        tutorialCarousel.children('carousel-control-prev').hide();
+    } else if(document.getElementById('lastSlide').classList.contains('active')) {
+        nextButton.style.display = "none";
     } else {
-        tutorialCarousel.children('carousel-control').show();
+      nextButton.style.display = "block";
+      prevButton.style.display = "block";
     }
 })
-*/
+
 //reset tutorial on close
-/*
 document.getElementById('tutorialModalClose').addEventListener('click', event => {
-  tutorialCarousel.dispose()
+  tutorialCarousel.to(0);
 })
-*/
+
 // Add a output entry to show printing statements
 function addPrintOutput() {
   // Check existsence of output entry for printing statements

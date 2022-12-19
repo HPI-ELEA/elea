@@ -103,6 +103,15 @@ main {
 }
 
 .carousel-caption {
-  background-color: rgba(108,117,125,0.8);
+  background-color: rgba(255,255,255,0.8);
   border-radius: 7px;
+}
+
+#cookieBannerDialog {
+  position: absolute;
+  right: 25px;
+  bottom: 0;
+  z-index: 10040;
+  overflow: auto;
+  overflow-y: auto;
 }

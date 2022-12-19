@@ -217,7 +217,7 @@
               <button
                 type="button"
                 class="btn btn-primary"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
               >
                 Close
               </button>
@@ -225,13 +225,13 @@
           </div>
         </div>
       </div>
-      <!-- Tutorial Modals -->
+      <!-- Tutorial Modal -->
       <div class="modal fade modal-show" id="tutorialModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="tutorialModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="exampleModalLabel">Workspace Tutorial</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="tutorialModalClose"></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="tutorialModalClose" onclick="checkOptOut()"></button>
             </div>
             <div class="modal-body">
               <div id="tutorialCarousel" class="carousel carousel-fade carousel-dark slide" data-bs-interval="false" data-bs-wrap="false">
@@ -286,7 +286,7 @@
                       </p>
                     </div>  
                   </div>
-                  <div class="carousel-item">
+                  <div class="carousel-item" id="lastSlide">
                     <img src="tutorial/export_import_tutorial.png" class="d-block w-100" alt="placeholder">
                     <div class="carousel-caption d-none d-md-block">
                       <p>
@@ -309,17 +309,16 @@
               </div>
             </div>
             <div class="modal-footer">
-              <!-- Cookie Opt-in form (cookies in development)
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="tutorialCookieOptIn">
+                <input class="form-check-input" type="checkbox" id="tutorialOptOut">
                 <label class="form-check-label" for="tutorialOptOut">
                   Don't show Tutorial on Start.
                 </label>
-              </div>    
-              -->          
+              </div>              
               <button type="button" class="btn btn-primary" 
                 data-bs-toggle="modal"
                 id="tutorialModalClose"
+                onclick="checkOptOut()"
                 >
                 Close
               </button>
@@ -386,6 +385,26 @@
         drag existing blocks into a new order.
       </p>
 -->
+    <div class="modal fade" id="cookieBanner" aria-hidden="true" aria-labelledby="cookieBannerLabel" tabindex="-1">
+      <div class="modal-dialog" id="cookieBannerDialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>
+              Cookies Consent
+            </h3>
+          </div>
+          <div class="modal-body">
+            <p>
+              This Website uses Cookies to ensure you get the best Experience.
+            </p>
+            <button class="btn btn-primary" type="button" id="cookieConsent" data-bs-dismiss="modal">
+              I Accept
+            </button>
+            <a href="legal.html" id="cookieInfoLink">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
     </main>
     <footer>
       <p>
