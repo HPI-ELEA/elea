@@ -151,61 +151,68 @@
               <br />
               Evolutionary Algorithm!
             </h1>
-            <a
-              class="btn btn-primary btn-lg"
-              href="workspace.html"
-              role="button"
-            >
-              Build it »
-            </a>
           </div>
           <img src="favicon.svg" width="200rem" height="200rem" />
         </div>
       </div>
 
-      <div class="container">
-        <!-- Example row of columns -->
+      <div class="container-md">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-5 text-white" style="background-color: #6c04ca;">
+            <h2>Use for teaching</h2>
+              <p>
+                Quickly demonstrate evolutionary behaviours to students to help their understanding.
+                Use import and export features to save and restore algorithms.
+              </p>
+          </div>
+          <div class="col-md-7" style="background-color: #bc0404;">
+            <h2>Export Javascript</h2>
+            <p>
+              Prototype in your browser, optimise in your IDE. Once you have
+              your first prototype, take the generated Javascript code and run
+              it in your favorite controlled environment.
+            </p>
+            
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5" style="background-color: #049404;" id="blockly-col">
             <h2>Blocks, not code</h2>
             <p>
-              Create your own algorithms without ever touching a line of code.
+              Drag and drop blocks specifically designed to build evolutionary algorithms.
+              No prior programming experience needed.
             </p>
+          </div>
+          <div class="col-md-3" style="background-color: #049404;" id="blockly-img-col">
             <img
               src="https://developers.google.cn/blockly/images/logos/logo_built_on.svg"
               id="img-blockly"
               alt="Blockly"
             />
-            <br />
-            <a class="btn btn-secondary" href="workspace.html" role="button">
-              Get started »
-            </a>
           </div>
-          <div class="col-md-4">
-            <h2>Export Javascript</h2>
-            <p>
-              Prototype in your browser, optimise in your IDE. Once you have
-              your first prototype, take the generated Javascript code and run
-              it in your favorite controlled environment. Add custom profiling,
-              logging, you name it.
-            </p>
-            <a class="btn btn-secondary" href="workspace.html" role="button">
-              Save time »
-            </a>
-          </div>
-          <div class="col-md-4">
-            <h2>Use for teaching</h2>
-            <p>
-              Quickly demonstrate evolutionary behaviours to students to help
-              their understanding
-            </p>
-            <a class="btn btn-secondary" href="workspace.html" role="button">
-              Prepare lecture »
-            </a>
+          <div class="col-md-4 text-center position-relative justify-content-center" style="background-color: #d47404;">
+            <h2 id="call-to-action">Try it yourself!</h2>
+            <a type="button" class="btn btn-dark btn-lg" href="workspace.html" role="button" id="workspace-button">Get Started!</a>
+            
           </div>
         </div>
-
-        <hr />
+        <div class="row bg-dark text-white">
+          <div class="col">
+            <h2>What are Evolutionary Algorithms?</h2>
+            <p>
+              Evolutionary Algorithms are algorithms that try to optimize a given objective function heuristically. 
+              As the name suggests, the inspiration comes from nature, and the algorithm maintains a set of possible 
+              solutions (then called “individuals”) and evaluates their objective value (called “fitness”). New 
+              individuals are created by slightly changing or combining old ones (“mutation” or, for multiple “parents”, 
+              “crossover”). Then, bad individuals are discarded (“selection”). By iterating these steps (over several “generations”), 
+              initial solutions are improved to maximize the objective values. <br>
+              In their simplest form, evolutionary algorithms are a variant of local search. The main problem such 
+              algorithms face is getting stuck in local optima (or, as a variant, stagnating with only small improvements). 
+              This is the problem addressed by more sophisticated evolutionary algorithms.
+            </p>
+            
+          </div>
+        </div>
       </div>
     </main>
     <footer>
