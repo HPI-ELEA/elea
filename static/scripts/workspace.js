@@ -59,7 +59,18 @@ document.getElementById("spinner").style.display = "none";
 document.getElementById("workspace-content").style.opacity = "1.0";
 
 //tutorial:
-const tutorialModal = new bootstrap.Modal('#tutorialModal');
+
+
+const tutorialModal = new Bootstrap.Modal("#tutorialModal");
+
+//show tutorial on page load
+//eslint-disable-next-line no-unused-vars -- is necessary to catch event
+window.addEventListener("load", (event) => {
+  tutorialModal.toggle(tutorialModal);
+});
+//hide button controls on first and last slide
+
+
 const tutorialCarousel = new bootstrap.Carousel('#tutorialCarousel');
 const cookieBanner = new bootstrap.Modal('#cookieBanner');
 const tutorialClose = document.getElementById('tutorialModalClose');
