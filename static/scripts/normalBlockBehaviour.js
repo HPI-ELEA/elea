@@ -876,3 +876,25 @@ Blockly.JavaScript["plotting_two_values"] = function (block) {
   code += "'" + variablePlotType + "'});\n";
   return code;
 };
+
+Blockly.JavaScript['iteration_counter_loop'] = function(block) {
+  var variableLoopMode = block.getFieldValue('loop_mode');
+  var variableCondition = Blockly.JavaScript.valueToCode(block, 'loop_condition', Blockly.JavaScript.ORDER_ATOMIC);
+  var statements = Blockly.JavaScript.statementToCode(block, 'loop_statement');
+  var variableCounter = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('counter_variable'), Blockly.Variables.NAME_TYPE);
+  
+  var code = '';
+  if (variableLoopMode == "while"){
+    code += "var " + variableCounter + " = 0;\n";
+    code += "while(" + variableCondition +"){\n";
+    code += statements + variableCounter + "++;\n";
+    code += "}\n"
+  return code;
+  } else {
+    code += "var " + variableCounter + " = 0;\n";
+    code += "while(!" + variableCondition +"){\n";
+    code += statements + variableCounter + "++;\n";
+    code += "}\n"
+  return code;
+  }
+};
