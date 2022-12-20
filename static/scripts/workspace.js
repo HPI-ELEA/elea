@@ -14,6 +14,7 @@ import { clearPlots, downloadPlotsAsCSV, hasPlotEntries } from "./PlotHandler";
 import { clearCSV, downloadCSV, hasEntriesCSV } from "./CSVHandler";
 import Cookies from "js-cookie";
 import * as bootstrap from "bootstrap";
+import { path } from "d3";
 window.bootstrap = bootstrap;
 
 $("#run-button").click(runCode);
@@ -83,19 +84,26 @@ const optOutCheck = document.getElementById('tutorialOptOutBox');
 
 //cookie consent and tutorial opt-out
 
+document.getElementById('cookieOptions').addEventListener('click', event => {
+  cookieBanner.show(cookieBanner);
+})
 if(!Cookies.get('cookieConsent')){
   window.addEventListener('load', event =>{
     cookieBanner.show(cookieBanner);
   })
-  document.getElementById('cookieConsentAccept').addEventListener('click', event => {
-    Cookies.set('cookieConsent','true', {expires: 180});
-    Cookies.set('tutorialOptOut','false', {expires: 180});
-    tutorialModal.show(tutorialModal);
-  })
-  document.getElementById('cookieConsentDismiss').addEventListener('click', event => {
-    tutorialModal.show(tutorialModal);
-  })
 }
+document.getElementById('cookieConsentAccept').addEventListener('click', event => {
+  Cookies.set('cookieConsent','true', {expires: 180});
+  Cookies.set('tutorialOptOut','false', {expires: 180});
+  tutorialModal.show(tutorialModal);
+})
+document.getElementById('cookieConsentDismiss').addEventListener('click', event => {
+  console.log('hello');
+  Cookies.remove('cookieConsent', { path: ''});
+  Cookies.remove('tutorialOptOut');
+  tutorialModal.show(tutorialModal);
+})
+
 
 if (Cookies.get('tutorialOptOut') == 'false' && Cookies.get('cookieConsent') == 'true'){
   window.addEventListener('load', event => {
