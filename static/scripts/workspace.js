@@ -58,8 +58,16 @@ $("#output-column").height($("#blockly-div").height());
 document.getElementById("spinner").style.display = "none";
 document.getElementById("workspace-content").style.opacity = "1.0";
 
-//tutorial:
+const exampleDropdown = new bootstrap.Dropdown('#navbarExampleDropdown');
+const saveDropdown = new bootstrap.Dropdown('#navbarSaveDropdown');
 
+document.getElementById('navbarExampleDropdown').addEventListener('click', event => {
+  exampleDropdown.toggle(exampleDropdown);
+})
+document.getElementById('navbarSaveDropdown').addEventListener('click', event => {
+  saveDropdown.toggle(saveDropdown);
+})
+//tutorial:
 
 const tutorialModal = new bootstrap.Modal("#tutorialModal");
 const tutorialCarousel = new bootstrap.Carousel('#tutorialCarousel');
