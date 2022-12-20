@@ -99,7 +99,7 @@ document.getElementById('cookieConsentAccept').addEventListener('click', () => {
 })
 document.getElementById('cookieConsentDismiss').addEventListener('click', () => {
   console.log('hello');
-  Cookies.remove('cookieConsent', { path: ''});
+  Cookies.remove('cookieConsent');
   Cookies.remove('tutorialOptOut');
   tutorialModal.show(tutorialModal);
 })
