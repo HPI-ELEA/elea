@@ -62,10 +62,10 @@ document.getElementById("workspace-content").style.opacity = "1.0";
 const exampleDropdown = new bootstrap.Dropdown('#navbarExampleDropdown');
 const saveDropdown = new bootstrap.Dropdown('#navbarSaveDropdown');
 
-document.getElementById('navbarExampleDropdown').addEventListener('click', event => {
+document.getElementById('navbarExampleDropdown').addEventListener('click', () => {
   exampleDropdown.toggle(exampleDropdown);
 })
-document.getElementById('navbarSaveDropdown').addEventListener('click', event => {
+document.getElementById('navbarSaveDropdown').addEventListener('click', () => {
   saveDropdown.toggle(saveDropdown);
 })
 //tutorial:
@@ -84,20 +84,20 @@ const optOutCheck = document.getElementById('tutorialOptOutBox');
 
 //cookie consent and tutorial opt-out
 
-document.getElementById('cookieOptions').addEventListener('click', event => {
+document.getElementById('cookieOptions').addEventListener('click', () => {
   cookieBanner.show(cookieBanner);
 })
 if(!Cookies.get('cookieConsent')){
-  window.addEventListener('load', event =>{
+  window.addEventListener('load', () =>{
     cookieBanner.show(cookieBanner);
   })
 }
-document.getElementById('cookieConsentAccept').addEventListener('click', event => {
+document.getElementById('cookieConsentAccept').addEventListener('click', () => {
   Cookies.set('cookieConsent','true', {expires: 180});
   Cookies.set('tutorialOptOut','false', {expires: 180});
   tutorialModal.show(tutorialModal);
 })
-document.getElementById('cookieConsentDismiss').addEventListener('click', event => {
+document.getElementById('cookieConsentDismiss').addEventListener('click', () => {
   console.log('hello');
   Cookies.remove('cookieConsent', { path: ''});
   Cookies.remove('tutorialOptOut');
@@ -106,14 +106,14 @@ document.getElementById('cookieConsentDismiss').addEventListener('click', event 
 
 
 if (Cookies.get('tutorialOptOut') == 'false' && Cookies.get('cookieConsent') == 'true'){
-  window.addEventListener('load', event => {
+  window.addEventListener('load', () => {
     tutorialModal.show(tutorialModal);
   })
 }
 if (Cookies.get('tutorialOptOut') == 'true'){
   optOutCheck.checked = true;
 }
-tutorialCloseButton.addEventListener('click', event =>{
+tutorialCloseButton.addEventListener('click', () =>{
 
   if(optOutCheck.checked == true && Cookies.get('cookieConsent') == 'true'){
     Cookies.set('tutorialOptOut','true', { expires: 180 },);
@@ -126,7 +126,7 @@ tutorialCloseButton.addEventListener('click', event =>{
 const prevButton = document.getElementById('prevButton');
 const nextButton = document.getElementById('nextButton');
 prevButton.style.display = "none";
-document.addEventListener('slid.bs.carousel', event => {
+document.addEventListener('slid.bs.carousel', () => {
     if(document.getElementById('firstSlide').classList.contains('active')) {
         prevButton.style.display = "none";
     } else if(document.getElementById('lastSlide').classList.contains('active')) {
@@ -138,7 +138,7 @@ document.addEventListener('slid.bs.carousel', event => {
 })
 
 //reset tutorial on close
-document.getElementById('tutorialModalClose').addEventListener('click', event => {
+document.getElementById('tutorialModalClose').addEventListener('click', () => {
   tutorialCarousel.to(0);
 })
 
