@@ -23,9 +23,9 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="bg-light navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="/index.html">
           <img
             src="favicon.svg"
             alt="elea-logo"
@@ -231,7 +231,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="exampleModalLabel">Workspace Tutorial</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="tutorialModalClose" onclick="checkOptOut()"></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="tutorialModalClose"></button>
             </div>
             <div class="modal-body">
               <div id="tutorialCarousel" class="carousel carousel-fade carousel-dark slide" data-bs-interval="false" data-bs-wrap="false">
@@ -310,18 +310,11 @@
             </div>
             <div class="modal-footer">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="tutorialOptOut">
+                <input class="form-check-input" type="checkbox" id="tutorialOptOutBox">
                 <label class="form-check-label" for="tutorialOptOut">
                   Don't show Tutorial on Start.
                 </label>
               </div>              
-              <button type="button" class="btn btn-primary" 
-                data-bs-toggle="modal"
-                id="tutorialModalClose"
-                onclick="checkOptOut()"
-                >
-                Close
-              </button>
             </div>
           </div>
         </div>
@@ -397,8 +390,11 @@
             <p>
               This Website uses Cookies to ensure you get the best Experience.
             </p>
-            <button class="btn btn-primary" type="button" id="cookieConsent" data-bs-dismiss="modal">
+            <button class="btn btn-primary" type="button" id="cookieConsentAccept" data-bs-dismiss="modal">
               I Accept
+            </button>
+            <button class="btn btn primary" type="button" id="cookieConsentDismiss" data-bs-dismiss="modal">
+              Dismiss
             </button>
             <a href="legal.html" id="cookieInfoLink">Learn more</a>
           </div>

@@ -61,19 +61,17 @@ document.getElementById("workspace-content").style.opacity = "1.0";
 //tutorial:
 
 
-const tutorialModal = new Bootstrap.Modal("#tutorialModal");
+const tutorialModal = new bootstrap.Modal("#tutorialModal");
+const tutorialCarousel = new bootstrap.Carousel('#tutorialCarousel');
 
 //show tutorial on page load
 //eslint-disable-next-line no-unused-vars -- is necessary to catch event
-window.addEventListener("load", (event) => {
-  tutorialModal.toggle(tutorialModal);
-});
-//hide button controls on first and last slide
 
 
-const tutorialCarousel = new bootstrap.Carousel('#tutorialCarousel');
+
 const cookieBanner = new bootstrap.Modal('#cookieBanner');
-const tutorialClose = document.getElementById('tutorialModalClose');
+const tutorialCloseButton = document.getElementById('tutorialModalClose');
+const optOutCheck = document.getElementById('tutorialOptOutBox');
 
 //cookie consent and tutorial opt-out
 
@@ -81,28 +79,32 @@ if(!Cookies.get('cookieConsent')){
   window.addEventListener('load', event =>{
     cookieBanner.show(cookieBanner);
   })
-  document.getElementById('cookieConsent').addEventListener('click', event => {
-    Cookies.set('cookieConsent','true', { sameSite: 'None'}, {expires: 180});
+  document.getElementById('cookieConsentAccept').addEventListener('click', event => {
+    Cookies.set('cookieConsent','true', {expires: 180});
+    Cookies.set('tutorialOptOut','false', {expires: 180});
+    tutorialModal.show(tutorialModal);
+  })
+  document.getElementById('cookieConsentDismiss').addEventListener('click', event => {
     tutorialModal.show(tutorialModal);
   })
 }
-/* TODO
-function checkOptOut(){
-  console.log('hello');
-  const optOutCheck = document.querySelector('#tutorialOptOut');
 
-  if(optOutCheck.checked == true && Cookies.get('cookieConsent') == 'true'){
-    Cookies.set('tutorialOptOut','false', { sameSite: 'None'}, { expires: 180});
-  } else {
-    Cookies.set('tutorialOptOut','true', { sameSite: 'None'}, { expires: 180 });
-  }
-}
-*/
-if (Cookies.get('tutorialOptOut') == 'false'){
+if (Cookies.get('tutorialOptOut') == 'false' && Cookies.get('cookieConsent') == 'true'){
   window.addEventListener('load', event => {
     tutorialModal.show(tutorialModal);
   })
 }
+if (Cookies.get('tutorialOptOut') == 'true'){
+  optOutCheck.checked = true;
+}
+tutorialCloseButton.addEventListener('click', event =>{
+
+  if(optOutCheck.checked == true && Cookies.get('cookieConsent') == 'true'){
+    Cookies.set('tutorialOptOut','true', { expires: 180 },);
+  } else if(Cookies.get('cookieConsent') == 'true'){
+    Cookies.set('tutorialOptOut','false', { expires: 14});
+  }
+})
 
 //hide button controls on first and last slide
 const prevButton = document.getElementById('prevButton');
