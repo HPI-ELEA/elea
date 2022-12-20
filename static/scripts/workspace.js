@@ -14,7 +14,6 @@ import { clearPlots, downloadPlotsAsCSV, hasPlotEntries } from "./PlotHandler";
 import { clearCSV, downloadCSV, hasEntriesCSV } from "./CSVHandler";
 import Cookies from "js-cookie";
 import * as bootstrap from "bootstrap";
-import { path } from "d3";
 window.bootstrap = bootstrap;
 
 $("#run-button").click(runCode);
