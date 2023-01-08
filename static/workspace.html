@@ -23,9 +23,9 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="bg-light navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="/index.html">
           <img
             src="favicon.svg"
             alt="elea-logo"
@@ -217,7 +217,7 @@
               <button
                 type="button"
                 class="btn btn-primary"
-                data-dismiss="modal"
+                data-bs-dismiss="modal"
               >
                 Close
               </button>
@@ -225,6 +225,100 @@
           </div>
         </div>
       </div>
+      <!-- Tutorial Modal -->
+      <div class="modal fade modal-show" id="tutorialModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="tutorialModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Workspace Tutorial</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="tutorialModalClose"></button>
+            </div>
+            <div class="modal-body">
+              <div id="tutorialCarousel" class="carousel carousel-fade carousel-dark slide" data-bs-interval="false" data-bs-wrap="false">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                </div>              
+                <div class="carousel-inner" id="tutorialInner">
+                  <div class="carousel-item active" id="firstSlide">
+                    <img src="tutorial/toolbox_tutorial.png" class="d-block w-100" alt="toolbox_tutorial">
+                    <div class="carousel-caption d-none d-md-block">
+                      <p>
+                        Choose pre-built blocks from different categories
+                        in the toolbox and drag them into the workspace 
+                        using your mouse. Combine blocks inside the workspace
+                        to build your algorithm
+                      </p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <img src="tutorial/workspace_tutorial.png" class="d-block w-100" alt="placeholder">
+                    <div class="carousel-caption d-none d-md-block">
+                      <p>
+                        You can modify the variable fields of blocks by either
+                        typing in a value or using the given dropdown menu 
+                        (depending on the block). Use the Buttons on the right
+                        to refocus, zoom and delete blocks or view deleted blocks.
+                      </p>
+                    </div>              
+                  </div>
+                  <div class="carousel-item">
+                    <img src="tutorial/buttons_tutorial.png" class="d-block w-100" alt="buttons_tutorial">
+                    <div class="carousel-caption d-none d-md-block">
+                      <p>
+                        You can run your code inside the workspace and abort 
+                        if something goes wrong. You can also look at the 
+                        generated javascript code, that runs in the background.
+                      </p>
+                    </div>  
+                  </div>
+                  <div class="carousel-item">
+                    <img src="tutorial/output_tutorial.png" class="d-block w-100" alt="placeholder">
+                    <div class="carousel-caption d-none d-md-block">
+                      <p>
+                        Use blocks from the logging category to print something 
+                        into the output or create plots of your algorithm. Clear 
+                        the output column using the button above.
+                      </p>
+                    </div>  
+                  </div>
+                  <div class="carousel-item" id="lastSlide">
+                    <img src="tutorial/export_import_tutorial.png" class="d-block w-100" alt="placeholder">
+                    <div class="carousel-caption d-none d-md-block">
+                      <p>
+                        Import and export your algorithm as xml to save and reuse it. 
+                        Export statistics from your algorithm as csv or iohanalyzer data. 
+                        You can also download your algorithm as javascript to work on 
+                        it elsewhere.
+                      </p>
+                    </div>  
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#tutorialCarousel" data-bs-slide="prev" id="prevButton">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#tutorialCarousel" data-bs-slide="next" id="nextButton">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="tutorialOptOutBox">
+                <label class="form-check-label" for="tutorialOptOut">
+                  Don't show Tutorial on Start.
+                </label>
+              </div>              
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div id="workspace-header">
         <h3 class="display-5" id="workspace-title">Untitled</h3>
         <div id="command-buttons">
@@ -261,6 +355,15 @@
           <!-- <button type="button" class="btn btn-outline-dark btn-block" id="stop-button">Stop execution</button> -->
           <!-- <button type="button" class="btn btn-outline-dark btn-block" id="step-button">Step JavaScript</button> -->
           <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button">Reset execution</button> -->
+          <button
+            type="button"
+            class="btn btn-outline-dark btn-block"
+            id="tutorial-button"
+            data-bs-toggle="modal"
+            data-bs-target="#tutorialModal"
+          >
+            Show Tutorial
+          </button>
         </div>
       </div>
       <div class="container-fluid" id="workspace-content" style="opacity: 0">
@@ -268,10 +371,35 @@
         <div id="blockly-div" style="position: absolute"></div>
         <div id="output-column"></div>
       </div>
+<!--
       <p id="workspace-footer">
         Use blocks from the toolbar on the left to customize your algorithm or
         drag existing blocks into a new order.
       </p>
+-->
+    <div class="modal fade" id="cookieBanner" aria-hidden="true" aria-labelledby="cookieBannerLabel" tabindex="-1">
+      <div class="modal-dialog" id="cookieBannerDialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>
+              Cookies Consent
+            </h3>
+          </div>
+          <div class="modal-body">
+            <p>
+              This Website uses Cookies to ensure you get the best Experience.
+            </p>
+            <button class="btn btn-primary" type="button" id="cookieConsentAccept" data-bs-dismiss="modal">
+              I Accept
+            </button>
+            <button class="btn btn primary" type="button" id="cookieConsentDismiss" data-bs-dismiss="modal">
+              Dismiss
+            </button>
+            <a href="legal.html" id="cookieInfoLink">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
     </main>
     <footer>
       <p>
@@ -286,6 +414,8 @@
         <a href="/legal.html">Legal</a>
         •
         <a href="/privacy.html">Privacy</a>
+        •
+        <a href="#" id="cookieOptions">Cookie Options</a>
       </p>
     </footer>
 

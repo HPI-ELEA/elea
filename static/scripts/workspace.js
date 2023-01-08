@@ -12,6 +12,9 @@ import { highlightAll } from "prismjs";
 import $ from "jquery";
 import { clearPlots, downloadPlotsAsCSV, hasPlotEntries } from "./PlotHandler";
 import { clearCSV, downloadCSV, hasEntriesCSV } from "./CSVHandler";
+import Cookies from "js-cookie";
+import * as bootstrap from "bootstrap";
+window.bootstrap = bootstrap;
 
 $("#run-button").click(runCode);
 $("#kill-button").click(terminateWorker);
@@ -54,6 +57,89 @@ $("#output-column").height($("#blockly-div").height());
 // remove loading icon and show content
 document.getElementById("spinner").style.display = "none";
 document.getElementById("workspace-content").style.opacity = "1.0";
+
+const exampleDropdown = new bootstrap.Dropdown('#navbarExampleDropdown');
+const saveDropdown = new bootstrap.Dropdown('#navbarSaveDropdown');
+
+document.getElementById('navbarExampleDropdown').addEventListener('click', () => {
+  exampleDropdown.toggle(exampleDropdown);
+})
+document.getElementById('navbarSaveDropdown').addEventListener('click', () => {
+  saveDropdown.toggle(saveDropdown);
+})
+//tutorial:
+
+const tutorialModal = new bootstrap.Modal("#tutorialModal");
+const tutorialCarousel = new bootstrap.Carousel('#tutorialCarousel');
+
+//show tutorial on page load
+//eslint-disable-next-line no-unused-vars -- is necessary to catch event
+
+
+
+const cookieBanner = new bootstrap.Modal('#cookieBanner');
+const tutorialCloseButton = document.getElementById('tutorialModalClose');
+const optOutCheck = document.getElementById('tutorialOptOutBox');
+
+//cookie consent and tutorial opt-out
+
+document.getElementById('cookieOptions').addEventListener('click', () => {
+  cookieBanner.show(cookieBanner);
+})
+if(!Cookies.get('cookieConsent')){
+  window.addEventListener('load', () =>{
+    cookieBanner.show(cookieBanner);
+  })
+}
+document.getElementById('cookieConsentAccept').addEventListener('click', () => {
+  Cookies.set('cookieConsent','true', {expires: 180});
+  Cookies.set('tutorialOptOut','false', {expires: 180});
+  tutorialModal.show(tutorialModal);
+})
+document.getElementById('cookieConsentDismiss').addEventListener('click', () => {
+  console.log('hello');
+  Cookies.remove('cookieConsent');
+  Cookies.remove('tutorialOptOut');
+  tutorialModal.show(tutorialModal);
+})
+
+
+if (Cookies.get('tutorialOptOut') == 'false' && Cookies.get('cookieConsent') == 'true'){
+  window.addEventListener('load', () => {
+    tutorialModal.show(tutorialModal);
+  })
+}
+if (Cookies.get('tutorialOptOut') == 'true'){
+  optOutCheck.checked = true;
+}
+tutorialCloseButton.addEventListener('click', () =>{
+
+  if(optOutCheck.checked == true && Cookies.get('cookieConsent') == 'true'){
+    Cookies.set('tutorialOptOut','true', { expires: 180 },);
+  } else if(Cookies.get('cookieConsent') == 'true'){
+    Cookies.set('tutorialOptOut','false', { expires: 14});
+  }
+})
+
+//hide button controls on first and last slide
+const prevButton = document.getElementById('prevButton');
+const nextButton = document.getElementById('nextButton');
+prevButton.style.display = "none";
+document.addEventListener('slid.bs.carousel', () => {
+    if(document.getElementById('firstSlide').classList.contains('active')) {
+        prevButton.style.display = "none";
+    } else if(document.getElementById('lastSlide').classList.contains('active')) {
+        nextButton.style.display = "none";
+    } else {
+      nextButton.style.display = "block";
+      prevButton.style.display = "block";
+    }
+})
+
+//reset tutorial on close
+document.getElementById('tutorialModalClose').addEventListener('click', () => {
+  tutorialCarousel.to(0);
+})
 
 // Add a output entry to show printing statements
 function addPrintOutput() {
