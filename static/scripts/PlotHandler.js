@@ -42,9 +42,14 @@ class PlotHandler {
   hasPlotEntries() {
     return this.plotMap.size != 0;
   }
-  
+
   removePlot(plotName) {
     this.plotMap.delete(plotName);
+  }
+
+  openPlot(plotName) {
+    var plot = this.plotMap.get(plotName);
+    plot.openInNewWindow();
   }
 }
 
@@ -59,8 +64,12 @@ class PlotWorker {
     this.isSingleInput = true;
     if (globalThis.window) {
       let divString = `<canvas id="plot-${name}"></canvas>`;
-      addNewDeletableOutputEntry(divString, name, name, () =>
-        this.plotHandler.removePlot(this.plotName)
+      addNewDeletableOutputEntry(
+        divString,
+        name,
+        name,
+        () => this.plotHandler.removePlot(this.plotName),
+        () => this.plotHandler.openPlot(this.plotName)
       );
       let canvasID = "plot-" + name;
       this.chartArea = document.getElementById(canvasID).getContext("2d");
@@ -148,6 +157,16 @@ class PlotWorker {
       csvContent += tranformDoubleInputToCSV(this.plotData);
     }
     zip.file(this.plotName + ".csv", csvContent);
+  }
+
+  openInNewWindow() {
+    // prepare new window
+    var w = window.open("");
+    w.document.body.innerHTML += '<canvas id="newChart"></canvas>';
+
+    // load copy of chart
+    var ctxCopy = w.document.getElementById("newChart").getContext("2d");
+    new Chart(ctxCopy, this.myChart.config);
   }
 }
 
