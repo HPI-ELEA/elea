@@ -59,6 +59,8 @@ class PlotWorker {
     this.plotHandler = plotHandler;
     this.plotData = new Map();
     this.myChart = null;
+    this.detailedChart = null;
+    this.detailedWindow = null;
     this.chartExists = false;
     this.iteration = 0;
     this.isSingleInput = true;
@@ -145,6 +147,7 @@ class PlotWorker {
     } else {
       this.myChart.data.datasets = Array.from(this.plotData.values());
       this.myChart.update();
+      this.detailedChart.update();
     }
     return;
   }
@@ -160,13 +163,21 @@ class PlotWorker {
   }
 
   openInNewWindow() {
-    // prepare new window
-    var w = window.open("");
-    w.document.body.innerHTML += '<canvas id="newChart"></canvas>';
+    if (this.detailedChart == null) {
+      // prepare new window
+      var w = window.open("");
+      w.document.body.innerHTML += '<canvas id="newChart"></canvas>';
 
-    // load copy of chart
-    var ctxCopy = w.document.getElementById("newChart").getContext("2d");
-    new Chart(ctxCopy, this.myChart.config);
+      // load copy of chart
+      var ctxCopy = w.document.getElementById("newChart").getContext("2d");
+      this.detailedChart = new Chart(ctxCopy, this.myChart.config);
+      this.detailedWindow = w;
+    } else {
+      //Check if the tab has been closed
+      // or notify
+      console.log("Chart already exists.");
+      this.detailedWindow.focus();
+    }
   }
 }
 

@@ -184,15 +184,22 @@ function addNewDeletableOutputEntry(
   outputContentID,
   title,
   deleteOperation = () => {},
-  showOperation = () => {}
+  showOperation = null
 ) {
   let numOutput = $("#output-column > *").length;
-  let divString = `
+  let showButtonText = "";
+  if (showOperation != null) {
+    showButtonText = `
+    <button class="btn btn-outline-dark" id="open-${numOutput}-plot-button"> Details</button>`;
+  }
+  let divString =
+    `
   <div class="output-block" id="output-${numOutput}">
     <div class="output-header">
       <h3 class="output-heading" id="output-${numOutput}-heading">${title}</h3>
-      <div class="output-header-buttons">
-        <button class="btn btn-outline-dark" id="open-${numOutput}-plot-button">Details</button>
+      <div class="output-header-buttons">` +
+    showButtonText +
+    `
         <button class="btn btn-outline-dark" id="output-${numOutput}-hide-button">Hide</button>
         <button class="btn btn-outline-danger" id="output-${numOutput}-delete-button">Delete</button>
       </div>
