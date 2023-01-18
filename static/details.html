@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>elea Demo: Build Your Own EA</title>
+
+    <link rel="stylesheet" href="css/globals.css" />
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.css"
+    />
+    <link rel="stylesheet" href="css/documentation.css" />
+    <link rel="shortcut icon" href="./favicon.ico" />
+
+    <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script
+      src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+      rel="script"
+    ></script>
+    <script src="../node_modules/chart.js/auto/auto.js"></script>
+  </head>
+
+  <body>
+    <nav class="bg-light navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/index.html">
+          <img
+            src="favicon.svg"
+            alt="elea-logo"
+            width="30rem"
+            height="30rem"
+            class="d-inline-block align-top"
+          />
+          Build Your Own EA
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#navbarOffcanvasLg"
+          aria-controls="navbarOffcanvasLg"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div
+          class="offcanvas offcanvas-end"
+          tabindex="-1"
+          id="navbarOffcanvasLg"
+          aria-labelledby="navbarOffcanvasLgLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+              Build Your Own EA
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="workspace.html?example=full">
+                  Demo
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="faq.html">FAQ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="documentation.html">Documentation</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="details.html">Details</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarExampleDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Examples
+                </a>
+                <ul
+                  class="dropdown-menu"
+                  aria-labelledby="navbarExampleDropdown"
+                >
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="workspace.html?example=empty"
+                    >
+                      Empty starting point
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="workspace.html?example=full">
+                      Full example
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="workspace.html?example=simple"
+                    >
+                      Simple example
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="workspace.html?example=oneplusone"
+                    >
+                      1+1
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="workspace.html?example=onepluslambda"
+                    >
+                      1+λ
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="workspace.html?example=onelambda"
+                    >
+                      1,λ
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="workspace.html?example=multithread"
+                    >
+                      Multi-Threading Example
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="workspace.html?example=full_multithread"
+                    >
+                      Full example with Multi-Threading
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="workspace.html?example=multithread-performance"
+                    >
+                      Multi-Threading Performance Test
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" id="example-simple-plotting">
+                      Simple Plotting example
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarSaveDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Save/Restore Algorithm
+                </a>
+                <input
+                  type="file"
+                  id="upload_xml_input"
+                  style="display: none"
+                />
+                <ul class="dropdown-menu" aria-labelledby="navbarSaveDropdown">
+                  <li>
+                    <a class="dropdown-item" id="upload_xml" href="#">
+                      Upload XML file
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" id="promt_for_xml" href="#">
+                      Paste XML string
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" id="download_xml" href="#">
+                      Download XML file
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" id="copy_xml" href="#">
+                      Copy XML string
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" id="download_js" href="#">
+                      Download JS project
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      data-bs-toggle="modal"
+                      id="show_js"
+                      data-bs-target="#jsModal"
+                    >
+                      Show JS
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" id="download_json" href="#jsModal">
+                      Download data for IOHanalyzer
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" id="download_csv" href="#">
+                      Download CSV
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button
+            class="nav-link active"
+            id="nav-home-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#nav-home"
+            type="button"
+            role="tab"
+            aria-controls="nav-home"
+            aria-selected="true"
+          >
+            Fitness Plot
+          </button>
+          <button
+            class="nav-link"
+            id="nav-profile-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#nav-profile"
+            type="button"
+            role="tab"
+            aria-controls="nav-profile"
+            aria-selected="false"
+          >
+            Test Plot
+          </button>
+          <button
+            class="nav-link"
+            id="nav-contact-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#nav-contact"
+            type="button"
+            role="tab"
+            aria-controls="nav-contact"
+            aria-selected="false"
+          >
+            Weird Plot
+          </button>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div
+          class="tab-pane fade show active"
+          id="nav-home"
+          role="tabpanel"
+          aria-labelledby="nav-home-tab"
+        >
+          <canvas style="height: 6em" id="plot-1-area"></canvas>
+          <div id="plot-1-buttons">
+            <button type="button" class="btn btn-outline-dark btn-block">
+              Generate Boxplot
+            </button>
+            <button type="button" class="btn btn-outline-dark btn-block">
+              Show Average
+            </button>
+            <button type="button" class="btn btn-outline-dark btn-block">
+              Show Median
+            </button>
+            <button type="button" class="btn btn-outline-dark btn-block">
+              Settings
+            </button>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="nav-profile"
+          role="tabpanel"
+          aria-labelledby="nav-profile-tab"
+        >
+          <canvas style="height: 6em" id="plot-2-area"></canvas>
+          <div id="plot-2-buttons">
+            <button type="button" class="btn btn-outline-dark btn-block">
+              Generate Boxplot
+            </button>
+            <button type="button" class="btn btn-outline-dark btn-block">
+              Show Average
+            </button>
+            <button type="button" class="btn btn-outline-dark btn-block">
+              Show Median
+            </button>
+            <button type="button" class="btn btn-outline-dark btn-block">
+              Settings
+            </button>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="nav-contact"
+          role="tabpanel"
+          aria-labelledby="nav-contact-tab"
+        >
+          Didn't work at all
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>
+        Project ELEA 💚 This site is powered by
+        <a href="https://www.netlify.com/">Netlify</a>
+        and
+        <a href="https://developers.google.com/blockly">Blockly</a>
+      </p>
+      <p>
+        <a href="https://github.com/HPI-ELEA/elea">Github</a>
+        •
+        <a href="/legal.html">Legal</a>
+        •
+        <a href="/privacy.html">Privacy</a>
+        •
+        <a href="#" id="cookieOptions">Cookie Options</a>
+      </p>
+    </footer>
+
+    <script src="scripts/modules/detailedPlots.js"></script>
+  </body>
+</html>
+
+<!--  <div>
+
+            Nav tabs 
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active nav-item"><a href="#plot-1" aria-controls="home" role="tab"
+                        data-toggle="tab">Fitness-Plot</a></li>
+                <li role="presentation" class="nav-item"><a href="#plot-2" aria-controls="profile" role="tab" data-toggle="tab">Test
+                        plot</a></li>
+            </ul>
+        
+             Tab panes 
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="plot-1">
+                    <div style="width:75%;">
+                        <canvas id="plot-1-area"></canvas>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="plot-2">
+                    <div id="canvas-holder" style="width:40%">
+                        <canvas id="plot-2-area"></canvas>
+                    </div>
+                </div>
+            </div>
+        
+        </div> -->
