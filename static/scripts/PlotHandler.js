@@ -1,6 +1,6 @@
+import { addNewDeletableOutputEntry } from "./workspace";
 import JSZip from "./jszip.js";
 import { downloadZIP } from "./modules/fileUtils";
-import { addNewDeletableOutputEntry } from "./workspace";
 
 class PlotHandler {
   constructor() {
@@ -22,7 +22,7 @@ class PlotHandler {
     if (!globalThis.window) {
       console.log("plotting is currently only available on the website.");
       console.log(
-        "Use the CSV-Generation to create your own CSV files which can then be plotted with R"
+        "Use the CSV-Generation to create your own CSV files which can then be plotted with R, python or another tool of your choice."
       );
     } else {
       this.plotMap.forEach((value) => value.drawPlot());
@@ -42,7 +42,7 @@ class PlotHandler {
   hasPlotEntries() {
     return this.plotMap.size != 0;
   }
-  
+
   removePlot(plotName) {
     this.plotMap.delete(plotName);
   }

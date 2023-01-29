@@ -153,10 +153,12 @@ async function prepareIOHAnalyzerHandler() {
 async function preparePlotting() {
   let file, code;
   if (!(file = await readFile("./scripts/PlotHandler.js"))) return false;
+  file = removeFirstLine(file);
   // I will create a link to some helpfull starting points on how to plot with Python/R
   code =
     "//Plotting is currently only supported on the website. Use the CSV-generation to create CSV-files.";
   code += file;
+  code = code.replace("/fileUtils", "/fileUtils.mjs");
   return code;
 }
 
