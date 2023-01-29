@@ -1,5 +1,5 @@
-import { downloadZIP } from "./modules/fileUtils";
 import { addNewDeletableOutputEntry } from "./workspace";
+import { downloadZIP } from "./modules/fileUtils";
 import JSZip from "./jszip.js";
 
 class CSVHandler {

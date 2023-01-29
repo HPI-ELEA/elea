@@ -1,8 +1,8 @@
-import { updateValueIOH, downloadIOH } from "./modules/IOHAnalyzerHandler.mjs";
+import { updateValueIOH, downloadIOH, hasEntriesIOH } from "./modules/IOHAnalyzerHandler.mjs";
 import { downloadCSV, updateValueCSV, hasEntriesCSV } from "./CSVHandler.mjs";
 import { updateValue as updatePlotValue, drawPlots } from "./PlotHandler.mjs";
 import { Worker }  from "worker_threads";
-import { hasLogEntries } from "../scripts/modules/IOHAnalyzerHandler.mjs";
+
 var worker = new Worker("./algorithm.js");
 worker.on("message", handleMessageFromWorker);
 worker.on("error", handleErrorFromWorker);
@@ -42,7 +42,7 @@ function handleErrorFromWorker(err){
     terminateWorker()
     if(hasCSVEntries())
             downloadCSV();
-    if(hasLogEntries())
+    if(hasEntriesIOH())
         downloadLog();
     throw new Error(err.stack)
 }
@@ -52,7 +52,7 @@ function terminateWorker(){
         worker.terminate();
         if(hasEntriesCSV())
             downloadCSV();
-        if(hasLogEntries())
+        if(hasEntriesIOH())
           downloadIOH();
         drawPlots(); 
         console.warn("Terminated running worker");
