@@ -448,7 +448,7 @@ Blockly.JavaScript["ea_select_parent"] = function (block) {
     Blockly.Variables.NAME_TYPE
   );
   var code;
-  if (dropdownName == "CHANCE") {
+  if (dropdownName == "UNIFORM") {
     code =
       variablePopulation +
       "[Math.floor(Math.random() * " +

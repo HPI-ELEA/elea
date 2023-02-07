@@ -364,7 +364,7 @@ export const blockDefinitions = [
         name: "NAME",
         options: [
           ["fitnessproportionately", "FITNESSPROPORTIONATE"],
-          ["chance", "CHANCE"],
+          ["uniform", "UNIFORM"],
         ],
         comment: "Strategy to select an individual from a population.",
       },
