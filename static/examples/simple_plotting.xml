@@ -23,7 +23,7 @@
         </value>
         <value name="TO">
           <shadow type="math_number" id="+a|[vhk-Nxk7v,,mvVF`">
-            <field name="NUM">20</field>
+            <field name="NUM">15</field>
           </shadow>
         </value>
         <value name="BY">
@@ -44,7 +44,7 @@
                 <field name="VAR" id="P|ZK6ZqqY5OhR$:,p(;_">µ</field>
                 <value name="VALUE">
                   <block type="math_number" id="m~XkrwyDw=u;Xcjpb7tK">
-                    <field name="NUM">20</field>
+                    <field name="NUM">10</field>
                   </block>
                 </value>
                 <next>
