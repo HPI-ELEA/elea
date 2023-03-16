@@ -159,7 +159,6 @@
       <div id="content-container" style="display: none" class="container">
         <!-- introduction -->
         <div id="introduction-container">
-          <h3>Welcome to ELEA!</h3>
           <p>
             With ELEA you can build your own Evolutionary Algorithm with blocks.
             ELEA uses
@@ -169,21 +168,124 @@
             <a href="#ea_init">Initialize Programm</a>
             block, define your score function and run your program. If you
             create an algorithm from an empty starting point, please be sure to
-            define a function to named
+            define a function named
             <i>fitness</i>
             with your score function.
           </p>
+          <!--
           <p>
             Check out this
             <a href="#run_loop_logging">while-loop</a>
             if you want to know how to use ELEA with the IOHanalyzer.
           </p>
+          -->
           <p>
             On this page, every block you can use in ELEA is documented. The
             documentation is separated into the categories you can also find in
-            the workspace:
+            the workspace
           </p>
-          <ul id="intoduction-category-list">
+          <div>
+            <p class="alert alert-warning">
+              <strong>INFO</strong>
+              Please be aware that some of the blocks you can find in the
+              workspace are predefined by blockly and not documented here yet.
+            </p>
+          </div>
+          <nav id="navbar-documentation" class="navbar bg-light px-3 mb-3 sticky-top">
+            <ul class="nav nav-pills">
+              <li class="nav-item"><a class="btn btn-outline-dark me-1" href="#cat-pop_blocks">Population</a></li>
+              <li class="nav-item"><a class="btn btn-outline-dark me-1" href="#cat-indiv_blocks">Individuals</a></li>
+              <li class="nav-item"><a class="btn btn-outline-dark me-1" href="#cat-fitness_blocks">Fitness</a></li>
+              <li class="nav-item"><a class="btn btn-outline-dark me-1" href="#cat-primitive_blocks">Primitive Datatypes</a></li>
+              <li class="nav-item"><a class="btn btn-outline-dark me-1" href="#cat-logic_blocks">Logic</a></li>
+              <li class="nav-item"><a class="btn btn-outline-dark me-1" href="#cat-loop_blocks">Loops</a></li>
+              <li class="nav-item"><a class="btn btn-outline-dark me-1" href="#cat-procedure_blocks">Functions</a></li>
+              <li class="nav-item"><a class="btn btn-outline-dark me-1" href="#cat-logging_blocks">Logging</a></li>
+              <li class="nav-item"><a class="btn btn-outline-dark me-1" href="#cat-thread_blocks">Multi-Threading</a></li>
+              <li class="nav-item"><a class="btn btn-outline-dark me-1" href="#cat-timer_blocks">Timer Management</a></li>
+              <li class="nav-item"><a class="btn btn-outline-dark me-1" href="#cat-experimental_blocks">Experimental</a></li>
+            </ul>
+          </nav>
+          <div data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="0">
+            <!-- links to categories -->
+            <div class="display-5 alert alert-dark" id="cat-pop_blocks">
+              <h2><strong>Population</strong></h2>
+              <p>
+                Methods to transform, merge, create and select 
+                individuals from populations
+              </p>
+            </div>
+            <div><hr id="cat-pop_blocks-separator" class="category-seperator" /></div>
+            <div class="display-5 alert alert-dark" id="cat-indiv_blocks">
+              <h2><strong>Individuals</strong></h2>
+              <p>
+                Methods to mutate and crossover individuals
+              </p>
+            </div>
+            <div><hr id="cat-indiv_blocks-separator" class="category-seperator" /></div>
+            <div class="display-5 alert alert-dark" id="cat-fitness_blocks">
+              <h2><strong>Fitness</strong></h2>
+              <p>
+                Methods to help you define a score function
+              </p>
+            </div>
+            <div><hr id="cat-fitness_blocks-separator" class="category-seperator" /></div>
+            <div class="display-5 alert alert-dark" id="cat-primitive_blocks">
+              <h2><strong>Primitive datatypes</strong></h2>
+              <p>
+                Methods for defining and handling primitive datatypes
+              </p>
+            </div>
+            <div><hr id="cat-primitive_blocks-separator" class="category-seperator" /></div>
+            <div class="display-5 alert alert-dark" id="cat-logic_blocks">
+              <h2><strong>Logic</strong></h2>
+              <p>
+                Methods for logical statements and controlflow
+              </p>
+            </div>
+            <div><hr id="cat-logic_blocks-separator" class="category-seperator" /></div>
+            <div class="display-5 alert alert-dark" id="cat-loop_blocks">
+              <h2><strong>Loops</strong></h2>
+              <p>
+                Methods to define standard and specialized loop functionality
+              </p>
+            </div>
+            <div><hr id="cat-loop_blocks-separator" class="category-seperator" /></div>
+            <div class="display-5 alert alert-dark" id="cat-procedure_blocks">
+              <h2><strong>Functions</strong></h2>
+              <p>
+                Methods to create reusable <i>function</i> blocks
+              </p>
+            </div>
+            <div><hr id="cat-procedure_blocks-separator" class="category-seperator" /></div>
+            <div class="display-5 alert alert-dark" id="cat-logging_blocks">
+              <h2><strong>Logging</strong></h2>
+              <p>
+                Methods to log using i.e. plots or csv output
+              </p>
+            </div>
+            <div><hr id="cat-logging_blocks-separator" class="category-seperator" /></div>
+            <div class="display-5 alert alert-dark" id="cat-thread_blocks">
+              <h2><strong>Multi-Threading</strong></h2>
+              <p>
+                Methods to create and handle multi-threading
+              </p>
+            </div>
+            <div><hr id="cat-thread_blocks-separator" class="category-seperator" /></div>
+            <div class="display-5 alert alert-dark" id="cat-timer_blocks">
+              <h2><strong>Timer management</strong></h2>
+              <p>
+                Methods to track execution-time
+              </p>
+            </div>
+            <div><hr id="cat-timer_blocks-separator" class="category-seperator" /></div>
+            <div class="display-5 alert alert-dark" id="cat-experimental_blocks">
+              <h2><strong>Experimental</strong></h2>
+            </div>
+            <div><hr id="cat-experimental_blocks-separator" class="category-seperator" /></div>
+          </div>
+
+<!--          <ul id="intoduction-category-list">
             <li class="introduction-list-item">
               <a href="#cat-pop_blocks">Population</a>
             </li>
@@ -218,109 +320,7 @@
               <a href="#cat-experimental_blocks">Experimental</a>
             </li>
           </ul>
-          <p class="alert alert-warning">
-            <strong>INFO</strong>
-            Please be aware that some of the blocks you can find in the
-            workspace are predefined by blockly and not documented here yet.
-          </p>
-        </div>
-        <!-- links to categories -->
-        <div class="display-5 alert alert-info" id="cat-pop_blocks">
-          <h2><strong>Population</strong></h2>
-          <p>
-            In the Population-Category, you find methods to transform, merge and
-            create populations and select individuals.
-          </p>
-        </div>
-        <hr id="cat-pop_blocks-separator" class="category-seperator" />
-        <div class="display-5 alert alert-info" id="cat-indiv_blocks">
-          <h2><strong>Individuals</strong></h2>
-          <p>
-            In the Individuals-Category, you find methods to mutate individuals
-            and crossover them.
-          </p>
-        </div>
-        <hr id="cat-indiv_blocks-separator" class="category-seperator" />
-        <div class="display-5 alert alert-info" id="cat-fitness_blocks">
-          <h2><strong>Fitness</strong></h2>
-          <p>
-            In the Fitness-Category, you find methods that help you to define a
-            score function.
-          </p>
-        </div>
-        <hr id="cat-fitness_blocks-separator" class="category-seperator" />
-        <div class="display-5 alert alert-info" id="cat-primitive_blocks">
-          <h2><strong>Primitive datatypes</strong></h2>
-          <p>
-            In the Primitive-datatypes-Category, you find methods that help you
-            to handle primitive datatypes like Strings and Integers.
-          </p>
-        </div>
-        <hr id="cat-primitive_blocks-separator" class="category-seperator" />
-        <div class="display-5 alert alert-info" id="cat-logic_blocks">
-          <h2><strong>Logic</strong></h2>
-          <p>
-            In the Logic-Category, you find logical methods to compaire numbers,
-            <i>if-else</i>
-            -statements or logical operation. Every method is predefined by
-            Blockly.
-          </p>
-        </div>
-        <hr id="cat-logic_blocks-separator" class="category-seperator" />
-        <div class="display-5 alert alert-info" id="cat-loop_blocks">
-          <h2><strong>Loops</strong></h2>
-          <p>
-            In the Loop-Category, you can find
-            <i>for</i>
-            -,
-            <i>for-each</i>
-            - and
-            <i>while</i>
-            -loops. Every method is predefined by Blockly.
-          </p>
-        </div>
-        <hr id="cat-loop_blocks-separator" class="category-seperator" />
-        <div class="display-5 alert alert-info" id="cat-procedure_blocks">
-          <h2><strong>Functions</strong></h2>
-          <p>
-            In the Functions-Category, you can create your functions. After
-            initializing them, you can find a block named after your function,
-            which you can use in your algorithm.
-          </p>
-        </div>
-        <p>
-          INFO: If you create an algorithm from an empty starting point, please
-          be sure to define a function to named
-          <i>fitness</i>
-          with your score function.
-        </p>
-        <hr id="cat-procedure_blocks-separator" class="category-seperator" />
-        <div class="display-5 alert alert-info" id="cat-logging_blocks">
-          <h2><strong>Logging</strong></h2>
-          <p>
-            In the Logging-Category, you find methods to print to the output,
-            show diagrams, save to CSV and add comment-blocks.
-          </p>
-        </div>
-        <hr id="cat-logging_blocks-separator" class="category-seperator" />
-        <div class="display-5 alert alert-info" id="cat-thread_blocks">
-          <h2><strong>Multi-Threading</strong></h2>
-          <p>
-            In the Multi-Threading-Category, you find methods that help you use
-            multi-threading in ELEA.
-          </p>
-        </div>
-        <hr id="cat-thread_blocks-separator" class="category-seperator" />
-        <div class="display-5 alert alert-info" id="cat-timer_blocks">
-          <h2><strong>Timer management</strong></h2>
-          <p>In the Time-Category, you find methods to track execution-time.</p>
-        </div>
-        <hr id="cat-timer_blocks-separator" class="category-seperator" />
-        <div class="display-5 alert alert-info" id="cat-experimental_blocks">
-          <h2><strong>Experimental</strong></h2>
-        </div>
-        <hr id="cat-experimental_blocks-separator" class="category-seperator" />
-      </div>
+-->
     </main>
     <footer>
       <p>
