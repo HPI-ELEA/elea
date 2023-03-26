@@ -175,6 +175,7 @@ function runCode() {
 
   // indicate that the code is running
   runButton.style.backgroundColor = "LightGreen";
+  runButton.innerHTML = "Running...";
 }
 
 function handleMessageFromWorker(msg) {
@@ -256,6 +257,7 @@ function terminateWorker() {
     console.warn("Terminated running worker");
   }
   runButton.style.backgroundColor = "";
+  runButton.innerHTML = "Run";
 }
 
 // updates the code that appears in the popup whenever a change happens
