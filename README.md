@@ -14,7 +14,7 @@ You can find the application at `localhost:1234` propably.
 ## More commands for developer
 
 - run `npm run lint` to show current linting errors and warnings
-- run `npm run prettier` to fix formating errors
+- run `npm run prettier` to fix formatting errors
 
 ## Write new blocks
 
