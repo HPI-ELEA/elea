@@ -1,0 +1,310 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="gx=Kau1h[kq#}B+/w|ur&quot;">individual</variable>
+    <variable id="jM}%6rTOBEOeUr?.h*~[">i</variable>
+    <variable type="Array" id="KIh$GbJN#je1yBt2Xv?P">parent_population</variable>
+    <variable id="_`RU](?6R2Mdm}^monre">genome_length</variable>
+    <variable id="!Hw*9{mRVoZOYO7qv/VV">counter</variable>
+    <variable id="P|ZK6ZqqY5OhR$:,p(;_">µ</variable>
+    <variable id="-*|uDjwhmvz~~T(Am;%J">λ</variable>
+    <variable type="Individual" id="^^~s_t7zfJYC%sS~Dfd`">parent1</variable>
+    <variable type="Array" id="^U?f?w(`y}uF||lA#yyT">offspring_population</variable>
+    <variable type="Individual" id=".Vr}zU*?^VyGNfppY]FE">parent2</variable>
+    <variable type="Individual" id="*hQa)e/ODpP;0mfHAvfO">offspring1</variable>
+    <variable type="Individual" id=":^Fp=6cFPi#KWNQDa#;u">offspring2</variable>
+  </variables>
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" deletable="false" x="127" y="-45">
+    <statement name="init_statements">
+      <block type="controls_for" id="$bhQ)Tvw7I5AM=nNk/xP">
+        <field name="VAR" id="jM}%6rTOBEOeUr?.h*~[">i</field>
+        <value name="FROM">
+          <shadow type="math_number" id="^~Vnm|*ExUZHcoWl7hFt">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number" id="+a|[vhk-Nxk7v,,mvVF`">
+            <field name="NUM">15</field>
+          </shadow>
+        </value>
+        <value name="BY">
+          <shadow type="math_number" id="eCj3b_EK%79g%DKs?b)x">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <statement name="DO">
+          <block type="variables_set" id="Jz:~KVD`/u8b{kqhDx;|">
+            <field name="VAR" id="_`RU](?6R2Mdm}^monre">genome_length</field>
+            <value name="VALUE">
+              <block type="math_number" id="silbPlR#@gC$u|td#X)G">
+                <field name="NUM">20</field>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set" id="I)3/Lt1XQN;7$Kqg`MIx">
+                <field name="VAR" id="P|ZK6ZqqY5OhR$:,p(;_">µ</field>
+                <value name="VALUE">
+                  <block type="math_number" id="m~XkrwyDw=u;Xcjpb7tK">
+                    <field name="NUM">10</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="variables_set" id="ZkIx(N.o//2#.u/ahcWz">
+                    <field name="VAR" id="-*|uDjwhmvz~~T(Am;%J">λ</field>
+                    <value name="VALUE">
+                      <block type="math_number" id="2!r02KX%SX~*hCg]R@,X">
+                        <field name="NUM">10</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="variables_set_population" id="^;Z)$OcF!2e`7J5#$4}v">
+                        <field name="VAR" id="^U?f?w(`y}uF||lA#yyT" variabletype="Array">offspring_population</field>
+                        <value name="VALUE">
+                          <block type="lists_create_with" id="7%t07$XqePDdKbJqx~tr">
+                            <mutation items="0"></mutation>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="procedures_callnoreturn" id="tD$l1FyN^j}R]}Boio?@">
+                            <mutation name="run_algorithm"></mutation>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defreturn" id="1l$!B6_|@#-1qZ]|6OQ7" x="748" y="-28">
+    <mutation statements="false">
+      <arg name="individual" varid="gx=Kau1h[kq#}B+/w|ur&quot;"></arg>
+    </mutation>
+    <field name="NAME">fitness</field>
+    <comment pinned="false" h="80" w="160">Describe this function...</comment>
+    <value name="RETURN">
+      <block type="math_on_list" id=":qDGTVodVA)oA#cQLa5b">
+        <mutation op="SUM"></mutation>
+        <field name="OP">SUM</field>
+        <value name="LIST">
+          <block type="variables_get" id="Wg44PxgQo:8fDiow4$J!">
+            <field name="VAR" id="gx=Kau1h[kq#}B+/w|ur&quot;">individual</field>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="procedures_defnoreturn" id="bGIA+-9Wc(p]`yydyvV2" x="123" y="274">
+    <field name="NAME">run_algorithm</field>
+    <comment pinned="false" h="80" w="160">Describe this function...</comment>
+    <statement name="STACK">
+      <block type="variables_set_population" id="A0IjDY/|p#2VWoLpfRg+">
+        <field name="VAR" id="KIh$GbJN#je1yBt2Xv?P" variabletype="Array">parent_population</field>
+        <value name="VALUE">
+          <block type="pop_init" id=";`rwsKs_eIySGXA9),2!">
+            <value name="INIT_STRATEGY">
+              <block type="init_constant" id="?.e*6?R3*!LMW8@aRYE5">
+                <field name="CONSTANT">ZERO</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="iteration_counter_loop" id="fI}L^CM(:bW=%)6kM9eQ">
+            <field name="loop_mode">while</field>
+            <field name="counter_variable" id="!Hw*9{mRVoZOYO7qv/VV">counter</field>
+            <value name="loop_condition">
+              <block type="logic_operation" id="`ru(pNk%)Nyjp$_c7m:1">
+                <field name="OP">AND</field>
+                <value name="A">
+                  <block type="check_fitness" id="jI+^4]IwJhYw=8{G?(E9">
+                    <field name="POPULATION" id="KIh$GbJN#je1yBt2Xv?P" variabletype="Array">parent_population</field>
+                    <value name="MIN_FITNESS">
+                      <block type="variables_get" id="*n`X;|7Ot$dn[n?Qd)7?">
+                        <field name="VAR" id="_`RU](?6R2Mdm}^monre">genome_length</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="logic_compare" id="U64R[)787G/^+_Q?N$2I">
+                    <field name="OP">LT</field>
+                    <value name="A">
+                      <block type="variables_get" id=")v%yYl^sU2suOPQ?(5X|">
+                        <field name="VAR" id="!Hw*9{mRVoZOYO7qv/VV">counter</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number" id="Z}Jdkt^lLk.C;O@fOa4t">
+                        <field name="NUM">300</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="loop_statement">
+              <block type="ea_run_breeding" id="89S;|J+jP7|*D/4iO=RT">
+                <value name="loop_number">
+                  <block type="math_arithmetic" id="YT/S7J*_QIAsq2^X:9~[">
+                    <field name="OP">DIVIDE</field>
+                    <value name="A">
+                      <block type="variables_get" id="6r(DLTs*)xU+nW8X!^ov">
+                        <field name="VAR" id="-*|uDjwhmvz~~T(Am;%J">λ</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number" id="Lha#-veXKtCu}:A/s2pM">
+                        <field name="NUM">2</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="loop_statement">
+                  <block type="variables_set_individual" id="iUq]?cLT_1z76#=2lO{o">
+                    <field name="VAR" id="^^~s_t7zfJYC%sS~Dfd`" variabletype="Individual">parent1</field>
+                    <value name="VALUE">
+                      <block type="ea_select_parent" id="5I_EH[l6p9?_|]?L/J*e">
+                        <field name="NAME">FITNESSPROPORTIONATE</field>
+                        <field name="POPULATION" id="KIh$GbJN#je1yBt2Xv?P" variabletype="Array">parent_population</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="variables_set_individual" id=".*oX@YfvxRoi0L+LF07a">
+                        <field name="VAR" id=".Vr}zU*?^VyGNfppY]FE" variabletype="Individual">parent2</field>
+                        <value name="VALUE">
+                          <block type="ea_select_parent" id="p`vHKU%$P%cPsR(N^JFl">
+                            <field name="NAME">FITNESSPROPORTIONATE</field>
+                            <field name="POPULATION" id="KIh$GbJN#je1yBt2Xv?P" variabletype="Array">parent_population</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="ea_crossover" id="`BvgbADJ;2$K4G65craL">
+                            <field name="PARENT1" id="^^~s_t7zfJYC%sS~Dfd`" variabletype="Individual">parent1</field>
+                            <field name="PARENT2" id=".Vr}zU*?^VyGNfppY]FE" variabletype="Individual">parent2</field>
+                            <field name="OFFSPRING1" id="*hQa)e/ODpP;0mfHAvfO" variabletype="Individual">offspring1</field>
+                            <field name="OFFSPRING2" id=":^Fp=6cFPi#KWNQDa#;u" variabletype="Individual">offspring2</field>
+                            <value name="NAME">
+                              <block type="ea_crossover_onepoint" id="_q:L)m+t4a#.*L@F:u4o"></block>
+                            </value>
+                            <next>
+                              <block type="variables_set_individual" id="d5U(6#|c]3l6DC)z5,#D">
+                                <field name="VAR" id="*hQa)e/ODpP;0mfHAvfO" variabletype="Individual">offspring1</field>
+                                <value name="VALUE">
+                                  <block type="ea_mutate_prob" id="u?WIOto]-D2(2qqZl9T*">
+                                    <value name="individual">
+                                      <block type="variables_get_individual" id="nJSzfz!AvFi,R~Pgxr1N">
+                                        <field name="VAR" id="*hQa)e/ODpP;0mfHAvfO" variabletype="Individual">offspring1</field>
+                                      </block>
+                                    </value>
+                                    <value name="probability">
+                                      <block type="math_number" id="5MoSF=U~z#m26zxORVCL">
+                                        <field name="NUM">0.05</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="variables_set_individual" id=",HmfCtPU@;FXkJyUH~k*">
+                                    <field name="VAR" id="*hQa)e/ODpP;0mfHAvfO" variabletype="Individual">offspring1</field>
+                                    <value name="VALUE">
+                                      <block type="ea_mutate_prob" id="L[;mQ@al98(^;20rbC3U">
+                                        <value name="individual">
+                                          <block type="variables_get_individual" id="a58sfI[v3w%puK;!6Q5H">
+                                            <field name="VAR" id=":^Fp=6cFPi#KWNQDa#;u" variabletype="Individual">offspring2</field>
+                                          </block>
+                                        </value>
+                                        <value name="probability">
+                                          <block type="math_number" id="3IkybnJjqkA%UBS3`;]}">
+                                            <field name="NUM">0.05</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="lists_append" id="_aN]}`e)#]1=d;N]_Dr%">
+                                        <field name="INDIVIDUAL" id="*hQa)e/ODpP;0mfHAvfO" variabletype="Individual">offspring1</field>
+                                        <field name="POPULATION" id="^U?f?w(`y}uF||lA#yyT" variabletype="Array">offspring_population</field>
+                                        <next>
+                                          <block type="lists_append" id="]C[uAB~duj{[Bs)tr5Ld">
+                                            <field name="INDIVIDUAL" id=":^Fp=6cFPi#KWNQDa#;u" variabletype="Individual">offspring2</field>
+                                            <field name="POPULATION" id="^U?f?w(`y}uF||lA#yyT" variabletype="Array">offspring_population</field>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="variables_set_population" id="[}!9Y(ApI5151|a`+Rhy">
+                    <field name="VAR" id="KIh$GbJN#je1yBt2Xv?P" variabletype="Array">parent_population</field>
+                    <value name="VALUE">
+                      <block type="ea_addtopopulation" id="Awa}Lx]w,qA;{[gv7K2/">
+                        <field name="SELECTION_STRATEGY">FITNESS</field>
+                        <value name="POPULATION">
+                          <block type="variables_get_population" id="5:(}I75#PNGYo;k*CoN_">
+                            <field name="VAR" id="^U?f?w(`y}uF||lA#yyT" variabletype="Array">offspring_population</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="plotting_two_values" id="$?hx.zDlJnfBP?v@:#RM">
+                        <field name="plotName">fitness</field>
+                        <field name="plotType">line</field>
+                        <value name="xValue">
+                          <shadow type="math_number" id="s5io_knP}9kTzv$7M~6Q">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="variables_get" id="jJ/kbX9n~,42)dB{?A-G">
+                            <field name="VAR" id="!Hw*9{mRVoZOYO7qv/VV">counter</field>
+                          </block>
+                        </value>
+                        <value name="yValue">
+                          <block type="procedures_callreturn" id="x@Z]k=Km]AW5ONd%l7A;">
+                            <mutation name="fitness">
+                              <arg name="individual"></arg>
+                            </mutation>
+                            <value name="ARG0">
+                              <block type="ea_select_best" id="S/3GT;NJMY]HQU6M9c;:">
+                                <value name="POPULATION">
+                                  <block type="variables_get_population" id="w,fT/Y$#+Ci^tBSqd;-+">
+                                    <field name="VAR" id="KIh$GbJN#je1yBt2Xv?P" variabletype="Array">parent_population</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="datasetNumber">
+                          <shadow type="math_number" id="{c4kYHvS4ZiJ-[vDJSj]">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="variables_get" id="C.-Y10QoztkF|q_M^53o">
+                            <field name="VAR" id="jM}%6rTOBEOeUr?.h*~[">i</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

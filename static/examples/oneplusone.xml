@@ -7,7 +7,7 @@
     <variable id="0dkovK!SuoHH%uP1/Uc}">chi</variable>
     <variable type="Individual" id="/tnRua%7/_s9G4(pG,{t">offspring</variable>
   </variables>
-  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="191" y="42" deletable="false">
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" deletable="false" x="191" y="42">
     <statement name="init_statements">
       <block type="variables_set" id="XSr6{9T}`^/@y8^EVzaL">
         <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
@@ -55,7 +55,7 @@
     </statement>
   </block>
   <block type="procedures_defreturn" id="1l$!B6_|@#-1qZ]|6OQ7" x="654" y="40">
-    <mutation>
+    <mutation statements="false">
       <arg name="individual" varid="gx=Kau1h[kq#}B+/w|ur&quot;"></arg>
     </mutation>
     <field name="NAME">fitness</field>
@@ -85,145 +85,134 @@
               <block type="individual_init_uniform" id="=Bc.uudm:Diq%nxzk^ge"></block>
             </value>
             <next>
-              <block type="ea_debug" id="TlSJ3phn~m6=r0(GQRSD">
-                <value name="logging_variable">
-                  <block type="variables_get_individual" id=",uUM_Nv+_45ntn~+(`)n">
-                    <field name="VAR" id="~.yV7AFwhpE@lu/Y6BqS" variabletype="Individual">parent</field>
+              <block type="run_loop" id="C|rzC%2;{!n!7M%?I3.K">
+                <value name="continue_condition">
+                  <block type="logic_compare" id="tV%BK#PsA5}%-B5Nde*`">
+                    <field name="OP">LT</field>
+                    <value name="A">
+                      <block type="procedures_callreturn" id="tv!P_vfA~*^phH`YogA4">
+                        <mutation name="fitness">
+                          <arg name="individual"></arg>
+                        </mutation>
+                        <value name="ARG0">
+                          <block type="variables_get_individual" id="JwOxC:xyM6RUPw/G2ea9">
+                            <field name="VAR" id="~.yV7AFwhpE@lu/Y6BqS" variabletype="Individual">parent</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="variables_get" id="X=kZQm;k36$^}[lkWsYI">
+                        <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
+                      </block>
+                    </value>
                   </block>
                 </value>
-                <next>
-                  <block type="run_loop" id="C|rzC%2;{!n!7M%?I3.K">
-                    <value name="continue_condition">
-                      <block type="logic_compare" id="tV%BK#PsA5}%-B5Nde*`">
-                        <field name="OP">LT</field>
-                        <value name="A">
-                          <block type="procedures_callreturn" id="tv!P_vfA~*^phH`YogA4">
-                            <mutation name="fitness">
-                              <arg name="individual"></arg>
-                            </mutation>
-                            <value name="ARG0">
-                              <block type="variables_get_individual" id="JwOxC:xyM6RUPw/G2ea9">
+                <value name="exit_number">
+                  <block type="math_arithmetic" id="5OZ78.QYM-S(~T/f,-W@">
+                    <field name="OP">MULTIPLY</field>
+                    <value name="A">
+                      <block type="variables_get" id="jCsimw#XR01N~Qy1@ZWg">
+                        <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="variables_get" id="lSZR(5634J_Ug;M+l3kx">
+                        <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="loop_statement">
+                  <block type="comment" id="j.2cM`_nUNNsc3|b{gaW">
+                    <field name="text">Mutate the parent and see if the result is better</field>
+                    <next>
+                      <block type="variables_set_individual" id="(aOg[9Q{;Q;t-Y8juJow">
+                        <field name="VAR" id="/tnRua%7/_s9G4(pG,{t" variabletype="Individual">offspring</field>
+                        <value name="VALUE">
+                          <block type="ea_mutate_prob" id="u?WIOto]-D2(2qqZl9T*">
+                            <value name="individual">
+                              <block type="variables_get_individual" id="~J:px;{gMy,L?5-fjQaX">
                                 <field name="VAR" id="~.yV7AFwhpE@lu/Y6BqS" variabletype="Individual">parent</field>
                               </block>
                             </value>
-                          </block>
-                        </value>
-                        <value name="B">
-                          <block type="variables_get" id="X=kZQm;k36$^}[lkWsYI">
-                            <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
-                          </block>
-                        </value>
-                      </block>
-                    </value>
-                    <value name="exit_number">
-                      <block type="math_arithmetic" id="5OZ78.QYM-S(~T/f,-W@">
-                        <field name="OP">MULTIPLY</field>
-                        <value name="A">
-                          <block type="variables_get" id="jCsimw#XR01N~Qy1@ZWg">
-                            <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
-                          </block>
-                        </value>
-                        <value name="B">
-                          <block type="variables_get" id="lSZR(5634J_Ug;M+l3kx">
-                            <field name="VAR" id="v`D6r417R_rR.AyGB:]O">n</field>
-                          </block>
-                        </value>
-                      </block>
-                    </value>
-                    <statement name="loop_statement">
-                      <block type="comment" id="j.2cM`_nUNNsc3|b{gaW">
-                        <field name="text">Mutate the parent and see if the result is better</field>
-                        <next>
-                          <block type="variables_set_individual" id="(aOg[9Q{;Q;t-Y8juJow">
-                            <field name="VAR" id="/tnRua%7/_s9G4(pG,{t" variabletype="Individual">offspring</field>
-                            <value name="VALUE">
-                              <block type="ea_mutate_prob" id="u?WIOto]-D2(2qqZl9T*">
-                                <value name="individual">
-                                  <block type="variables_get_individual" id="~J:px;{gMy,L?5-fjQaX">
-                                    <field name="VAR" id="~.yV7AFwhpE@lu/Y6BqS" variabletype="Individual">parent</field>
-                                  </block>
-                                </value>
-                                <value name="probability">
-                                  <block type="variables_get" id="PCn[!,Pe@Mqe4-].w}_d">
-                                    <field name="VAR" id="0dkovK!SuoHH%uP1/Uc}">chi</field>
-                                  </block>
-                                </value>
+                            <value name="probability">
+                              <block type="variables_get" id="PCn[!,Pe@Mqe4-].w}_d">
+                                <field name="VAR" id="0dkovK!SuoHH%uP1/Uc}">chi</field>
                               </block>
                             </value>
-                            <next>
-                              <block type="controls_if" id="RtgYlq?t)J.p)JL`m77#">
-                                <value name="IF0">
-                                  <block type="logic_compare" id="3AV_U$c.k5e6Lk6+ze90">
-                                    <field name="OP">LT</field>
-                                    <value name="A">
-                                      <block type="procedures_callreturn" id="NU`if+YQD!S,B.qr51st">
-                                        <mutation name="fitness">
-                                          <arg name="individual"></arg>
-                                        </mutation>
-                                        <value name="ARG0">
-                                          <block type="variables_get_individual" id="j/my(+:Xd)vfvLt`rS#(">
-                                            <field name="VAR" id="~.yV7AFwhpE@lu/Y6BqS" variabletype="Individual">parent</field>
-                                          </block>
-                                        </value>
-                                      </block>
-                                    </value>
-                                    <value name="B">
-                                      <block type="procedures_callreturn" id="AUzH)Q#b^(i@SU=Re#;K">
-                                        <mutation name="fitness">
-                                          <arg name="individual"></arg>
-                                        </mutation>
-                                        <value name="ARG0">
-                                          <block type="variables_get_individual" id="P3@ND_0,?jJD6dDcyFSE">
-                                            <field name="VAR" id="/tnRua%7/_s9G4(pG,{t" variabletype="Individual">offspring</field>
-                                          </block>
-                                        </value>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="controls_if" id="RtgYlq?t)J.p)JL`m77#">
+                            <value name="IF0">
+                              <block type="logic_compare" id="3AV_U$c.k5e6Lk6+ze90">
+                                <field name="OP">LT</field>
+                                <value name="A">
+                                  <block type="procedures_callreturn" id="NU`if+YQD!S,B.qr51st">
+                                    <mutation name="fitness">
+                                      <arg name="individual"></arg>
+                                    </mutation>
+                                    <value name="ARG0">
+                                      <block type="variables_get_individual" id="j/my(+:Xd)vfvLt`rS#(">
+                                        <field name="VAR" id="~.yV7AFwhpE@lu/Y6BqS" variabletype="Individual">parent</field>
                                       </block>
                                     </value>
                                   </block>
                                 </value>
-                                <statement name="DO0">
-                                  <block type="variables_set_individual" id="Q`,LIzw(x)+krbHkIX$V">
-                                    <field name="VAR" id="~.yV7AFwhpE@lu/Y6BqS" variabletype="Individual">parent</field>
-                                    <value name="VALUE">
-                                      <block type="variables_get_individual" id="`In@FdJ:L8,=/P--^0[)">
+                                <value name="B">
+                                  <block type="procedures_callreturn" id="AUzH)Q#b^(i@SU=Re#;K">
+                                    <mutation name="fitness">
+                                      <arg name="individual"></arg>
+                                    </mutation>
+                                    <value name="ARG0">
+                                      <block type="variables_get_individual" id="P3@ND_0,?jJD6dDcyFSE">
                                         <field name="VAR" id="/tnRua%7/_s9G4(pG,{t" variabletype="Individual">offspring</field>
                                       </block>
                                     </value>
                                   </block>
-                                </statement>
+                                </value>
+                              </block>
+                            </value>
+                            <statement name="DO0">
+                              <block type="variables_set_individual" id="Q`,LIzw(x)+krbHkIX$V">
+                                <field name="VAR" id="~.yV7AFwhpE@lu/Y6BqS" variabletype="Individual">parent</field>
+                                <value name="VALUE">
+                                  <block type="variables_get_individual" id="`In@FdJ:L8,=/P--^0[)">
+                                    <field name="VAR" id="/tnRua%7/_s9G4(pG,{t" variabletype="Individual">offspring</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </statement>
+                            <next>
+                              <block type="plotting_one_value" id="wwOUsqg_~9g*Z^)@(-W`">
+                                <field name="plotName">fitness</field>
+                                <field name="plotType">line</field>
+                                <value name="yValue">
+                                  <block type="procedures_callreturn" id="K!bd85Yv$!U#UBq5.#}k">
+                                    <mutation name="fitness">
+                                      <arg name="individual"></arg>
+                                    </mutation>
+                                    <value name="ARG0">
+                                      <block type="variables_get_individual" id="mzBUu{CG3fi/PRBh|h-r">
+                                        <field name="VAR" id="~.yV7AFwhpE@lu/Y6BqS" variabletype="Individual">parent</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="datasetNumber">
+                                  <shadow type="math_number" id="m?lkVIIeclY1!D*S]E.t">
+                                    <field name="NUM">1</field>
+                                  </shadow>
+                                </value>
                               </block>
                             </next>
                           </block>
                         </next>
                       </block>
-                    </statement>
-                    <next>
-                      <block type="ea_debug" id="5E9O@8`ON,~:D2}9PKnS">
-                        <value name="logging_variable">
-                          <block type="variables_get_individual" id="PRw%tBL0UTH~cb!5-iij">
-                            <field name="VAR" id="~.yV7AFwhpE@lu/Y6BqS" variabletype="Individual">parent</field>
-                          </block>
-                        </value>
-                        <next>
-                          <block type="ea_debug" id="ujGN]KlBFCh=q7]H|LCa">
-                            <value name="logging_variable">
-                              <block type="procedures_callreturn" id="vu@nmc,6qO~y+pUdMwkR">
-                                <mutation name="fitness">
-                                  <arg name="individual"></arg>
-                                </mutation>
-                                <value name="ARG0">
-                                  <block type="variables_get_individual" id="862n{m_knz,3m_hJ8O*o">
-                                    <field name="VAR" id="~.yV7AFwhpE@lu/Y6BqS" variabletype="Individual">parent</field>
-                                  </block>
-                                </value>
-                              </block>
-                            </value>
-                          </block>
-                        </next>
-                      </block>
                     </next>
                   </block>
-                </next>
+                </statement>
               </block>
             </next>
           </block>
