@@ -56,30 +56,15 @@
           <div class="offcanvas-body">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link" href="workspace.html?example=full">
-                  Demo
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="faq.html">FAQ</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="documentation.html">Documentation</a>
               </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarExampleDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Examples
-                </a>
-                <ul
+              <li class="nav-item">
+                <div class="btn-group">
+                  <a type="button" class="btn btn-dark" href="workspace.html?example=empty">Workspace</a>
+                  <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                  </button>
+                  <ul
                   class="dropdown-menu"
                   aria-labelledby="navbarExampleDropdown"
                 >
@@ -138,6 +123,7 @@
                       </a>
                   </li>
                 </ul>
+                </div>
               </li>
             </ul>
           </div>
@@ -182,6 +168,8 @@
         <a href="/legal.html">Legal</a>
         •
         <a href="/privacy.html">Privacy</a>
+        •
+        <a href="/faq.html">FAQ</a>
       </p>
     </footer>
   </body>
