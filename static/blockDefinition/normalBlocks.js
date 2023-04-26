@@ -521,6 +521,27 @@ export const blockDefinitions = [
     helpUrl: "",
   },
   {
+    type: "ea_mutate_prob_l",
+    message0: "mutate %1 with a bitwise probability of %2",
+    args0: [
+      {
+        type: "input_value",
+        name: "individual",
+        check: "Individual",
+      },
+      {
+        type: "input_value",
+        name: "l",
+        check: "Number",
+      },
+    ],
+    inputsInline: true,
+    output: "Array",
+    style: "indiv_blocks",
+    tooltip: "Mutate uniformly-random l bits of a given individual.",
+    helpUrl: "",
+  },
+  {
     type: "ea_mutate_bit",
     message0: "mutate a random bit in %1 ",
     args0: [
