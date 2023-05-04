@@ -1,6 +1,10 @@
 import * as Blockly from "blockly";
+// import { sample } from "simple-statistics";
 import { blockDefinitions } from "../blockDefinition/normalBlocks";
+// import { binomialDistributionPositive } from "./utils";
 Blockly.defineBlocksWithJsonArray(blockDefinitions);
+
+// console.log(binomialDistributionPositive(5, 0.2));
 
 Blockly.JavaScript["experimental_raw_code"] = function (block) {
   // TODO add javascript validation
@@ -573,6 +577,31 @@ Blockly.JavaScript["ea_mutate_prob"] = function (block) {
     ".map(function(x) {return (Math.random() < " +
     variableProbability +
     " ? (1-x) : x) })";
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript["ea_mutate_prob_l"] = function (block) {
+  var variableIndividual = Blockly.JavaScript.valueToCode(
+    block,
+    "individual",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var variableL = Blockly.JavaScript.valueToCode(
+    block,
+    "l",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  var code = `
+  () => {
+    const individual = ${variableIndividual};
+    const n = ${variableIndividual}.length;
+    const l = ${variableL};
+    let positions = sample([...Array(n).keys()], 1)
+    const probabilities = binomialDistribution(l, 1 / n);
+    probabilities.forEach((p, i) => (p < 1 / n ? (1 - individual[i]) : individual[i]))
+  }()
+  `;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
