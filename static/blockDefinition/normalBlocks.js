@@ -522,7 +522,7 @@ export const blockDefinitions = [
   },
   {
     type: "flip_l",
-    message0: "mutate %2 bits of %1 with a bitwise probability of %2",
+    message0: "mutate %2 bits of %1",
     args0: [
       {
         type: "input_value",
@@ -538,7 +538,7 @@ export const blockDefinitions = [
     inputsInline: true,
     output: "Array",
     style: "indiv_blocks",
-    tooltip: "Mutate uniformly-random l bits of a given individual.",
+    tooltip: "Mutate uniformly-random L bits of a given individual.",
     helpUrl: "",
   },
   {
