@@ -54,7 +54,8 @@ Blockly.JavaScript["ea_init"] = function (block) {
   code += "}\n";
   code += "mainFunction()\n";
   code += ".catch( error => console.error(error) )\n";
-  code += ".finally( () => Handler.sendMessage(new Message(Handler.PARENT_ID, 0, 'terminate')) );\n";
+  code +=
+    ".finally( () => Handler.sendMessage(new Message(Handler.PARENT_ID, 0, 'terminate')) );\n";
   return code;
 };
 
@@ -580,7 +581,7 @@ Blockly.JavaScript["ea_mutate_prob"] = function (block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.JavaScript["ea_mutate_prob_l"] = function (block) {
+Blockly.JavaScript["flip_l"] = function (block) {
   var variableIndividual = Blockly.JavaScript.valueToCode(
     block,
     "individual",
@@ -597,9 +598,12 @@ Blockly.JavaScript["ea_mutate_prob_l"] = function (block) {
     const individual = ${variableIndividual};
     const n = ${variableIndividual}.length;
     const l = ${variableL};
-    let positions = sample([...Array(n).keys()], 1)
-    const probabilities = binomialDistribution(l, 1 / n);
-    probabilities.forEach((p, i) => (p < 1 / n ? (1 - individual[i]) : individual[i]))
+    // check that positions are unique before flipping
+    let positions = sample([...Array(n).keys()], l);
+    // add to documentation.html
+    // experiment with other blocks and their params
+    positions.forEach(i => {individual[i] = 1 - individual[i]});
+	return individual;
   }()
   `;
   return [code, Blockly.JavaScript.ORDER_NONE];
@@ -906,24 +910,31 @@ Blockly.JavaScript["plotting_two_values"] = function (block) {
   return code;
 };
 
-Blockly.JavaScript['iteration_counter_loop'] = function(block) {
-  var variableLoopMode = block.getFieldValue('loop_mode');
-  var variableCondition = Blockly.JavaScript.valueToCode(block, 'loop_condition', Blockly.JavaScript.ORDER_ATOMIC);
-  var statements = Blockly.JavaScript.statementToCode(block, 'loop_statement');
-  var variableCounter = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('counter_variable'), Blockly.Variables.NAME_TYPE);
-  
-  var code = '';
-  if (variableLoopMode == "while"){
+Blockly.JavaScript["iteration_counter_loop"] = function (block) {
+  var variableLoopMode = block.getFieldValue("loop_mode");
+  var variableCondition = Blockly.JavaScript.valueToCode(
+    block,
+    "loop_condition",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var statements = Blockly.JavaScript.statementToCode(block, "loop_statement");
+  var variableCounter = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("counter_variable"),
+    Blockly.Variables.NAME_TYPE
+  );
+
+  var code = "";
+  if (variableLoopMode == "while") {
     code += "var " + variableCounter + " = 0;\n";
-    code += "while(" + variableCondition +"){\n";
+    code += "while(" + variableCondition + "){\n";
     code += statements + variableCounter + "++;\n";
-    code += "}\n"
-  return code;
+    code += "}\n";
+    return code;
   } else {
     code += "var " + variableCounter + " = 0;\n";
-    code += "while(!" + variableCondition +"){\n";
+    code += "while(!" + variableCondition + "){\n";
     code += statements + variableCounter + "++;\n";
-    code += "}\n"
-  return code;
+    code += "}\n";
+    return code;
   }
 };

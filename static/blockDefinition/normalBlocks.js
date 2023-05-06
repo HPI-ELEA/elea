@@ -521,8 +521,8 @@ export const blockDefinitions = [
     helpUrl: "",
   },
   {
-    type: "ea_mutate_prob_l",
-    message0: "mutate %1 with a bitwise probability of %2",
+    type: "flip_l",
+    message0: "mutate %2 bits of %1 with a bitwise probability of %2",
     args0: [
       {
         type: "input_value",
