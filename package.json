@@ -11,7 +11,7 @@
     "blockly": "^6.20210701.0",
     "bootstrap": "^5.2.3",
     "chart.js": "^3.8.0",
-    "d3": "^7.8.3",
+    "d3": "^7.8.4",
     "jquery": "^3.6.4",
     "js-beautify": "^1.14.7",
     "prismjs": "^1.29.0",
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.36.0",
+    "eslint": "^8.37.0",
     "eslint-plugin-import": "^2.27.5",
     "husky": "^7.0.4",
     "parcel": "^1.12.3",
