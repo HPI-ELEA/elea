@@ -941,7 +941,7 @@ export const blockDefinitions = [
     inputsInline: true,
     output: "Number",
     style: "fitness_blocks",
-    tooltip: "Calculate the hemming distance between two individuals.",
+    tooltip: "Calculate the Hamming distance between two individuals.",
     helpUrl: "",
   },
   {
