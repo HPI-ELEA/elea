@@ -1,7 +1,7 @@
 {
   "name": "elea",
   "scripts": {
-    "start": "parcel static/index.html",
+    "start": "parcel serve static/index.html --hmr-hostname localhost",
     "build": "parcel build static/index.html",
     "lint": "eslint \"static/scripts/**\"",
     "prettier": "prettier **/*.js **/*.html **/*.css --write",

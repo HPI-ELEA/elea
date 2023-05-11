@@ -1,5 +1,5 @@
 import * as Blockly from "blockly";
-// import { sample } from "simple-statistics";
+import { sample, shuffle, shuffleInPlace } from "simple-statistics";
 import { blockDefinitions } from "../blockDefinition/normalBlocks";
 // import { binomialDistributionPositive } from "./utils";
 Blockly.defineBlocksWithJsonArray(blockDefinitions);
@@ -593,19 +593,17 @@ Blockly.JavaScript["flip_l"] = function (block) {
     Blockly.JavaScript.ORDER_ATOMIC
   );
 
-  var code = `
-  () => {
-    const individual = ${variableIndividual};
-    const n = ${variableIndividual}.length;
-    const l = ${variableL};
-    // check that positions are unique before flipping
-    let positions = sample([...Array(n).keys()], l);
-    // add to documentation.html
-    // experiment with other blocks and their params
-    positions.forEach(i => {individual[i] = 1 - individual[i]});
-	return individual;
-  }()
-  `;
+  var code = `(function() {
+  ${shuffleInPlace.toString()}
+  ${shuffle.toString()}
+  ${sample.toString()}
+  const individual = ${variableIndividual};
+  const n = individual.length;
+  const l = ${variableL};
+  let positions = x([...Array(n).keys()], l);
+  positions.forEach(i => {individual[i] = 1 - individual[i]});
+  return individual;
+})()`;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 

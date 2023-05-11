@@ -536,7 +536,7 @@ export const blockDefinitions = [
       },
     ],
     inputsInline: true,
-    output: "Array",
+    output: "Individual",
     style: "indiv_blocks",
     tooltip: "Mutate uniformly-random L bits of a given individual.",
     helpUrl: "",
