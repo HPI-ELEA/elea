@@ -1,4 +1,5 @@
 import { binomialDistribution } from "simple-statistics";
+export { binomialDistribution, epsilon } from "simple-statistics";
 
 /**
  * 
@@ -7,5 +8,5 @@ import { binomialDistribution } from "simple-statistics";
  * @returns {Array<number>}
  */
 export function binomialDistributionPositive(n, p) {
-	return binomialDistribution(n, p).map((x, i) => x * i  / ((1 - (1 - p) ** n))).slice(1);
+	return binomialDistribution(n, p).map((b, k) => b * k  / ((1 - (1 - p) ** n))).slice(1);
 }

@@ -1,7 +1,7 @@
 import * as Blockly from "blockly";
-import { sample, shuffle, shuffleInPlace } from "simple-statistics";
+import { sample, shuffle, shuffleInPlace, binomialDistribution, epsilon } from "simple-statistics";
 import { blockDefinitions } from "../blockDefinition/normalBlocks";
-// import { binomialDistributionPositive } from "./utils";
+import { binomialDistributionPositive } from "./utils";
 Blockly.defineBlocksWithJsonArray(blockDefinitions);
 
 // console.log(binomialDistributionPositive(5, 0.2));
@@ -582,30 +582,71 @@ Blockly.JavaScript["ea_mutate_prob"] = function (block) {
 };
 
 Blockly.JavaScript["flip_l"] = function (block) {
-  var variableIndividual = Blockly.JavaScript.valueToCode(
+  let variableIndividual = Blockly.JavaScript.valueToCode(
     block,
     "individual",
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  var variableL = Blockly.JavaScript.valueToCode(
+  let variableL = Blockly.JavaScript.valueToCode(
     block,
     "l",
     Blockly.JavaScript.ORDER_ATOMIC
   );
 
-  var code = `(function() {
+  let code = `(function() {
   ${shuffleInPlace.toString()}
   ${shuffle.toString()}
-  ${sample.toString()}
+  const sample = ${sample.toString()};
   const individual = ${variableIndividual};
   const n = individual.length;
   const l = ${variableL};
-  let positions = x([...Array(n).keys()], l);
-  positions.forEach(i => {individual[i] = 1 - individual[i]});
+  let positions = sample([...Array(n).keys()], l);
+  for (const i of positions) {
+    individual[i] = 1 - individual[i];
+  }
   return individual;
 })()`;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
+
+
+Blockly.JavaScript["ea_norm"] = function (block) {
+  let variableN = Blockly.JavaScript.valueToCode(
+    block,
+    "n",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  let variableT = Blockly.JavaScript.valueToCode(
+    block,
+    "t",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  let variableLamda = Blockly.JavaScript.valueToCode(
+    block,
+    "lamda",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  let code = `(function() {
+    ${shuffleInPlace.toString()}
+    ${shuffle.toString()}
+    const sample = ${sample.toString()};
+    ${binomialDistribution}
+    const epsilon = ${epsilon};
+    const n = ${variableN};
+    let r = 2;
+    let x = sample([...Array(1 << n).keys()], 1).toString(2);
+    const lamda = ${variableLamda};
+    for (let t = 0; t < ${variableT}; t++) {
+      for (let i = 0; i < lamda; i++) {
+        
+      }
+    }
+})()`;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+}
 
 Blockly.JavaScript["ea_mutate_bit"] = function (block) {
   // WARNING: ea_mutate_bit uses hardcoded variables.
