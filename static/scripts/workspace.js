@@ -184,15 +184,14 @@ function addNewDeletableOutputEntry(
   outputContentID,
   title,
   deleteOperation = () => {},
-  downloadImageOperation = null
+  customOperations = [] // list of custom buttons in the form [{'name': name, 'operation': operation}]
 ) {
   let numOutput = $("#output-column > *").length;
-  let buttonrow = "";
-  if (downloadImageOperation != null) {
-    buttonrow = `<div>
-    <button id="png-download-${title}-button" class="btn btn-outline-dark">Download Image</button>
-    </div>`;
-  }
+  let buttonrow = "<div>";
+  customOperations.forEach((operation) => {
+    buttonrow += `<button id="${operation["name"]}-${title}-button" class="btn btn-outline-dark">${operation["text"]}</button>`;
+  });
+  buttonrow += `</div>`;
   let divString = `
   <div class="output-block" id="output-${numOutput}">
     <div class="output-header">
@@ -225,11 +224,17 @@ function addNewDeletableOutputEntry(
     $(`#output-${numOutput}`).hide();
   });
 
-  $(`#png-download-${title}-button`).click(() => {
-    console.log("DownloadButton pressed");
-    downloadImageOperation();
+  customOperations.forEach((operation) => {
+    $(`#${operation["name"]}-${title}-button`).click(() => {
+      console.log("doing" + title + "button");
+      operation["operation"]();
+    });
   });
-  return document.getElementById(outputContentID);
+  // $(`#png-download-${title}-button`).click(() => {
+  //   console.log("DownloadButton pressed");
+  //   downloadImageOperation();
+  // });
+  // return document.getElementById(outputContentID);
 }
 
 function tryDownloadCSV() {

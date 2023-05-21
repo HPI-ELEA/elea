@@ -70,7 +70,13 @@ class PlotWorker {
         name,
         name,
         () => this.plotHandler.removePlot(this.plotName),
-        () => this.plotHandler.getPlotAsPng(this.plotName)
+        [
+          {
+            name: "download-img",
+            operation: () => this.plotHandler.getPlotAsPng(this.plotName),
+            text: "Download Image",
+          },
+        ]
       );
       let canvasID = "plot-" + name;
       this.chartArea = document.getElementById(canvasID).getContext("2d");
