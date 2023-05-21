@@ -76,6 +76,11 @@ class PlotWorker {
             operation: () => this.plotHandler.getPlotAsPng(this.plotName),
             text: "Download Image",
           },
+          {
+            name: "download-csv",
+            operation: () => this.plotHandler.downloadPlotDataAsCSV(),
+            text: "Download CSV",
+          },
         ]
       );
       let canvasID = "plot-" + name;
