@@ -46,6 +46,12 @@ class PlotHandler {
   removePlot(plotName) {
     this.plotMap.delete(plotName);
   }
+
+  getPlotAsPng(plotName) {
+    console.log("downloading" + plotName);
+    var plot = this.plotMap.get(plotName);
+    plot.getPlotAsPng();
+  }
 }
 
 class PlotWorker {
@@ -58,9 +64,13 @@ class PlotWorker {
     this.iteration = 0;
     this.isSingleInput = true;
     if (globalThis.window) {
-      let divString = `<canvas id="plot-${name}"></canvas>`;
-      addNewDeletableOutputEntry(divString, name, name, () =>
-        this.plotHandler.removePlot(this.plotName)
+      let divString = `<canvas id="plot-${name}"></canvas></div>`;
+      addNewDeletableOutputEntry(
+        divString,
+        name,
+        name,
+        () => this.plotHandler.removePlot(this.plotName),
+        () => this.plotHandler.getPlotAsPng(this.plotName)
       );
       let canvasID = "plot-" + name;
       this.chartArea = document.getElementById(canvasID).getContext("2d");
@@ -148,6 +158,15 @@ class PlotWorker {
       csvContent += tranformDoubleInputToCSV(this.plotData);
     }
     zip.file(this.plotName + ".csv", csvContent);
+  }
+
+  getPlotAsPng() {
+    // TODO: Actually download the plot as png
+    var image = this.myChart.toBase64Image();
+    var a = document.createElement("a");
+    a.href = image;
+    a.download = this.plotName + ".png";
+    a.click();
   }
 }
 
