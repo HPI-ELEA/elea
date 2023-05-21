@@ -108,6 +108,29 @@ main {
   padding: 1rem;
 }
 
+.carousel-control-next, .carousel-control-prev {
+  width: 50px;
+  height: 50px;
+  background-color: rgb(230, 100, 48);
+  border-radius: 50%;
+  top: calc(50% - 25px);
+  opacity: .8;
+}
+
+.carousel-control-next {
+  right: 5%;
+}
+
+.carousel-control-next-icon {
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+.carousel-control-prev-icon {
+  margin-top: 4px;
+  margin-right: 4px;
+}
+
 #cookieBannerDialog {
   position: absolute;
   right: 25px;
