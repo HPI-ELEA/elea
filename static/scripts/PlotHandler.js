@@ -48,9 +48,13 @@ class PlotHandler {
   }
 
   getPlotAsPng(plotName) {
-    console.log("downloading" + plotName);
     var plot = this.plotMap.get(plotName);
     plot.getPlotAsPng();
+  }
+
+  openPlotInModal(plotName) {
+    var plot = this.plotMap.get(plotName);
+    plot.openPlotInModal();
   }
 }
 
@@ -80,6 +84,11 @@ class PlotWorker {
             name: "download-csv",
             operation: () => this.plotHandler.downloadPlotDataAsCSV(),
             text: "Download CSV",
+          },
+          {
+            name: "show-details",
+            operation: () => this.plotHandler.openPlotInModal(this.plotName),
+            text: "Details",
           },
         ]
       );
@@ -178,6 +187,14 @@ class PlotWorker {
     a.href = image;
     a.download = this.plotName + ".png";
     a.click();
+  }
+
+  openPlotInModal() {
+    var modal = document.getElementById("plotModal");
+    modal.style.display = "block";
+    var ctx = document.getElementById("detailedPlotCanvas").getContext("2d");
+    var detailedChart = new Chart(ctx, this.myChart.config);
+    return;
   }
 }
 

@@ -226,7 +226,6 @@ function addNewDeletableOutputEntry(
 
   customOperations.forEach((operation) => {
     $(`#${operation["name"]}-${title}-button`).click(() => {
-      console.log("doing" + title + "button");
       operation["operation"]();
     });
   });
@@ -257,5 +256,10 @@ function tryDownloadLog() {
   if (hasEntriesIOH()) downloadIOH();
   else alert("The IOHAnalyzer file is empty.");
 }
+
+var plotDetailSpan = document.getElementById("close-detailed-plot");
+plotDetailSpan.onclick = function () {
+  document.getElementById("plotModal").style.display = "none";
+};
 
 export { addPrintOutput, addNewDeletableOutputEntry };
