@@ -193,7 +193,7 @@ class PlotWorker {
     var modal = document.getElementById("plotModal");
     modal.style.display = "block";
     var ctx = document.getElementById("detailedPlotCanvas").getContext("2d");
-    var detailedChart = new Chart(ctx, this.myChart.config);
+    new Chart(ctx, this.myChart.config); //eslint-disable-line no-undef -- is defined in block code
     return;
   }
 }

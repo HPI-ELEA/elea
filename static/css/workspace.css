@@ -103,7 +103,7 @@ main {
 }
 
 .carousel-caption {
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 7px;
   padding: 1rem;
 }
@@ -115,4 +115,13 @@ main {
   z-index: 10040;
   overflow: auto;
   overflow-y: auto;
+}
+
+#plotModalDialog {
+  max-width: 80%;
+  max-height: 70%;
+}
+
+#plotModalContent {
+  border-width: 5px;
 }

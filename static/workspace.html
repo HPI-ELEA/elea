@@ -1,375 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>elea Demo: Build Your Own EA</title>
 
-    <link rel="stylesheet" type="text/css" href="css/globals.css" />
-    <link
-      rel="stylesheet"
-      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" type="text/css" href="css/workspace.css" />
-    <link rel="shortcut icon" href="favicon.ico" />
+<head>
+  <meta charset="utf-8" />
+  <title>elea Demo: Build Your Own EA</title>
 
-    <link rel="stylesheet" href="../node_modules/prismjs/themes/prism.css" />
+  <link rel="stylesheet" type="text/css" href="css/globals.css" />
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/workspace.css" />
+  <link rel="shortcut icon" href="favicon.ico" />
 
-    <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
-    <script
-      src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-      rel="script"
-    ></script>
-    <script src="../node_modules/chart.js/auto/auto.js"></script>
-  </head>
+  <link rel="stylesheet" href="../node_modules/prismjs/themes/prism.css" />
 
-  <body>
-    <nav class="bg-light navbar navbar-expand-lg navbar-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/index.html">
-          <img
-            src="favicon.svg"
-            alt="elea-logo"
-            width="30rem"
-            height="30rem"
-            class="d-inline-block align-top"
-          />
-          Build Your Own EA
-        </a>
-        <button 
-            class="navbar-toggler" 
-            type="button" 
-            data-bs-toggle="offcanvas" 
-            data-bs-target="#navbarOffcanvasLg" 
-            aria-controls="navbarOffcanvasLg"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-            >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-  
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="navbarOffcanvasLg" aria-labelledby="navbarOffcanvasLgLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Build Your Own EA</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="documentation.html">Documentation</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarExampleDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Examples
-                </a>
-                <ul
-                  class="dropdown-menu"
-                  aria-labelledby="navbarExampleDropdown"
-                >
-                  <li><a class="dropdown-item" href="workspace.html?example=empty">
+  <script src="../node_modules/jquery/dist/jquery.slim.min.js"></script>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" rel="script"></script>
+  <script src="../node_modules/chart.js/auto/auto.js"></script>
+</head>
+
+<body>
+  <nav class="bg-light navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/index.html">
+        <img src="favicon.svg" alt="elea-logo" width="30rem" height="30rem" class="d-inline-block align-top" />
+        Build Your Own EA
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg"
+        aria-controls="navbarOffcanvasLg" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="navbarOffcanvasLg"
+        aria-labelledby="navbarOffcanvasLgLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Build Your Own EA</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="documentation.html">Documentation</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarExampleDropdown" role="button"
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Examples
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarExampleDropdown">
+                <li><a class="dropdown-item" href="workspace.html?example=empty">
                     Empty starting point
                   </a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a
-                    class="dropdown-item"
-                    href="workspace.html?example=oneplusone"
-                  >
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="workspace.html?example=oneplusone">
                     1+1
                   </a></li>
-                  <li><a
-                    class="dropdown-item"
-                    href="workspace.html?example=onepluslambda"
-                  >
+                <li><a class="dropdown-item" href="workspace.html?example=onepluslambda">
                     1+λ
                   </a></li>
-                  <li><a
-                    class="dropdown-item"
-                    href="workspace.html?example=mupluslambda"
-                  >
+                <li><a class="dropdown-item" href="workspace.html?example=mupluslambda">
                     μ+λ
                   </a></li>
-                  <li><a
-                    class="dropdown-item"
-                    href="workspace.html?example=onelambda"
-                  >
+                <li><a class="dropdown-item" href="workspace.html?example=onelambda">
                     1,λ
                   </a></li>
-                  <li><a
-                    class="dropdown-item"
-                    href="workspace.html?example=mulambda"
-                  >
+                <li><a class="dropdown-item" href="workspace.html?example=mulambda">
                     μ,λ
                   </a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a
-                    class="dropdown-item"
-                    href="workspace.html?example=multithread"
-                  >
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="workspace.html?example=multithread">
                     Multi-Threading Example
                   </a></li>
-                  <li><a
-                    class="dropdown-item"
-                    href="workspace.html?example=full_multithread"
-                  >
+                <li><a class="dropdown-item" href="workspace.html?example=full_multithread">
                     Full example with Multi-Threading
                   </a></li>
-                  <li><a
-                    class="dropdown-item"
-                    href="workspace.html?example=multithread-performance"
-                  >
+                <li><a class="dropdown-item" href="workspace.html?example=multithread-performance">
                     Multi-Threading Performance Test
                   </a></li>
-                </ul>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarSaveDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Save/Restore Algorithm
-                </a>
-                <input type="file" id="upload_xml_input" style="display: none" />
-                <ul class="dropdown-menu" aria-labelledby="navbarSaveDropdown">
-                  <li><a class="dropdown-item" id="upload_xml" href="#">
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarSaveDropdown" role="button"
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Save/Restore Algorithm
+              </a>
+              <input type="file" id="upload_xml_input" style="display: none" />
+              <ul class="dropdown-menu" aria-labelledby="navbarSaveDropdown">
+                <li><a class="dropdown-item" id="upload_xml" href="#">
                     Upload XML file
                   </a></li>
-                  <li><a class="dropdown-item" id="promt_for_xml" href="#">
+                <li><a class="dropdown-item" id="promt_for_xml" href="#">
                     Paste XML string
                   </a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" id="download_xml" href="#">
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" id="download_xml" href="#">
                     Download XML file
                   </a></li>
-                  <li><a class="dropdown-item" id="copy_xml" href="#">
+                <li><a class="dropdown-item" id="copy_xml" href="#">
                     Copy XML string
                   </a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" id="download_js" href="#">
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" id="download_js" href="#">
                     Download JS project
                   </a></li>
-                  <li><a
-                    class="dropdown-item"
-                    data-bs-toggle="modal"
-                    id="show_js"
-                    data-bs-target="#jsModal"
-                  >
+                <li><a class="dropdown-item" data-bs-toggle="modal" id="show_js" data-bs-target="#jsModal">
                     Show JS
                   </a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" id="download_json" href="#jsModal">
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" id="download_json" href="#jsModal">
                     Download data for IOHanalyzer
                   </a></li>
-                  <li><a class="dropdown-item" id="download_csv" href="#">
+                <li><a class="dropdown-item" id="download_csv" href="#">
                     Download CSV
                   </a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-    </nav>
-    <main>
-      <div id="spinner">
-        <div class="spinner-border m-5" role="status">
-          <span class="sr-only">Loading...</span>
+              </ul>
+            </li>
+          </ul>
         </div>
       </div>
-      <div id="jsModal" class="modal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Javascript Code</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <pre>
+  </nav>
+  <main>
+    <div id="spinner">
+      <div class="spinner-border m-5" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div id="jsModal" class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Javascript Code</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <pre>
                 <code id="jsCodePopup" class="language-js"></code>
               </pre>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-dismiss="modal"
-              >
-                Close
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Tutorial Modal -->
+    <div class="modal fade modal-show" id="tutorialModal" data-bs-backdrop="static" tabindex="-1"
+      aria-labelledby="tutorialModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Workspace Tutorial</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+              id="tutorialModalClose"></button>
+          </div>
+          <div class="modal-body">
+            <div id="tutorialCarousel" class="carousel carousel-fade carousel-dark slide" data-bs-interval="false"
+              data-bs-wrap="false">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                  aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                  aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                  aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+                  aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"
+                  aria-label="Slide 5"></button>
+              </div>
+              <div class="carousel-inner" id="tutorialInner">
+                <div class="carousel-item active" id="firstSlide">
+                  <img src="tutorial/toolbox_tutorial.png" class="d-block w-100" alt="toolbox_tutorial">
+                  <div class="carousel-caption d-none d-md-block">
+                    <p>
+                      Choose pre-built blocks from different categories
+                      in the toolbox and drag them into the workspace
+                      using your mouse. Combine blocks inside the workspace
+                      to build your algorithm
+                    </p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img src="tutorial/workspace_tutorial.png" class="d-block w-100" alt="placeholder">
+                  <div class="carousel-caption d-none d-md-block">
+                    <p>
+                      You can modify the variable fields of blocks by either
+                      typing in a value or using the given dropdown menu
+                      (depending on the block). Use the Buttons on the right
+                      to refocus, zoom and delete blocks or view deleted blocks.
+                    </p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img src="tutorial/buttons_tutorial.png" class="d-block w-100" alt="buttons_tutorial">
+                  <div class="carousel-caption d-none d-md-block">
+                    <p>
+                      You can run your code inside the workspace and abort
+                      if something goes wrong. You can also look at the
+                      generated javascript code, that runs in the background.
+                    </p>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <img src="tutorial/output_tutorial.png" class="d-block w-100" alt="placeholder">
+                  <div class="carousel-caption d-none d-md-block">
+                    <p>
+                      Use blocks from the logging category to print something
+                      into the output or create plots of your algorithm. Clear
+                      the output column using the button above.
+                    </p>
+                  </div>
+                </div>
+                <div class="carousel-item" id="lastSlide">
+                  <img src="tutorial/export_import_tutorial.png" class="d-block w-100" alt="placeholder">
+                  <div class="carousel-caption d-none d-md-block">
+                    <p>
+                      Import and export your algorithm as xml to save and reuse it.
+                      Export statistics from your algorithm as csv or iohanalyzer data.
+                      You can also download your algorithm as javascript to work on
+                      it elsewhere.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#tutorialCarousel"
+                data-bs-slide="prev" id="prevButton">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#tutorialCarousel"
+                data-bs-slide="next" id="nextButton">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
               </button>
             </div>
           </div>
-        </div>
-      </div>
-      <!-- Tutorial Modal -->
-      <div class="modal fade modal-show" id="tutorialModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="tutorialModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Workspace Tutorial</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="tutorialModalClose"></button>
-            </div>
-            <div class="modal-body">
-              <div id="tutorialCarousel" class="carousel carousel-fade carousel-dark slide" data-bs-interval="false" data-bs-wrap="false">
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                </div>              
-                <div class="carousel-inner" id="tutorialInner">
-                  <div class="carousel-item active" id="firstSlide">
-                    <img src="tutorial/toolbox_tutorial.png" class="d-block w-100" alt="toolbox_tutorial">
-                    <div class="carousel-caption d-none d-md-block">
-                      <p>
-                        Choose pre-built blocks from different categories
-                        in the toolbox and drag them into the workspace 
-                        using your mouse. Combine blocks inside the workspace
-                        to build your algorithm
-                      </p>
-                    </div>
-                  </div>
-                  <div class="carousel-item">
-                    <img src="tutorial/workspace_tutorial.png" class="d-block w-100" alt="placeholder">
-                    <div class="carousel-caption d-none d-md-block">
-                      <p>
-                        You can modify the variable fields of blocks by either
-                        typing in a value or using the given dropdown menu 
-                        (depending on the block). Use the Buttons on the right
-                        to refocus, zoom and delete blocks or view deleted blocks.
-                      </p>
-                    </div>              
-                  </div>
-                  <div class="carousel-item">
-                    <img src="tutorial/buttons_tutorial.png" class="d-block w-100" alt="buttons_tutorial">
-                    <div class="carousel-caption d-none d-md-block">
-                      <p>
-                        You can run your code inside the workspace and abort 
-                        if something goes wrong. You can also look at the 
-                        generated javascript code, that runs in the background.
-                      </p>
-                    </div>  
-                  </div>
-                  <div class="carousel-item">
-                    <img src="tutorial/output_tutorial.png" class="d-block w-100" alt="placeholder">
-                    <div class="carousel-caption d-none d-md-block">
-                      <p>
-                        Use blocks from the logging category to print something 
-                        into the output or create plots of your algorithm. Clear 
-                        the output column using the button above.
-                      </p>
-                    </div>  
-                  </div>
-                  <div class="carousel-item" id="lastSlide">
-                    <img src="tutorial/export_import_tutorial.png" class="d-block w-100" alt="placeholder">
-                    <div class="carousel-caption d-none d-md-block">
-                      <p>
-                        Import and export your algorithm as xml to save and reuse it. 
-                        Export statistics from your algorithm as csv or iohanalyzer data. 
-                        You can also download your algorithm as javascript to work on 
-                        it elsewhere.
-                      </p>
-                    </div>  
-                  </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#tutorialCarousel" data-bs-slide="prev" id="prevButton">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#tutorialCarousel" data-bs-slide="next" id="nextButton">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="tutorialOptOutBox">
-                <label class="form-check-label" for="tutorialOptOut">
-                  Don't show Tutorial on Start.
-                </label>
-              </div>              
+          <div class="modal-footer">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="tutorialOptOutBox">
+              <label class="form-check-label" for="tutorialOptOut">
+                Don't show Tutorial on Start.
+              </label>
             </div>
           </div>
         </div>
       </div>
-      <!-- Detailed Plot Modal-->
-      <div class="modal modal-show" id="plotModal">
-        <div class="modal-content" id="plot-modal-content">
-          <span class="close" id="close-detailed-plot"> &times;</span>
-          <canvas id="detailedPlotCanvas"></canvas>
-        </div>
-
-      </div>
-
-      <div id="workspace-header">
-        <h3 class="display-5" id="workspace-title">Untitled</h3>
-        <div id="command-buttons">
-          <button
-            type="button"
-            class="btn btn-success btn-block"
-            id="run-button"
-          >
-            Run
-          </button>
-          <button
-            type="button"
-            class="btn btn-danger btn-block"
-            id="kill-button"
-          >
-            Abort
-          </button>
-          <button
-            type="button"
-            class="btn btn-outline-dark btn-block"
-            id="show-button"
-            data-bs-toggle="modal"
-            data-bs-target="#jsModal"
-          >
-            Show Code
-          </button>
-          <button
-            type=" button"
-            class="btn btn-outline-dark btn-block"
-            id="clear-button"
-          >
-            Clear Output
-          </button>
-          <!-- <button type="button" class="btn btn-outline-dark btn-block" id="stop-button">Stop execution</button> -->
-          <!-- <button type="button" class="btn btn-outline-dark btn-block" id="step-button">Step JavaScript</button> -->
-          <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button">Reset execution</button> -->
-          <button
-            type="button"
-            class="btn btn-outline-dark btn-block"
-            id="tutorial-button"
-            data-bs-toggle="modal"
-            data-bs-target="#tutorialModal"
-          >
-            Show Tutorial
-          </button>
+    </div>
+    <!-- Detailed Plot Modal-->
+    <div class="modal modal-show" id="plotModal" data-bs-backdrop="static" aria-hidden="true">
+      <div class="modal-dialog modal-lg" id="plotModalDialog">
+        <div class="modal-content" id="plotModalContent">
+          <div class="modal-header">
+            <button type="button" class="btn-close" id="close-detailed-plot"></button>    
+          </div>
+          <div class="modal-body">
+            <canvas id="detailedPlotCanvas"></canvas>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-dark">Do Smth</button>
+          </div>
         </div>
       </div>
-      <div class="container-fluid" id="workspace-content" style="opacity: 0">
-        <div id="blockly-area"></div>
-        <div id="blockly-div" style="position: absolute"></div>
-        <div id="output-column"></div>
+    </div>
+
+    <div id="workspace-header">
+      <h3 class="display-5" id="workspace-title">Untitled</h3>
+      <div id="command-buttons">
+        <button type="button" class="btn btn-success btn-block" id="run-button">
+          Run
+        </button>
+        <button type="button" class="btn btn-danger btn-block" id="kill-button">
+          Abort
+        </button>
+        <button type="button" class="btn btn-outline-dark btn-block" id="show-button" data-bs-toggle="modal"
+          data-bs-target="#jsModal">
+          Show Code
+        </button>
+        <button type=" button" class="btn btn-outline-dark btn-block" id="clear-button">
+          Clear Output
+        </button>
+        <!-- <button type="button" class="btn btn-outline-dark btn-block" id="stop-button">Stop execution</button> -->
+        <!-- <button type="button" class="btn btn-outline-dark btn-block" id="step-button">Step JavaScript</button> -->
+        <!-- <button type="button" class="btn btn-outline-dark btn-block" id="reset-button">Reset execution</button> -->
+        <button type="button" class="btn btn-outline-dark btn-block" id="tutorial-button" data-bs-toggle="modal"
+          data-bs-target="#tutorialModal">
+          Show Tutorial
+        </button>
       </div>
-<!--
+    </div>
+    <div class="container-fluid" id="workspace-content" style="opacity: 0">
+      <div id="blockly-area"></div>
+      <div id="blockly-div" style="position: absolute"></div>
+      <div id="output-column"></div>
+    </div>
+    <!--
       <p id="workspace-footer">
         Use blocks from the toolbar on the left to customize your algorithm or
         drag existing blocks into a new order.
@@ -398,338 +332,322 @@
         </div>
       </div>
     </div>
-    </main>
-    <footer>
-      <p>
-        Project ELEA 💚 This site is powered by
-        <a href="https://www.netlify.com/">Netlify</a>
-        and
-        <a href="https://developers.google.com/blockly">Blockly</a>
-      </p>
-      <p>
-        <a href="https://github.com/HPI-ELEA/elea">Github</a>
-        •
-        <a href="/legal.html">Legal</a>
-        •
-        <a href="/privacy.html">Privacy</a>
-        •
-        <a href="/faq.html">FAQ</a>
-        •
-        <a href="#" id="cookieOptions">Cookie Options</a>
-      </p>
-    </footer>
+  </main>
+  <footer>
+    <p>
+      Project ELEA 💚 This site is powered by
+      <a href="https://www.netlify.com/">Netlify</a>
+      and
+      <a href="https://developers.google.com/blockly">Blockly</a>
+    </p>
+    <p>
+      <a href="https://github.com/HPI-ELEA/elea">Github</a>
+      •
+      <a href="/legal.html">Legal</a>
+      •
+      <a href="/privacy.html">Privacy</a>
+      •
+      <a href="/faq.html">FAQ</a>
+      •
+      <a href="#" id="cookieOptions">Cookie Options</a>
+    </p>
+  </footer>
 
-    <xml
-      xmlns="https://developers.google.com/blockly/xml"
-      id="toolbox"
-      style="display: none"
-    >
-      <category name="Population" colour="330">
-        <button
-          text="Create population"
-          callbackKey="createPopulationButton"
-        ></button>
-        <block type="variables_get_population"></block>
-        <block type="variables_set_population"></block>
+  <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+    <category name="Population" colour="330">
+      <button text="Create population" callbackKey="createPopulationButton"></button>
+      <block type="variables_get_population"></block>
+      <block type="variables_set_population"></block>
 
-        <label text="Initialization"></label>
-        <block type="init_uniform"></block>
-        <block type="init_constant"></block>
-        <block type="pop_init"></block>
-        <block type="lists_create_with">
-          <mutation items="0"></mutation>
-        </block>
-        <block type="lists_create_with"></block>
-        <block type="lists_repeat">
-          <value name="NUM">
-            <shadow type="math_number">
-              <field name="NUM">5</field>
-            </shadow>
-          </value>
-        </block>
+      <label text="Initialization"></label>
+      <block type="init_uniform"></block>
+      <block type="init_constant"></block>
+      <block type="pop_init"></block>
+      <block type="lists_create_with">
+        <mutation items="0"></mutation>
+      </block>
+      <block type="lists_create_with"></block>
+      <block type="lists_repeat">
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">5</field>
+          </shadow>
+        </value>
+      </block>
 
-        <label text="Queries"></label>
-        <block type="lists_length"></block>
-        <block type="lists_isEmpty"></block>
-        <block type="lists_indexOf">
-          <value name="VALUE">
-            <block type="variables_get_population">
-              <field name="VAR">populationVariable</field>
-            </block>
-          </value>
-        </block>
-        <block type="lists_getIndex">
-          <value name="VALUE">
-            <block type="variables_get_population">
-              <field name="VAR">populationVariable</field>
-            </block>
-          </value>
-        </block>
-        <block type="lists_getSublist">
-          <value name="LIST">
-            <block type="variables_get_population">
-              <field name="VAR">populationVariable</field>
-            </block>
-          </value>
-        </block>
-        <block type="ea_select_parent"></block>
-        <block type="ea_select_best"></block>
-        <block type="check_fitness"></block>
+      <label text="Queries"></label>
+      <block type="lists_length"></block>
+      <block type="lists_isEmpty"></block>
+      <block type="lists_indexOf">
+        <value name="VALUE">
+          <block type="variables_get_population">
+            <field name="VAR">populationVariable</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_getIndex">
+        <value name="VALUE">
+          <block type="variables_get_population">
+            <field name="VAR">populationVariable</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_getSublist">
+        <value name="LIST">
+          <block type="variables_get_population">
+            <field name="VAR">populationVariable</field>
+          </block>
+        </value>
+      </block>
+      <block type="ea_select_parent"></block>
+      <block type="ea_select_best"></block>
+      <block type="check_fitness"></block>
 
-        <label text="Manipulation"></label>
-        <block type="ea_addtopopulation"></block>
-        <block type="lists_sort"></block>
-        <block type="lists_concat"></block>
-        <block type="lists_append"></block>
-        <block type="lists_setIndex">
-          <value name="LIST">
-            <block type="variables_get_population">
-              <field name="VAR">populationVariable</field>
-            </block>
-          </value>
-        </block>
-      </category>
+      <label text="Manipulation"></label>
+      <block type="ea_addtopopulation"></block>
+      <block type="lists_sort"></block>
+      <block type="lists_concat"></block>
+      <block type="lists_append"></block>
+      <block type="lists_setIndex">
+        <value name="LIST">
+          <block type="variables_get_population">
+            <field name="VAR">populationVariable</field>
+          </block>
+        </value>
+      </block>
+    </category>
 
-      <category name="Individuals" colour="120">
-        <button
-          text="Create individual"
-          callbackKey="createIndividualButton"
-        ></button>
-        <block type="variables_get_individual"></block>
-        <block type="variables_set_individual"></block>
+    <category name="Individuals" colour="120">
+      <button text="Create individual" callbackKey="createIndividualButton"></button>
+      <block type="variables_get_individual"></block>
+      <block type="variables_set_individual"></block>
 
-        <label text="Initialization"></label>
-        <block type="lists_split">
-          <value name="DELIM">
-            <shadow type="text">
-              <field name="TEXT">,</field>
-            </shadow>
-          </value>
-        </block>
-        <block type="individual_init_uniform"></block>
-        <block type="individual_init_constant"></block>
+      <label text="Initialization"></label>
+      <block type="lists_split">
+        <value name="DELIM">
+          <shadow type="text">
+            <field name="TEXT">,</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="individual_init_uniform"></block>
+      <block type="individual_init_constant"></block>
 
-        <label text="Queries"></label>
+      <label text="Queries"></label>
 
-        <label text="Manipulation"></label>
-        <block type="ea_copy"></block>
-        <block type="ea_crossover"></block>
-        <block type="ea_crossover_onepoint"></block>
-        <block type="ea_crossover_twopoint"></block>
-        <block type="ea_crossover_uniform"></block>
-        <block type="ea_mutate"></block>
-        <block type="ea_mutate_prob"></block>
-        <block type="ea_mutate_bit"></block>
-      </category>
+      <label text="Manipulation"></label>
+      <block type="ea_copy"></block>
+      <block type="ea_crossover"></block>
+      <block type="ea_crossover_onepoint"></block>
+      <block type="ea_crossover_twopoint"></block>
+      <block type="ea_crossover_uniform"></block>
+      <block type="ea_mutate"></block>
+      <block type="ea_mutate_prob"></block>
+      <block type="ea_mutate_bit"></block>
+    </category>
 
-      <category name="Fitness measure" colour="180">
-        <block type="max_diversity"></block>
-        <block type="math_on_list">
-          <field name="OP">SUM</field>
-        </block>
-        <block type="jump_k">
-          <value name="K">
-            <shadow type="math_number">
-              <field name="NUM">2</field>
-            </shadow>
-          </value>
-        </block>
-        <block type="leading_ones"></block>
-        <block type="individual_hamming_distance"></block>
-      </category>
+    <category name="Fitness measure" colour="180">
+      <block type="max_diversity"></block>
+      <block type="math_on_list">
+        <field name="OP">SUM</field>
+      </block>
+      <block type="jump_k">
+        <value name="K">
+          <shadow type="math_number">
+            <field name="NUM">2</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="leading_ones"></block>
+      <block type="individual_hamming_distance"></block>
+    </category>
 
-      <sep></sep>
+    <sep></sep>
 
-      <category name="Primitive datatypes" colour="230">
-        <button
-          text="Create variable"
-          callbackKey="createVariableButton"
-        ></button>
-        <block type="variables_get"></block>
-        <block type="variables_set"></block>
-        <block type="math_number"></block>
-        <block type="text"></block>
+    <category name="Primitive datatypes" colour="230">
+      <button text="Create variable" callbackKey="createVariableButton"></button>
+      <block type="variables_get"></block>
+      <block type="variables_set"></block>
+      <block type="math_number"></block>
+      <block type="text"></block>
 
-        <block type="math_arithmetic"></block>
-        <block type="math_random_int"></block>
-      </category>
+      <block type="math_arithmetic"></block>
+      <block type="math_random_int"></block>
+    </category>
 
-      <category name="Logic" colour="230">
-        <block type="controls_if"></block>
-        <block type="logic_compare"></block>
-        <block type="logic_operation"></block>
-        <block type="logic_negate"></block>
-        <block type="logic_boolean"></block>
-        <block type="logic_null"></block>
-        <block type="logic_ternary"></block>
-      </category>
+    <category name="Logic" colour="230">
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+      <block type="logic_null"></block>
+      <block type="logic_ternary"></block>
+    </category>
 
-      <category name="Loops" colour="230">
-        <block type="controls_repeat_ext">
-          <value name="TIMES">
-            <shadow type="math_number">
-              <field name="NUM">10</field>
-            </shadow>
-          </value>
-        </block>
-        <block type="controls_whileUntil"></block>
-        <block type="controls_for">
-          <value name="FROM">
-            <shadow type="math_number">
-              <field name="NUM">1</field>
-            </shadow>
-          </value>
-          <value name="TO">
-            <shadow type="math_number">
-              <field name="NUM">10</field>
-            </shadow>
-          </value>
-          <value name="BY">
-            <shadow type="math_number">
-              <field name="NUM">1</field>
-            </shadow>
-          </value>
-        </block>
-        <block type="controls_forEach" colour="230"></block>
-        <block type="controls_flow_statements"></block>
-        <block type="ea_run_breeding"></block>
-        <block type="iteration_counter_loop"></block>
-        <block type="run_loop"></block>
-        <block type="run_loop_logging">
-          <value name="exit_number">
-            <shadow type="math_number">
-              <field name="NUM">1000</field>
-            </shadow>
-          </value>
-          <value name="fitness">
-            <shadow type="math_number">
-              <field name="NUM">0</field>
-            </shadow>
-          </value>
-          <value name="dim">
-            <shadow type="math_number">
-              <field name="NUM">1</field>
-            </shadow>
-          </value>
-          <value name="run">
-            <shadow type="math_number">
-              <field name="NUM">1</field>
-            </shadow>
-          </value>
-        </block>
-      </category>
+    <category name="Loops" colour="230">
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="controls_whileUntil"></block>
+      <block type="controls_for">
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+        <value name="BY">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="controls_forEach" colour="230"></block>
+      <block type="controls_flow_statements"></block>
+      <block type="ea_run_breeding"></block>
+      <block type="iteration_counter_loop"></block>
+      <block type="run_loop"></block>
+      <block type="run_loop_logging">
+        <value name="exit_number">
+          <shadow type="math_number">
+            <field name="NUM">1000</field>
+          </shadow>
+        </value>
+        <value name="fitness">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="dim">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="run">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
 
-      <category name="Functions" colour="290" custom="PROCEDURE"></category>
+    <category name="Functions" colour="290" custom="PROCEDURE"></category>
 
-      <sep></sep>
+    <sep></sep>
 
-      <category name="Logging" colour="#777">
-        <block type="ea_debug">
-          <value name="logging_variable">
-            <shadow type="text">
-              <field name="TEXT"></field>
-            </shadow>
-          </value>
-        </block>
-        <block type="plotting_one_value">
-          <value name="datasetNumber">
-            <shadow type="math_number">
-              <field name="NUM">1</field>
-            </shadow>
-          </value>
-          <value name="plotName">
-            <shadow type="math_number">
-              <field name="NUM">fitness</field>
-            </shadow>
-          </value>
-        </block>
-        <block type="plotting_two_values">
-          <value name="xValue">
-            <shadow type="math_number">
-              <field name="NUM">1</field>
-            </shadow>
-          </value>
-          <value name="datasetNumber">
-            <shadow type="math_number">
-              <field name="NUM">1</field>
-            </shadow>
-          </value>
-          <value name="plotName">
-            <shadow type="math_number">
-              <field name="NUM">fitness</field>
-            </shadow>
-          </value>
-        </block>
-        <block type="save_in_csv"></block>
-        <block type="comment"></block>
-      </category>
+    <category name="Logging" colour="#777">
+      <block type="ea_debug">
+        <value name="logging_variable">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+      </block>
+      <block type="plotting_one_value">
+        <value name="datasetNumber">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="plotName">
+          <shadow type="math_number">
+            <field name="NUM">fitness</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="plotting_two_values">
+        <value name="xValue">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="datasetNumber">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="plotName">
+          <shadow type="math_number">
+            <field name="NUM">fitness</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="save_in_csv"></block>
+      <block type="comment"></block>
+    </category>
 
-      <category name="Multi-Threading" colour="#338899">
-        <block type="run_thread">
-          <value name="thread_count">
-            <shadow type="math_number">
-              <field name="NUM">10</field>
-            </shadow>
-          </value>
-          <value name="return_value">
-            <shadow type="math_number">
-              <field name="NUM">0</field>
-            </shadow>
-          </value>
-        </block>
-        <block type="run_thread_limited">
-          <value name="thread_count">
-            <shadow type="math_number">
-              <field name="NUM">10</field>
-            </shadow>
-          </value>
-          <value name="thread_limit">
-            <block type="thread_hardware_concurrency"></block>
-            <shadow type="math_number">
-              <field name="NUM">8</field>
-            </shadow>
-          </value>
-          <value name="return_value">
-            <shadow type="math_number">
-              <field name="NUM">0</field>
-            </shadow>
-          </value>
-        </block>
-        <block type="thread_import_variable"></block>
-        <block type="thread_num"></block>
-        <block type="thread_hardware_concurrency"></block>
-      </category>
+    <category name="Multi-Threading" colour="#338899">
+      <block type="run_thread">
+        <value name="thread_count">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+        <value name="return_value">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="run_thread_limited">
+        <value name="thread_count">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+        <value name="thread_limit">
+          <block type="thread_hardware_concurrency"></block>
+          <shadow type="math_number">
+            <field name="NUM">8</field>
+          </shadow>
+        </value>
+        <value name="return_value">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="thread_import_variable"></block>
+      <block type="thread_num"></block>
+      <block type="thread_hardware_concurrency"></block>
+    </category>
 
-      <category name="Time management" colour="0">
-        <block type="wait"></block>
-        <block type="experimental_timer"></block>
-      </category>
+    <category name="Time management" colour="0">
+      <block type="wait"></block>
+      <block type="experimental_timer"></block>
+    </category>
 
-      <category name="experimental" colour="#111111">
-        <block type="experimental_raw_code"></block>
-        <block type="experimental_raw_value"></block>
-        <block type="fibonacci">
-          <value name="fib_number">
-            <shadow type="math_number">
-              <field name="NUM">10</field>
-            </shadow>
-          </value>
-        </block>
-      </category>
-    </xml>
+    <category name="experimental" colour="#111111">
+      <block type="experimental_raw_code"></block>
+      <block type="experimental_raw_value"></block>
+      <block type="fibonacci">
+        <value name="fib_number">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+  </xml>
 
-    <!-- In order to add blocks here, build your workspace as desired and then run
+  <!-- In order to add blocks here, build your workspace as desired and then run
       run Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(workspace)) in
       the browser console. Add the inside of the xml block inside this one.
       Lastly, replace all " with ", eg all <backslash quotation> with a single quotation  -->
-    <xml
-      xmlns="https://developers.google.com/blockly/xml"
-      id="startBlocks"
-      style="display: none"
-    >
-      <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38"></block>
-    </xml>
+  <xml xmlns="https://developers.google.com/blockly/xml" id="startBlocks" style="display: none">
+    <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="186" y="38"></block>
+  </xml>
 
-    <script src="scripts/workspace.js"></script>
-  </body>
+  <script src="scripts/workspace.js"></script>
+</body>
+
 </html>
