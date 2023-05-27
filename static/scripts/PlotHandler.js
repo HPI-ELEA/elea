@@ -39,6 +39,13 @@ class PlotHandler {
     await downloadZIP(zip, "elea_plots.zip");
   }
 
+  async downloadSinglePlotAsCSV(plotName) {
+    let zip = JSZip();
+    var plot = this.plotMap.get(plotName);
+    plot.getPlotDataAsCSV(zip);
+    await downloadZIP(zip, plotName + "_plot.zip");
+  }
+
   hasPlotEntries() {
     return this.plotMap.size != 0;
   }
@@ -84,7 +91,8 @@ class PlotWorker {
           },
           {
             name: "download-csv",
-            operation: () => this.plotHandler.downloadPlotDataAsCSV(),
+            operation: () =>
+              this.plotHandler.downloadSinglePlotAsCSV(this.plotName),
             text: "Download CSV",
           },
           {
