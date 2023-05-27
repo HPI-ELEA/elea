@@ -226,10 +226,10 @@ function addNewDeletableOutputEntry(
 
   customOperations.forEach((operation) => {
     $(`#${operation["name"]}-${title}-button`).click(() => {
-      console.log("doing" + title + "button");
       operation["operation"]();
     });
   });
+  
 }
 
 function tryDownloadCSV() {
@@ -252,5 +252,10 @@ function tryDownloadLog() {
   if (hasEntriesIOH()) downloadIOH();
   else alert("The IOHAnalyzer file is empty.");
 }
+
+var plotDetailCloseButton = document.getElementById("close-detailed-plot");
+plotDetailCloseButton.onclick = function () {
+  document.getElementById("plotModal").style.display = "none";
+};
 
 export { addPrintOutput, addNewDeletableOutputEntry };

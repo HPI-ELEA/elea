@@ -140,3 +140,13 @@ main {
   overflow: auto;
   overflow-y: auto;
 }
+
+#plotModalDialog {
+  max-width: 80%;
+  max-height: 70%;
+}
+
+#plotModalContent {
+  border-width: 5px;
+}
+

@@ -51,6 +51,12 @@ class PlotHandler {
     var plot = this.plotMap.get(plotName);
     plot.getPlotAsPng();
   }
+
+  openPlotInModal(plotName) {
+    this.plotMap.forEach((plot) => plot.clearDetailedPlot());
+    var plot = this.plotMap.get(plotName);
+    plot.openPlotInModal();
+  }
 }
 
 class PlotWorker {
@@ -62,6 +68,7 @@ class PlotWorker {
     this.chartExists = false;
     this.iteration = 0;
     this.isSingleInput = true;
+    this.detailedPlot = null;
     if (globalThis.window) {
       let divString = `<canvas id="plot-${name}"></canvas>`;
       addNewDeletableOutputEntry(
@@ -79,6 +86,11 @@ class PlotWorker {
             name: "download-csv",
             operation: () => this.plotHandler.downloadPlotDataAsCSV(),
             text: "Download CSV",
+          },
+          {
+            name: "show-details",
+            operation: () => this.plotHandler.openPlotInModal(this.plotName),
+            text: "Details",
           },
         ]
       );
@@ -176,6 +188,21 @@ class PlotWorker {
     a.href = image;
     a.download = this.plotName + ".png";
     a.click();
+  }
+
+  openPlotInModal() {
+    var modal = document.getElementById("plotModal");
+    modal.style.display = "block";
+    var ctx = document.getElementById("detailedPlotCanvas").getContext("2d");
+    this.detailedPlot = new Chart(ctx, this.myChart.config); //eslint-disable-line no-undef -- is defined in block code
+    return;
+  }
+
+  //Allow other plots to use the canvas
+  clearDetailedPlot() {
+    if (this.detailedPlot) {
+      this.detailedPlot.destroy();
+    }
   }
 }
 
