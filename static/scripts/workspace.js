@@ -184,7 +184,7 @@ function addNewDeletableOutputEntry(
   outputContentID,
   title,
   deleteOperation = () => {},
-  customOperations = [] // list of custom buttons in the form [{'name': name, 'operation': operation}]
+  customOperations = [] // list of custom buttons in the form [{'name': name_for_button_id, 'operation': operation_to_be_called, 'text': text_on_button}]
 ) {
   let numOutput = $("#output-column > *").length;
   let buttonrow = "<div>";
@@ -229,11 +229,7 @@ function addNewDeletableOutputEntry(
       operation["operation"]();
     });
   });
-  // $(`#png-download-${title}-button`).click(() => {
-  //   console.log("DownloadButton pressed");
-  //   downloadImageOperation();
-  // });
-  // return document.getElementById(outputContentID);
+  
 }
 
 function tryDownloadCSV() {

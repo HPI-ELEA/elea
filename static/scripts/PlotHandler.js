@@ -70,7 +70,7 @@ class PlotWorker {
     this.isSingleInput = true;
     this.detailedPlot = null;
     if (globalThis.window) {
-      let divString = `<canvas id="plot-${name}"></canvas></div>`;
+      let divString = `<canvas id="plot-${name}"></canvas>`;
       addNewDeletableOutputEntry(
         divString,
         name,
@@ -183,7 +183,6 @@ class PlotWorker {
   }
 
   getPlotAsPng() {
-    // TODO: Actually download the plot as png
     var image = this.myChart.toBase64Image();
     var a = document.createElement("a");
     a.href = image;
