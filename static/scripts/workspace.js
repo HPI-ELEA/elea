@@ -206,7 +206,7 @@ function addNewDeletableOutputEntry(
     </div>
     ${buttonrow}
   </div>`;
-  $("#output-column").append(divString);
+  $("#output-column").prepend(divString);
 
   // Add a button to toggle between showing and hiding the output entry
   $(`#output-${numOutput}-hide-button`).click(() => {
@@ -229,7 +229,6 @@ function addNewDeletableOutputEntry(
       operation["operation"]();
     });
   });
-  
 }
 
 function tryDownloadCSV() {
