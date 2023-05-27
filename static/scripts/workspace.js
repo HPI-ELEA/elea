@@ -257,8 +257,8 @@ function tryDownloadLog() {
   else alert("The IOHAnalyzer file is empty.");
 }
 
-var plotDetailSpan = document.getElementById("close-detailed-plot");
-plotDetailSpan.onclick = function () {
+var plotDetailCloseButton = document.getElementById("close-detailed-plot");
+plotDetailCloseButton.onclick = function () {
   document.getElementById("plotModal").style.display = "none";
 };
 
