@@ -19,7 +19,8 @@ export const blockDefinitions = [
     tooltip: "This block runs if you click 'Run'.",
     helpUrl: "",
   },
-  {//legacy
+  {
+    //legacy
     type: "init_meta",
     message0: "Initialize global vars and metainfo %1 will be run once %2 %3",
     args0: [
@@ -142,7 +143,8 @@ export const blockDefinitions = [
       "Use this function to initialize your population of individuals with a specific initialization strategy.",
     helpUrl: "",
   },
-  {//legacy
+  {
+    //legacy
     type: "init_lambda",
     message0: "Init lambda to  %1",
     args0: [
@@ -621,7 +623,8 @@ export const blockDefinitions = [
     helpUrl: "",
   },
 
-  {//legacy
+  {
+    //legacy
     type: "ea_debug_all",
     message0: "debug print to output",
     previousStatement: null,
@@ -990,7 +993,8 @@ export const blockDefinitions = [
     colour: "#777",
     helpUrl: "",
     category: "logging",
-    tooltip: "Use this block to create plots with given x and y data from your EA.",
+    tooltip:
+      "Use this block to create plots with given x and y data from your EA.",
   },
   {
     type: "iteration_counter_loop",
@@ -1000,46 +1004,56 @@ export const blockDefinitions = [
         type: "field_dropdown",
         name: "loop_mode",
         options: [
-          [
-            "while",
-            "while"
-          ],
-          [
-            "until",
-            "until"
-          ]
-        ]
+          ["while", "while"],
+          ["until", "until"],
+        ],
       },
       {
-        type: "input_dummy"
+        type: "input_dummy",
       },
       {
         type: "input_value",
         name: "loop_condition",
         check: "Boolean",
-        align: "CENTRE"
+        align: "CENTRE",
       },
       {
-        type: "input_dummy"
+        type: "input_dummy",
       },
       {
         type: "input_statement",
-        name: "loop_statement"
+        name: "loop_statement",
       },
       {
-        type: "input_dummy"
+        type: "input_dummy",
       },
       {
         type: "field_variable",
         name: "counter_variable",
-        variable: "counter"
-      }
+        variable: "counter",
+      },
     ],
     inputsInline: true,
     previousStatement: null,
     nextStatement: null,
     style: "loop_blocks",
     tooltip: "Loop that counts iterations needed",
-    helpUrl: ""
+    helpUrl: "",
+  },
+  {
+    type: "functions_basic_fitness",
+    message0: "get basic fitness of %1",
+    args0: [
+      {
+        type: "input_value",
+        name: "individual",
+        check: "Individual",
+      },
+    ],
+    inputsInline: true,
+    output: "Number",
+    style: "fitness_blocks",
+    tooltip: "Mutate given individual bitwise using given probability.",
+    helpUrl: "",
   },
 ];

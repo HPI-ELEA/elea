@@ -50,7 +50,8 @@ Blockly.JavaScript["ea_init"] = function (block) {
   code += "}\n";
   code += "mainFunction()\n";
   code += ".catch( error => console.error(error) )\n";
-  code += ".finally( () => Handler.sendMessage(new Message(Handler.PARENT_ID, 0, 'terminate')) );\n";
+  code +=
+    ".finally( () => Handler.sendMessage(new Message(Handler.PARENT_ID, 0, 'terminate')) );\n";
   return code;
 };
 
@@ -877,24 +878,42 @@ Blockly.JavaScript["plotting_two_values"] = function (block) {
   return code;
 };
 
-Blockly.JavaScript['iteration_counter_loop'] = function(block) {
-  var variableLoopMode = block.getFieldValue('loop_mode');
-  var variableCondition = Blockly.JavaScript.valueToCode(block, 'loop_condition', Blockly.JavaScript.ORDER_ATOMIC);
-  var statements = Blockly.JavaScript.statementToCode(block, 'loop_statement');
-  var variableCounter = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('counter_variable'), Blockly.Variables.NAME_TYPE);
-  
-  var code = '';
-  if (variableLoopMode == "while"){
+Blockly.JavaScript["iteration_counter_loop"] = function (block) {
+  var variableLoopMode = block.getFieldValue("loop_mode");
+  var variableCondition = Blockly.JavaScript.valueToCode(
+    block,
+    "loop_condition",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var statements = Blockly.JavaScript.statementToCode(block, "loop_statement");
+  var variableCounter = Blockly.JavaScript.nameDB_.getName(
+    block.getFieldValue("counter_variable"),
+    Blockly.Variables.NAME_TYPE
+  );
+
+  var code = "";
+  if (variableLoopMode == "while") {
     code += "var " + variableCounter + " = 0;\n";
-    code += "while(" + variableCondition +"){\n";
+    code += "while(" + variableCondition + "){\n";
     code += statements + variableCounter + "++;\n";
-    code += "}\n"
-  return code;
+    code += "}\n";
+    return code;
   } else {
     code += "var " + variableCounter + " = 0;\n";
-    code += "while(!" + variableCondition +"){\n";
+    code += "while(!" + variableCondition + "){\n";
     code += statements + variableCounter + "++;\n";
-    code += "}\n"
-  return code;
+    code += "}\n";
+    return code;
   }
+};
+
+Blockly.JavaScript["functions_basic_fitness"] = function (block) {
+  var variableIndividual = Blockly.JavaScript.valueToCode(
+    block,
+    "individual",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var code = "";
+  code += "fitness(" + variableIndividual + ")";
+  return [code, Blockly.JavaScript.ORDER_NONE];
 };
