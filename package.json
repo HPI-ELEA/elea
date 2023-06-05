@@ -9,17 +9,17 @@
   },
   "dependencies": {
     "blockly": "^6.20210701.0",
-    "bootstrap": "^5.2.3",
+    "bootstrap": "^5.3.0",
     "chart.js": "^3.8.0",
-    "d3": "^7.8.4",
+    "d3": "^7.8.5",
     "jquery": "^3.7.0",
-    "js-beautify": "^1.14.7",
+    "js-beautify": "^1.14.8",
     "prismjs": "^1.29.0",
     "js-cookie": "^3.0.5"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.41.0",
+    "eslint": "^8.42.0",
     "eslint-plugin-import": "^2.27.5",
     "husky": "^7.0.4",
     "parcel": "^1.12.3",
