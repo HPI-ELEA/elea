@@ -149,6 +149,7 @@ class PlotWorker {
               beginAtZero: false,
             },
           },
+          responsive: true,
           plugins: {
             title: {
               display: true,
@@ -158,6 +159,9 @@ class PlotWorker {
               position: "top",
               maxHeight: 30,
               textDirection: "ltr",
+            },
+            tooltip: {
+              enabled: false,
             },
           },
         },
