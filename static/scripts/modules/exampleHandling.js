@@ -15,6 +15,17 @@ async function loadExampleFile(exampleFile) {
   return replaceWorkspaceWithXml(xml);
 }
 
+var full_algorithm_names = {
+  oneplusone: "1+1 EA",
+  onepluslambda: "1+λ EA",
+  mupluslambda: "μ+λ GA",
+  onelambda: "1,λ EA",
+  mulambda: "μ,λ GA",
+  multithread: "Multithreading",
+  full_multithread: "Full Multithreading",
+  multithread_performance: "Multithread Performance Test",
+};
+
 // loads the example in a url friendly format, with the folder and xml extension removed
 async function loadExample(example, causedByUrl) {
   if (!(await loadExampleFile("examples/" + example + ".xml"))) return false;
@@ -27,7 +38,8 @@ async function loadExample(example, causedByUrl) {
   }
 
   let workspaceTitle = "Untitled";
-  if (example != "empty") workspaceTitle = "Example: " + example;
+  if (example != "empty")
+    workspaceTitle = "Example: " + full_algorithm_names[example];
   document.getElementById("workspace-title").innerHTML = workspaceTitle;
 }
 
