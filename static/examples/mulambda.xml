@@ -273,11 +273,8 @@
                           </block>
                         </value>
                         <value name="yValue">
-                          <block type="procedures_callreturn" id="x@Z]k=Km]AW5ONd%l7A;">
-                            <mutation name="fitness">
-                              <arg name="individual"></arg>
-                            </mutation>
-                            <value name="ARG0">
+                          <block type="functions_basic_fitness" id="JtDcxIoKnjWq[CFafYx)">
+                            <value name="individual">
                               <block type="ea_select_best" id="S/3GT;NJMY]HQU6M9c;:">
                                 <value name="POPULATION">
                                   <block type="variables_get_population" id="w,fT/Y$#+Ci^tBSqd;-+">

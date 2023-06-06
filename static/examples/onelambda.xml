@@ -9,7 +9,7 @@
     <variable type="Array" id="~;*AsD@4827rMP/(fs1P">offspring_population</variable>
     <variable type="Individual" id="*5^D:E8Zu~=@S8sXG([6">offspring</variable>
   </variables>
-  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="191" y="42" deletable="false">
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" deletable="false" x="191" y="42">
     <statement name="init_statements">
       <block type="variables_set" id="bJ)@xkyp}@=FnLiM1~QW">
         <field name="VAR" id="-*|uDjwhmvz~~T(Am;%J">λ</field>
@@ -109,11 +109,8 @@
                       <block type="logic_compare" id="tV%BK#PsA5}%-B5Nde*`">
                         <field name="OP">LT</field>
                         <value name="A">
-                          <block type="procedures_callreturn" id="tv!P_vfA~*^phH`YogA4">
-                            <mutation name="fitness">
-                              <arg name="individual"></arg>
-                            </mutation>
-                            <value name="ARG0">
+                          <block type="functions_basic_fitness" id="M=y-?#ppEg{}?0(9i?4@">
+                            <value name="individual">
                               <block type="variables_get_individual" id="Q[rfbg4X3Ti^NN@w,9a9">
                                 <field name="VAR" id="cTq%E8Zf6f93:4ksHg+$" variabletype="Individual">parent</field>
                               </block>
@@ -223,11 +220,8 @@
                         <next>
                           <block type="ea_debug" id="7P8+b?=08;%4cknQtvN4">
                             <value name="logging_variable">
-                              <block type="procedures_callreturn" id="+I^GQZT4+hh9Wk9e9AdV">
-                                <mutation name="fitness">
-                                  <arg name="individual"></arg>
-                                </mutation>
-                                <value name="ARG0">
+                              <block type="functions_basic_fitness" id="9?TYapLg;,}?+SQ,n2Z_">
+                                <value name="individual">
                                   <block type="variables_get_individual" id="XRzY3,x/oh~(|DA(4h6O">
                                     <field name="VAR" id="cTq%E8Zf6f93:4ksHg+$" variabletype="Individual">parent</field>
                                   </block>
