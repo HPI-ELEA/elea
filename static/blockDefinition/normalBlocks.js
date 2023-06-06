@@ -1042,7 +1042,7 @@ export const blockDefinitions = [
   },
   {
     type: "functions_basic_fitness",
-    message0: "get basic fitness of %1",
+    message0: "get fitness of %1",
     args0: [
       {
         type: "input_value",
@@ -1050,10 +1050,10 @@ export const blockDefinitions = [
         check: "Individual",
       },
     ],
-    inputsInline: true,
+    inputsInline: false,
     output: "Number",
     style: "fitness_blocks",
-    tooltip: "Mutate given individual bitwise using given probability.",
+    tooltip: "Calls the fitness function on the given individual",
     helpUrl: "",
   },
 ];
