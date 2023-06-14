@@ -1,6 +1,6 @@
 import { addNewDeletableOutputEntry } from "./workspace";
 import JSZip from "./jszip.js";
-import { downloadZIP } from "./modules/fileUtils";
+import { downloadZIP, readFile } from "./modules/fileUtils";
 
 class PlotHandler {
   constructor() {
@@ -35,8 +35,19 @@ class PlotHandler {
 
   async downloadPlotDataAsCSV() {
     let zip = JSZip();
+    let readme = await readFile("./export/CSV_README.md");
+    zip.file("README.md", readme);
     this.plotMap.forEach((value) => value.getPlotDataAsCSV(zip));
     await downloadZIP(zip, "elea_plots.zip");
+  }
+
+  async downloadSinglePlotAsCSV(plotName) {
+    let zip = JSZip();
+    let readme = await readFile("./export/CSV_README.md");
+    zip.file("README.md", readme);
+    var plot = this.plotMap.get(plotName);
+    plot.getPlotDataAsCSV(zip);
+    await downloadZIP(zip, plotName + "_plot.zip");
   }
 
   hasPlotEntries() {
@@ -84,7 +95,8 @@ class PlotWorker {
           },
           {
             name: "download-csv",
-            operation: () => this.plotHandler.downloadPlotDataAsCSV(),
+            operation: () =>
+              this.plotHandler.downloadSinglePlotAsCSV(this.plotName),
             text: "Download CSV",
           },
           {
