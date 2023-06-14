@@ -542,6 +542,48 @@ export const blockDefinitions = [
     helpUrl: "",
   },
   {
+    type: "dictionary_set",
+    message0: "mutate %2 bits of %1",
+    args0: [
+      {
+        type: "key",
+        name: "individual",
+        check: "Individual",
+      },
+      {
+        type: "value",
+        name: "l",
+        check: "Number",
+      },
+    ],
+    inputsInline: true,
+    output: "Individual",
+    style: "indiv_blocks",
+    tooltip: "Mutate uniformly-random L bits of a given individual.",
+    helpUrl: "",
+  },
+  {
+    type: "flip_l",
+    message0: "mutate %2 bits of %1",
+    args0: [
+      {
+        type: "input_value",
+        name: "individual",
+        check: "Individual",
+      },
+      {
+        type: "input_value",
+        name: "l",
+        check: "Number",
+      },
+    ],
+    inputsInline: true,
+    output: null,
+    style: "indiv_blocks",
+    tooltip: "set individual as key with l flips as value in global dictionary",
+    helpUrl: "",
+  },
+  {
     type: "ea_mutate_bit",
     message0: "mutate a random bit in %1 ",
     args0: [

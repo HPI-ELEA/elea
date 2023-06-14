@@ -1,7 +1,7 @@
 import * as Blockly from "blockly";
-import { sample, shuffle, shuffleInPlace, binomialDistribution, epsilon } from "simple-statistics";
+import { sample, shuffle, shuffleInPlace } from "simple-statistics";
 import { blockDefinitions } from "../blockDefinition/normalBlocks";
-import { binomialDistributionPositive } from "./utils";
+// import { binomialDistributionPositive } from "./utils";
 Blockly.defineBlocksWithJsonArray(blockDefinitions);
 
 // console.log(binomialDistributionPositive(5, 0.2));
@@ -609,44 +609,22 @@ Blockly.JavaScript["flip_l"] = function (block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-
-Blockly.JavaScript["ea_norm"] = function (block) {
-  let variableN = Blockly.JavaScript.valueToCode(
+Blockly.JavaScript["dictionary_set"] = function (block) {
+  var variableKey = Blockly.JavaScript.valueToCode(
     block,
-    "n",
+    "key",
     Blockly.JavaScript.ORDER_ATOMIC
   );
 
-  let variableT = Blockly.JavaScript.valueToCode(
+  var variableValue = Blockly.JavaScript.valueToCode(
     block,
-    "t",
+    "value",
     Blockly.JavaScript.ORDER_ATOMIC
   );
 
-  let variableLamda = Blockly.JavaScript.valueToCode(
-    block,
-    "lamda",
-    Blockly.JavaScript.ORDER_ATOMIC
-  );
-
-  let code = `(function() {
-    ${shuffleInPlace.toString()}
-    ${shuffle.toString()}
-    const sample = ${sample.toString()};
-    ${binomialDistribution}
-    const epsilon = ${epsilon};
-    const n = ${variableN};
-    let r = 2;
-    let x = sample([...Array(1 << n).keys()], 1).toString(2);
-    const lamda = ${variableLamda};
-    for (let t = 0; t < ${variableT}; t++) {
-      for (let i = 0; i < lamda; i++) {
-        
-      }
-    }
-})()`;
+  var code = `dictionary[${variableKey}] = ${variableValue}`;
   return [code, Blockly.JavaScript.ORDER_NONE];
-}
+};
 
 Blockly.JavaScript["ea_mutate_bit"] = function (block) {
   // WARNING: ea_mutate_bit uses hardcoded variables.
