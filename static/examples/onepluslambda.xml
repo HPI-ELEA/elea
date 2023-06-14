@@ -9,7 +9,7 @@
     <variable type="Array" id="%qRD51o0DIN%L(_4#A_C">offspring_population</variable>
     <variable type="Individual" id=";/@Mb$_^TZcT{o2sG:_c">offspring</variable>
   </variables>
-  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" x="191" y="42" deletable="false">
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" deletable="false" x="191" y="42">
     <statement name="init_statements">
       <block type="variables_set" id="bJ)@xkyp}@=FnLiM1~QW">
         <field name="VAR" id="-*|uDjwhmvz~~T(Am;%J">λ</field>
@@ -109,11 +109,8 @@
                       <block type="logic_compare" id="tV%BK#PsA5}%-B5Nde*`">
                         <field name="OP">LT</field>
                         <value name="A">
-                          <block type="procedures_callreturn" id="tv!P_vfA~*^phH`YogA4">
-                            <mutation name="fitness">
-                              <arg name="individual"></arg>
-                            </mutation>
-                            <value name="ARG0">
+                          <block type="functions_basic_fitness" id="wWN|FsXnR;0Hm3*u6Hr!">
+                            <value name="individual">
                               <block type="variables_get_individual" id="GC//Gj~,jQPz?$;XY|DE">
                                 <field name="VAR" id="q:17d+Y}puvO6a^%-OL:" variabletype="Individual">parent</field>
                               </block>
@@ -209,11 +206,8 @@
                                               <block type="logic_compare" id="Buv`f/y/B[-h09Dcq2h:">
                                                 <field name="OP">LTE</field>
                                                 <value name="A">
-                                                  <block type="procedures_callreturn" id="VcN{{n02I%J.^kd^_5Uu">
-                                                    <mutation name="fitness">
-                                                      <arg name="individual"></arg>
-                                                    </mutation>
-                                                    <value name="ARG0">
+                                                  <block type="functions_basic_fitness" id="3:e3L=-/u05(Bp4q48VL">
+                                                    <value name="individual">
                                                       <block type="variables_get_individual" id="K,Y+E:7/HtT%u.0:zSaK">
                                                         <field name="VAR" id="q:17d+Y}puvO6a^%-OL:" variabletype="Individual">parent</field>
                                                       </block>
@@ -221,11 +215,8 @@
                                                   </block>
                                                 </value>
                                                 <value name="B">
-                                                  <block type="procedures_callreturn" id="vmaJzOCl=ynCzbKffZ1!">
-                                                    <mutation name="fitness">
-                                                      <arg name="individual"></arg>
-                                                    </mutation>
-                                                    <value name="ARG0">
+                                                  <block type="functions_basic_fitness" id="KBY0rDHhXIgkW0JFkeGV">
+                                                    <value name="individual">
                                                       <block type="variables_get_individual" id="U4dL$)[wsK/MT8+kLniQ">
                                                         <field name="VAR" id=";/@Mb$_^TZcT{o2sG:_c" variabletype="Individual">offspring</field>
                                                       </block>
@@ -266,11 +257,8 @@
                         <next>
                           <block type="ea_debug" id="7P8+b?=08;%4cknQtvN4">
                             <value name="logging_variable">
-                              <block type="procedures_callreturn" id="+I^GQZT4+hh9Wk9e9AdV">
-                                <mutation name="fitness">
-                                  <arg name="individual"></arg>
-                                </mutation>
-                                <value name="ARG0">
+                              <block type="functions_basic_fitness" id="o4#fw;l~Sg,TO{2m6ElR">
+                                <value name="individual">
                                   <block type="variables_get_individual" id="7z?EU})x)iteSh~wA7zd">
                                     <field name="VAR" id="q:17d+Y}puvO6a^%-OL:" variabletype="Individual">parent</field>
                                   </block>

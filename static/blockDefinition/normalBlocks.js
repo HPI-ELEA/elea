@@ -1042,7 +1042,7 @@ export const blockDefinitions = [
   },
   {
     type: "functions_basic_fitness",
-    message0: "get fitness of %1",
+    message0: "fitness of %1",
     args0: [
       {
         type: "input_value",

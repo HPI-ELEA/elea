@@ -196,7 +196,7 @@
                                 <field name="VAR" id="]3vGA_2znq/0l?#sZ~44" variabletype="Individual">parent</field>
                                 <value name="VALUE">
                                   <block type="ea_select_parent" id="5I_EH[l6p9?_|]?L/J*e">
-                                    <field name="NAME">CHANCE</field>
+                                    <field name="NAME">FITNESSPROPORTIONATE</field>
                                     <field name="POPULATION" id="D81w6cXL+d,,D#ayYXQ`" variabletype="Array">parent_population</field>
                                   </block>
                                 </value>
@@ -285,11 +285,8 @@
                             <next>
                               <block type="ea_debug" id="7P8+b?=08;%4cknQtvN4">
                                 <value name="logging_variable">
-                                  <block type="procedures_callreturn" id="Bae*h7=dA2O=*F24o_5O">
-                                    <mutation name="fitness">
-                                      <arg name="individual"></arg>
-                                    </mutation>
-                                    <value name="ARG0">
+                                  <block type="functions_basic_fitness" id="D||}29oa`#rUYq3uBt)B">
+                                    <value name="individual">
                                       <block type="ea_select_best" id="nDQo~[)#ETvR!aypBC/t">
                                         <value name="POPULATION">
                                           <block type="variables_get_population" id="t]UUyN}a([*acXeYV*6%">
