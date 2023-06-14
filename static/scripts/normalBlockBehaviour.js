@@ -612,17 +612,31 @@ Blockly.JavaScript["flip_l"] = function (block) {
 Blockly.JavaScript["dictionary_set"] = function (block) {
   var variableKey = Blockly.JavaScript.valueToCode(
     block,
-    "key",
+    "key_individual",
     Blockly.JavaScript.ORDER_ATOMIC
   );
 
   var variableValue = Blockly.JavaScript.valueToCode(
     block,
-    "value",
+    "value_l",
     Blockly.JavaScript.ORDER_ATOMIC
   );
 
-  var code = `dictionary[${variableKey}] = ${variableValue}`;
+  var code = `dictionary[${variableKey}.join('')] = ${variableValue};`;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript["dictionary_reset"] = function () {
+  var code = `dictionary = {};`;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript["dictionary_max"] = function () {
+  var code = `
+  (() => {
+    let maximumFitness = Math.max(...[Object.keys(dictionary).map(Number.parseInt)]);
+    return Object.entries(dictionary).find(([key, value]) => Number.parseInt(key) == maximumFitness)[1];
+  })()`;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 

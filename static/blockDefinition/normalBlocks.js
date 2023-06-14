@@ -543,37 +543,16 @@ export const blockDefinitions = [
   },
   {
     type: "dictionary_set",
-    message0: "mutate %2 bits of %1",
-    args0: [
-      {
-        type: "key",
-        name: "individual",
-        check: "Individual",
-      },
-      {
-        type: "value",
-        name: "l",
-        check: "Number",
-      },
-    ],
-    inputsInline: true,
-    output: "Individual",
-    style: "indiv_blocks",
-    tooltip: "Mutate uniformly-random L bits of a given individual.",
-    helpUrl: "",
-  },
-  {
-    type: "flip_l",
-    message0: "mutate %2 bits of %1",
+    message0: "set dictionary key %1 to %2",
     args0: [
       {
         type: "input_value",
-        name: "individual",
+        name: "key_individual",
         check: "Individual",
       },
       {
         type: "input_value",
-        name: "l",
+        name: "value_l",
         check: "Number",
       },
     ],
@@ -581,6 +560,26 @@ export const blockDefinitions = [
     output: null,
     style: "indiv_blocks",
     tooltip: "set individual as key with l flips as value in global dictionary",
+    helpUrl: "",
+  },
+  {
+    type: "dictionary_reset",
+    message0: "reset global dictionary",
+    args0: [],
+    inputsInline: true,
+    output: null,
+    style: "indiv_blocks",
+    tooltip: "set individual as key with l flips as value in global dictionary",
+    helpUrl: "",
+  },
+  {
+    type: "dictionary_max",
+    message0: "smallest individual with maximum fitness",
+    args0: [],
+    inputsInline: true,
+    output: "Individual",
+    style: "indiv_blocks",
+    tooltip: "smallest individual with maximum fitness",
     helpUrl: "",
   },
   {
