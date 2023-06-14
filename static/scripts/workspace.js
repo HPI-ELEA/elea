@@ -229,6 +229,8 @@ function addNewDeletableOutputEntry(
       operation["operation"]();
     });
   });
+
+  return document.getElementById(outputContentID);
 }
 
 function tryDownloadCSV() {
