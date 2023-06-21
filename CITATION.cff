@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://citation-file-format.github.io/1.2.0/schema.json
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Markus
+    given-names: Wagner
+    email: markus.wagner@monash.edu
+    affiliation: Monash University
+  - family-names: Kohlros
+    given-names: Erik
+    email: erik.kohlros@student.hpi.uni-potsdam.de
+    affiliation: Hasso Plattner Institute/University of Potsdam, Germany
+  - family-names: Quantmeyer
+    given-names: Gerome
+    email: gerome.quantmeyer@student.hpi.uni-potsdam.de
+    affiliation: Hasso Plattner Institute/University of Potsdam, Germany
+  - family-names: Kötzing
+    given-names: Timo
+    email: timo.koetzing@hpi.de
+    affiliation: Hasso Plattner Institute/University of Potsdam, Germany
+title: ELEA - Build your own Evolutionary Algorithm in your Browser
+version: 0.1
+license: CC-BY-NC-SA-4.0
+repository: https://github.com/HPI-ELEA/elea
+type: software
+date-released: 2023-02-13
+url: https://arxiv.org/abs/2302.06277
+doi: 10.48550/arXiv.2302.06277
