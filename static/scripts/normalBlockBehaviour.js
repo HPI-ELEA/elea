@@ -634,8 +634,8 @@ Blockly.JavaScript["dictionary_reset"] = function () {
 Blockly.JavaScript["dictionary_max"] = function () {
   var code = `
   (() => {
-    let maximumFitness = Math.max(...[Object.keys(dictionary).map(Number.parseInt)]);
-    return Object.entries(dictionary).find(([key, value]) => Number.parseInt(key) == maximumFitness)[1];
+    let maximumFitness = Math.max(...[Object.keys(dictionary).map(fitness)]);
+    return Object.entries(dictionary).find(([key, value]) => fitness(key) == maximumFitness)[1];
   })()`;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
