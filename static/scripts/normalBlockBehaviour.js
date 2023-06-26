@@ -622,7 +622,12 @@ Blockly.JavaScript["dictionary_set"] = function (block) {
     Blockly.JavaScript.ORDER_ATOMIC
   );
 
-  var code = `dictionary[${variableKey}.join('')] = ${variableValue};`;
+  var code = `
+  (() => {
+    const individual = ${variableKey};
+    const l = ${variableValue};
+    dictionary[individual.join('')] = l;
+  })()`;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
