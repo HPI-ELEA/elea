@@ -628,12 +628,12 @@ Blockly.JavaScript["dictionary_set"] = function (block) {
     const l = ${variableValue};
     dictionary[individual.join('')] = l;
   })()`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  return code;
 };
 
 Blockly.JavaScript["dictionary_reset"] = function () {
   var code = `dictionary = {};`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  return code;
 };
 
 Blockly.JavaScript["dictionary_max"] = function () {
