@@ -16,11 +16,11 @@ async function loadExampleFile(exampleFile) {
 }
 
 var fullAlgorithmNames = {
-  oneplusone: "1+1 EA",
-  onepluslambda: "1+λ EA",
-  mupluslambda: "μ+λ GA",
-  onelambda: "1,λ EA",
-  mulambda: "μ,λ GA",
+  oneplusone: "(1+1) EA",
+  onepluslambda: "(1+λ) EA",
+  mupluslambda: "(μ+λ) GA",
+  onelambda: "(1,λ) EA",
+  mulambda: "(μ,λ) GA",
   multithread: "Multithreading",
   full_multithread: "Full Multithreading", //eslint-disable-line camelcase
   multithread_performance: "Multithreading Performance Test", //eslint-disable-line camelcase
