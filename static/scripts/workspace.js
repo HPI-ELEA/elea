@@ -184,19 +184,29 @@ function addNewDeletableOutputEntry(
   outputContentID,
   title,
   deleteOperation = () => {},
-  customOperations = [], // list of custom buttons in the form [{'name': name_for_button_id, 'operation': operation_to_be_called, 'text': text_on_button}]
+  downloadOperations = [], // list of custom buttons in the form [{'name': name_for_button_id, 'operation': operation_to_be_called, 'text': text_on_button}]
   detailsOperation = null
 ) {
   let numOutput = $("#output-column > *").length;
-  let buttonrow = "<div>";
-  customOperations.forEach((operation) => {
-    buttonrow += `<button id="${operation["name"]}-${title}-button" class="btn btn-outline-dark">${operation["text"]}</button>`;
-  });
-  buttonrow += `</div>`;
+
+  let buttonrow = "";
+  if (downloadOperations.length > 0) {
+    buttonrow += `<div>
+      <button class="btn btn-outline-dark" id="toggle-${title}-download">Download</button>
+    </div>
+    <div id="download-${title}-button-div">
+    `;
+    downloadOperations.forEach((operation) => {
+      buttonrow += `<button id="${operation["name"]}-${title}-button" class="btn btn-outline-dark">${operation["text"]}</button>`;
+    });
+    buttonrow += `</div>`;
+  }
+
   let detailsButtonString = "";
   if (detailsOperation != null) {
     detailsButtonString = `<button class="btn btn-outline-dark" id="show-details-${title}-button">Details</button>`;
   }
+
   let divString = `
   <div class="output-block" id="output-${numOutput}">
     <div class="output-header">
@@ -236,7 +246,15 @@ function addNewDeletableOutputEntry(
     });
   }
 
-  customOperations.forEach((operation) => {
+  // Add toggle button for download options
+  if (downloadOperations.length > 0) {
+    $(`#download-${title}-button-div`).slideToggle(10);
+    $(`#toggle-${title}-download`).click(() => {
+      $(`#download-${title}-button-div`).slideToggle(300);
+    });
+  }
+
+  downloadOperations.forEach((operation) => {
     $(`#${operation["name"]}-${title}-button`).click(() => {
       operation["operation"]();
     });
