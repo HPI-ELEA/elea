@@ -184,7 +184,8 @@ function addNewDeletableOutputEntry(
   outputContentID,
   title,
   deleteOperation = () => {},
-  customOperations = [] // list of custom buttons in the form [{'name': name_for_button_id, 'operation': operation_to_be_called, 'text': text_on_button}]
+  customOperations = [], // list of custom buttons in the form [{'name': name_for_button_id, 'operation': operation_to_be_called, 'text': text_on_button}]
+  detailsOperation = null
 ) {
   let numOutput = $("#output-column > *").length;
   let buttonrow = "<div>";
@@ -192,11 +193,16 @@ function addNewDeletableOutputEntry(
     buttonrow += `<button id="${operation["name"]}-${title}-button" class="btn btn-outline-dark">${operation["text"]}</button>`;
   });
   buttonrow += `</div>`;
+  let detailsButtonString = "";
+  if (detailsOperation != null) {
+    detailsButtonString = `<button class="btn btn-outline-dark" id="show-details-${title}-button">Details</button>`;
+  }
   let divString = `
   <div class="output-block" id="output-${numOutput}">
     <div class="output-header">
       <h3 class="output-heading" id="output-${numOutput}-heading">${title}</h3>
       <div class="output-header-buttons">
+        ${detailsButtonString}
         <button class="btn btn-outline-dark" id="output-${numOutput}-hide-button">Hide</button>
         <button class="btn btn-outline-danger" id="output-${numOutput}-delete-button">Delete</button>
       </div>
@@ -223,6 +229,12 @@ function addNewDeletableOutputEntry(
     $(`#output-${numOutput}-content`).remove();
     $(`#output-${numOutput}`).hide();
   });
+
+  if (detailsOperation != null) {
+    $(`#show-details-${title}-button`).click(() => {
+      detailsOperation();
+    });
+  }
 
   customOperations.forEach((operation) => {
     $(`#${operation["name"]}-${title}-button`).click(() => {

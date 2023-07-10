@@ -86,7 +86,7 @@ class PlotWorker {
         divString,
         name,
         name,
-        () => this.plotHandler.removePlot(this.plotName),
+        () => this.plotHandler.removePlot(this.plotName), // delete operation
         [
           {
             name: "download-img",
@@ -99,12 +99,8 @@ class PlotWorker {
               this.plotHandler.downloadSinglePlotAsCSV(this.plotName),
             text: "Download CSV",
           },
-          {
-            name: "show-details",
-            operation: () => this.plotHandler.openPlotInModal(this.plotName),
-            text: "Details",
-          },
-        ]
+        ],
+        () => this.plotHandler.openPlotInModal(this.plotName) // details operation
       );
       let canvasID = "plot-" + name;
       this.chartArea = document.getElementById(canvasID).getContext("2d");
