@@ -68,6 +68,11 @@ class PlotHandler {
     var plot = this.plotMap.get(plotName);
     plot.openPlotInModal();
   }
+
+  showAverage(plotName) {
+    var plot = this.plotMap.get(plotName);
+    plot.showAverage();
+  }
 }
 
 class PlotWorker {
@@ -100,7 +105,14 @@ class PlotWorker {
             text: "Download CSV",
           },
         ],
-        () => this.plotHandler.openPlotInModal(this.plotName) // details operation
+        () => this.plotHandler.openPlotInModal(this.plotName), // details operation
+        [
+          {
+            name: "add-avg-line",
+            operation: () => this.plotHandler.showAverage(this.plotName),
+            text: "Show Average",
+          },
+        ]
       );
       let canvasID = "plot-" + name;
       this.chartArea = document.getElementById(canvasID).getContext("2d");
@@ -216,6 +228,54 @@ class PlotWorker {
       this.detailedPlot.destroy();
     }
   }
+
+  showAverage() {
+    // Calculate the new dataset
+    let avg_list = [];
+    if (this.isSingleInput) {
+      avg_list = getSingleInputAverage(this.plotData);
+    } else {
+      avg_list = getDoubleInputAverage(this.plotData);
+    }
+    // Add the new dataset
+    let avgDataset = {
+      label: "Average",
+      backgroundColor: "rgba(255,0,0,1)",
+      borderColor: "rgba(255,0,0,1)",
+      data: avg_list,
+    };
+
+    this.myChart.data.datasets.push(avgDataset);
+    this.myChart.update();
+    // Hide all the other datasets
+    return;
+  }
+}
+
+function getSingleInputAverage(plotData) {
+  let avg_list = [];
+  let datasets = Array.from(plotData.values());
+  let maxColumnLength = Math.max(
+    ...datasets.map((dataset) => dataset.data.length)
+  );
+  // iterate over every step
+  for (let i = 0; i < maxColumnLength; i++) {
+    let sum = 0;
+    let entries = 0;
+    datasets.map((dataset) => {
+      let data = dataset.data;
+      if (data.length > i) {
+        sum += data[i].y;
+        entries++;
+      }
+    });
+    avg_list.push({ x: i, y: sum / entries });
+  }
+  return avg_list;
+}
+
+function getDoubleInputAverage(plotData) {
+  return [1, 2, 3];
 }
 
 function tranformSingleInputToCSV(plotData) {
