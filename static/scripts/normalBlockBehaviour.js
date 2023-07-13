@@ -623,11 +623,12 @@ Blockly.JavaScript["dictionary_set"] = function (block) {
   );
 
   var code = `
-  (() => {
+  (function() {
     const individual = ${variableKey};
     const l = ${variableValue};
     dictionary[individual.join('')] = l;
-  })()`;
+    // console.log(Object.entries(dictionary)[0]);
+  })();`;
   return code;
 };
 
@@ -638,9 +639,10 @@ Blockly.JavaScript["dictionary_reset"] = function () {
 
 Blockly.JavaScript["dictionary_max"] = function () {
   var code = `
-  (() => {
-    let maximumFitness = Math.max(...[Object.keys(dictionary).map(fitness)]);
-    return Object.entries(dictionary).find(([key, value]) => fitness(key) == maximumFitness)[1];
+  (function() {
+    const keyToIndividual = key => key.split('').map(b => parseInt(b));
+    let maximumFitness = Math.max(...[Object.keys(dictionary).map(key => fitness(keyToIndividual(key)))]);
+    return Object.entries(dictionary).find(([key, value]) => fitness(keyToIndividual(key)) == maximumFitness)[0];
   })()`;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
