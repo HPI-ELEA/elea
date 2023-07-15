@@ -200,6 +200,26 @@
                                             </value>
                                           </block>
                                         </value>
+                                        <next>
+                                          <block type="plotting_one_value" id="j$$2YN~9P+%D;Sq%PD{w">
+                                            <field name="plotName">fitness</field>
+                                            <field name="plotType">scatter</field>
+                                            <value name="yValue">
+                                              <block type="functions_basic_fitness" id="ffCi!O(D)SU%p2oUivO1">
+                                                <value name="individual">
+                                                  <block type="variables_get_individual" id="WNF;T(CN)85tkzeA?w|,">
+                                                    <field name="VAR" id="cTq%E8Zf6f93:4ksHg+$" variabletype="Individual">parent</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <value name="datasetNumber">
+                                              <shadow type="math_number" id=";LFM^(^S$nSX@TF(RKEE">
+                                                <field name="NUM">1</field>
+                                              </shadow>
+                                            </value>
+                                          </block>
+                                        </next>
                                       </block>
                                     </next>
                                   </block>
