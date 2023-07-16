@@ -274,16 +274,24 @@ function addNewDeletableOutputEntry(
   if (downloadOperations.length > 0) {
     $(`#download-${title}-button-div`).slideToggle(10);
     $(`#toggle-${title}-download`).click(() => {
+      if ($(`#analyse-${title}-button-div`).css("display") != "none") {
+        $(`#analyse-${title}-button-div`).slideToggle(10);
+      }
       $(`#download-${title}-button-div`).slideToggle(300);
     });
   }
+
   if (advancedOperations.length > 0) {
     $(`#analyse-${title}-button-div`).slideToggle(10);
     $(`#toggle-${title}-analyse`).click(() => {
+      if ($(`#download-${title}-button-div`).css("display") != "none") {
+        $(`#download-${title}-button-div`).slideToggle(10);
+      }
       $(`#analyse-${title}-button-div`).slideToggle(300);
     });
   }
 
+  // link the buttons to their actions
   downloadOperations.forEach((operation) => {
     $(`#${operation["name"]}-${title}-button`).click(() => {
       operation["operation"]();
