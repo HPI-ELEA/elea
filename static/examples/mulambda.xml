@@ -262,7 +262,6 @@
                     </value>
                     <next>
                       <block type="plotting_two_values" id="$?hx.zDlJnfBP?v@:#RM">
-                        <field name="plotName">fitness</field>
                         <field name="plotType">line</field>
                         <value name="xValue">
                           <shadow type="math_number" id="s5io_knP}9kTzv$7M~6Q">
@@ -293,6 +292,11 @@
                             <field name="VAR" id="jM}%6rTOBEOeUr?.h*~[">i</field>
                           </block>
                         </value>
+                        <value name="plotName">
+                                  <shadow type="text" id="GNxRIfo[;V[raT.%Bx[Z">
+                                    <field name="TEXT">fitness</field>
+                                  </shadow>
+                                </value>
                       </block>
                     </next>
                   </block>

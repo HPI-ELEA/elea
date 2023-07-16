@@ -791,13 +791,17 @@ Blockly.JavaScript["plotting_one_value"] = function (block) {
     "datasetNumber",
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  var variablePlotName = block.getFieldValue("plotName");
+  var variablePlotName = Blockly.JavaScript.valueToCode(
+    block,
+    "plotName",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
   var variablePlotType = block.getFieldValue("plotType");
 
   var code = "plot({xValue: null, yValue: ";
   code += variableYValue + ", datasetNumber: ";
   code += variableDatasetNumber + ", plotName: ";
-  code += "'" + variablePlotName + "', plotType: ";
+  code += variablePlotName + ", plotType: ";
   code += "'" + variablePlotType + "'});\n";
   return code;
 };
@@ -867,13 +871,17 @@ Blockly.JavaScript["plotting_two_values"] = function (block) {
     "datasetNumber",
     Blockly.JavaScript.ORDER_ATOMIC
   );
-  var variablePlotName = block.getFieldValue("plotName");
+  var variablePlotName = Blockly.JavaScript.valueToCode(
+    block,
+    "plotName",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
   var variablePlotType = block.getFieldValue("plotType");
 
   var code = "plot({xValue: " + variableXValue + ", yValue: ";
   code += variableYValue + ", datasetNumber: ";
   code += variableDatasetNumber + ", plotName: ";
-  code += "'" + variablePlotName + "', plotType: ";
+  code += variablePlotName + ", plotType: ";
   code += "'" + variablePlotType + "'});\n";
   return code;
 };
