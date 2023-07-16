@@ -231,23 +231,29 @@ class PlotWorker {
 
   showAverage() {
     // Calculate the new dataset
-    let avg_list = [];
+    let avgList = [];
     if (this.isSingleInput) {
-      avg_list = getSingleInputAverage(this.plotData);
+      avgList = getSingleInputAverage(this.plotData);
     } else {
-      avg_list = getDoubleInputAverage(this.plotData);
+      avgList = getDoubleInputAverage(this.plotData);
     }
     // Add the new dataset
     let avgDataset = {
       label: "Average",
       backgroundColor: "rgba(255,0,0,1)",
       borderColor: "rgba(255,0,0,1)",
-      data: avg_list,
+      data: avgList,
     };
 
+    // Make all other Datasets opaque
+    this.myChart.data.datasets.map((dataset) => {
+      let color = dataset.backgroundColor;
+      color = color.replace(/[\d.]+\)$/g, "0.15)");
+      dataset.backgroundColor = color;
+      dataset.borderColor = color;
+    });
     this.myChart.data.datasets.push(avgDataset);
     this.myChart.update();
-    // TODO: Make all other Datasets opaque
     return;
   }
 }
