@@ -184,19 +184,54 @@ function addNewDeletableOutputEntry(
   outputContentID,
   title,
   deleteOperation = () => {},
-  customOperations = [] // list of custom buttons in the form [{'name': name_for_button_id, 'operation': operation_to_be_called, 'text': text_on_button}]
+  downloadOperations = [], // list of custom buttons in the form [{'name': name_for_button_id, 'operation': operation_to_be_called, 'text': text_on_button}]
+  detailsOperation = null,
+  advancedOperations = []
 ) {
   let numOutput = $("#output-column > *").length;
-  let buttonrow = "<div>";
-  customOperations.forEach((operation) => {
-    buttonrow += `<button id="${operation["name"]}-${title}-button" class="btn btn-outline-dark">${operation["text"]}</button>`;
-  });
-  buttonrow += `</div>`;
+
+  let buttonrow = "";
+  let optionsrow = "";
+  let advoptionsrow = "";
+  if (downloadOperations.length > 0 || advancedOperations.lenght > 0) {
+    buttonrow += `<div>`;
+  }
+  if (downloadOperations.length > 0) {
+    buttonrow += `
+      <button class="btn btn-outline-dark" id="toggle-${title}-download">Download</button>`;
+
+    optionsrow += `<div id="download-${title}-button-div">
+    `;
+    downloadOperations.forEach((operation) => {
+      optionsrow += `<button id="${operation["name"]}-${title}-button" class="btn btn-outline-dark">${operation["text"]}</button>`;
+    });
+    optionsrow += `</div>`;
+  }
+  if (advancedOperations.length > 0) {
+    buttonrow += `
+      <button class="btn btn-outline-dark" id="toggle-${title}-analyse">Analysis</button>`;
+    advoptionsrow += `<div id="analyse-${title}-button-div">
+    `;
+    advancedOperations.forEach((operation) => {
+      advoptionsrow += `<button id="${operation["name"]}-${title}-button" class="btn btn-outline-dark">${operation["text"]}</button>`;
+    });
+    advoptionsrow += `</div>`;
+  }
+  if (downloadOperations.length > 0 || advancedOperations.lenght > 0) {
+    buttonrow += `</div>`;
+  }
+
+  let detailsButtonString = "";
+  if (detailsOperation != null) {
+    detailsButtonString = `<button class="btn btn-outline-dark" id="show-details-${title}-button">Details</button>`;
+  }
+
   let divString = `
   <div class="output-block" id="output-${numOutput}">
     <div class="output-header">
       <h3 class="output-heading" id="output-${numOutput}-heading">${title}</h3>
       <div class="output-header-buttons">
+        ${detailsButtonString}
         <button class="btn btn-outline-dark" id="output-${numOutput}-hide-button">Hide</button>
         <button class="btn btn-outline-danger" id="output-${numOutput}-delete-button">Delete</button>
       </div>
@@ -204,7 +239,11 @@ function addNewDeletableOutputEntry(
     <div id="output-${numOutput}-content">
       ${outputContent}
     </div>
+    <div id="button-row-${title}">
     ${buttonrow}
+    ${optionsrow}
+    ${advoptionsrow}
+    </div>
   </div>`;
   $("#output-column").prepend(divString);
 
@@ -215,6 +254,7 @@ function addNewDeletableOutputEntry(
       newButtonValue = "Hide";
     $(`#output-${numOutput}-hide-button`).text(newButtonValue);
     $(`#output-${numOutput}-content`).slideToggle(300);
+    $(`#button-row-${title}`).slideToggle(300);
   });
 
   // Add a button to delete the entry
@@ -224,7 +264,41 @@ function addNewDeletableOutputEntry(
     $(`#output-${numOutput}`).hide();
   });
 
-  customOperations.forEach((operation) => {
+  if (detailsOperation != null) {
+    $(`#show-details-${title}-button`).click(() => {
+      detailsOperation();
+    });
+  }
+
+  // Add toggle button for download options
+  if (downloadOperations.length > 0) {
+    $(`#download-${title}-button-div`).slideToggle(10);
+    $(`#toggle-${title}-download`).click(() => {
+      if ($(`#analyse-${title}-button-div`).css("display") != "none") {
+        $(`#analyse-${title}-button-div`).slideToggle(10);
+      }
+      $(`#download-${title}-button-div`).slideToggle(300);
+    });
+  }
+
+  if (advancedOperations.length > 0) {
+    $(`#analyse-${title}-button-div`).slideToggle(10);
+    $(`#toggle-${title}-analyse`).click(() => {
+      if ($(`#download-${title}-button-div`).css("display") != "none") {
+        $(`#download-${title}-button-div`).slideToggle(10);
+      }
+      $(`#analyse-${title}-button-div`).slideToggle(300);
+    });
+  }
+
+  // link the buttons to their actions
+  downloadOperations.forEach((operation) => {
+    $(`#${operation["name"]}-${title}-button`).click(() => {
+      operation["operation"]();
+    });
+  });
+
+  advancedOperations.forEach((operation) => {
     $(`#${operation["name"]}-${title}-button`).click(() => {
       operation["operation"]();
     });

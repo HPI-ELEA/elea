@@ -68,6 +68,11 @@ class PlotHandler {
     var plot = this.plotMap.get(plotName);
     plot.openPlotInModal();
   }
+
+  showAverage(plotName) {
+    var plot = this.plotMap.get(plotName);
+    plot.showAverage();
+  }
 }
 
 class PlotWorker {
@@ -86,7 +91,7 @@ class PlotWorker {
         divString,
         name,
         name,
-        () => this.plotHandler.removePlot(this.plotName),
+        () => this.plotHandler.removePlot(this.plotName), // delete operation
         [
           {
             name: "download-img",
@@ -99,10 +104,13 @@ class PlotWorker {
               this.plotHandler.downloadSinglePlotAsCSV(this.plotName),
             text: "Download CSV",
           },
+        ],
+        () => this.plotHandler.openPlotInModal(this.plotName), // details operation
+        [
           {
-            name: "show-details",
-            operation: () => this.plotHandler.openPlotInModal(this.plotName),
-            text: "Details",
+            name: "add-avg-line",
+            operation: () => this.plotHandler.showAverage(this.plotName),
+            text: "Show Average",
           },
         ]
       );
@@ -220,6 +228,74 @@ class PlotWorker {
       this.detailedPlot.destroy();
     }
   }
+
+  showAverage() {
+    // Calculate the new dataset
+    let avgList = [];
+    if (this.isSingleInput) {
+      avgList = getSingleInputAverage(this.plotData);
+    } else {
+      avgList = getDoubleInputAverage(this.plotData);
+    }
+    // Add the new dataset
+    let avgDataset = {
+      label: "Average",
+      backgroundColor: "rgba(255,0,0,1)",
+      borderColor: "rgba(255,0,0,1)",
+      data: avgList,
+    };
+
+    // Make all other Datasets opaque
+    this.myChart.data.datasets.map((dataset) => {
+      let color = dataset.backgroundColor;
+      color = color.replace(/[\d.]+\)$/g, "0.15)");
+      dataset.backgroundColor = color;
+      dataset.borderColor = color;
+    });
+    this.myChart.data.datasets.push(avgDataset);
+    this.myChart.update();
+    return;
+  }
+}
+
+function getSingleInputAverage(plotData) {
+  let avgList = [];
+  let datasets = Array.from(plotData.values());
+  let maxColumnLength = Math.max(
+    ...datasets.map((dataset) => dataset.data.length)
+  );
+  // iterate over every step
+  for (let i = 0; i < maxColumnLength; i++) {
+    let sum = 0;
+    let entries = 0;
+    datasets.map((dataset) => {
+      let data = dataset.data;
+      if (data.length > i) {
+        sum += data[i].y;
+        entries++;
+      }
+    });
+    avgList.push({ x: i, y: sum / entries });
+  }
+  return avgList;
+}
+
+function getDoubleInputAverage(plotData) {
+  let allDatasets = Array.from(plotData.values());
+  let allData = allDatasets.flatMap((dataset) => dataset.data);
+
+  let averages = Object.values(
+    allData.flat().reduce((acc, dataset) => {
+      const { x, y } = dataset;
+      if (!acc[x]) {
+        acc[x] = { sum: 0, count: 0, x: x };
+      }
+      acc[x].sum += y;
+      acc[x].count++;
+      return acc;
+    }, {})
+  ).map(({ sum, count, x }) => ({ x: x, y: sum / count }));
+  return averages;
 }
 
 function tranformSingleInputToCSV(plotData) {
