@@ -247,13 +247,13 @@ class PlotWorker {
 
     this.myChart.data.datasets.push(avgDataset);
     this.myChart.update();
-    // Hide all the other datasets
+    // TODO: Make all other Datasets opaque
     return;
   }
 }
 
 function getSingleInputAverage(plotData) {
-  let avg_list = [];
+  let avgList = [];
   let datasets = Array.from(plotData.values());
   let maxColumnLength = Math.max(
     ...datasets.map((dataset) => dataset.data.length)
@@ -269,13 +269,27 @@ function getSingleInputAverage(plotData) {
         entries++;
       }
     });
-    avg_list.push({ x: i, y: sum / entries });
+    avgList.push({ x: i, y: sum / entries });
   }
-  return avg_list;
+  return avgList;
 }
 
 function getDoubleInputAverage(plotData) {
-  return [1, 2, 3];
+  let allDatasets = Array.from(plotData.values());
+  let allData = allDatasets.flatMap((dataset) => dataset.data);
+
+  let averages = Object.values(
+    allData.flat().reduce((acc, dataset) => {
+      const { x, y } = dataset;
+      if (!acc[x]) {
+        acc[x] = { sum: 0, count: 0, x: x };
+      }
+      acc[x].sum += y;
+      acc[x].count++;
+      return acc;
+    }, {})
+  ).map(({ sum, count, x }) => ({ x: x, y: sum / count }));
+  return averages;
 }
 
 function tranformSingleInputToCSV(plotData) {
