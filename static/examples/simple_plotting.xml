@@ -245,7 +245,6 @@
                     </value>
                     <next>
                       <block type="plotting_one_value" id="MwY:wx/3Wa@6^bKga(-d">
-                        <field name="plotName">fitness</field>
                         <field name="plotType">line</field>
                         <value name="yValue">
                           <block type="procedures_callreturn" id="{*(,Cc0{bo:XB$.SDa:{">
@@ -260,6 +259,11 @@
                                   </block>
                                 </value>
                               </block>
+                            </value>
+                            <value name="plotName">
+                              <shadow type="text" id="GNxRIfo[;V[raT.%Bx[Z">
+                                <field name="TEXT">fitness</field>
+                              </shadow>
                             </value>
                           </block>
                         </value>

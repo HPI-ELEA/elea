@@ -237,7 +237,6 @@
                                             </statement>
                                             <next>
                                               <block type="plotting_one_value" id="Ns+#mZP{}~Sc4@ZAbpA%">
-                                                <field name="plotName">fitness</field>
                                                 <field name="plotType">scatter</field>
                                                 <value name="yValue">
                                                   <block type="functions_basic_fitness" id="(}1q%4nac13@^9W%Hut(">
@@ -251,6 +250,11 @@
                                                 <value name="datasetNumber">
                                                   <shadow type="math_number" id="8ZLlR,j_aX/g1p]W%m0G">
                                                     <field name="NUM">1</field>
+                                                  </shadow>
+                                                </value>
+                                                <value name="plotName">
+                                                  <shadow type="text" id="GNxRIfo[;V[raT.%Bx[Z">
+                                                    <field name="TEXT">fitness</field>
                                                   </shadow>
                                                 </value>
                                               </block>

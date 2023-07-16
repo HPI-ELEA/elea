@@ -865,10 +865,10 @@ export const blockDefinitions = [
           "Determines to which dataset of the plot this data will be added.",
       },
       {
-        type: "field_input",
+        type: "input_value",
         name: "plotName",
         text: "fitness",
-        check: "String",
+        check: ["String", "Number"],
         comment: "Determines which plot this datapoint will be added to.",
       },
       {
@@ -971,10 +971,9 @@ export const blockDefinitions = [
           "Determines to which dataset of the plot this data will be added.",
       },
       {
-        type: "field_input",
+        type: "input_value",
         name: "plotName",
-        text: "fitness",
-        check: "String",
+        check: ["String", "Number"],
         comment: "Determines which plot this datapoint will be added to.",
       },
       {
