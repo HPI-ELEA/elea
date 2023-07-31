@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "blockly": "^6.20210701.0",
-    "bootstrap": "^5.3.0",
+    "bootstrap": "^5.3.1",
     "chart.js": "^3.8.0",
     "d3": "^7.8.5",
     "jquery": "^3.7.0",
@@ -19,8 +19,8 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.45.0",
-    "eslint-plugin-import": "^2.27.5",
+    "eslint": "^8.46.0",
+    "eslint-plugin-import": "^2.28.0",
     "husky": "^7.0.4",
     "parcel": "^1.12.3",
     "parcel-plugin-static-files-copy": "^2.6.0",
