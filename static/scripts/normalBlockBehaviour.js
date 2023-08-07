@@ -632,6 +632,22 @@ Blockly.JavaScript["dictionary_set"] = function (block) {
   return code;
 };
 
+Blockly.JavaScript["dictionary_get"] = function (block) {
+  var variableKey = Blockly.JavaScript.valueToCode(
+    block,
+    "key_individual",
+    Blockly.JavaScript.ORDER_ATOMIC,
+  );
+
+  var code = `
+  (function() {
+    const individual = ${variableKey};
+    return dictionary[individual.join('')];
+    // console.log(Object.entries(dictionary)[0]);
+  })();`;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.JavaScript["dictionary_reset"] = function () {
   var code = `dictionary = {};`;
   return code;
