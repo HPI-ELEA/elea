@@ -523,6 +523,27 @@ export const blockDefinitions = [
     helpUrl: "",
   },
   {
+    type: "sample_normal_positive",
+    message0: "positive sample from normal distribution: mean %1, variance %2",
+    args0: [
+      {
+        type: "input_value",
+        name: "mean",
+        check: "Number",
+      },
+      {
+        type: "input_value",
+        name: "variance",
+        check: "Number",
+      },
+    ],
+    inputsInline: true,
+    output: "Number",
+    style: "indiv_blocks",
+    tooltip: "take positive sample from normal distribution with mean and variance as input",
+    helpUrl: "",
+  },
+  {
     type: "ea_mutate_bit",
     message0: "mutate a random bit in %1 ",
     args0: [
