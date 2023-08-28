@@ -1,4 +1,5 @@
 /*
+Copied from https://github.com/errcw/gaussian/blob/master/LICENSE
 Copyright (c) 2023 Eric Woroshow
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
