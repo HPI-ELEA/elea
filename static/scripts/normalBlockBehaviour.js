@@ -591,6 +591,27 @@ Blockly.JavaScript["ea_mutate_bit"] = function (block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.JavaScript["sample_normal_positive"] = function (block) {
+  let variableMean = Blockly.JavaScript.valueToCode(
+    block,
+    "mean",
+    Blockly.JavaScript.ORDER_ATOMIC,
+  );
+  let variableVariance = Blockly.JavaScript.valueToCode(
+    block,
+    "variance",
+    Blockly.JavaScript.ORDER_ATOMIC,
+  );
+
+  let code = `(function() {
+  const distribution = gaussian(${variableMean}, ${variableVariance});
+  let sample = 0;
+  while (sample <= 0) sample = Math.round(distribution.ppf(Math.random()));
+  return sample;
+})()`;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.JavaScript["ea_debug_all"] = function () {
   var code = 'windowalert("genome_length: " + genome_length);\n';
   code += 'windowalert("lambda: " + _CE_BB);\n';
