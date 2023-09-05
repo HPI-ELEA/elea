@@ -165,13 +165,6 @@ async function preparePlotting() {
   return code;
 }
 
-async function prepareGaussian() {
-  let file;
-  if (!(file = await readFile("./scripts/gaussian.js"))) return false;
-  let code = file + `module.exports = {\n` + `gaussian\n` + `}`;
-  return code;
-}
-
 function removeFirstLine(file) {
   let lines = file.split("\n");
   lines.shift();
