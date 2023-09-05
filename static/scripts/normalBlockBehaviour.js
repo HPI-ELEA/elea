@@ -654,16 +654,6 @@ Blockly.JavaScript["ea_debug"] = function (block) {
 
   var code = functionName + "(" + variable_ + ");\n";
   return code;
-  // var code = "var print_var = " + variable_ + ";\n";
-  // code +=
-  //   "if(" +
-  //   variable_ +
-  //   ".length != 0 && Array.isArray(" +
-  //   variable_ +
-  //   "[0]))\n";
-  // code += "  print_var = " + variable_ + '.join("\\n");\n';
-  // code += "consolelog(print_var);\n";
-  // return code;
 };
 
 Blockly.JavaScript["ea_crossover_onepoint"] = function () {
