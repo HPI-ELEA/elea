@@ -36,6 +36,7 @@ async function downloadWorkspaceAsJS() {
   let jszip = await readFile("./scripts/jszip.js");
   let fileutils = await prepareFileUtils();
   let plotHandler = await preparePlotting();
+  let gaussian = await readFile("./scripts/gaussian.js");
   // Check if everything worked out
   if (
     ![
@@ -63,6 +64,7 @@ async function downloadWorkspaceAsJS() {
   zip.file("PlotHandler.mjs", plotHandler);
   zip.folder("modules");
   zip.file("modules/fileUtils.mjs", fileutils);
+  zip.file("gaussian.mjs", gaussian);
   let zipFile = await zip.generateAsync({ type: "blob" });
   saveFile(zipFile, "elea.zip");
 }
@@ -102,6 +104,7 @@ function prepareAlgorithm() {
     `const {parentPort, Worker} = require("worker_threads");\n` +
     `const {Handler, consolelog, saveInCSV, plot, consoleerror, Message, RecvRequest} = require("./MessageHandler.js");\n` +
     `const {cpus} = require("os");\n` +
+    `const {gaussian} = require("./gaussian.js");\n` +
     `Handler.setParentPort(parentPort);\n`;
 
   let js = getCode();
@@ -159,6 +162,13 @@ async function preparePlotting() {
     "//Plotting is currently only supported on the website. Use the CSV-generation to create CSV-files.";
   code += file;
   code = code.replace("/fileUtils", "/fileUtils.mjs");
+  return code;
+}
+
+async function prepareGaussian() {
+  let file;
+  if (!(file = await readFile("./scripts/gaussian.js"))) return false;
+  let code = file + `module.exports = {\n` + `gaussian\n` + `}`;
   return code;
 }
 
