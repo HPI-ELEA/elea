@@ -595,21 +595,31 @@ Blockly.JavaScript["sample_normal_positive"] = function (block) {
   let variableMean = Blockly.JavaScript.valueToCode(
     block,
     "mean",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   let variableVariance = Blockly.JavaScript.valueToCode(
     block,
     "variance",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
 
-  let code = `(function() {
-  const distribution = gaussian(${variableMean}, ${variableVariance});
-  let sample = 0;
-  while (sample <= 0) sample = Math.round(distribution.ppf(Math.random()));
-  return sample;
-})()`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var functionName = Blockly.JavaScript.provideFunction_(
+    "sampleNormalPositive",
+    [
+      "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
+      "   const distribution = gaussian(" +
+        variableMean +
+        "," +
+        variableVariance +
+        ");",
+      "   let sample = 0;",
+      "   while (sample <= 0) sample = Math.round(distribution.ppf(Math.random()));",
+      "   return sample;",
+      "}",
+    ]
+  );
+  var code = functionName + "()";
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
 Blockly.JavaScript["ea_debug_all"] = function () {
