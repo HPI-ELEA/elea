@@ -36,7 +36,7 @@ async function downloadWorkspaceAsJS() {
   let jszip = await readFile("./scripts/jszip.js");
   let fileutils = await prepareFileUtils();
   let plotHandler = await preparePlotting();
-  let gaussian = await readFile("./scripts/gaussian.js");
+  let gaussian = await prepareGaussian();
   // Check if everything worked out
   if (
     ![
@@ -64,7 +64,7 @@ async function downloadWorkspaceAsJS() {
   zip.file("PlotHandler.mjs", plotHandler);
   zip.folder("modules");
   zip.file("modules/fileUtils.mjs", fileutils);
-  zip.file("gaussian.mjs", gaussian);
+  zip.file("gaussian.js", gaussian);
   let zipFile = await zip.generateAsync({ type: "blob" });
   saveFile(zipFile, "elea.zip");
 }
@@ -162,6 +162,13 @@ async function preparePlotting() {
     "//Plotting is currently only supported on the website. Use the CSV-generation to create CSV-files.";
   code += file;
   code = code.replace("/fileUtils", "/fileUtils.mjs");
+  return code;
+}
+
+async function prepareGaussian() {
+  let file, code;
+  if (!(file = await readFile("./scripts/gaussian.js"))) return false;
+  code = file + `module.exports = {\n` + `gaussian \n` + `};`;
   return code;
 }
 

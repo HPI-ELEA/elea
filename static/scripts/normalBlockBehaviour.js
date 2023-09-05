@@ -620,14 +620,6 @@ Blockly.JavaScript["sample_normal_positive"] = function (block) {
   );
   var code = functionName + "()";
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
-
-  //   let code = `(function() {
-  //   const distribution = gaussian(${variableMean}, ${variableVariance});
-  //   let sample = 0;
-  //   while (sample <= 0) sample = Math.round(distribution.ppf(Math.random()));
-  //   return sample;
-  // })()`;
-  //   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
 Blockly.JavaScript["ea_debug_all"] = function () {
