@@ -140,11 +140,11 @@ Blockly.JavaScript["init_uniform"] = function () {
       "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
       "  var fullArray = Array(_C2_B5).fill(0);", // TODO: replace fill for ES5
       "  for (var j=0; j < _C2_B5;j++) {",
-      "    var tempArray = Array(genome_length).fill(0);",
-      "    for (var k=0; k< genome_length; k++) {",
-      "      tempArray[k] = Math.round(Math.random());",
-      "    }",
-      "    fullArray[j] = tempArray;",
+      // "    var tempArray = Array(genome_length).fill(0);",
+      // "    for (var k=0; k< genome_length; k++) {",
+      // "      tempArray[k] = Math.round(Math.random());",
+      // "    }",
+      "    fullArray[j] = new Individual(genome_length, true);",
       "  }",
       "  return fullArray;",
       "}",
@@ -159,11 +159,11 @@ Blockly.JavaScript["individual_init_uniform"] = function () {
     "uniformInitIndividual",
     [
       "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
-      "  var tempArray = Array(genome_length).fill(0);",
-      "  for (var k=0; k< genome_length; k++) {",
-      "      tempArray[k] = Math.round(Math.random());",
-      "    }",
-      "  return tempArray;",
+      // "  var tempArray = Array(genome_length).fill(0);",
+      // "  for (var k=0; k< genome_length; k++) {",
+      // "      tempArray[k] = Math.round(Math.random());",
+      // "    }",
+      "  return new Individual(genome_length, true);",
       "}",
     ]
   );
@@ -182,7 +182,7 @@ Blockly.JavaScript["init_constant"] = function (block) {
   var functionName = Blockly.JavaScript.provideFunction_("zeroInitPopulation", [
     "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
     "  var fullArray = Array(_C2_B5);",
-    "  var tempArray = Array(genome_length);",
+    "  var tempArray = new Individual(genome_length, false);",
     "  for (var j=0; j < genome_length;j++) {",
     "    tempArray[j] = " + dropdownConstant + ";",
     "  }",
@@ -206,7 +206,7 @@ Blockly.JavaScript["individual_init_constant"] = function (block) {
   }
   var functionName = Blockly.JavaScript.provideFunction_("zeroInitIndividual", [
     "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
-    "  var tempArray = Array(genome_length);",
+    "  var tempArray = new Individual(genome_length, false);",
     "  for (var j=0; j < genome_length;j++) {",
     "    tempArray[j] =" + dropdownConstant + ";",
     "  }",
@@ -592,15 +592,15 @@ Blockly.JavaScript["flip_l"] = function (block) {
   );
 
   let code = `(function() {
-  const individual = ${variableIndividual};
-  const n = individual.length;
-  const l = ${variableL};
-  let positions = sample([...Array(n).keys()], l);
-  for (const i of positions) {
-    individual[i] = 1 - individual[i];
-  }
-  return individual;
-})()`;
+    const individual = ${variableIndividual};
+    const n = individual.length;
+    const l = ${variableL};
+    let positions = sample([...Array(n).keys()], l);
+    for (const i of positions) {
+      individual[i] = 1 - individual[i];
+    }
+    return individual;
+  })()`;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
