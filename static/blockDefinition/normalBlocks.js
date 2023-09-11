@@ -523,40 +523,6 @@ export const blockDefinitions = [
     helpUrl: "",
   },
   {
-<<<<<<< HEAD
-    type: "flip_l",
-    message0: "mutate %2 bits of %1",
-    args0: [
-      {
-        type: "input_value",
-        name: "individual",
-        check: "Individual",
-      },
-      {
-        type: "input_value",
-        name: "l",
-        check: "Number",
-      },
-    ],
-    inputsInline: true,
-    output: "Individual",
-    style: "indiv_blocks",
-    tooltip: "Mutate uniformly-random L bits of a given individual.",
-    helpUrl: "",
-  },
-  {
-    type: "dictionary_set",
-    message0: "set value of dictionary key %1 to %2",
-    args0: [
-      {
-        type: "input_value",
-        name: "key_individual",
-        check: "Individual",
-      },
-      {
-        type: "input_value",
-        name: "value_l",
-=======
     type: "sample_normal_positive",
     message0: "positive sample from normal distribution: mean %1, variance %2",
     args0: [
@@ -568,58 +534,14 @@ export const blockDefinitions = [
       {
         type: "input_value",
         name: "variance",
->>>>>>> upstream/main
         check: "Number",
       },
     ],
     inputsInline: true,
-<<<<<<< HEAD
-    // output: null,
-    previousStatement: null,
-    nextStatement: null,
-    style: "indiv_blocks",
-    tooltip: "set individual as key with l flips as value in global dictionary",
-    helpUrl: "",
-  },
-  {
-    type: "dictionary_get",
-    message0: "get value of dictionary key %1",
-    args0: [
-      {
-        type: "input_value",
-        name: "key_individual",
-        check: "Individual",
-      },
-    ],
-    inputsInline: true,
-    output: "Number",
-    // previousStatement: null,
-    // nextStatement: null,
-    style: "indiv_blocks",
-    tooltip: "get how many flips (l) generated individual from its parent",
-    helpUrl: "",
-  },
-  {
-    type: "dictionary_reset",
-    message0: "reset global dictionary",
-    // output: null,
-    previousStatement: null,
-    nextStatement: null,
-    style: "indiv_blocks",
-    tooltip: "set individual as key with l flips as value in global dictionary",
-    helpUrl: "",
-  },
-  {
-    type: "dictionary_max",
-    message0: "smallest individual with maximum fitness",
-    output: "Individual",
-    style: "indiv_blocks",
-    tooltip: "smallest individual with maximum fitness",
-=======
     output: "Number",
     style: "indiv_blocks",
-    tooltip: "take positive sample from normal distribution with mean and variance as input",
->>>>>>> upstream/main
+    tooltip:
+      "take positive sample from normal distribution with mean and variance as input",
     helpUrl: "",
   },
   {
@@ -1138,8 +1060,6 @@ export const blockDefinitions = [
     style: "loop_blocks",
     tooltip: "Loop that counts iterations needed",
     helpUrl: "",
-<<<<<<< HEAD
-=======
   },
   {
     type: "functions_basic_fitness",
@@ -1156,6 +1076,5 @@ export const blockDefinitions = [
     style: "fitness_blocks",
     tooltip: "Calls the fitness function on the given individual",
     helpUrl: "",
->>>>>>> upstream/main
   },
 ];

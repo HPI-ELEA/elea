@@ -24,11 +24,11 @@ Blockly.JavaScript["experimental_timer"] = function (block) {
   let statements = Blockly.JavaScript.statementToCode(block, "code");
   let result = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("output_time"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   let timer = Blockly.JavaScript.nameDB_.getDistinctName(
     "startTime",
-    Blockly.VARIABLE_CATEGORY_NAME,
+    Blockly.VARIABLE_CATEGORY_NAME
   );
 
   let code = "";
@@ -45,7 +45,7 @@ Blockly.JavaScript["experimental_timer"] = function (block) {
 Blockly.JavaScript["ea_init"] = function (block) {
   var statementsSimulationSteps = Blockly.JavaScript.statementToCode(
     block,
-    "init_statements",
+    "init_statements"
   );
 
   let code = "";
@@ -66,7 +66,7 @@ Blockly.JavaScript["init_meta"] = function (block) {
   var globalVars = "var fittestInd = null;\nvar fittest = 0;\n";
   var statementsSimulationSteps = Blockly.JavaScript.statementToCode(
     block,
-    "init_statements",
+    "init_statements"
   );
   return globalVars + statementsSimulationSteps;
 };
@@ -74,7 +74,7 @@ Blockly.JavaScript["init_meta"] = function (block) {
 Blockly.JavaScript["init_run"] = function (block) {
   var statementsSimulationSteps = Blockly.JavaScript.statementToCode(
     block,
-    "init_statements",
+    "init_statements"
   );
   return statementsSimulationSteps;
 };
@@ -83,7 +83,7 @@ Blockly.JavaScript["pop_init"] = function (block) {
   var valuePopInitStrategy = Blockly.JavaScript.valueToCode(
     block,
     "INIT_STRATEGY",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   return [valuePopInitStrategy, Blockly.JavaScript.ORDER_NONE];
 };
@@ -93,11 +93,11 @@ Blockly.JavaScript["jump_k"] = function (block) {
   var k = Blockly.JavaScript.valueToCode(
     block,
     "K",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   ); // TODO: cache
   var variableIndividual = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("INDIVIDUAL"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var functionName = Blockly.JavaScript.provideFunction_("jump_k", [
     "function " +
@@ -118,7 +118,7 @@ Blockly.JavaScript["jump_k"] = function (block) {
 Blockly.JavaScript["leading_ones"] = function (block) {
   var variableIndividual = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("INDIVIDUAL"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var functionName = Blockly.JavaScript.provideFunction_("leading_ones", [
     "function " +
@@ -150,7 +150,7 @@ Blockly.JavaScript["init_uniform"] = function () {
       "  }",
       "  return fullArray;",
       "}",
-    ],
+    ]
   );
   var code = functionName + "()";
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
@@ -167,7 +167,7 @@ Blockly.JavaScript["individual_init_uniform"] = function () {
       "    }",
       "  return tempArray;",
       "}",
-    ],
+    ]
   );
   var code = functionName + "()";
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
@@ -225,20 +225,20 @@ Blockly.JavaScript["run_loop"] = function (block) {
   var continueCondition = Blockly.JavaScript.valueToCode(
     block,
     "continue_condition",
-    Blockly.JavaScript.ORDER_NONE,
+    Blockly.JavaScript.ORDER_NONE
   );
   var exitNumber = Blockly.JavaScript.valueToCode(
     block,
     "exit_number",
-    Blockly.JavaScript.ORDER_NONE,
+    Blockly.JavaScript.ORDER_NONE
   );
   var statementsSimulationSteps = Blockly.JavaScript.statementToCode(
     block,
-    "loop_statement",
+    "loop_statement"
   );
   var loopVar = Blockly.JavaScript.nameDB_.getDistinctName(
     "count",
-    Blockly.VARIABLE_CATEGORY_NAME,
+    Blockly.VARIABLE_CATEGORY_NAME
   );
   var code =
     "for (var " +
@@ -263,12 +263,12 @@ Blockly.JavaScript["run_loop_logging"] = function (block) {
   var continueCondition = Blockly.JavaScript.valueToCode(
     block,
     "continue_condition",
-    Blockly.JavaScript.ORDER_NONE,
+    Blockly.JavaScript.ORDER_NONE
   );
   var exitNumber = Blockly.JavaScript.valueToCode(
     block,
     "exit_number",
-    Blockly.JavaScript.ORDER_NONE,
+    Blockly.JavaScript.ORDER_NONE
   );
   // TODO Add validator checking wether aldID exists
   var algId = block.getFieldValue("algId");
@@ -276,33 +276,33 @@ Blockly.JavaScript["run_loop_logging"] = function (block) {
   var fitness = Blockly.JavaScript.valueToCode(
     block,
     "fitness",
-    Blockly.JavaScript.ORDER_NONE,
+    Blockly.JavaScript.ORDER_NONE
   );
   var dimension = Blockly.JavaScript.valueToCode(
     block,
     "dim",
-    Blockly.JavaScript.ORDER_NONE,
+    Blockly.JavaScript.ORDER_NONE
   );
   var run = Blockly.JavaScript.valueToCode(
     block,
     "run",
-    Blockly.JavaScript.ORDER_NONE,
+    Blockly.JavaScript.ORDER_NONE
   );
   var statementsSimulationSteps = Blockly.JavaScript.statementToCode(
     block,
-    "loop_statement",
+    "loop_statement"
   );
   var loopVar = Blockly.JavaScript.nameDB_.getDistinctName(
     "count",
-    Blockly.VARIABLE_CATEGORY_NAME,
+    Blockly.VARIABLE_CATEGORY_NAME
   );
   var logs = Blockly.JavaScript.nameDB_.getDistinctName(
     "logs",
-    Blockly.VARIABLE_CATEGORY_NAME,
+    Blockly.VARIABLE_CATEGORY_NAME
   );
   var bestFitness = Blockly.JavaScript.nameDB_.getDistinctName(
     "bestFitness",
-    Blockly.VARIABLE_CATEGORY_NAME,
+    Blockly.VARIABLE_CATEGORY_NAME
   );
 
   var code = "";
@@ -347,7 +347,7 @@ Blockly.JavaScript["ea_run_breeding"] = function (block) {
   var loopNumber = Blockly.JavaScript.valueToCode(
     block,
     "loop_number",
-    Blockly.JavaScript.ORDER_NONE,
+    Blockly.JavaScript.ORDER_NONE
   );
   var statements = Blockly.JavaScript.statementToCode(block, "loop_statement");
   var code = "for (var j=0;j < " + loopNumber + ";j++){\n";
@@ -362,7 +362,7 @@ Blockly.JavaScript["ea_addtopopulation"] = function (block) {
   var POPULATION = Blockly.JavaScript.valueToCode(
     block,
     "POPULATION",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
 
   var length = "_C2_B5"; //Blockly.JavaScript.nameDB_.getName('µ');
@@ -399,7 +399,7 @@ Blockly.JavaScript["ea_select_best"] = function (block) {
   var POPULATION = Blockly.JavaScript.valueToCode(
     block,
     "POPULATION",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   var code = POPULATION + ".reduce((a,b) => (fitness(a) > fitness(b))? a: b)";
   return [code, Blockly.JavaScript.ORDER_NONE];
@@ -409,7 +409,7 @@ Blockly.JavaScript["max_diversity"] = function (block) {
   var POPULATION = Blockly.JavaScript.valueToCode(
     block,
     "POPULATION",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   var functionDiversity = Blockly.JavaScript.provideFunction_("diversity", [
     "function " +
@@ -439,7 +439,7 @@ Blockly.JavaScript["max_diversity"] = function (block) {
       "  }",
       "  return maxDiversity;",
       "}",
-    ],
+    ]
   );
   var code = functionMaxDiversity + "(" + POPULATION + ")";
   return [code, Blockly.JavaScript.ORDER_NONE];
@@ -450,7 +450,7 @@ Blockly.JavaScript["ea_select_parent"] = function (block) {
   var dropdownName = block.getFieldValue("NAME");
   var variablePopulation = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("POPULATION"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var code;
   if (dropdownName == "UNIFORM") {
@@ -494,7 +494,7 @@ Blockly.JavaScript["ea_select_parent"] = function (block) {
           Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
           "(population);",
         "}",
-      ],
+      ]
     );
     code = functionName + "(" + variablePopulation + ")";
     return [code, Blockly.JavaScript.ORDER_NONE];
@@ -505,23 +505,23 @@ Blockly.JavaScript["ea_crossover"] = function (block) {
   var crossoverFunction = Blockly.JavaScript.valueToCode(
     block,
     "NAME",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   var variableParent1 = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("PARENT1"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var variableParent2 = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("PARENT2"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var variableOffspring1 = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("OFFSPRING1"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var variableOffspring2 = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("OFFSPRING2"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var code =
     "var offspring_list = " +
@@ -539,11 +539,11 @@ Blockly.JavaScript["ea_crossover"] = function (block) {
 Blockly.JavaScript["lists_append"] = function (block) {
   var variableIndividual = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("INDIVIDUAL"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var variablePopulation = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("POPULATION"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var code = variablePopulation + ".push(" + variableIndividual + ");\n";
   return code;
@@ -552,11 +552,11 @@ Blockly.JavaScript["lists_append"] = function (block) {
 Blockly.JavaScript["lists_concat"] = function (block) {
   var variablePopulation1 = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("POPULATION1"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var variablePopulation2 = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("POPULATION2"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var code = variablePopulation1 + ".concat(" + variablePopulation2 + ")";
   return [code, Blockly.JavaScript.ORDER_NONE];
@@ -566,12 +566,12 @@ Blockly.JavaScript["ea_mutate_prob"] = function (block) {
   var variableIndividual = Blockly.JavaScript.valueToCode(
     block,
     "individual",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   var variableProbability = Blockly.JavaScript.valueToCode(
     block,
     "probability",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   var code =
     variableIndividual +
@@ -585,12 +585,12 @@ Blockly.JavaScript["flip_l"] = function (block) {
   let variableIndividual = Blockly.JavaScript.valueToCode(
     block,
     "individual",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   let variableL = Blockly.JavaScript.valueToCode(
     block,
     "l",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
 
   let code = `(function() {
@@ -613,13 +613,13 @@ Blockly.JavaScript["dictionary_set"] = function (block) {
   var variableKey = Blockly.JavaScript.valueToCode(
     block,
     "key_individual",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
 
   var variableValue = Blockly.JavaScript.valueToCode(
     block,
     "value_l",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
 
   var code = `
@@ -636,7 +636,7 @@ Blockly.JavaScript["dictionary_get"] = function (block) {
   var variableKey = Blockly.JavaScript.valueToCode(
     block,
     "key_individual",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
 
   var code = `
@@ -674,7 +674,7 @@ Blockly.JavaScript["ea_mutate_bit"] = function (block) {
   var variableIndividual = Blockly.JavaScript.valueToCode(
     block,
     "individual",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   var code =
     "function(i) {var ind_index = Math.floor(Math.random()*genome_length); i[ind_index] = (1-i[ind_index]); return i}(" +
@@ -730,7 +730,7 @@ Blockly.JavaScript["ea_debug"] = function (block) {
   var variable_ = Blockly.JavaScript.valueToCode(
     block,
     "logging_variable",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
 
   // Add new line characters if the logging_variable is a two-dimensional array
@@ -762,7 +762,7 @@ Blockly.JavaScript["ea_crossover_onepoint"] = function () {
       "  child2 = child2.concat(p1.slice(index, p1.length))",
       "  return [child1, child2]",
       "}",
-    ],
+    ]
   );
   return [functionCrossover, Blockly.JavaScript.ORDER_NONE];
 };
@@ -777,7 +777,7 @@ Blockly.JavaScript["ea_crossover_twopoint"] = function () {
       "  var childrenList = crossoverOnepoint(p1,p2);",
       "  return crossoverOnepoint(childrenList[0], childrenList[1]);",
       "}",
-    ],
+    ]
   );
   return [functionCrossover2, Blockly.JavaScript.ORDER_NONE];
 };
@@ -799,7 +799,7 @@ Blockly.JavaScript["ea_crossover_uniform"] = function () {
       "  }",
       "  return [child1, child2];",
       "}",
-    ],
+    ]
   );
   return [functionCrossover3, Blockly.JavaScript.ORDER_NONE];
 };
@@ -807,7 +807,7 @@ Blockly.JavaScript["ea_crossover_uniform"] = function () {
 Blockly.JavaScript["variables_get_individual"] = function (block) {
   var variableIndividual = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("VAR"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
 
   var code = variableIndividual;
@@ -817,12 +817,12 @@ Blockly.JavaScript["variables_get_individual"] = function (block) {
 Blockly.JavaScript["variables_set_individual"] = function (block) {
   var variableIndividual = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("VAR"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var newValueIndividual = Blockly.JavaScript.valueToCode(
     block,
     "VALUE",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
 
   var code = variableIndividual + " = " + newValueIndividual + ";\n";
@@ -832,7 +832,7 @@ Blockly.JavaScript["variables_set_individual"] = function (block) {
 Blockly.JavaScript["variables_get_population"] = function (block) {
   var variablePopulation = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("VAR"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
 
   var code = variablePopulation;
@@ -842,12 +842,12 @@ Blockly.JavaScript["variables_get_population"] = function (block) {
 Blockly.JavaScript["variables_set_population"] = function (block) {
   var variablePopulation = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("VAR"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var newValuePopulation = Blockly.JavaScript.valueToCode(
     block,
     "VALUE",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
 
   var code = variablePopulation + " = " + newValuePopulation + ";\n";
@@ -874,12 +874,12 @@ Blockly.JavaScript["wait"] = function (block) {
 Blockly.JavaScript["check_fitness"] = function (block) {
   var variablePopulation = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("POPULATION"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var variableMinFitness = Blockly.JavaScript.valueToCode(
     block,
     "MIN_FITNESS",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   var functionCheckFitness = Blockly.JavaScript.provideFunction_(
     "populationHasNotRequiredFitness",
@@ -893,7 +893,7 @@ Blockly.JavaScript["check_fitness"] = function (block) {
       "  }",
       "  return bestFitness < fitnessRequired",
       "}",
-    ],
+    ]
   );
   var code =
     functionCheckFitness +
@@ -909,12 +909,12 @@ Blockly.JavaScript["plotting_one_value"] = function (block) {
   var variableYValue = Blockly.JavaScript.valueToCode(
     block,
     "yValue",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   var variableDatasetNumber = Blockly.JavaScript.valueToCode(
     block,
     "datasetNumber",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   var variablePlotName = Blockly.JavaScript.valueToCode(
     block,
@@ -935,12 +935,12 @@ Blockly.JavaScript["save_in_csv"] = function (block) {
   var variableValue = Blockly.JavaScript.valueToCode(
     block,
     "value",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   var variableDatasetName = Blockly.JavaScript.valueToCode(
     block,
     "datasetname",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   var variablePlotName = block.getFieldValue("filename");
 
@@ -954,11 +954,11 @@ Blockly.JavaScript["save_in_csv"] = function (block) {
 Blockly.JavaScript["individual_hamming_distance"] = function (block) {
   var variableInidividual1 = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("FIRST_INDIVIDUAL"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var variableIndividual2 = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("SECOND_INDIVIDUAL"),
-    Blockly.Variables.NAME_TYPE,
+    Blockly.Variables.NAME_TYPE
   );
   var functionName = Blockly.JavaScript.provideFunction_(
     "individualHammingDistance",
@@ -973,7 +973,7 @@ Blockly.JavaScript["individual_hamming_distance"] = function (block) {
       "  }",
       "  return count;",
       "}",
-    ],
+    ]
   );
   var code =
     functionName + "(" + variableInidividual1 + "," + variableIndividual2 + ")";
@@ -984,17 +984,17 @@ Blockly.JavaScript["plotting_two_values"] = function (block) {
   var variableXValue = Blockly.JavaScript.valueToCode(
     block,
     "xValue",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   var variableYValue = Blockly.JavaScript.valueToCode(
     block,
     "yValue",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   var variableDatasetNumber = Blockly.JavaScript.valueToCode(
     block,
     "datasetNumber",
-    Blockly.JavaScript.ORDER_ATOMIC,
+    Blockly.JavaScript.ORDER_ATOMIC
   );
   var variablePlotName = Blockly.JavaScript.valueToCode(
     block,
@@ -1016,20 +1016,12 @@ Blockly.JavaScript["iteration_counter_loop"] = function (block) {
   var variableCondition = Blockly.JavaScript.valueToCode(
     block,
     "loop_condition",
-<<<<<<< HEAD
-    Blockly.JavaScript.ORDER_ATOMIC,
-=======
     Blockly.JavaScript.ORDER_ATOMIC
->>>>>>> upstream/main
   );
   var statements = Blockly.JavaScript.statementToCode(block, "loop_statement");
   var variableCounter = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("counter_variable"),
-<<<<<<< HEAD
-    Blockly.Variables.NAME_TYPE,
-=======
     Blockly.Variables.NAME_TYPE
->>>>>>> upstream/main
   );
 
   var code = "";
