@@ -263,7 +263,6 @@
                     </value>
                     <next>
                       <block type="plotting_two_values" id="$?hx.zDlJnfBP?v@:#RM">
-                        <field name="plotName">fitness</field>
                         <field name="plotType">scatter</field>
                         <value name="xValue">
                           <shadow type="math_number" id="s5io_knP}9kTzv$7M~6Q">
@@ -274,11 +273,8 @@
                           </block>
                         </value>
                         <value name="yValue">
-                          <block type="procedures_callreturn" id="x@Z]k=Km]AW5ONd%l7A;">
-                            <mutation name="fitness">
-                              <arg name="individual"></arg>
-                            </mutation>
-                            <value name="ARG0">
+                          <block type="functions_basic_fitness" id="]By1NmF~)%M:R{)??(xe">
+                            <value name="individual">
                               <block type="ea_select_best" id="S/3GT;NJMY]HQU6M9c;:">
                                 <value name="POPULATION">
                                   <block type="variables_get_population" id="w,fT/Y$#+Ci^tBSqd;-+">
@@ -297,6 +293,11 @@
                             <field name="VAR" id="jM}%6rTOBEOeUr?.h*~[">i</field>
                           </block>
                         </value>
+                        <value name="plotName">
+                                  <shadow type="text" id="GNxRIfo[;V[raT.%Bx[Z">
+                                    <field name="TEXT">fitness</field>
+                                  </shadow>
+                                </value>
                       </block>
                     </next>
                   </block>

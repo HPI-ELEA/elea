@@ -90,11 +90,8 @@
                   <block type="logic_compare" id="tV%BK#PsA5}%-B5Nde*`">
                     <field name="OP">LT</field>
                     <value name="A">
-                      <block type="procedures_callreturn" id="tv!P_vfA~*^phH`YogA4">
-                        <mutation name="fitness">
-                          <arg name="individual"></arg>
-                        </mutation>
-                        <value name="ARG0">
+                      <block type="functions_basic_fitness" id="Xhi1T%YBwZJVU^9hL_+6">
+                        <value name="individual">
                           <block type="variables_get_individual" id="JwOxC:xyM6RUPw/G2ea9">
                             <field name="VAR" id="~.yV7AFwhpE@lu/Y6BqS" variabletype="Individual">parent</field>
                           </block>
@@ -149,11 +146,8 @@
                               <block type="logic_compare" id="3AV_U$c.k5e6Lk6+ze90">
                                 <field name="OP">LT</field>
                                 <value name="A">
-                                  <block type="procedures_callreturn" id="NU`if+YQD!S,B.qr51st">
-                                    <mutation name="fitness">
-                                      <arg name="individual"></arg>
-                                    </mutation>
-                                    <value name="ARG0">
+                                  <block type="functions_basic_fitness" id="w`,Jfh+wlfVW#dL+1-`5">
+                                    <value name="individual">
                                       <block type="variables_get_individual" id="j/my(+:Xd)vfvLt`rS#(">
                                         <field name="VAR" id="~.yV7AFwhpE@lu/Y6BqS" variabletype="Individual">parent</field>
                                       </block>
@@ -161,11 +155,8 @@
                                   </block>
                                 </value>
                                 <value name="B">
-                                  <block type="procedures_callreturn" id="AUzH)Q#b^(i@SU=Re#;K">
-                                    <mutation name="fitness">
-                                      <arg name="individual"></arg>
-                                    </mutation>
-                                    <value name="ARG0">
+                                  <block type="functions_basic_fitness" id="ppAtc;`8]dYp9veqq@J@">
+                                    <value name="individual">
                                       <block type="variables_get_individual" id="P3@ND_0,?jJD6dDcyFSE">
                                         <field name="VAR" id="/tnRua%7/_s9G4(pG,{t" variabletype="Individual">offspring</field>
                                       </block>
@@ -186,14 +177,10 @@
                             </statement>
                             <next>
                               <block type="plotting_one_value" id="wwOUsqg_~9g*Z^)@(-W`">
-                                <field name="plotName">fitness</field>
                                 <field name="plotType">line</field>
                                 <value name="yValue">
-                                  <block type="procedures_callreturn" id="K!bd85Yv$!U#UBq5.#}k">
-                                    <mutation name="fitness">
-                                      <arg name="individual"></arg>
-                                    </mutation>
-                                    <value name="ARG0">
+                                  <block type="functions_basic_fitness" id="bsQ;@.tod$I=+k#Q!6*^">
+                                    <value name="individual">
                                       <block type="variables_get_individual" id="mzBUu{CG3fi/PRBh|h-r">
                                         <field name="VAR" id="~.yV7AFwhpE@lu/Y6BqS" variabletype="Individual">parent</field>
                                       </block>
@@ -203,6 +190,11 @@
                                 <value name="datasetNumber">
                                   <shadow type="math_number" id="m?lkVIIeclY1!D*S]E.t">
                                     <field name="NUM">1</field>
+                                  </shadow>
+                                </value>
+                                <value name="plotName">
+                                  <shadow type="text" id="GNxRIfo[;V[raT.%Bx[Z">
+                                    <field name="TEXT">fitness</field>
                                   </shadow>
                                 </value>
                               </block>

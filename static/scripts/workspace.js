@@ -58,88 +58,93 @@ $("#output-column").height($("#blockly-div").height());
 document.getElementById("spinner").style.display = "none";
 document.getElementById("workspace-content").style.opacity = "1.0";
 
-const exampleDropdown = new bootstrap.Dropdown('#navbarExampleDropdown');
-const saveDropdown = new bootstrap.Dropdown('#navbarSaveDropdown');
+const exampleDropdown = new bootstrap.Dropdown("#navbarExampleDropdown");
+const saveDropdown = new bootstrap.Dropdown("#navbarSaveDropdown");
 
-document.getElementById('navbarExampleDropdown').addEventListener('click', () => {
-  exampleDropdown.toggle(exampleDropdown);
-})
-document.getElementById('navbarSaveDropdown').addEventListener('click', () => {
+document
+  .getElementById("navbarExampleDropdown")
+  .addEventListener("click", () => {
+    exampleDropdown.toggle(exampleDropdown);
+  });
+document.getElementById("navbarSaveDropdown").addEventListener("click", () => {
   saveDropdown.toggle(saveDropdown);
-})
+});
 //tutorial:
 
 const tutorialModal = new bootstrap.Modal("#tutorialModal");
-const tutorialCarousel = new bootstrap.Carousel('#tutorialCarousel');
+const tutorialCarousel = new bootstrap.Carousel("#tutorialCarousel");
 
 //show tutorial on page load
 //eslint-disable-next-line no-unused-vars -- is necessary to catch event
 
-
-
-const cookieBanner = new bootstrap.Modal('#cookieBanner');
-const tutorialCloseButton = document.getElementById('tutorialModalClose');
-const optOutCheck = document.getElementById('tutorialOptOutBox');
+const cookieBanner = new bootstrap.Modal("#cookieBanner");
+const tutorialCloseButton = document.getElementById("tutorialModalClose");
+const optOutCheck = document.getElementById("tutorialOptOutBox");
 
 //cookie consent and tutorial opt-out
 
-document.getElementById('cookieOptions').addEventListener('click', () => {
+document.getElementById("cookieOptions").addEventListener("click", () => {
   cookieBanner.show(cookieBanner);
-})
-if(!Cookies.get('cookieConsent')){
-  window.addEventListener('load', () =>{
+});
+if (!Cookies.get("cookieConsent")) {
+  window.addEventListener("load", () => {
     cookieBanner.show(cookieBanner);
-  })
+  });
 }
-document.getElementById('cookieConsentAccept').addEventListener('click', () => {
-  Cookies.set('cookieConsent','true', {expires: 180});
-  Cookies.set('tutorialOptOut','false', {expires: 180});
+document.getElementById("cookieConsentAccept").addEventListener("click", () => {
+  Cookies.set("cookieConsent", "true", { expires: 180 });
+  Cookies.set("tutorialOptOut", "false", { expires: 180 });
   tutorialModal.show(tutorialModal);
-})
-document.getElementById('cookieConsentDismiss').addEventListener('click', () => {
-  console.log('hello');
-  Cookies.remove('cookieConsent');
-  Cookies.remove('tutorialOptOut');
-  tutorialModal.show(tutorialModal);
-})
-
-
-if (Cookies.get('tutorialOptOut') == 'false' && Cookies.get('cookieConsent') == 'true'){
-  window.addEventListener('load', () => {
+});
+document
+  .getElementById("cookieConsentDismiss")
+  .addEventListener("click", () => {
+    console.log("hello");
+    Cookies.remove("cookieConsent");
+    Cookies.remove("tutorialOptOut");
     tutorialModal.show(tutorialModal);
-  })
+  });
+
+if (
+  Cookies.get("tutorialOptOut") == "false" &&
+  Cookies.get("cookieConsent") == "true"
+) {
+  window.addEventListener("load", () => {
+    tutorialModal.show(tutorialModal);
+  });
 }
-if (Cookies.get('tutorialOptOut') == 'true'){
+if (Cookies.get("tutorialOptOut") == "true") {
   optOutCheck.checked = true;
 }
-tutorialCloseButton.addEventListener('click', () =>{
-
-  if(optOutCheck.checked == true && Cookies.get('cookieConsent') == 'true'){
-    Cookies.set('tutorialOptOut','true', { expires: 180 },);
-  } else if(Cookies.get('cookieConsent') == 'true'){
-    Cookies.set('tutorialOptOut','false', { expires: 14});
+tutorialCloseButton.addEventListener("click", () => {
+  if (optOutCheck.checked == true && Cookies.get("cookieConsent") == "true") {
+    Cookies.set("tutorialOptOut", "true", { expires: 180 });
+  } else if (Cookies.get("cookieConsent") == "true") {
+    Cookies.set("tutorialOptOut", "false", { expires: 14 });
   }
-})
+});
 
 //hide button controls on first and last slide
-const prevButton = document.getElementById('prevButton');
-const nextButton = document.getElementById('nextButton');
+const prevButton = document.getElementById("prevButton");
+const nextButton = document.getElementById("nextButton");
 prevButton.style.display = "none";
-document.addEventListener('slid.bs.carousel', () => {
-    if(document.getElementById('firstSlide').classList.contains('active')) {
-        prevButton.style.display = "none";
-    } else if(document.getElementById('lastSlide').classList.contains('active')) {
-        nextButton.style.display = "none";
-    } else {
-      nextButton.style.display = "block";
-      prevButton.style.display = "block";
-    }
-})
+document.addEventListener("slid.bs.carousel", () => {
+  if (document.getElementById("firstSlide").classList.contains("active")) {
+    prevButton.style.display = "none";
+  } else if (
+    document.getElementById("lastSlide").classList.contains("active")
+  ) {
+    nextButton.style.display = "none";
+  } else {
+    nextButton.style.display = "block";
+    prevButton.style.display = "block";
+  }
+});
 
 //reset tutorial on close
-document.getElementById('tutorialModalClose').addEventListener('click', () => {
+document.getElementById("tutorialModalClose").addEventListener("click", () => {
   tutorialCarousel.to(0);
-})
+});
 
 // Add a output entry to show printing statements
 function addPrintOutput() {
@@ -178,14 +183,55 @@ function addNewDeletableOutputEntry(
   outputContent,
   outputContentID,
   title,
-  deleteOperation = () => {}
+  deleteOperation = () => {},
+  downloadOperations = [], // list of custom buttons in the form [{'name': name_for_button_id, 'operation': operation_to_be_called, 'text': text_on_button}]
+  detailsOperation = null,
+  advancedOperations = []
 ) {
   let numOutput = $("#output-column > *").length;
+
+  let buttonrow = "";
+  let optionsrow = "";
+  let advoptionsrow = "";
+  if (downloadOperations.length > 0 || advancedOperations.lenght > 0) {
+    buttonrow += `<div>`;
+  }
+  if (downloadOperations.length > 0) {
+    buttonrow += `
+      <button class="btn btn-outline-dark" id="toggle-${title}-download">Download</button>`;
+
+    optionsrow += `<div id="download-${title}-button-div">
+    `;
+    downloadOperations.forEach((operation) => {
+      optionsrow += `<button id="${operation["name"]}-${title}-button" class="btn btn-outline-dark">${operation["text"]}</button>`;
+    });
+    optionsrow += `</div>`;
+  }
+  if (advancedOperations.length > 0) {
+    buttonrow += `
+      <button class="btn btn-outline-dark" id="toggle-${title}-analyse">Analysis</button>`;
+    advoptionsrow += `<div id="analyse-${title}-button-div">
+    `;
+    advancedOperations.forEach((operation) => {
+      advoptionsrow += `<button id="${operation["name"]}-${title}-button" class="btn btn-outline-dark">${operation["text"]}</button>`;
+    });
+    advoptionsrow += `</div>`;
+  }
+  if (downloadOperations.length > 0 || advancedOperations.lenght > 0) {
+    buttonrow += `</div>`;
+  }
+
+  let detailsButtonString = "";
+  if (detailsOperation != null) {
+    detailsButtonString = `<button class="btn btn-outline-dark" id="show-details-${title}-button">Details</button>`;
+  }
+
   let divString = `
   <div class="output-block" id="output-${numOutput}">
     <div class="output-header">
       <h3 class="output-heading" id="output-${numOutput}-heading">${title}</h3>
       <div class="output-header-buttons">
+        ${detailsButtonString}
         <button class="btn btn-outline-dark" id="output-${numOutput}-hide-button">Hide</button>
         <button class="btn btn-outline-danger" id="output-${numOutput}-delete-button">Delete</button>
       </div>
@@ -193,8 +239,13 @@ function addNewDeletableOutputEntry(
     <div id="output-${numOutput}-content">
       ${outputContent}
     </div>
+    <div id="button-row-${title}">
+    ${buttonrow}
+    ${optionsrow}
+    ${advoptionsrow}
+    </div>
   </div>`;
-  $("#output-column").append(divString);
+  $("#output-column").prepend(divString);
 
   // Add a button to toggle between showing and hiding the output entry
   $(`#output-${numOutput}-hide-button`).click(() => {
@@ -203,6 +254,7 @@ function addNewDeletableOutputEntry(
       newButtonValue = "Hide";
     $(`#output-${numOutput}-hide-button`).text(newButtonValue);
     $(`#output-${numOutput}-content`).slideToggle(300);
+    $(`#button-row-${title}`).slideToggle(300);
   });
 
   // Add a button to delete the entry
@@ -211,6 +263,47 @@ function addNewDeletableOutputEntry(
     $(`#output-${numOutput}-content`).remove();
     $(`#output-${numOutput}`).hide();
   });
+
+  if (detailsOperation != null) {
+    $(`#show-details-${title}-button`).click(() => {
+      detailsOperation();
+    });
+  }
+
+  // Add toggle button for download options
+  if (downloadOperations.length > 0) {
+    $(`#download-${title}-button-div`).slideToggle(10);
+    $(`#toggle-${title}-download`).click(() => {
+      if ($(`#analyse-${title}-button-div`).css("display") != "none") {
+        $(`#analyse-${title}-button-div`).slideToggle(10);
+      }
+      $(`#download-${title}-button-div`).slideToggle(300);
+    });
+  }
+
+  if (advancedOperations.length > 0) {
+    $(`#analyse-${title}-button-div`).slideToggle(10);
+    $(`#toggle-${title}-analyse`).click(() => {
+      if ($(`#download-${title}-button-div`).css("display") != "none") {
+        $(`#download-${title}-button-div`).slideToggle(10);
+      }
+      $(`#analyse-${title}-button-div`).slideToggle(300);
+    });
+  }
+
+  // link the buttons to their actions
+  downloadOperations.forEach((operation) => {
+    $(`#${operation["name"]}-${title}-button`).click(() => {
+      operation["operation"]();
+    });
+  });
+
+  advancedOperations.forEach((operation) => {
+    $(`#${operation["name"]}-${title}-button`).click(() => {
+      operation["operation"]();
+    });
+  });
+
   return document.getElementById(outputContentID);
 }
 
@@ -234,5 +327,10 @@ function tryDownloadLog() {
   if (hasEntriesIOH()) downloadIOH();
   else alert("The IOHAnalyzer file is empty.");
 }
+
+var plotDetailCloseButton = document.getElementById("close-detailed-plot");
+plotDetailCloseButton.onclick = function () {
+  document.getElementById("plotModal").style.display = "none";
+};
 
 export { addPrintOutput, addNewDeletableOutputEntry };

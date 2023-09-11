@@ -523,6 +523,7 @@ export const blockDefinitions = [
     helpUrl: "",
   },
   {
+<<<<<<< HEAD
     type: "flip_l",
     message0: "mutate %2 bits of %1",
     args0: [
@@ -555,10 +556,24 @@ export const blockDefinitions = [
       {
         type: "input_value",
         name: "value_l",
+=======
+    type: "sample_normal_positive",
+    message0: "positive sample from normal distribution: mean %1, variance %2",
+    args0: [
+      {
+        type: "input_value",
+        name: "mean",
+        check: "Number",
+      },
+      {
+        type: "input_value",
+        name: "variance",
+>>>>>>> upstream/main
         check: "Number",
       },
     ],
     inputsInline: true,
+<<<<<<< HEAD
     // output: null,
     previousStatement: null,
     nextStatement: null,
@@ -600,6 +615,11 @@ export const blockDefinitions = [
     output: "Individual",
     style: "indiv_blocks",
     tooltip: "smallest individual with maximum fitness",
+=======
+    output: "Number",
+    style: "indiv_blocks",
+    tooltip: "take positive sample from normal distribution with mean and variance as input",
+>>>>>>> upstream/main
     helpUrl: "",
   },
   {
@@ -945,10 +965,10 @@ export const blockDefinitions = [
           "Determines to which dataset of the plot this data will be added.",
       },
       {
-        type: "field_input",
+        type: "input_value",
         name: "plotName",
         text: "fitness",
-        check: "String",
+        check: ["String", "Number"],
         comment: "Determines which plot this datapoint will be added to.",
       },
       {
@@ -1024,7 +1044,7 @@ export const blockDefinitions = [
     inputsInline: true,
     output: "Number",
     style: "fitness_blocks",
-    tooltip: "Calculate the hemming distance between two individuals.",
+    tooltip: "Calculate the Hamming distance between two individuals.",
     helpUrl: "",
   },
   {
@@ -1051,10 +1071,9 @@ export const blockDefinitions = [
           "Determines to which dataset of the plot this data will be added.",
       },
       {
-        type: "field_input",
+        type: "input_value",
         name: "plotName",
-        text: "fitness",
-        check: "String",
+        check: ["String", "Number"],
         comment: "Determines which plot this datapoint will be added to.",
       },
       {
@@ -1119,5 +1138,24 @@ export const blockDefinitions = [
     style: "loop_blocks",
     tooltip: "Loop that counts iterations needed",
     helpUrl: "",
+<<<<<<< HEAD
+=======
+  },
+  {
+    type: "functions_basic_fitness",
+    message0: "fitness of %1",
+    args0: [
+      {
+        type: "input_value",
+        name: "individual",
+        check: "Individual",
+      },
+    ],
+    inputsInline: false,
+    output: "Number",
+    style: "fitness_blocks",
+    tooltip: "Calls the fitness function on the given individual",
+    helpUrl: "",
+>>>>>>> upstream/main
   },
 ];

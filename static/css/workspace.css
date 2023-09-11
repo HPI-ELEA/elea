@@ -103,9 +103,33 @@ main {
 }
 
 .carousel-caption {
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 7px;
   padding: 1rem;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+  width: 50px;
+  height: 50px;
+  background-color: #d47404;
+  border-radius: 50%;
+  top: calc(50% - 25px);
+  opacity: 0.8;
+}
+
+.carousel-control-next {
+  right: 5%;
+}
+
+.carousel-control-next-icon {
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+.carousel-control-prev-icon {
+  margin-top: 4px;
+  margin-right: 4px;
 }
 
 #cookieBannerDialog {
@@ -116,3 +140,13 @@ main {
   overflow: auto;
   overflow-y: auto;
 }
+
+#plotModalDialog {
+  max-width: 80%;
+  max-height: 70%;
+}
+
+#plotModalContent {
+  border-width: 5px;
+}
+

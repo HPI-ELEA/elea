@@ -1,6 +1,6 @@
 import { addNewDeletableOutputEntry } from "./workspace";
 import JSZip from "./jszip.js";
-import { downloadZIP } from "./modules/fileUtils";
+import { downloadZIP, readFile } from "./modules/fileUtils";
 
 class PlotHandler {
   constructor() {
@@ -35,8 +35,19 @@ class PlotHandler {
 
   async downloadPlotDataAsCSV() {
     let zip = JSZip();
+    let readme = await readFile("./export/CSV_README.md");
+    zip.file("README.md", readme);
     this.plotMap.forEach((value) => value.getPlotDataAsCSV(zip));
     await downloadZIP(zip, "elea_plots.zip");
+  }
+
+  async downloadSinglePlotAsCSV(plotName) {
+    let zip = JSZip();
+    let readme = await readFile("./export/CSV_README.md");
+    zip.file("README.md", readme);
+    var plot = this.plotMap.get(plotName);
+    plot.getPlotDataAsCSV(zip);
+    await downloadZIP(zip, plotName + "_plot.zip");
   }
 
   hasPlotEntries() {
@@ -45,6 +56,22 @@ class PlotHandler {
 
   removePlot(plotName) {
     this.plotMap.delete(plotName);
+  }
+
+  getPlotAsPng(plotName) {
+    var plot = this.plotMap.get(plotName);
+    plot.getPlotAsPng();
+  }
+
+  openPlotInModal(plotName) {
+    this.plotMap.forEach((plot) => plot.clearDetailedPlot());
+    var plot = this.plotMap.get(plotName);
+    plot.openPlotInModal();
+  }
+
+  showAverage(plotName) {
+    var plot = this.plotMap.get(plotName);
+    plot.showAverage();
   }
 }
 
@@ -57,10 +84,35 @@ class PlotWorker {
     this.chartExists = false;
     this.iteration = 0;
     this.isSingleInput = true;
+    this.detailedPlot = null;
     if (globalThis.window) {
       let divString = `<canvas id="plot-${name}"></canvas>`;
-      addNewDeletableOutputEntry(divString, name, name, () =>
-        this.plotHandler.removePlot(this.plotName)
+      addNewDeletableOutputEntry(
+        divString,
+        name,
+        name,
+        () => this.plotHandler.removePlot(this.plotName), // delete operation
+        [
+          {
+            name: "download-img",
+            operation: () => this.plotHandler.getPlotAsPng(this.plotName),
+            text: "Download Image",
+          },
+          {
+            name: "download-csv",
+            operation: () =>
+              this.plotHandler.downloadSinglePlotAsCSV(this.plotName),
+            text: "Download CSV",
+          },
+        ],
+        () => this.plotHandler.openPlotInModal(this.plotName), // details operation
+        [
+          {
+            name: "add-avg-line",
+            operation: () => this.plotHandler.showAverage(this.plotName),
+            text: "Show Average",
+          },
+        ]
       );
       let canvasID = "plot-" + name;
       this.chartArea = document.getElementById(canvasID).getContext("2d");
@@ -117,6 +169,7 @@ class PlotWorker {
               beginAtZero: false,
             },
           },
+          responsive: true,
           plugins: {
             title: {
               display: true,
@@ -126,6 +179,9 @@ class PlotWorker {
               position: "top",
               maxHeight: 30,
               textDirection: "ltr",
+            },
+            tooltip: {
+              enabled: false,
             },
           },
         },
@@ -149,6 +205,97 @@ class PlotWorker {
     }
     zip.file(this.plotName + ".csv", csvContent);
   }
+
+  getPlotAsPng() {
+    var image = this.myChart.toBase64Image();
+    var a = document.createElement("a");
+    a.href = image;
+    a.download = this.plotName + ".png";
+    a.click();
+  }
+
+  openPlotInModal() {
+    var modal = document.getElementById("plotModal");
+    modal.style.display = "block";
+    var ctx = document.getElementById("detailedPlotCanvas").getContext("2d");
+    this.detailedPlot = new Chart(ctx, this.myChart.config); //eslint-disable-line no-undef -- is defined in block code
+    return;
+  }
+
+  //Allow other plots to use the canvas
+  clearDetailedPlot() {
+    if (this.detailedPlot) {
+      this.detailedPlot.destroy();
+    }
+  }
+
+  showAverage() {
+    // Calculate the new dataset
+    let avgList = [];
+    if (this.isSingleInput) {
+      avgList = getSingleInputAverage(this.plotData);
+    } else {
+      avgList = getDoubleInputAverage(this.plotData);
+    }
+    // Add the new dataset
+    let avgDataset = {
+      label: "Average",
+      backgroundColor: "rgba(255,0,0,1)",
+      borderColor: "rgba(255,0,0,1)",
+      data: avgList,
+    };
+
+    // Make all other Datasets opaque
+    this.myChart.data.datasets.map((dataset) => {
+      let color = dataset.backgroundColor;
+      color = color.replace(/[\d.]+\)$/g, "0.15)");
+      dataset.backgroundColor = color;
+      dataset.borderColor = color;
+    });
+    this.myChart.data.datasets.push(avgDataset);
+    this.myChart.update();
+    return;
+  }
+}
+
+function getSingleInputAverage(plotData) {
+  let avgList = [];
+  let datasets = Array.from(plotData.values());
+  let maxColumnLength = Math.max(
+    ...datasets.map((dataset) => dataset.data.length)
+  );
+  // iterate over every step
+  for (let i = 0; i < maxColumnLength; i++) {
+    let sum = 0;
+    let entries = 0;
+    datasets.map((dataset) => {
+      let data = dataset.data;
+      if (data.length > i) {
+        sum += data[i].y;
+        entries++;
+      }
+    });
+    avgList.push({ x: i, y: sum / entries });
+  }
+  return avgList;
+}
+
+function getDoubleInputAverage(plotData) {
+  let allDatasets = Array.from(plotData.values());
+  let allData = allDatasets.flatMap((dataset) => dataset.data);
+
+  let averages = Object.values(
+    allData.flat().reduce((acc, dataset) => {
+      const { x, y } = dataset;
+      if (!acc[x]) {
+        acc[x] = { sum: 0, count: 0, x: x };
+      }
+      acc[x].sum += y;
+      acc[x].count++;
+      return acc;
+    }, {})
+  ).map(({ sum, count, x }) => ({ x: x, y: sum / count }));
+  return averages;
 }
 
 function tranformSingleInputToCSV(plotData) {

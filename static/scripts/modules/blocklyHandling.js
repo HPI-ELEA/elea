@@ -159,7 +159,15 @@ function runCode() {
     "importScripts(('" +
     self.location +
     "').replace(/([^/]*$)/, '')+'scripts/MessageHandler.js');\n";
+<<<<<<< HEAD
   imports += "_thread_id = null;\nvar dictionary = {};\n";
+=======
+  imports +=
+    "importScripts(('" +
+    self.location +
+    "').replace(/([^/]*$)/, '')+'scripts/gaussian.js');\n";
+  imports += "_thread_id = null;\n";
+>>>>>>> upstream/main
 
   // code = imports + "function windowalert(x) {self.postMessage({output:x})};\n" + messageHandler + dateSetup + code termination//logSetup + code + logSave + termination // TODO? we don't really need it other than for abort
   code = imports + dateSetup + code;

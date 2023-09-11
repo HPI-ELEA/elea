@@ -683,6 +683,37 @@ Blockly.JavaScript["ea_mutate_bit"] = function (block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.JavaScript["sample_normal_positive"] = function (block) {
+  let variableMean = Blockly.JavaScript.valueToCode(
+    block,
+    "mean",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  let variableVariance = Blockly.JavaScript.valueToCode(
+    block,
+    "variance",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  var functionName = Blockly.JavaScript.provideFunction_(
+    "sampleNormalPositive",
+    [
+      "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
+      "   const distribution = gaussian(" +
+        variableMean +
+        "," +
+        variableVariance +
+        ");",
+      "   let sample = 0;",
+      "   while (sample <= 0) sample = Math.round(distribution.ppf(Math.random()));",
+      "   return sample;",
+      "}",
+    ]
+  );
+  var code = functionName + "()";
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+
 Blockly.JavaScript["ea_debug_all"] = function () {
   var code = 'windowalert("genome_length: " + genome_length);\n';
   code += 'windowalert("lambda: " + _CE_BB);\n';
@@ -703,15 +734,17 @@ Blockly.JavaScript["ea_debug"] = function (block) {
   );
 
   // Add new line characters if the logging_variable is a two-dimensional array
-  var code = "var print_var = " + variable_ + ";\n";
-  code +=
-    "if(" +
-    variable_ +
-    ".length != 0 && Array.isArray(" +
-    variable_ +
-    "[0]))\n";
-  code += "  print_var = " + variable_ + '.join("\\n");\n';
-  code += "consolelog(print_var);\n";
+
+  var functionName = Blockly.JavaScript.provideFunction_("printToOutput", [
+    "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "(output) {",
+    "var print_var = output;",
+    "if(output.lenght != 0 && Array.isArray(output[0]))",
+    "   print_var = output.join('\\n');",
+    "consolelog(print_var);",
+    "}",
+  ]);
+
+  var code = functionName + "(" + variable_ + ");\n";
   return code;
 };
 
@@ -883,13 +916,17 @@ Blockly.JavaScript["plotting_one_value"] = function (block) {
     "datasetNumber",
     Blockly.JavaScript.ORDER_ATOMIC,
   );
-  var variablePlotName = block.getFieldValue("plotName");
+  var variablePlotName = Blockly.JavaScript.valueToCode(
+    block,
+    "plotName",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
   var variablePlotType = block.getFieldValue("plotType");
 
   var code = "plot({xValue: null, yValue: ";
   code += variableYValue + ", datasetNumber: ";
   code += variableDatasetNumber + ", plotName: ";
-  code += "'" + variablePlotName + "', plotType: ";
+  code += variablePlotName + ", plotType: ";
   code += "'" + variablePlotType + "'});\n";
   return code;
 };
@@ -959,13 +996,17 @@ Blockly.JavaScript["plotting_two_values"] = function (block) {
     "datasetNumber",
     Blockly.JavaScript.ORDER_ATOMIC,
   );
-  var variablePlotName = block.getFieldValue("plotName");
+  var variablePlotName = Blockly.JavaScript.valueToCode(
+    block,
+    "plotName",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
   var variablePlotType = block.getFieldValue("plotType");
 
   var code = "plot({xValue: " + variableXValue + ", yValue: ";
   code += variableYValue + ", datasetNumber: ";
   code += variableDatasetNumber + ", plotName: ";
-  code += "'" + variablePlotName + "', plotType: ";
+  code += variablePlotName + ", plotType: ";
   code += "'" + variablePlotType + "'});\n";
   return code;
 };
@@ -975,12 +1016,20 @@ Blockly.JavaScript["iteration_counter_loop"] = function (block) {
   var variableCondition = Blockly.JavaScript.valueToCode(
     block,
     "loop_condition",
+<<<<<<< HEAD
     Blockly.JavaScript.ORDER_ATOMIC,
+=======
+    Blockly.JavaScript.ORDER_ATOMIC
+>>>>>>> upstream/main
   );
   var statements = Blockly.JavaScript.statementToCode(block, "loop_statement");
   var variableCounter = Blockly.JavaScript.nameDB_.getName(
     block.getFieldValue("counter_variable"),
+<<<<<<< HEAD
     Blockly.Variables.NAME_TYPE,
+=======
+    Blockly.Variables.NAME_TYPE
+>>>>>>> upstream/main
   );
 
   var code = "";
@@ -997,4 +1046,15 @@ Blockly.JavaScript["iteration_counter_loop"] = function (block) {
     code += "}\n";
     return code;
   }
+};
+
+Blockly.JavaScript["functions_basic_fitness"] = function (block) {
+  var variableIndividual = Blockly.JavaScript.valueToCode(
+    block,
+    "individual",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  var code = "";
+  code += "fitness(" + variableIndividual + ")";
+  return [code, Blockly.JavaScript.ORDER_NONE];
 };
