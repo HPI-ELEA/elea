@@ -1,7 +1,5 @@
 import * as Blockly from "blockly";
-import { sample, shuffle, shuffleInPlace } from "simple-statistics";
 import { blockDefinitions } from "../blockDefinition/normalBlocks";
-// import { binomialDistributionPositive } from "./utils";
 Blockly.defineBlocksWithJsonArray(blockDefinitions);
 
 // console.log(binomialDistributionPositive(5, 0.2));
@@ -594,9 +592,6 @@ Blockly.JavaScript["flip_l"] = function (block) {
   );
 
   let code = `(function() {
-  ${shuffleInPlace.toString()}
-  ${shuffle.toString()}
-  const sample = ${sample.toString()};
   const individual = ${variableIndividual};
   const n = individual.length;
   const l = ${variableL};

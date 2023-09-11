@@ -162,6 +162,10 @@ function runCode() {
   imports +=
     "importScripts(('" +
     self.location +
+    "').replace(/([^/]*$)/, '')+'scripts/sample.js');\n";
+  imports +=
+    "importScripts(('" +
+    self.location +
     "').replace(/([^/]*$)/, '')+'scripts/gaussian.js');\n";
   imports +=
     "importScripts(('" +
