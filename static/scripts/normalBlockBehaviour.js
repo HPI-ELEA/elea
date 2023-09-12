@@ -592,7 +592,8 @@ Blockly.JavaScript["flip_l"] = function (block) {
   );
 
   let code = `(function() {
-    const individual = ${variableIndividual};
+    // clone input object
+    const individual = ${variableIndividual}.map(x => x);
     const n = individual.length;
     const l = ${variableL};
     let positions = sample([...Array(n).keys()], l);
