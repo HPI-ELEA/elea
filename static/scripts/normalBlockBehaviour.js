@@ -182,12 +182,12 @@ Blockly.JavaScript["init_constant"] = function (block) {
   var functionName = Blockly.JavaScript.provideFunction_("zeroInitPopulation", [
     "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
     "  var fullArray = Array(_C2_B5);",
-    "  var tempArray = new Individual(genome_length, false);",
-    "  for (var j=0; j < genome_length;j++) {",
-    "    tempArray[j] = " + dropdownConstant + ";",
-    "  }",
-    "  for (var j=0; j < _C2_B5;j++) {",
-    "    fullArray[j] = tempArray;",
+    "  for (let j = 0; j < _C2_B5; j++) {",
+    // make sure to make a unique object on the heap
+    "    fullArray[j] = new Individual(genome_length, false);",
+    "    for (let i = 0; i < genome_length; i++) {",
+    "      fullArray[j][i] = " + dropdownConstant + ";",
+    "    }",
     "  }",
     "  return fullArray;",
     "}",
