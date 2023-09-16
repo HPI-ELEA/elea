@@ -523,8 +523,29 @@ export const blockDefinitions = [
     helpUrl: "",
   },
   {
+    type: "flip_l",
+    message0: "mutate %2 bits of %1",
+    args0: [
+      {
+        type: "input_value",
+        name: "individual",
+        check: "Individual",
+      },
+      {
+        type: "input_value",
+        name: "l",
+        check: "Number",
+      },
+    ],
+    inputsInline: true,
+    output: "Individual",
+    style: "indiv_blocks",
+    tooltip: "Mutate uniformly-random L bits of a given individual.",
+    helpUrl: "",
+  },
+  {
     type: "sample_normal_positive",
-    message0: "positive sample from normal distribution: mean %1, variance %2",
+    message0: "positive sample from N(%1, %2)",
     args0: [
       {
         type: "input_value",

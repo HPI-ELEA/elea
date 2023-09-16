@@ -605,66 +605,6 @@ Blockly.JavaScript["flip_l"] = function (block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.JavaScript["dictionary_set"] = function (block) {
-  var variableKey = Blockly.JavaScript.valueToCode(
-    block,
-    "key_individual",
-    Blockly.JavaScript.ORDER_ATOMIC
-  );
-
-  var variableValue = Blockly.JavaScript.valueToCode(
-    block,
-    "value_l",
-    Blockly.JavaScript.ORDER_ATOMIC
-  );
-
-  var code = `
-  (function() {
-    const individual = ${variableKey};
-    const l = ${variableValue};
-    dictionary[individual.join('')] = l;
-    // console.log(Object.entries(dictionary)[0]);
-  })();`;
-  return code;
-};
-
-Blockly.JavaScript["dictionary_get"] = function (block) {
-  var variableKey = Blockly.JavaScript.valueToCode(
-    block,
-    "key_individual",
-    Blockly.JavaScript.ORDER_ATOMIC
-  );
-
-  var code = `
-  (function() {
-    const individual = ${variableKey};
-    return dictionary[individual.join('')];
-    // console.log(Object.entries(dictionary)[0]);
-  })();`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
-
-Blockly.JavaScript["dictionary_reset"] = function () {
-  var code = `dictionary = {};`;
-  return code;
-};
-
-Blockly.JavaScript["dictionary_max"] = function () {
-  var code = `
-  (function() {
-    const keyToIndividual = key => key.split('').map(b => parseInt(b));
-    let maximumFitness = undefined;
-    let result = [];
-    for (const key of Object.keys(dictionary)) {
-      if (maximumFitness === undefined && fitness(keyToIndividual(key)) > fitness(keyToIndividual(result))) {
-        result = key;
-      }
-    }
-    return keyToIndividual(result);
-  })()`;
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
-
 Blockly.JavaScript["ea_mutate_bit"] = function (block) {
   // WARNING: ea_mutate_bit uses hardcoded variables.
   var variableIndividual = Blockly.JavaScript.valueToCode(
