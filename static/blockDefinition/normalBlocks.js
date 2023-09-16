@@ -544,6 +544,23 @@ export const blockDefinitions = [
     helpUrl: "",
   },
   {
+    type: "get_l",
+    message0: "get l metadata from %1",
+    args0: [
+      {
+        type: "input_value",
+        name: "individual",
+        check: "Individual",
+      },
+    ],
+    inputsInline: true,
+    output: "Number",
+    style: "indiv_blocks",
+    tooltip:
+      "Get l metadata from individual for the purposes of IOHalgorithm 7.",
+    helpUrl: "",
+  },
+  {
     type: "sample_normal_positive",
     message0: "positive sample from N(%1, %2)",
     args0: [

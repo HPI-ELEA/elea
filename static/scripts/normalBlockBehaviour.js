@@ -595,12 +595,25 @@ Blockly.JavaScript["flip_l"] = function (block) {
     // clone input object
     const individual = ${variableIndividual}.map(x => x);
     const n = individual.length;
-    const l = ${variableL};
-    let positions = sample([...Array(n).keys()], l);
+    individual.l = ${variableL};
+    let positions = sample([...Array(n).keys()], individual.l);
     for (const i of positions) {
       individual[i] = 1 - individual[i];
     }
     return individual;
+  })()`;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript["get_l"] = function (block) {
+  let variableIndividual = Blockly.JavaScript.valueToCode(
+    block,
+    "individual",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  let code = `(function() {
+    return ${variableIndividual}.l;
   })()`;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
