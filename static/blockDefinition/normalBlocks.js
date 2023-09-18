@@ -583,6 +583,27 @@ export const blockDefinitions = [
     helpUrl: "",
   },
   {
+    type: "minimum",
+    message0: "min(%1, %2)",
+    args0: [
+      {
+        type: "input_value",
+        name: "a",
+        check: "Number",
+      },
+      {
+        type: "input_value",
+        name: "b",
+        check: "Number",
+      },
+    ],
+    inputsInline: true,
+    output: "Number",
+    style: "logic_blocks",
+    tooltip: "find the smallest out of 2 items",
+    helpUrl: "",
+  },
+  {
     type: "ea_mutate_bit",
     message0: "mutate a random bit in %1 ",
     args0: [

@@ -663,6 +663,30 @@ Blockly.JavaScript["sample_normal_positive"] = function (block) {
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
+Blockly.JavaScript["minimum"] = function (block) {
+  let variableA = Blockly.JavaScript.valueToCode(
+    block,
+    "a",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  let variableB = Blockly.JavaScript.valueToCode(
+    block,
+    "b",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  var functionName = Blockly.JavaScript.provideFunction_(
+    "sampleNormalPositive",
+    [
+      "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
+      `   return Math.min(Math.round(${variableA}), Math.round(${variableB}));`,
+      "}",
+    ]
+  );
+  var code = functionName + "()";
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+
 Blockly.JavaScript["ea_debug_all"] = function () {
   var code = 'windowalert("genome_length: " + genome_length);\n';
   code += 'windowalert("lambda: " + _CE_BB);\n';
