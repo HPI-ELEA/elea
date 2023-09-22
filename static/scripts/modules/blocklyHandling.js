@@ -1,6 +1,7 @@
 var USING_THREADS = false;
 
 import * as Blockly from "blockly";
+import pythonGenerator from "blockly/python";
 import beautify from "js-beautify";
 import "regenerator-runtime/runtime";
 import {
@@ -9,7 +10,9 @@ import {
   printDoneMessageIOH,
 } from "./IOHAnalyzerHandler";
 import "../normalBlockBehaviour";
+import "../pythonBlockBehaviour";
 import "../threadBlockBehaviour";
+import "../threadBlockPythonBehaviour";
 import { addPrintOutput } from "../workspace";
 import { updateValue as updateValuePlot, drawPlots } from "../PlotHandler";
 import { updateValueCSV, printDoneMessageCSV } from "../CSVHandler";
@@ -116,6 +119,12 @@ function getCode() {
   /*eslint-disable-next-line camelcase -- arguments provided by beautify */
   code = beautify(code, { indent_size: 2, space_in_empty_paren: true });
   return code;
+}
+
+function getPythonCode() {
+  pythonGenerator.STATEMENT_PREFIX = "";
+  let pythonCode = pythonGenerator.workspaceToCode(workspace);
+  return pythonCode;
 }
 
 // TODO: modify to terminate worker
@@ -279,4 +288,11 @@ function setUsingThreads() {
   USING_THREADS = true;
 }
 
-export { setUsingThreads, workspace, runCode, getCode, terminateWorker };
+export {
+  setUsingThreads,
+  workspace,
+  runCode,
+  getCode,
+  terminateWorker,
+  getPythonCode,
+};
