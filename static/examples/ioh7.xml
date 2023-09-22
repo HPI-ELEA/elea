@@ -2,6 +2,7 @@
   <variables>
     <variable id="gx=Kau1h[kq#}B+/w|ur&quot;">individual</variable>
     <variable type="Individual" id=")(-h4Ys+-atBInHe#]XS">individual</variable>
+    <variable type="Number" id="Kr6o:SUiM:AZLDS}*=lL">time</variable>
     <variable id="L%]|o6YID15GPnVJC:Io">genome_length</variable>
     <variable id="]t3c3G.~76nk9}+G=8|8">lambda</variable>
     <variable type="Individual" id="wUUc#b%.,eTxwZEwf{YR">x</variable>
@@ -32,127 +33,132 @@
       </block>
     </value>
   </block>
-  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" deletable="false" x="646" y="153">
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" deletable="false" x="644" y="161">
     <statement name="init_statements">
-      <block type="variables_set" id="fS@_gO%b[XCWY~;#uKN=">
-        <field name="VAR" id="L%]|o6YID15GPnVJC:Io">genome_length</field>
-        <value name="VALUE">
-          <block type="math_number" id="7$1#^bv)h:OY6gOMr8//">
-            <field name="NUM">4</field>
-          </block>
-        </value>
-        <next>
-          <block type="variables_set" id="PCV~pTX%M!p19duxIA?m">
-            <field name="VAR" id="]t3c3G.~76nk9}+G=8|8">lambda</field>
+      <block type="experimental_timer" id="wBs;cUmOhajk./PD!h6{">
+        <field name="output_time" id="Kr6o:SUiM:AZLDS}*=lL" variabletype="Number">time</field>
+        <statement name="code">
+          <block type="variables_set" id="fS@_gO%b[XCWY~;#uKN=">
+            <field name="VAR" id="L%]|o6YID15GPnVJC:Io">genome_length</field>
             <value name="VALUE">
-              <block type="math_number" id="Mgi7PI*;}9=wfoJix@Ll">
-                <field name="NUM">10</field>
+              <block type="math_number" id="7$1#^bv)h:OY6gOMr8//">
+                <field name="NUM">50</field>
               </block>
             </value>
             <next>
-              <block type="comment" id="~@h$#AE%RSiKQ:s62F:s">
-                <field name="text">Line 1</field>
+              <block type="variables_set" id="PCV~pTX%M!p19duxIA?m">
+                <field name="VAR" id="]t3c3G.~76nk9}+G=8|8">lambda</field>
+                <value name="VALUE">
+                  <block type="math_number" id="Mgi7PI*;}9=wfoJix@Ll">
+                    <field name="NUM">10</field>
+                  </block>
+                </value>
                 <next>
-                  <block type="variables_set_individual" id="[SdJ1t^o`P.@rnUndyY.">
-                    <field name="VAR" id="wUUc#b%.,eTxwZEwf{YR" variabletype="Individual">x</field>
-                    <value name="VALUE">
-                      <block type="individual_init_uniform" id="HnO:.@vj/Pl*aF)wfh^3"></block>
-                    </value>
+                  <block type="comment" id="~@h$#AE%RSiKQ:s62F:s">
+                    <field name="text">Line 1</field>
                     <next>
-                      <block type="variables_set_population" id=":z8|A]$(jHeUp$|mSSw:">
-                        <field name="VAR" id=";oE2n!W[:AF`W]+aXLik" variabletype="Array">y</field>
+                      <block type="variables_set_individual" id="[SdJ1t^o`P.@rnUndyY.">
+                        <field name="VAR" id="wUUc#b%.,eTxwZEwf{YR" variabletype="Individual">x</field>
                         <value name="VALUE">
-                          <block type="lists_create_with" id="lEKtF`vKQK%h/*y4~@Y1">
-                            <mutation items="0"></mutation>
-                          </block>
+                          <block type="individual_init_uniform" id="HnO:.@vj/Pl*aF)wfh^3"></block>
                         </value>
                         <next>
-                          <block type="comment" id="6ek{mz@EL4lm;}{M6g#m">
-                            <field name="text">Line 2</field>
+                          <block type="variables_set_population" id=":z8|A]$(jHeUp$|mSSw:">
+                            <field name="VAR" id=";oE2n!W[:AF`W]+aXLik" variabletype="Array">y</field>
+                            <value name="VALUE">
+                              <block type="lists_create_with" id="lEKtF`vKQK%h/*y4~@Y1">
+                                <mutation items="0"></mutation>
+                              </block>
+                            </value>
                             <next>
-                              <block type="variables_set" id="CK3j{)z|KJuh+N^XO89a">
-                                <field name="VAR" id="pkRWi^g9!GcOYyV9@8K=">r</field>
-                                <value name="VALUE">
-                                  <block type="math_number" id="goA*L=qb@Zz[|pMOti*_">
-                                    <field name="NUM">2</field>
-                                  </block>
-                                </value>
+                              <block type="comment" id="6ek{mz@EL4lm;}{M6g#m">
+                                <field name="text">Line 2</field>
                                 <next>
-                                  <block type="comment" id="3gbTaVrwq}*$aTV~s6^J">
-                                    <field name="text">Line 3</field>
+                                  <block type="variables_set" id="CK3j{)z|KJuh+N^XO89a">
+                                    <field name="VAR" id="pkRWi^g9!GcOYyV9@8K=">r</field>
+                                    <value name="VALUE">
+                                      <block type="math_number" id="goA*L=qb@Zz[|pMOti*_">
+                                        <field name="NUM">2</field>
+                                      </block>
+                                    </value>
                                     <next>
-                                      <block type="controls_repeat_ext" id="T4XO`/$.6[TvM|8bqQVP">
-                                        <value name="TIMES">
-                                          <shadow type="math_number" id="-)gY=Vl3Jty]Cw1,Rur5">
-                                            <field name="NUM">10</field>
-                                          </shadow>
-                                        </value>
-                                        <statement name="DO">
-                                          <block type="comment" id="Pk0K6O;[K%AQ9qY4JE~Q">
-                                            <field name="text">Line 4</field>
-                                            <next>
-                                              <block type="controls_for" id="GG:Wr#N7A1=WrB{{_fbk">
-                                                <field name="VAR" id="$Lfx#`W@Tu9x3*fVh^PU">i</field>
-                                                <value name="FROM">
-                                                  <shadow type="math_number" id="hE2a2I|kJ90f!y/OEBDo">
-                                                    <field name="NUM">1</field>
-                                                  </shadow>
-                                                </value>
-                                                <value name="TO">
-                                                  <shadow type="math_number" id="5a+8Ief5VpLP!nmHg/H/">
-                                                    <field name="NUM">10</field>
-                                                  </shadow>
-                                                  <block type="variables_get" id="_)1A:3dEWSN`-2z0pu:f">
-                                                    <field name="VAR" id="]t3c3G.~76nk9}+G=8|8">lambda</field>
-                                                  </block>
-                                                </value>
-                                                <value name="BY">
-                                                  <shadow type="math_number" id="Le{1xS_)vO[TLZ5xGW%f">
-                                                    <field name="NUM">1</field>
-                                                  </shadow>
-                                                </value>
-                                                <statement name="DO">
-                                                  <block type="comment" id=",iF?2-lB8[UViPn*0C{L">
-                                                    <field name="text">Line 5</field>
-                                                    <next>
-                                                      <block type="variables_set" id="SOF^X;Ta2jSlbw9J8_/4">
-                                                        <field name="VAR" id=".SJgU.U=%o:%SS1dp3i]">l</field>
-                                                        <value name="VALUE">
-                                                          <block type="minimum" id="e?MG|u5mxwF)W^:f=#RH">
-                                                            <value name="a">
-                                                              <block type="sample_normal_positive" id="3_P:N$+{@o~gcLEb=n7[">
-                                                                <value name="mean">
-                                                                  <block type="variables_get" id="{mXf)9w;`E%.;0Zstb]a">
-                                                                    <field name="VAR" id="pkRWi^g9!GcOYyV9@8K=">r</field>
-                                                                  </block>
-                                                                </value>
-                                                                <value name="variance">
-                                                                  <block type="math_arithmetic" id="e;vx1Ug.w@a6@.TC/jqW">
-                                                                    <field name="OP">MULTIPLY</field>
-                                                                    <value name="A">
-                                                                      <block type="variables_get" id="0~FC=dK6rvk{B4%k+2FE">
+                                      <block type="comment" id="3gbTaVrwq}*$aTV~s6^J">
+                                        <field name="text">Line 3</field>
+                                        <next>
+                                          <block type="controls_repeat_ext" id="T4XO`/$.6[TvM|8bqQVP">
+                                            <value name="TIMES">
+                                              <shadow type="math_number" id="-)gY=Vl3Jty]Cw1,Rur5">
+                                                <field name="NUM">10</field>
+                                              </shadow>
+                                            </value>
+                                            <statement name="DO">
+                                              <block type="comment" id="Pk0K6O;[K%AQ9qY4JE~Q">
+                                                <field name="text">Line 4</field>
+                                                <next>
+                                                  <block type="controls_for" id="GG:Wr#N7A1=WrB{{_fbk">
+                                                    <field name="VAR" id="$Lfx#`W@Tu9x3*fVh^PU">i</field>
+                                                    <value name="FROM">
+                                                      <shadow type="math_number" id="hE2a2I|kJ90f!y/OEBDo">
+                                                        <field name="NUM">1</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <value name="TO">
+                                                      <shadow type="math_number" id="5a+8Ief5VpLP!nmHg/H/">
+                                                        <field name="NUM">10</field>
+                                                      </shadow>
+                                                      <block type="variables_get" id="_)1A:3dEWSN`-2z0pu:f">
+                                                        <field name="VAR" id="]t3c3G.~76nk9}+G=8|8">lambda</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="BY">
+                                                      <shadow type="math_number" id="Le{1xS_)vO[TLZ5xGW%f">
+                                                        <field name="NUM">1</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <statement name="DO">
+                                                      <block type="comment" id=",iF?2-lB8[UViPn*0C{L">
+                                                        <field name="text">Line 5</field>
+                                                        <next>
+                                                          <block type="variables_set" id="SOF^X;Ta2jSlbw9J8_/4">
+                                                            <field name="VAR" id=".SJgU.U=%o:%SS1dp3i]">l</field>
+                                                            <value name="VALUE">
+                                                              <block type="minimum" id="e?MG|u5mxwF)W^:f=#RH">
+                                                                <value name="a">
+                                                                  <block type="sample_normal_positive" id="3_P:N$+{@o~gcLEb=n7[">
+                                                                    <value name="mean">
+                                                                      <block type="variables_get" id="{mXf)9w;`E%.;0Zstb]a">
                                                                         <field name="VAR" id="pkRWi^g9!GcOYyV9@8K=">r</field>
                                                                       </block>
                                                                     </value>
-                                                                    <value name="B">
-                                                                      <block type="math_arithmetic" id="`N|H0su(w@Vbyb:W{apr">
-                                                                        <field name="OP">MINUS</field>
+                                                                    <value name="variance">
+                                                                      <block type="math_arithmetic" id="e;vx1Ug.w@a6@.TC/jqW">
+                                                                        <field name="OP">MULTIPLY</field>
                                                                         <value name="A">
-                                                                          <block type="math_number" id="U!Q(p#xjl5IX470f4m*=">
-                                                                            <field name="NUM">1</field>
+                                                                          <block type="variables_get" id="0~FC=dK6rvk{B4%k+2FE">
+                                                                            <field name="VAR" id="pkRWi^g9!GcOYyV9@8K=">r</field>
                                                                           </block>
                                                                         </value>
                                                                         <value name="B">
-                                                                          <block type="math_arithmetic" id="mXv$2!jqF;w$xu](`O8I">
-                                                                            <field name="OP">DIVIDE</field>
+                                                                          <block type="math_arithmetic" id="`N|H0su(w@Vbyb:W{apr">
+                                                                            <field name="OP">MINUS</field>
                                                                             <value name="A">
-                                                                              <block type="variables_get" id=")AA9@ZgU4.gCLl^,/3z5">
-                                                                                <field name="VAR" id="pkRWi^g9!GcOYyV9@8K=">r</field>
+                                                                              <block type="math_number" id="U!Q(p#xjl5IX470f4m*=">
+                                                                                <field name="NUM">1</field>
                                                                               </block>
                                                                             </value>
                                                                             <value name="B">
-                                                                              <block type="variables_get" id="TTHSU+]~geTpet?FDAv%">
-                                                                                <field name="VAR" id="L%]|o6YID15GPnVJC:Io">genome_length</field>
+                                                                              <block type="math_arithmetic" id="mXv$2!jqF;w$xu](`O8I">
+                                                                                <field name="OP">DIVIDE</field>
+                                                                                <value name="A">
+                                                                                  <block type="variables_get" id=")AA9@ZgU4.gCLl^,/3z5">
+                                                                                    <field name="VAR" id="pkRWi^g9!GcOYyV9@8K=">r</field>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="B">
+                                                                                  <block type="variables_get" id="TTHSU+]~geTpet?FDAv%">
+                                                                                    <field name="VAR" id="L%]|o6YID15GPnVJC:Io">genome_length</field>
+                                                                                  </block>
+                                                                                </value>
                                                                               </block>
                                                                             </value>
                                                                           </block>
@@ -161,118 +167,118 @@
                                                                     </value>
                                                                   </block>
                                                                 </value>
-                                                              </block>
-                                                            </value>
-                                                            <value name="b">
-                                                              <block type="variables_get" id="VLnv.p~P]6KA-2tq}6a~">
-                                                                <field name="VAR" id="L%]|o6YID15GPnVJC:Io">genome_length</field>
-                                                              </block>
-                                                            </value>
-                                                          </block>
-                                                        </value>
-                                                        <next>
-                                                          <block type="lists_setIndex" id="0el*~(0_}-Ej?=Hal_FD">
-                                                            <mutation at="true"></mutation>
-                                                            <field name="MODE">SET</field>
-                                                            <field name="WHERE">FROM_START</field>
-                                                            <value name="LIST">
-                                                              <block type="variables_get_population" id="ojl?%AHa7=MT++(H{A*Q">
-                                                                <field name="VAR" id=";oE2n!W[:AF`W]+aXLik" variabletype="Array">y</field>
-                                                              </block>
-                                                            </value>
-                                                            <value name="AT">
-                                                              <block type="variables_get" id="-X8518/hL@bgHLpd5oC/">
-                                                                <field name="VAR" id="$Lfx#`W@Tu9x3*fVh^PU">i</field>
-                                                              </block>
-                                                            </value>
-                                                            <value name="TO">
-                                                              <block type="flip_l" id="z~zyPjymxx%VDcdzgQ%)">
-                                                                <value name="l">
-                                                                  <block type="variables_get" id="W#5:4!eG:mZ7~OH/_Wy%">
-                                                                    <field name="VAR" id=".SJgU.U=%o:%SS1dp3i]">l</field>
-                                                                  </block>
-                                                                </value>
-                                                                <value name="individual">
-                                                                  <block type="variables_get_individual" id=":S8(?V.i4Em!WCo!6psi">
-                                                                    <field name="VAR" id="wUUc#b%.,eTxwZEwf{YR" variabletype="Individual">x</field>
+                                                                <value name="b">
+                                                                  <block type="variables_get" id="VLnv.p~P]6KA-2tq}6a~">
+                                                                    <field name="VAR" id="L%]|o6YID15GPnVJC:Io">genome_length</field>
                                                                   </block>
                                                                 </value>
                                                               </block>
                                                             </value>
-                                                          </block>
-                                                        </next>
-                                                      </block>
-                                                    </next>
-                                                  </block>
-                                                </statement>
-                                                <next>
-                                                  <block type="comment" id="(-a}E2er(=JtKq:Hn$+4">
-                                                    <field name="text">Line 6</field>
-                                                    <next>
-                                                      <block type="variables_set_individual" id="eWBAXmn)lpLE1QDU{~cG">
-                                                        <field name="VAR" id="%ri[IJ|Apv2-`six{DkJ" variabletype="Individual">candidate</field>
-                                                        <value name="VALUE">
-                                                          <block type="ea_select_best" id="%?MA(=}b+)UVfd(1X^mf">
-                                                            <value name="POPULATION">
-                                                              <block type="variables_get_population" id="sx31?hB.Q$};D@-#}Hup">
-                                                                <field name="VAR" id=";oE2n!W[:AF`W]+aXLik" variabletype="Array">y</field>
-                                                              </block>
-                                                            </value>
-                                                          </block>
-                                                        </value>
-                                                        <next>
-                                                          <block type="comment" id="?/nL:F`),l0,4!wa-Vsa">
-                                                            <field name="text">Line 7</field>
                                                             <next>
-                                                              <block type="variables_set" id="3HK9K4t[Vk,5kE_PzSf5">
-                                                                <field name="VAR" id="pkRWi^g9!GcOYyV9@8K=">r</field>
-                                                                <value name="VALUE">
-                                                                  <block type="get_l" id="%H@1mJ_xSRnlw-rZ.aww">
+                                                              <block type="lists_setIndex" id="0el*~(0_}-Ej?=Hal_FD">
+                                                                <mutation at="true"></mutation>
+                                                                <field name="MODE">SET</field>
+                                                                <field name="WHERE">FROM_START</field>
+                                                                <value name="LIST">
+                                                                  <block type="variables_get_population" id="ojl?%AHa7=MT++(H{A*Q">
+                                                                    <field name="VAR" id=";oE2n!W[:AF`W]+aXLik" variabletype="Array">y</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="AT">
+                                                                  <block type="variables_get" id="-X8518/hL@bgHLpd5oC/">
+                                                                    <field name="VAR" id="$Lfx#`W@Tu9x3*fVh^PU">i</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="TO">
+                                                                  <block type="flip_l" id="z~zyPjymxx%VDcdzgQ%)">
+                                                                    <value name="l">
+                                                                      <block type="variables_get" id="W#5:4!eG:mZ7~OH/_Wy%">
+                                                                        <field name="VAR" id=".SJgU.U=%o:%SS1dp3i]">l</field>
+                                                                      </block>
+                                                                    </value>
                                                                     <value name="individual">
-                                                                      <block type="variables_get_individual" id="DgJ,M!ZBooW+P!8+yTlN">
-                                                                        <field name="VAR" id="%ri[IJ|Apv2-`six{DkJ" variabletype="Individual">candidate</field>
+                                                                      <block type="variables_get_individual" id=":S8(?V.i4Em!WCo!6psi">
+                                                                        <field name="VAR" id="wUUc#b%.,eTxwZEwf{YR" variabletype="Individual">x</field>
                                                                       </block>
                                                                     </value>
                                                                   </block>
                                                                 </value>
+                                                              </block>
+                                                            </next>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </statement>
+                                                    <next>
+                                                      <block type="comment" id="(-a}E2er(=JtKq:Hn$+4">
+                                                        <field name="text">Line 6</field>
+                                                        <next>
+                                                          <block type="variables_set_individual" id="eWBAXmn)lpLE1QDU{~cG">
+                                                            <field name="VAR" id="%ri[IJ|Apv2-`six{DkJ" variabletype="Individual">candidate</field>
+                                                            <value name="VALUE">
+                                                              <block type="ea_select_best" id="%?MA(=}b+)UVfd(1X^mf">
+                                                                <value name="POPULATION">
+                                                                  <block type="variables_get_population" id="sx31?hB.Q$};D@-#}Hup">
+                                                                    <field name="VAR" id=";oE2n!W[:AF`W]+aXLik" variabletype="Array">y</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <next>
+                                                              <block type="comment" id="?/nL:F`),l0,4!wa-Vsa">
+                                                                <field name="text">Line 7</field>
                                                                 <next>
-                                                                  <block type="comment" id="r+2pRmy+kuQorn0+mC.*">
-                                                                    <field name="text">Line 8</field>
+                                                                  <block type="variables_set" id="3HK9K4t[Vk,5kE_PzSf5">
+                                                                    <field name="VAR" id="pkRWi^g9!GcOYyV9@8K=">r</field>
+                                                                    <value name="VALUE">
+                                                                      <block type="get_l" id="%H@1mJ_xSRnlw-rZ.aww">
+                                                                        <value name="individual">
+                                                                          <block type="variables_get_individual" id="DgJ,M!ZBooW+P!8+yTlN">
+                                                                            <field name="VAR" id="%ri[IJ|Apv2-`six{DkJ" variabletype="Individual">candidate</field>
+                                                                          </block>
+                                                                        </value>
+                                                                      </block>
+                                                                    </value>
                                                                     <next>
-                                                                      <block type="controls_if" id="RfK2)Tn@:3Q/(*1U/{;7">
-                                                                        <value name="IF0">
-                                                                          <block type="logic_compare" id="lemy5J[q4}??YvOFY|1V">
-                                                                            <field name="OP">GTE</field>
-                                                                            <value name="A">
-                                                                              <block type="functions_basic_fitness" id="=!2)]}}pg=(8kl)xhwIi">
-                                                                                <value name="individual">
-                                                                                  <block type="variables_get_individual" id="GKFi:@z24Aj(h4yYh]kh">
+                                                                      <block type="comment" id="r+2pRmy+kuQorn0+mC.*">
+                                                                        <field name="text">Line 8</field>
+                                                                        <next>
+                                                                          <block type="controls_if" id="RfK2)Tn@:3Q/(*1U/{;7">
+                                                                            <value name="IF0">
+                                                                              <block type="logic_compare" id="lemy5J[q4}??YvOFY|1V">
+                                                                                <field name="OP">GTE</field>
+                                                                                <value name="A">
+                                                                                  <block type="functions_basic_fitness" id="=!2)]}}pg=(8kl)xhwIi">
+                                                                                    <value name="individual">
+                                                                                      <block type="variables_get_individual" id="GKFi:@z24Aj(h4yYh]kh">
+                                                                                        <field name="VAR" id="%ri[IJ|Apv2-`six{DkJ" variabletype="Individual">candidate</field>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                  </block>
+                                                                                </value>
+                                                                                <value name="B">
+                                                                                  <block type="functions_basic_fitness" id="h-Sp`6Ks#8_2qS/3{|g5">
+                                                                                    <value name="individual">
+                                                                                      <block type="variables_get_individual" id="UN`jT499uBV0^IK}f/yc">
+                                                                                        <field name="VAR" id="wUUc#b%.,eTxwZEwf{YR" variabletype="Individual">x</field>
+                                                                                      </block>
+                                                                                    </value>
+                                                                                  </block>
+                                                                                </value>
+                                                                              </block>
+                                                                            </value>
+                                                                            <statement name="DO0">
+                                                                              <block type="variables_set_individual" id=":uA`bDWpLp=O3kX;~w|3">
+                                                                                <field name="VAR" id="wUUc#b%.,eTxwZEwf{YR" variabletype="Individual">x</field>
+                                                                                <value name="VALUE">
+                                                                                  <block type="variables_get_individual" id=":uXSBdW2SyEgQ)g5)rzC">
                                                                                     <field name="VAR" id="%ri[IJ|Apv2-`six{DkJ" variabletype="Individual">candidate</field>
                                                                                   </block>
                                                                                 </value>
                                                                               </block>
-                                                                            </value>
-                                                                            <value name="B">
-                                                                              <block type="functions_basic_fitness" id="h-Sp`6Ks#8_2qS/3{|g5">
-                                                                                <value name="individual">
-                                                                                  <block type="variables_get_individual" id="UN`jT499uBV0^IK}f/yc">
-                                                                                    <field name="VAR" id="wUUc#b%.,eTxwZEwf{YR" variabletype="Individual">x</field>
-                                                                                  </block>
-                                                                                </value>
-                                                                              </block>
-                                                                            </value>
+                                                                            </statement>
                                                                           </block>
-                                                                        </value>
-                                                                        <statement name="DO0">
-                                                                          <block type="variables_set_individual" id=":uA`bDWpLp=O3kX;~w|3">
-                                                                            <field name="VAR" id="wUUc#b%.,eTxwZEwf{YR" variabletype="Individual">x</field>
-                                                                            <value name="VALUE">
-                                                                              <block type="variables_get_individual" id=":uXSBdW2SyEgQ)g5)rzC">
-                                                                                <field name="VAR" id="%ri[IJ|Apv2-`six{DkJ" variabletype="Individual">candidate</field>
-                                                                              </block>
-                                                                            </value>
-                                                                          </block>
-                                                                        </statement>
+                                                                        </next>
                                                                       </block>
                                                                     </next>
                                                                   </block>
@@ -286,9 +292,9 @@
                                                   </block>
                                                 </next>
                                               </block>
-                                            </next>
+                                            </statement>
                                           </block>
-                                        </statement>
+                                        </next>
                                       </block>
                                     </next>
                                   </block>
@@ -303,6 +309,18 @@
                 </next>
               </block>
             </next>
+          </block>
+        </statement>
+        <next>
+          <block type="ea_debug" id="=h(nN|63zV=@88wI]6gj">
+            <value name="logging_variable">
+              <shadow type="text" id="4Jc9jKri/d+aWcn^4}P3">
+                <field name="TEXT"></field>
+              </shadow>
+              <block type="variables_get" id=";GJ$4KGuIgm.kFKh+mio">
+                <field name="VAR" id="Kr6o:SUiM:AZLDS}*=lL" variabletype="Number">time</field>
+              </block>
+            </value>
           </block>
         </next>
       </block>
