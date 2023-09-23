@@ -603,7 +603,6 @@ Blockly.Python["ea_debug"] = function (block) {
   ]);
 
   var code = functionName + "(" + variable_ + ")\n";
-  var code = "print(" + variable_ + ")\n";
   return code;
 };
 
