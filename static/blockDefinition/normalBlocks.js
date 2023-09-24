@@ -562,7 +562,7 @@ export const blockDefinitions = [
   },
   {
     type: "sample_normal_positive",
-    message0: "positive sample from N(%1, %2)",
+    message0: "positive sample from N(%1,%2)",
     args0: [
       {
         type: "input_value",
