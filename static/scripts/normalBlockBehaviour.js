@@ -675,14 +675,11 @@ Blockly.JavaScript["minimum"] = function (block) {
     Blockly.JavaScript.ORDER_ATOMIC
   );
 
-  var functionName = Blockly.JavaScript.provideFunction_(
-    "sampleNormalPositive",
-    [
-      "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
-      `   return Math.min(Math.round(${variableA}), Math.round(${variableB}));`,
-      "}",
-    ]
-  );
+  var functionName = Blockly.JavaScript.provideFunction_("minimum", [
+    "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
+    `   return Math.min(Math.round(${variableA}), Math.round(${variableB}));`,
+    "}",
+  ]);
   var code = functionName + "()";
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
