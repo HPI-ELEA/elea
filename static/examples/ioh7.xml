@@ -169,18 +169,8 @@
                                                               </block>
                                                             </value>
                                                             <value name="b">
-                                                              <block type="math_arithmetic" id="=qf8)hi8GpNh%Gw7o?uW">
-                                                                <field name="OP">MINUS</field>
-                                                                <value name="A">
-                                                                  <block type="variables_get" id="bkS^CK,978AP4ria/5v_">
-                                                                    <field name="VAR" id="L%]|o6YID15GPnVJC:Io">genome_length</field>
-                                                                  </block>
-                                                                </value>
-                                                                <value name="B">
-                                                                  <block type="math_number" id="h-V!D|oCa0b.FjvG7X`k">
-                                                                    <field name="NUM">1</field>
-                                                                  </block>
-                                                                </value>
+                                                              <block type="variables_get" id="bkS^CK,978AP4ria/5v_">
+                                                                <field name="VAR" id="L%]|o6YID15GPnVJC:Io">genome_length</field>
                                                               </block>
                                                             </value>
                                                           </block>
@@ -260,10 +250,29 @@
                                                                   <block type="variables_set" id="3HK9K4t[Vk,5kE_PzSf5">
                                                                     <field name="VAR" id="pkRWi^g9!GcOYyV9@8K=">r</field>
                                                                     <value name="VALUE">
-                                                                      <block type="get_l" id="%H@1mJ_xSRnlw-rZ.aww">
-                                                                        <value name="individual">
-                                                                          <block type="variables_get_individual" id="DgJ,M!ZBooW+P!8+yTlN">
-                                                                            <field name="VAR" id="%ri[IJ|Apv2-`six{DkJ" variabletype="Individual">candidate</field>
+                                                                      <block type="minimum" id="Dm4z,pu,qz.6@fZ_C^]T">
+                                                                        <value name="a">
+                                                                          <block type="get_l" id="%H@1mJ_xSRnlw-rZ.aww">
+                                                                            <value name="individual">
+                                                                              <block type="variables_get_individual" id="DgJ,M!ZBooW+P!8+yTlN">
+                                                                                <field name="VAR" id="%ri[IJ|Apv2-`six{DkJ" variabletype="Individual">candidate</field>
+                                                                              </block>
+                                                                            </value>
+                                                                          </block>
+                                                                        </value>
+                                                                        <value name="b">
+                                                                          <block type="math_arithmetic" id="cP_Jt0C|Li,eypen/vTh">
+                                                                            <field name="OP">DIVIDE</field>
+                                                                            <value name="A">
+                                                                              <block type="variables_get" id="{?jNqX%O3Z}Kjrk~Wo5H">
+                                                                                <field name="VAR" id="L%]|o6YID15GPnVJC:Io">genome_length</field>
+                                                                              </block>
+                                                                            </value>
+                                                                            <value name="B">
+                                                                              <block type="math_number" id=",H`4A:)Q:d;a%UJp^B/D">
+                                                                                <field name="NUM">2</field>
+                                                                              </block>
+                                                                            </value>
                                                                           </block>
                                                                         </value>
                                                                       </block>
@@ -310,7 +319,7 @@
                                                                               <block type="controls_if" id="l,8e@hh*HFKi9(_DcKud">
                                                                                 <value name="IF0">
                                                                                   <block type="logic_boolean" id="Q.!1XpE;Y~nsQ5(~5eIO">
-                                                                                    <field name="BOOL">TRUE</field>
+                                                                                    <field name="BOOL">FALSE</field>
                                                                                   </block>
                                                                                 </value>
                                                                                 <statement name="DO0">
@@ -419,7 +428,7 @@
       </block>
     </statement>
   </block>
-  <block type="procedures_defreturn" id="1l$!B6_|@#-1qZ]|6OQ7" x="643" y="96">
+  <block type="procedures_defreturn" id="1l$!B6_|@#-1qZ]|6OQ7" x="714" y="-73">
     <mutation statements="false">
       <arg name="individual" varid="gx=Kau1h[kq#}B+/w|ur&quot;"></arg>
     </mutation>
@@ -431,7 +440,7 @@
       </block>
     </value>
   </block>
-  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" deletable="false" x="638" y="188">
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" deletable="false" x="701" y="16">
     <statement name="init_statements">
       <block type="comment" id="1CrMcLo@Bo%U5sf.Bxpx">
         <field name="text">genome_length has the same meaning as n</field>
@@ -440,7 +449,7 @@
             <field name="VAR" id="L%]|o6YID15GPnVJC:Io">genome_length</field>
             <value name="VALUE">
               <block type="math_number" id="7$1#^bv)h:OY6gOMr8//">
-                <field name="NUM">15</field>
+                <field name="NUM">250</field>
               </block>
             </value>
             <next>
@@ -448,7 +457,7 @@
                 <field name="VAR" id="]t3c3G.~76nk9}+G=8|8">lambda</field>
                 <value name="VALUE">
                   <block type="math_number" id="Mgi7PI*;}9=wfoJix@Ll">
-                    <field name="NUM">2</field>
+                    <field name="NUM">5</field>
                   </block>
                 </value>
                 <next>
@@ -461,7 +470,7 @@
                     </value>
                     <value name="TO">
                       <shadow type="math_number" id="ST1ZpfFI*12d[gre_{P}">
-                        <field name="NUM">4</field>
+                        <field name="NUM">100</field>
                       </shadow>
                     </value>
                     <value name="BY">
