@@ -37,6 +37,7 @@ async function downloadWorkspaceAsJS() {
   let fileutils = await prepareFileUtils();
   let plotHandler = await preparePlotting();
   let gaussian = await prepareGaussian();
+  let individual = await prepareIndividual();
   // Check if everything worked out
   if (
     ![
@@ -47,6 +48,8 @@ async function downloadWorkspaceAsJS() {
       main,
       logging,
       plotHandler,
+      gaussian,
+      individual,
     ].every((f) => f != false)
   ) {
     alert("Something went wrong, please try again.");
@@ -65,6 +68,7 @@ async function downloadWorkspaceAsJS() {
   zip.folder("modules");
   zip.file("modules/fileUtils.mjs", fileutils);
   zip.file("gaussian.js", gaussian);
+  zip.file("individual.js", individual);
   let zipFile = await zip.generateAsync({ type: "blob" });
   saveFile(zipFile, "elea.zip");
 }
@@ -105,6 +109,7 @@ function prepareAlgorithm() {
     `const {Handler, consolelog, saveInCSV, plot, consoleerror, Message, RecvRequest} = require("./MessageHandler.js");\n` +
     `const {cpus} = require("os");\n` +
     `const {gaussian} = require("./gaussian.js");\n` +
+    `const Individual = require("./individual.js");\n` +
     `Handler.setParentPort(parentPort);\n`;
 
   let js = getCode();
@@ -169,6 +174,13 @@ async function prepareGaussian() {
   let file, code;
   if (!(file = await readFile("./scripts/gaussian.js"))) return false;
   code = file + `module.exports = {\n` + `gaussian \n` + `};`;
+  return code;
+}
+
+async function prepareIndividual() {
+  let file, code;
+  if (!(file = await readFile("./scripts/individual.js"))) return false;
+  code = file + `module.exports = Individual`;
   return code;
 }
 
