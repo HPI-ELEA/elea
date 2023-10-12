@@ -523,8 +523,46 @@ export const blockDefinitions = [
     helpUrl: "",
   },
   {
+    type: "flip_l",
+    message0: "mutate %2 bits of %1",
+    args0: [
+      {
+        type: "input_value",
+        name: "individual",
+        check: "Individual",
+      },
+      {
+        type: "input_value",
+        name: "l",
+        check: "Number",
+      },
+    ],
+    inputsInline: true,
+    output: "Individual",
+    style: "indiv_blocks",
+    tooltip: "Mutate uniformly-random L bits of a given individual.",
+    helpUrl: "",
+  },
+  {
+    type: "get_l",
+    message0: "get l metadata from %1",
+    args0: [
+      {
+        type: "input_value",
+        name: "individual",
+        check: "Individual",
+      },
+    ],
+    inputsInline: true,
+    output: "Number",
+    style: "indiv_blocks",
+    tooltip:
+      "Get l metadata from individual for the purposes of IOHalgorithm 7.",
+    helpUrl: "",
+  },
+  {
     type: "sample_normal_positive",
-    message0: "positive sample from normal distribution: mean %1, variance %2",
+    message0: "positive sample from N(%1,%2)",
     args0: [
       {
         type: "input_value",
@@ -540,7 +578,29 @@ export const blockDefinitions = [
     inputsInline: true,
     output: "Number",
     style: "indiv_blocks",
-    tooltip: "take positive sample from normal distribution with mean and variance as input",
+    tooltip:
+      "take positive sample from normal distribution with mean and variance as input",
+    helpUrl: "",
+  },
+  {
+    type: "minimum",
+    message0: "min(%1, %2)",
+    args0: [
+      {
+        type: "input_value",
+        name: "a",
+        check: "Number",
+      },
+      {
+        type: "input_value",
+        name: "b",
+        check: "Number",
+      },
+    ],
+    inputsInline: true,
+    output: "Number",
+    style: "logic_blocks",
+    tooltip: "find the smallest out of 2 items",
     helpUrl: "",
   },
   {

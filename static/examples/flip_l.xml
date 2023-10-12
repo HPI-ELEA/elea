@@ -1,0 +1,102 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="L%]|o6YID15GPnVJC:Io">genome_length</variable>
+    <variable type="Individual" id="sSh|+^:2%@.9)s5w6;6+">parent</variable>
+    <variable type="Individual" id="ScgS%Si;RhP*-,!uTW!a">offspring</variable>
+  </variables>
+  <block type="ea_init" id="YT[Lu2`Gez~7AXe!qUn4" deletable="false" x="376" y="90">
+    <statement name="init_statements">
+      <block type="variables_set" id="fS@_gO%b[XCWY~;#uKN=">
+        <field name="VAR" id="L%]|o6YID15GPnVJC:Io">genome_length</field>
+        <value name="VALUE">
+          <block type="math_number" id="7$1#^bv)h:OY6gOMr8//">
+            <field name="NUM">4</field>
+          </block>
+        </value>
+        <next>
+          <block type="variables_set_individual" id="f,s84L01XRe2SffC%J_F">
+            <field name="VAR" id="sSh|+^:2%@.9)s5w6;6+" variabletype="Individual">parent</field>
+            <value name="VALUE">
+              <block type="individual_init_uniform" id="|]^2Fj*8!36w3J*-dHDY"></block>
+            </value>
+            <next>
+              <block type="ea_debug" id=",YxfZj6}}ZY`%Y;d@#QQ">
+                <value name="logging_variable">
+                  <shadow type="text">
+                    <field name="TEXT"></field>
+                  </shadow>
+                  <block type="variables_get_individual" id="^qp)#!wc{WiAiLx!sqUk">
+                    <field name="VAR" id="sSh|+^:2%@.9)s5w6;6+" variabletype="Individual">parent</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="ea_debug" id="@7dLC%m^z4=F^T{[c:HQ">
+                    <value name="logging_variable">
+                      <shadow type="text" id="Yqyn]Bj[ulf7o]W)]ZP`">
+                        <field name="TEXT"></field>
+                      </shadow>
+                      <block type="get_l" id="vnT8Qz)6%{U=mfPE/_Wb">
+                        <value name="individual">
+                          <block type="variables_get_individual" id="sGy,a`LN6~h(`3Fjh_za">
+                            <field name="VAR" id="sSh|+^:2%@.9)s5w6;6+" variabletype="Individual">parent</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="variables_set_individual" id="B~JoV4y3ax~ql_Kqw*dp">
+                        <field name="VAR" id="ScgS%Si;RhP*-,!uTW!a" variabletype="Individual">offspring</field>
+                        <value name="VALUE">
+                          <block type="flip_l" id="o}$CyB7NXd/:=v5X5Adj">
+                            <value name="l">
+                              <block type="math_number" id="(?urdf`XR[kD9M=db.^r">
+                                <field name="NUM">2</field>
+                              </block>
+                            </value>
+                            <value name="individual">
+                              <block type="variables_get_individual" id="[p(BBAx,9_g:|HgTDSVM">
+                                <field name="VAR" id="sSh|+^:2%@.9)s5w6;6+" variabletype="Individual">parent</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="ea_debug" id="Xbs[a)]_$8n$LvKZ=3Wd">
+                            <value name="logging_variable">
+                              <shadow type="text" id="?h@xP~c_8Obh)U`S|fs9">
+                                <field name="TEXT"></field>
+                              </shadow>
+                              <block type="variables_get_individual" id="+Slaq$8;Th3DVW[$k{3,">
+                                <field name="VAR" id="ScgS%Si;RhP*-,!uTW!a" variabletype="Individual">offspring</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="ea_debug" id="buYhjt6DcQwvN/4Ws{%R">
+                                <value name="logging_variable">
+                                  <shadow type="text">
+                                    <field name="TEXT"></field>
+                                  </shadow>
+                                  <block type="get_l" id="Yxtx_(C/6BiLh2YU;LC-">
+                                    <value name="individual">
+                                      <block type="variables_get_individual" id="dy7xtZR:3;fKGA~94rAS">
+                                        <field name="VAR" id="ScgS%Si;RhP*-,!uTW!a" variabletype="Individual">offspring</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

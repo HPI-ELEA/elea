@@ -2,6 +2,8 @@ import * as Blockly from "blockly";
 import { blockDefinitions } from "../blockDefinition/normalBlocks";
 Blockly.defineBlocksWithJsonArray(blockDefinitions);
 
+// console.log(binomialDistributionPositive(5, 0.2));
+
 Blockly.JavaScript["experimental_raw_code"] = function (block) {
   // TODO add javascript validation
   return block.getFieldValue("code") + "\n";
@@ -138,11 +140,11 @@ Blockly.JavaScript["init_uniform"] = function () {
       "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
       "  var fullArray = Array(_C2_B5).fill(0);", // TODO: replace fill for ES5
       "  for (var j=0; j < _C2_B5;j++) {",
-      "    var tempArray = Array(genome_length).fill(0);",
-      "    for (var k=0; k< genome_length; k++) {",
-      "      tempArray[k] = Math.round(Math.random());",
-      "    }",
-      "    fullArray[j] = tempArray;",
+      // "    var tempArray = Array(genome_length).fill(0);",
+      // "    for (var k=0; k< genome_length; k++) {",
+      // "      tempArray[k] = Math.round(Math.random());",
+      // "    }",
+      "    fullArray[j] = new Individual(genome_length, true);",
       "  }",
       "  return fullArray;",
       "}",
@@ -157,11 +159,11 @@ Blockly.JavaScript["individual_init_uniform"] = function () {
     "uniformInitIndividual",
     [
       "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
-      "  var tempArray = Array(genome_length).fill(0);",
-      "  for (var k=0; k< genome_length; k++) {",
-      "      tempArray[k] = Math.round(Math.random());",
-      "    }",
-      "  return tempArray;",
+      // "  var tempArray = Array(genome_length).fill(0);",
+      // "  for (var k=0; k< genome_length; k++) {",
+      // "      tempArray[k] = Math.round(Math.random());",
+      // "    }",
+      "  return new Individual(genome_length, true);",
       "}",
     ]
   );
@@ -180,12 +182,12 @@ Blockly.JavaScript["init_constant"] = function (block) {
   var functionName = Blockly.JavaScript.provideFunction_("zeroInitPopulation", [
     "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
     "  var fullArray = Array(_C2_B5);",
-    "  var tempArray = Array(genome_length);",
-    "  for (var j=0; j < genome_length;j++) {",
-    "    tempArray[j] = " + dropdownConstant + ";",
-    "  }",
-    "  for (var j=0; j < _C2_B5;j++) {",
-    "    fullArray[j] = tempArray;",
+    "  for (let j = 0; j < _C2_B5; j++) {",
+    // make sure to make a unique object on the heap
+    "    fullArray[j] = new Individual(genome_length, false);",
+    "    for (let i = 0; i < genome_length; i++) {",
+    "      fullArray[j][i] = " + dropdownConstant + ";",
+    "    }",
     "  }",
     "  return fullArray;",
     "}",
@@ -204,7 +206,7 @@ Blockly.JavaScript["individual_init_constant"] = function (block) {
   }
   var functionName = Blockly.JavaScript.provideFunction_("zeroInitIndividual", [
     "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
-    "  var tempArray = Array(genome_length);",
+    "  var tempArray = new Individual(genome_length, false);",
     "  for (var j=0; j < genome_length;j++) {",
     "    tempArray[j] =" + dropdownConstant + ";",
     "  }",
@@ -577,6 +579,45 @@ Blockly.JavaScript["ea_mutate_prob"] = function (block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+Blockly.JavaScript["flip_l"] = function (block) {
+  let variableIndividual = Blockly.JavaScript.valueToCode(
+    block,
+    "individual",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  let variableL = Blockly.JavaScript.valueToCode(
+    block,
+    "l",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  let code = `(function() {
+    // clone input object
+    const individual = ${variableIndividual}.map(x => x);
+    const n = individual.length;
+    individual.l = ${variableL};
+    let positions = sample([...Array(n).keys()], individual.l);
+    for (const i of positions) {
+      individual[i] = 1 - individual[i];
+    }
+    return individual;
+  })()`;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.JavaScript["get_l"] = function (block) {
+  let variableIndividual = Blockly.JavaScript.valueToCode(
+    block,
+    "individual",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  let code = `(function() {
+    return ${variableIndividual}.l;
+  })()`;
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 Blockly.JavaScript["ea_mutate_bit"] = function (block) {
   // WARNING: ea_mutate_bit uses hardcoded variables.
   var variableIndividual = Blockly.JavaScript.valueToCode(
@@ -619,6 +660,24 @@ Blockly.JavaScript["sample_normal_positive"] = function (block) {
     ]
   );
   var code = functionName + "()";
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+
+Blockly.JavaScript["minimum"] = function (block) {
+  let variableA = Blockly.JavaScript.valueToCode(
+    block,
+    "a",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+  let variableB = Blockly.JavaScript.valueToCode(
+    block,
+    "b",
+    Blockly.JavaScript.ORDER_ATOMIC
+  );
+
+  var code = `(function() {
+    return Math.min(Math.round(${variableA}), Math.round(${variableB}));
+  })()`;
   return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 
