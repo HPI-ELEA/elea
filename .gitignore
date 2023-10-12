@@ -2,7 +2,3 @@ bin/
 node_modules/
 .cache/
 dist/
-.parcel-cache
-**/.DS_Store
-jsconfig.json
-.vscode
