@@ -57,11 +57,7 @@ Blockly.JavaScript["thread_import_variable"] = function (block) {
 
   // makes a request from the parent to import a variable
   var code = "";
-  code +=
-    inputVar +
-    " = await Handler.importVariable('" +
-    inputVar +
-    "');\n";
+  code += inputVar + " = await Handler.importVariable('" + inputVar + "');\n";
   return code;
 };
 
@@ -79,9 +75,11 @@ function generateWorkerImports() {
     "if(typeof process === 'object'){\n" +
     "\t_worker_code += `const {parentPort} = require('worker_threads')\\n`" +
     "\t_worker_code += `const {Handler, consolelog, consoleerror, Message, RecvRequest} = require('./MessageHandler.js')\\n`\n" +
+    "\t_worker_code += `const Individual = require('./individual.js')\\n`\n" +
     "\t_worker_code += `Handler.setParentPort(parentPort)\\n`" +
     "}else{\n" +
     "\t _worker_code += `importScripts(('` + globalThis.location + `').replace(/([^/]*$)/, '').replace('blob:', '') +'scripts/MessageHandler.js');\\n`\n" +
+    "\t _worker_code += `importScripts(('` + globalThis.location + `').replace(/([^/]*$)/, '').replace('blob:', '') +'scripts/individual.js');\\n`\n" +
     "}\n"
   );
 }
@@ -105,7 +103,7 @@ function generateWorkerCode(statements, returnVal) {
   PREV_DEFINITIONS = definitions;
 
   workerCode += "async function mainFunction() {\n";
-  workerCode += "  await Handler.resolveID();\n"
+  workerCode += "  await Handler.resolveID();\n";
 
   // execute the internal statements and return the value
   workerCode += "`+`" + escapseString(statements) + "`+`;\n";
