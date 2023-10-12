@@ -577,7 +577,7 @@ export const blockDefinitions = [
     ],
     inputsInline: true,
     output: "Number",
-    style: "indiv_blocks",
+    style: "loop_blocks",
     tooltip:
       "take positive sample from normal distribution with mean and variance as input",
     helpUrl: "",
