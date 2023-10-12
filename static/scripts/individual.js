@@ -31,14 +31,3 @@ class Individual extends Array {
     return this.toString();
   }
 }
-
-// let individual1 = new Individual(2, false);
-// individual1.l = 8;
-// individual1[0] = 1;
-// console.log(individual1[1]);
-// console.log(individual1.l);
-// let individual2 = individual1.map((x) => x + 10);
-// individual1[0] = 0;
-// individual1[1] = 1;
-// console.log(individual2.l);
-// console.log(individual2);
