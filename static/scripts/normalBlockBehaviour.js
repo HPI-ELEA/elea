@@ -2,8 +2,6 @@ import * as Blockly from "blockly";
 import { blockDefinitions } from "../blockDefinition/normalBlocks";
 Blockly.defineBlocksWithJsonArray(blockDefinitions);
 
-// console.log(binomialDistributionPositive(5, 0.2));
-
 Blockly.JavaScript["experimental_raw_code"] = function (block) {
   // TODO add javascript validation
   return block.getFieldValue("code") + "\n";
@@ -140,10 +138,6 @@ Blockly.JavaScript["init_uniform"] = function () {
       "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
       "  var fullArray = Array(_C2_B5).fill(0);", // TODO: replace fill for ES5
       "  for (var j=0; j < _C2_B5;j++) {",
-      // "    var tempArray = Array(genome_length).fill(0);",
-      // "    for (var k=0; k< genome_length; k++) {",
-      // "      tempArray[k] = Math.round(Math.random());",
-      // "    }",
       "    fullArray[j] = new Individual(genome_length, true);",
       "  }",
       "  return fullArray;",
@@ -159,10 +153,6 @@ Blockly.JavaScript["individual_init_uniform"] = function () {
     "uniformInitIndividual",
     [
       "function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "() {",
-      // "  var tempArray = Array(genome_length).fill(0);",
-      // "  for (var k=0; k< genome_length; k++) {",
-      // "      tempArray[k] = Math.round(Math.random());",
-      // "    }",
       "  return new Individual(genome_length, true);",
       "}",
     ]
