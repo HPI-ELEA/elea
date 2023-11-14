@@ -21,6 +21,7 @@ var fullAlgorithmNames = {
   mupluslambda: "(μ+λ) GA",
   onelambda: "(1,λ) EA",
   mulambda: "(μ,λ) GA",
+  ioh7: "(1+λ) EA_norm (IOHalgorithm 7)",
   multithread: "Multithreading",
   full_multithread: "Full Multithreading", //eslint-disable-line camelcase
   multithread_performance: "Multithreading Performance Test", //eslint-disable-line camelcase
