@@ -3,6 +3,20 @@
 
 This is a little tool designed to prototype evolutionary algorithms, get an intuition for runtimes or for teaching EAs to students.
 
+## People
+
+The project is organized by the following two scientists.
+- Markus Wagner (Monash University)
+- Timo Kötzing (Hasso Plattner Institute)
+
+Contributors to the code base of ELEA have been the following people.
+- Bjarne Sievers (Winter Term 2020/21, as part of a project seminar at HPI)
+- Antony Kamp (as a HiWi at HPI)
+- Gerome Quantmeyer (as a HiWi at HPI)
+- Erik Kohlros (as a HiWi at HPI)
+
+
+
 ## Run
 
 - install nodeJS with npm
