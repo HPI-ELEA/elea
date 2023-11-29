@@ -11,10 +11,9 @@ The project is organized by the following two scientists.
 
 Contributors to the code base of ELEA have been the following people.
 - Bjarne Sievers (Winter Term 2020/21, as part of a project seminar at HPI)
-- Antony Kamp (as a HiWi at HPI)
-- Gerome Quantmeyer (as a HiWi at HPI)
-- Erik Kohlros (as a HiWi at HPI)
-
+- Antony Kamp (as a HiWi at HPI, 1.1.2021 -- 31.3.2022)
+- Erik Kohlros (as a HiWi at HPI, 1.10.2021 -- 31.3.2024)
+- Gerome Quantmeyer (as a HiWi at HPI, 1.7.2022 -- 31.3.2023)
 
 
 ## Run
