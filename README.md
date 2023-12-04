@@ -10,10 +10,12 @@ The project is organized by the following two scientists.
 - Timo Kötzing (Hasso Plattner Institute)
 
 Contributors to the code base of ELEA have been the following people.
-- Bjarne Sievers (Winter Term 2020/21, as part of a project seminar at HPI)
-- Antony Kamp (as a HiWi at HPI, 1.1.2021 -- 31.3.2022)
-- Erik Kohlros (as a HiWi at HPI, 1.10.2021 -- 31.3.2024)
-- Gerome Quantmeyer (as a HiWi at HPI, 1.7.2022 -- 31.3.2023)
+- Bjarne Sievers (Winter Term 2020/21, as part of a project seminar at *HPI*)
+- Antony Kamp (as a HiWi at *HPI*, 1.1.2021 -- 31.3.2022)
+- Erik Kohlros (as a HiWi at *HPI*, 1.10.2021 -- 31.3.2024)
+- Oscar John Ammirato Manglaras (Jul-Nov 2021 as one-semester, 3rd year project at the *University of Adelaide*) <oscar.manglaras@adelaide.edu.au> https://github.com/CogentRedTester
+- Gerome Quantmeyer (as a HiWi at *HPI*, 1.7.2022 -- 31.3.2023)
+- Omri Bornstein (Feb-Nov 2023 as a two-semester, 3rd year project at *Monash University*) <obor0001@student.monash.edu>, https://github.com/applegamer22
 
 
 ## Run
